@@ -251,25 +251,25 @@ Try detaching and unloading the memisc package:
 There are a few different ways to get help if you run into a problem with your R code. R includes a built in help function, which can be accessed by typing the ? before a function. For example:
 
 ```{r help, echo=TRUE}
-?mean
+? mean
 ```
 
-Notice how the bottom right quadrant of R Studio now shoes you information about the mean function. Similarly, you can also type the function name into the help searchbar. 
+Notice how the bottom right quadrant of RStudio now shows you information about the mean function. Similarly, you can also type the function name into the help search bar. 
 
 If you want to search all of R for helpful documents about a function, include ??, like this:
 
 ```{r search, echo=TRUE}
-??mean
+?? mean
 ```
 
 
-If you keep running into a problem, a quick Google search can often get you a solution. Websites like StackExchange have loads of helpful answers to common problems in R. At times it might feel like you're the only person to have a particular problem, but someone else has almost ceratainly had the same problem, and the solution likely can be found online.
+If you keep running into a problem, a quick Google search can often get you a solution. Websites like StackExchange have loads of helpful answers to common problems in R. At times it might feel like you're the only person to have a particular problem, but someone else has almost certainly had the same problem, and the solution likely can be found online.
 
 ## Part Six: Setting a Working Directory
 
 A working directory is the location where you store your files when using R. Files will be saved to the working directory and accessed from the working directory. Normally you will set your working directory at the beginning of your R file. For each lab you will need to set the working directory and important the class data set.
 
-There are two ways to set your working directory. The first way is to incluce the code
+There are two ways to set your working directory. The first way is to include the code
 
 setwd("your working directory name")
 
@@ -293,7 +293,7 @@ getwd()
 
 First you need to download the data set from Canvas. Make sure you save the data set to the folder that you set as your working directory.
 
-The dataset should be saved as a .csv file, which is a comma separated value file. CSV files are the norm for R data. Make sure to open the file in Excel first. It will look like a giant spreadsheet, and from here you can explore the data. 
+The dataset should be saved as a .csv file, which is a Comma Separated Value file. CSV files are the norm for R data. Make sure to open the file in Excel first. It will look like a giant spreadsheet, and from here you can explore the data. 
 To load a data set into R, you use this syntax:
 
 data_set_name <- read.csv("filename.csv", header = TRUE)
