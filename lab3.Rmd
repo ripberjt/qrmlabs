@@ -118,13 +118,19 @@ If you don't specify a mean and standard deviation, R assumes the mean is 0 and 
 dnorm(2, mean = 4, sd=1.5)
 ```
 
-Now that we've used dnorm in the abstract, let's try it using our class data set. Let's use the age variable. First we need to know the standard deviation and the mean of the age variable. Luckily we can simply tell R to use the mean and standard deviation using their respective functions. We'll need to include "na.rm=T" inside the functions so that R knows to ignore missing values. Now let's find the probability of someone reporting that they are 65 years old. 
+Now that we've used dnorm in the abstract, let's try it using our class data set. Let's use the age variable. First we need to know the standard deviation and the mean of the age variable. Luckily we can simply tell R to use the mean and standard deviation using their respective functions. We'll need to include "na.rm=T" inside the functions so that R knows to ignore missing values. Now let's find the height of the pdf at age 65: 
 
 ```{r dnorm2, echo=TRUE}
 dnorm(65, mean=mean(ds$age, na.rm = T), sd=sd(ds$age, na.rm=T))
 ```
 
-Based on our tests, the probability that someone reports being 65 is about .027. Recall the different probability distributions. The dnorm() function uses the probability density function, or pdf. This is why the probability of someone reporting being 65 is pretty low. The dnorm() function returns how likely someone is to specify that **exact** age.
+Based on our test, the height of the probability distribution at the age 65 point is about .027. This realyl does not provide any intuitive insight, though, because findings the height of the pdf of a random variable does not really tell us anything. If we wanted to find probability, we would need to choose two points of the variable and calculate the probability of someone being in betweenthsoe values. For example, we could find the probability that someone reports being between 65 and 66. To do this we would need to find the integral, or area under the curve, from 65 to 66. We can use the integrate.xy() function to do so:
+
+```{r dnorm3, echo=TRUE}
+integrate.xy(density(ds$age)$x,density(ds$age)$y,65,66)
+```
+
+We have now found that the probability of someone being between 65 and 66 in our age variable is .029, about a 3% chance.
 
 The second normal probablity function we'll look at is pnorm(). The pnorm() function tells us the probability that we would observe a value less than the one specified. Recall that the cumulative distribution function (cdf) is used for this precise purpose. Similar to dnorm(), in the pnorm() function you specify a value, a mean, and a standard deviation. Again, R defaults to a mean of 0 and a standard deviation of 1 if you do not specify them.
 
