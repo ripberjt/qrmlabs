@@ -177,13 +177,10 @@ In your own code chunk, include the following (without the numbers):
 2. install.packages("psych")
 3. install.packages("memisc")
 4. install.packages("Rcpp")
-5. install.packages("rmarkdown")
-6. install.packages("knitr")
 
-```{r install packages, echo=TRUE}
+```{r install packages, echo=FALSE, eval=FALSE}
 
 ```
-
 
 ### Loading Packages
 
@@ -346,8 +343,6 @@ There is also a variabe called "income". On your own, find the mean of the incom
 
 If you are getting an NA result, make sure you include "na.rm=TRUE", to tell R to ignore the NAs.
 
-
-
 ## Part Nine: Exporting a CSV
 
 Sometimes you have made changes to the data set, or created a new one, and you want to export the data set to a .csv file that you can share with others. To do this, you would use the syntax:
@@ -359,15 +354,3 @@ Let's export our data set as a .csv and give it a new name. This will be saved i
 ```{r export, echo=TRUE}
 write.csv(ds, file = "newds.csv")
 ```
-
-
-
-
-
-
-
-
-
-
-
-

@@ -4,7 +4,6 @@ author: "Alex Davis"
 output: pdf_document
 ---
 
-
 In this lab we will go over the basics of exploring, describing, and visualizing your data. First let's make sure you've set your working directory. For this lab you will need to have the following packages installed:
 
 1. car
@@ -14,13 +13,13 @@ In this lab we will go over the basics of exploring, describing, and visualizing
 5. descr
 6. psych
 
-Remember, the syntax to install a package is install.packages("packagename").
+Remember, the syntax to install a package is install.packages("packagename"). **Note**: these packages should already be installed from the class initialization script.
 
 Once you have all of these installed, you need to load them into your library. Then you load your data set. We should include all of this at the beginning of the file.
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
-setwd("~/Methods Labs/Lab 2")
+#setwd("~/Methods Labs/Lab 2")
 ds <- read.csv("Class Data Set Factored.csv", header = TRUE)
 library(car)
 library(dplyr)
@@ -53,7 +52,7 @@ table(ds$f.party.2)
 Now try to take the mean of the variable:
 
 ```{r mean, echo=TRUE}
-
+mean(ds$f.party.2)
 ```
 
 Notice that it doesn't work. This is because you cannot take the mean of a factor variable. That would be like trying to take the mean of words. 
@@ -117,7 +116,7 @@ There are other types of data conversions as well. In most cases, you will follo
 
 ### Coerce Factoring
 
-Sometimes the typical commands do not work, and you are forced to coerce the variable. When you coerce the variable, you are telling R to treat the variable as if it were a different object type. The coervice arguments are:
+Sometimes the typical commands do not work, and you are forced to coerce the variable. When you coerce the variable, you are telling R to treat the variable as if it were a different object type. The coercive arguments are:
 
 1. as.factor()
 2. as.numeric()
@@ -239,7 +238,7 @@ table(ds$f.AfAm)
 
 In R, you have the option of building your data within the program itself. There are a variety of ways to do this, and we will go over the basics here. 
 
-The first function you need to know is the rnorm() function. This function allows us to generate normally-distributed random values within a given range, with specified means and standard deviations(more on that later in the class!)
+The first function you need to know is the rnorm() function. This function allows us to generate normally-distributed random values within a given range, with specified means and standard deviations (more on that later in the class!)
 
 Let's build some random data here:
 
@@ -249,7 +248,7 @@ two <- rnorm(100, mean=7)
 three <- rnorm(100, mean=1)
 ```
 
-We just created three elements (one, two, and three) that contain random values with different means. Now let's combine the three elements into columns, To do this we use the cbind() function. Let's put the three elements into a column with the label "four":
+We just created three elements (one, two, and three) that contain 100 random values with different means. Now let's combine the three elements into columns, To do this we use the cbind() function. Let's put the three elements into a column with the label "four":
 
 ```{r cbind, echo=TRUE}
 four <- cbind(one, two, three)
@@ -288,7 +287,6 @@ Notice that these are the same values as the ones found in the earlier apply() f
 
 There are other functions in the apply() family. For a great tutorial on the whole group visit:
 
-
 https://www.datacamp.com/community/tutorials/r-tutorial-apply-family
 
 However, let's take a look at only two more of the apply functions, sapply() and tapply().
@@ -325,7 +323,6 @@ Something important to know about R is that there are often many different ways 
 
 ```{r by1, echo=TRUE}
 by(ds$age, ds$ideol, summary)
-
 ```
 
 Notice how the results are essentially the same. Now let's use by() to examine a different relationship, age and gender. We wil now tell R to give us the mean age of each gender:
@@ -334,13 +331,11 @@ Notice how the results are essentially the same. Now let's use by() to examine a
 by(ds$age, ds$gend, mean)
 ```
 
-
-Did you forget which value corresponds with each gender? Let's remind ourselves by now using the factored gender variable:
+Did you forget which value corresponds with each gender? Let's remind ourselves by using the factored gender variable:
 
 ```{r by3, echo=TRUE}
 by(ds$age, ds$f.gend, mean)
 ```
-
 
 Let's now turn to other methods of exploring your data. The filter function allows you to filter out all the data except what meets the specific parameters you specify. Let's imagine that we want to only look at the data for men. We can use the filter() function to do so. The basic syntax follows this format:
 
@@ -372,10 +367,9 @@ ds100 <- slice(ds, 1:100)
 
 From here you would treat ds100 like you would any dataset!
 
-
 ### Subsetting Your Data
 
-Another way you can breakdown your data is by subsetting it. This is similar to the way we use the filter() function. One difference is that the subset() argument comes in base R, whereas you have to makesure you have dplyr loaded to use filter(). Let's start by subsetting the data to only men:
+Another way you can breakdown your data is by subsetting it. This is similar to the way we use the filter() function. One difference is that the subset() argument comes in base R, whereas you have to make sure you have dplyr loaded to use filter(). Let's start by subsetting the data to only men:
 
 ```{r subset, echo=TRUE}
 men.ds <- subset(ds, gender==1)
@@ -394,7 +388,6 @@ You can also subset by selecting specific variables.
 
 You can largely set whatever parameters you need by following the operator functions in R:
 
-
 1. <  less than 
 2. <= less than or equal to 
 3. >  greater than 
@@ -404,7 +397,6 @@ You can largely set whatever parameters you need by following the operator funct
 7. !	 not  (example: !x - pronounced "not x" )
 8. |	 Or  (example: x | y - pronounced "x OR y") 
 9. &	And (example: x & y - pronounced "x AND y") 
-
 
 ## Part Four: Working with Nominal Data
 
@@ -422,7 +414,7 @@ ds$f.party.2 <- car::recode(ds$f.party, "'Dem'='Dem'; 'Rep'='Rep' ;'Ind'='Ind' ;
 table(ds$f.party.2)
 ```
 
-Notice that when we recode a factored variable, we need to put the label names in single quotation marks *within the double quotation marks*.
+Notice that when we recode a factored variable, we need to put the label names in apostrophe? marks *within the quotation marks*.
 
 ### Finding the Mode
 
@@ -455,7 +447,6 @@ We can also use the freq() function to look at the frequency:
 ```{r freq, echo=TRUE}
 freq(ds$f.party.2, plot = FALSE)
 ```
-
 
 This gives us how many are in each group, but also the percentages. If we wanted to construct a table that shows the percentage breakdown only, we would first create a table of the variable, then use prop.table(), then multiply by 100.
 
@@ -517,16 +508,13 @@ Let's practice finding the mode of education:
 sort(table(ds$f.education), decreasing = TRUE)
 ```
 
-
 Now let's visualize our education data:
 
 ```{r ord4, echo=TRUE}
 barplot(table(ds$f.education))
 ```
 
-
 Now let's create a table object for the education data and create a new visualization with some more detail:
-
 
 ```{r ord5, echo=TRUE}
 educ.table <- table(ds$f.education)
@@ -544,7 +532,7 @@ http://colorbrewer2.org/
 
 Interval data is similar to ordinal data, but with interval data the difference between levels does have some intuitive value to it. For this section we will use an ordinal measure, but treat it as if it is interval. In our class data set we have a variable that measures an individual's perception of the risk posed by global climate chage, glbcc_risk, on a scale of 0 being no risk to 10 being extreme risk. 
 
-Within the "psych" package, there is a function called "describe". This should have been installed and loaded at the beginning of this lab. Let's use the describe() function to examine the variable:
+Within the "psych" package, there is a function called "describe". Let's use the describe() function to examine the variable:
 
 ```{r int, echo=TRUE}
 describe(ds$glbcc_risk)
@@ -583,17 +571,3 @@ Now let's create a boxplot of the variable, which is a different way to look at 
 ```{r box, echo=TRUE}
 boxplot(ds$glbcc_risk, xlab = "GCC Risk", main = "Percieved Risk of Global Climate Change")
 ```
-
-
-
-
-
-
-
-
-
-
-
-
-
-
