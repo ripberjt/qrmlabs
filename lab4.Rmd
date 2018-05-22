@@ -5,7 +5,7 @@ date: "May 21, 2018"
 output: pdf_document
 ---
 
-This lab will give us the tools for the foundations of inference. We will revisit normality, and then move on to exploring stadard errors and confidence intervals, the tales of the distribution, and end with learning about single sample t-tests. For this lab you will need the following packages:
+This lab will give us the tools for the foundations of inference. We will revisit normality, and then move on to exploring stadard errors and confidence intervals, and end with learning about single sample t-tests. For this lab you will need the following packages:
 
 1. car
 2. psych
