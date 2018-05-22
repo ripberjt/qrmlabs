@@ -68,7 +68,7 @@ hist(ds$age, breaks=30, xlim=c(15,95), ylim=c(0,175), xlab="Age", ylab = "Freque
 
 ### The Normal Distribution and Histograms
 
-Recall that we use the normal distrubtion when wanting to find probability. In R we can visualize the normal distribution bell curve over a histogram.
+Recall that we use the normal distribution when wanting to find probability. In R we can visualize the normal distribution bell curve over a histogram.
 
 We need to make a density (probability) histogram first. Then we use the curve(), inside which we tell R that we want to make a normal distribution with the mean of our age variable and the standard deviation of our age variable. 
 
@@ -119,8 +119,6 @@ dnorm(2, mean = 4, sd=1.5)
 ```
 
 Now that we've used dnorm in the abstract, let's try it using our class data set. Let's use the age variable. First we need to know the standard deviation and the mean of the age variable. Luckily we can simply tell R to use the mean and standard deviation using their respective functions. We'll need to include "na.rm=T" inside the functions so that R knows to ignore missing values. Now let's find the probability of someone reporting that they are 65 years old. 
-
-
 
 ```{r dnorm2, echo=TRUE}
 dnorm(65, mean=mean(ds$age, na.rm = T), sd=sd(ds$age, na.rm=T))
