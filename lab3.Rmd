@@ -14,7 +14,7 @@ Once you have them installed, let's set our working directory, load the data set
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
-setwd("~/Methods Labs")
+#setwd("~/Methods Labs")
 ds <- read.csv("Class Data Set Factored.csv")
 library(sfsmisc)
 library(psych)

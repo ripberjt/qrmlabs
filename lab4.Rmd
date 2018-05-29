@@ -14,12 +14,8 @@ This lab will give us the tools for the foundations of inference. We will revisi
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
-setwd("~/Methods Labs")
+#setwd("~/Methods Labs")
 ds <- read.csv("Class Data Set Factored.csv")
-if("car" %in% rownames(installed.packages()) == FALSE){install.packages("car")}
-if("psych" %in% rownames(installed.packages()) == FALSE){install.packages("psych")}
-if("sm" %in% rownames(installed.packages()) == FALSE){install.packages("sm")}
-if("HistData" %in% rownames(installed.packages()) == FALSE){install.packages("HistData")}
 library(car)
 library(psych)
 library(sm)
@@ -29,15 +25,15 @@ options(scipen=999)
 
 ## Part One: Testing for Normality
 
-In lab three we started exploring the basics of visualizing normality. Much of the statistical work we do is built on the condition that our data is normally-distributed. This topic is so important that it merits further discssion. In this section we will address ways to check if your data is normally-distributed. 
+In lab three we started exploring the basics of visualizing normality. Much of the statistical work we do is built on the condition that our data is normally distributed. This topic is so important that it merits further discssion. In this section we will address ways to check if your data is normally distributed. 
 
-Recall that we can generate normally-distributed data within R using the rnorm function. Let's generate 1000 random values with a mean of 50 and a standard deviation of 5 and call it "random":
+Recall that we can generate normally distributed data within R using the rnorm function. Let's generate 1000 random values with a mean of 50 and a standard deviation of 5 and call it "random":
 
 ```{r norm1, echo=TRUE}
 random <- rnorm(1000, mean = 50, sd = 5)
 ```
 
-There are many different ways to test for normality, one of which is to visualize the data using a particular visualization. In the last lab we went over density plots, box plots, and QQplots. Let's visualize our new data using a QQplot. Remember that a QQ plot graphs the quantiles of your data against the qunaitiles of what normally-distributed data should be given the mean and standard deviation of the data. 
+There are many different ways to test for normality, one of which is to visualize the data using a particular visualization. In the last lab we went over density plots, box plots, and QQ plots. Let's visualize our new data using a QQ plot. Remember that a QQ plot graphs the quantiles of your data against the qunaitiles of what normally-distributed data should be given the mean and standard deviation of the data. 
 
 ```{r qq, echo=TRUE}
 qqPlot(random)
