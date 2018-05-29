@@ -1,19 +1,20 @@
 ---
-title: 'Lab One: Introduction and Basics'
-author: "Alex Davis"
+title: "Lab One: Introduction and Basics"
+author:
+- Alex Davis
+- Cody Adams
 output: pdf_document
 ---
 
-This lab will serve as an introduction to the basics of R.
-
+This lab serves as a primer to R by introducing the basics. It is advised to follow the lab via the Rmd file within RStudio rather than solely the compiled PDF. This way, students can experiment with code within the "code blocks" provided. __Note:__ References to R code are exclusively italicized. 
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-# R as a Calculator
+# Part I: R, as a Calculator
 
-The first thing to know about R is that it is essentially a large calculator. You can use various mathematical arguments to solve problems, like this:
+The first thing to know about R is that it is essentially a large calculator capable of performing arithmetic:
 
 ```{r calc, echo=TRUE}
 1+1
@@ -28,21 +29,17 @@ The first thing to know about R is that it is essentially a large calculator. Yo
 
 ```
 
-R also has built in functions, like log and square-root. 
+R also supports elementary and algebraic functions such as log and square root.
 
 ```{r functions, echo=TRUE}
 log(100)
+
 sqrt(49)
 ```
 
-
 ## Order of Operations
 
-R will solve problems by the order of operations. If you need a refresher, watch this: 
-
-https://www.youtube.com/watch?v=94yAmf7GyHw
-
-Otherwise, remember:
+R solves equations according to the order of operations, "PEMDAS":
 
 1. Parentheses
 2. Exponents
@@ -50,133 +47,132 @@ Otherwise, remember:
 4. Division
 5. Addition
 6. Subtraction
- - From left to right
+
+The following video provides a refresher on the order of operations: 
+https://www.youtube.com/watch?v=94yAmf7GyHw
  
-In your own code chunk, solve:
-(4+6)^2/(3-2) + 8
+__Try this!__ Using R, solve:
+(4+6)^2/(3-2)+8
 
 ```{r solve, echo=FALSE}
 
 ```
 
+## Part II: Objects
 
-## Part Two: Objects
-
-You can assign the results to an object in R. Let's try:
+R is an "object oriented" programming language. Put simply, R uses objects to store attributes. Objects can be used to store attributes. Objects are created by assigning an attibute to them via the <- operation. You can always view the attribute of an object by typing the object name.
 
 ```{r object 1, echo=TRUE}
 object1 <- 10 + 10 
 object1
 ```
 
-Now you try your own. You can name objects almost anything!
+__Try this!__ Objects can be named almost anything!
 
 ```{r object 2, echo=TRUE}
 
 
 ```
 
-
-The function "ls()" will list all the objects created. Try it.
+R includes various functions for managing created objects. The ls() function lists all existing objects.
 
 ```{r list, echo=TRUE}
 ls()
 ```
 
-The function "rm()" will remove an object, like this:
+The rm() function removes existing objects.
 
 ```{r remove, echo=TRUE}
 rm(object1)
 ```
 
-When naming objects, here are the guidelines:
+There is no strict convention for naming objects; however, there are best practices:
 
-1.  Don't use Spaces, use _underscores_ or a period. or CamelCase or camelCase- whatever is fastest for you
-2.  Don't use the name of other functions or reserved R Objects
-3.  Be descriptive but keep it short (~10 characters)
-4.  Don't use special characters ? $ % ^ & and so on.
-5.  The object names are case sensative.
+1. Avoid spaces, use _underscores_, periods, or CamelCase (or camelCase) for long object names.
+    - e.g., This_is_a_long_name This.Is.A.Long.Name, thisIsALongName
+2. Avoid names of existing functions or reserved R objects.
+3. Be descriptive but keep it short (less than 10 characters).
+4. Avoid special characters.
+    - e.g., ? $ % ^ &
 
-
-Let's create a new object and name it "new.object":
+__Important:__ Object names are case sensitive.
+    - object.One and Object.One refer to two separate objects.
 
 ```{r newobject, echo=TRUE}
-new.object <- 10+10
-new.object
+object.One <- 10+10
+Object.One <- 5+5
+
+object.One
+Object.One
 ```
 
-## Part Three: Functions
+## Part III: Functions
 
-In R, there are many functions. These are used for statistical analysis. In order to calculate the mean of a variable, you would write: "mean()". Sometimes you will have to include "na.rm=TRUE", which tells R to ignore missing data. Like this:
+In addition to elementary and algebraic functions, R also include functions to simplify statistical analysis. For example, the _mean()_ functione exists to calculate mean. __Note:__ Sometimes _na.rm=TRUE_ is necessary within the paranetheses to instruct R to ignore missing data. 
 
 ```{r mean, echo=TRUE}
 mean(cars$dist)
 ```
 
-The "cars" dataset comes preloaded with R, and we will use it for now. Like the name suggests, it is a dataset with information about cars.
+R includes the _cars_ data set, consisting of various information about cars. This data set is provided to help demonstrate and/or experiment with R functions.
 
-A note about syntax: We primarily use the dollar sign, $ to indicate which variable we want to examine and from which data set. This is important because sometimes you will be working with many datasets at a time, and the dollar sign will tell R which dataset to pull from.
+A note about syntax: the dollar sign, $, is used to indicate the variable of interest relative to a data set. This is important in the case of multiple data sets that contain variables of the same name. In the previous code, R calculated the mean using the _dist_ variable within the _cars_ data set by specifying _cars\$dist_
 
-Now, you calculate the mean of distance but this time include the "na.rm=TRUE" command, telling R to ignore missing data. It should look like this: "mean(cars$dist, na.rm=TRUE)"
+To ignore missing data when calculating the mean of _dist_, include the _na.rm=TRUE_ argument within the paranetheses as follows.
 
 ```{r mean2, echo=TRUE}
-
+mean(cars$dist, na.rm=TRUE)
 ```
 
-Notice that the mean is the same. This tells us that there is not any missing data in the distance column!
+__Note:__ Given the mean is exactly the same, it is unlikely there is any missing data in the _dist_ variable.
 
 ##  Object Types
 
-It is important to know about object types when using R. This is because certain functions only work for certain object types. The "str()" function tells us about a object and how the data is stored in R. For example:
+Object types are improtant in R and the type of an object is contingent on the attribute stored by the object. Put simply, an object storing characters (e.g., "blue") has a different type than an object storing a number (e.g., 1). Use of R functions is contingent on the type of objects. For example, functions like _mean()_ work only for objects containing numbers. The R _str()_ function describes the structure of objects and functions.
 
 ```{r structure, echo=TRUE}
 str(mean)
-str(new.object)
+str(object.One)
 str(cars)
 str(cars$dist)
 ```
 
-Notice how R tell us the type of each object. "Mean" is a function, our object "new.object" is numeric, the "cars" data is a data frame, etc. 
+The _str()_ function described _mean_ as a function, _object.One_ as a numeric object, the _cars_ data is a data frame, etc. 
 
-Now we're going to practice assigning values to a vector. In math and physics, a vector is understood to be a quantity having both direction and magnitude. It is a little different in R. In R, it can better be understood as a collection of data of the same type. The c() function creates a vector.
+Previously, objects were introduced as a method of storing single attributes, either a specified value or the result of arithmetic. In addition, objects can contain a collection of data via a vector or list. In mathematics and physics, a vector is defined as a quantity of both direction and magnitude. In R, vectors are defined a collection of data of the same type. The _c()_ function creates a vector.
 
 ```{r, vector, echo=TRUE}
-a <- c(1,2,3)
-a
+vectorObject <- c(1,2,3)
+vectorObject
+str(vectorObject)
 ```
 
-Now let's create a list. In R, a list is a collection of arbitrary data types.
+Further, a list is defined as a collection of multiple data types.
 
 ```{r list, echo-TRUE}
-b <- list("your name", 1, F)
-b
+listObject <- list("your name", 1, F)
+listObject
+str(listObject)
 ```
 
-Now let's check the structure of the list.
+__Note:__ The structure of the list object consists of a character, a number, and a logic (True/False).
 
-```{r list2, echo=TRUE}
-str(b)
-```
+## Part IV: Packages
 
-Notice that this tells us the types of objects. We have a character, a number, and a logic (True/False).
-
-## Part Four: Uploading and Managing Packages
-
-Packages are add-ons to R that allow you to use more functions. They are incredibly important to statistical analysis, as the basic R functions are sometimes not enough. Sometimes packages just make the analysis simpler, as well.
+Packages expand R to include additional functions important to statistical analysis. The default R functions may not be inadequate or complicated to conducting certain analysis.
 
 ### Installing Packages
 
-First we need to install packages. The syntax for this is install.packages("package_name"). Make sure you put the package name in quotation marks! 
+Installing packages in R is performed via _install.packages("package\_name")_, whereby the name of the desired package must be within quotation marks.
 
-Sometimes packages require certain dependencies be installed. You can do this by including the "dependencies=TRUE" argument inside the install.packages function.
-Let's install some packages!
+__Note:__ Occasionally a package may require dependencies for installation. The dependencies can be automatically installed along with the package by including the _dependencies=TRUE_ argument within the _install.packages()_ function.
 
-In your own code chunk, include the following (without the numbers):
+__Try this!__ In R, install: In your own code chunk, include the following (without the numbers):
 
-1. install.packages("car")
-2. install.packages("psych")
-3. install.packages("memisc")
-4. install.packages("Rcpp")
+1. _car_
+2. _psych_
+3. _memisc_
+4. _Rcpp_
 
 ```{r install packages, echo=FALSE, eval=FALSE}
 
@@ -184,7 +180,8 @@ In your own code chunk, include the following (without the numbers):
 
 ### Loading Packages
 
-Now that you've installed packages, you have to load them into R in order for you to use their functions. The syntax for this is "library(package_name)". In this case, you do **not** put the package name in parentheses. Let's load our packages:
+Installed packages must be loaded to use their functions within R. Packages are loaded via _library(package\_name)_, whereby the name of the desired package must be within parantheses.
+__Note:__ Unlike the _install.packages()_ function, the _library()_ function does not use quotation marks around the package name. 
 
 ```{r library packages, echo=FALSE}
 library(car)
@@ -195,161 +192,134 @@ library(rmarkdown)
 library(knitr)
 ```
 
-When we library memisc, notice that there is an object/package conflict with the car package. This means that both the memisc and the car packages include certian functions, but that the syntax and execution of those functions can be differnent.If you run into a problem with this, you can remind R which package's function you want to use by including the package name and "::" before the function. Example:
-
- - car::recode(variable...)
- 
+__Note:__ The _memisc_ package contains object/package conflicts with the _car_ package for the _recode_ object. A conflict occurs when two packages contain objects (e.g., functions) of the same name. A conflict will not prevent loading packages; however, use of a specific package's object requires an explicit call to the desired parent package. For example, to use the _recode()_ function from _car_, the _car::recode(variable)_ statement will explicitly call _recode()_ from the _car_ package. Vice versa, _memisc::recode()_ will explicitly call _recode()_ from the _memisc_ package.
 
 ### Updating Packages
 
-Packages can age, so it's important to update your packages regularly. You can check which packages are old by asking R to tell you. You would type "old.packages()" here:
+Most packages are regularly updated. The  _old.packages()_ function compare installed packages to their latest versions online.
 
 ```{r old, echo=TRUE}
 
 ```
 
-If you want to update the packages, you would type "update.packages()" in a code chunk. When you do so, you will be prompted to type "y" if you want to update a particular package. If you don't want to type "y" for every single package, you can include "ask=FALSE" inside the function. This is recommended, as it will save you lots of time. 
-
-If you want to update your packages, do so here:
+The _update.packages()_ function updates out of date packages. 
+__Note:__ Updating packages requires consent. The _ask=FALSE_ argument will skip the additional consent step to save time.
 
 ```{r update, echo=TRUE}
 
 ```
 
-
-If you want to see what packages are currently loaded, type the "library()" command, which will open a new window.
+The _library()_ function lists currently loaded packages.
 
 ```{r library, echo=TRUE}
 library()
 ```
 
 
-As mentioned earlier, sometimes there are conflicts between packages. If you want to see what conflicts you have, type "conflicts()" to view them.
+As previously demonstrated, occasionally conflicts exist between packages. The _conflicts()_ lists conflicts between loaded packages.
 
 ```{r conflicts, echo=TRUE}
 conflicts()
 ```
 
-Like earlier, you can fix this by just calling the function directly from the package by including the package name and "::" before the function.
-
-But there is another way to resolve the conflict. You can detach the package. The syntax to detach the package is "detach(package:package_name)".
-
-If you also want to unload the package, you would include the "unload=TRUE" argument inside the function. 
-
-Try detaching and unloading the memisc package:
+The _detach()_ function detaches packages and is an alternative method to resolve conflicts. Supplying _unload=TRUE_ argument within the _detach()_ function will unload the package. For example, to resolve the _recode()_ function conflict between _car_ and _memisc_, the memisc package can be detached and unloaded as follows: _detach(package:memisc, unload=TRUE)_.
 
 ```{r detach, echo=TRUE}
 
 ```
 
+## Part V: R Help
 
-## Part Five: R Help
-
-There are a few different ways to get help if you run into a problem with your R code. R includes a built in help function, which can be accessed by typing the ? before a function. For example:
+R includes a help function to assist with functions, accessible by including a _?_ prior to the function name.
 
 ```{r help, echo=TRUE}
 ? mean
 ```
 
-Notice how the bottom right quadrant of RStudio now shows you information about the mean function. Similarly, you can also type the function name into the help search bar. 
+__Note:__ The help documentation will display in the bottom right quadrant of RStudio. Alternatively, typing the function name into the help search bar will yield a similar result. 
 
-If you want to search all of R for helpful documents about a function, include ??, like this:
+To search all of R documentation for help about a function, use _??_.
 
 ```{r search, echo=TRUE}
 ?? mean
 ```
 
+__Note:__ Google is a valuable tool for finding help. Large communities like StackExchange consist of answers and explanations to common issues in R. At times a particular problem may seem unique, but someone else has almost certainly had the same problem and the solution likely can be found online.
 
-If you keep running into a problem, a quick Google search can often get you a solution. Websites like StackExchange have loads of helpful answers to common problems in R. At times it might feel like you're the only person to have a particular problem, but someone else has almost certainly had the same problem, and the solution likely can be found online.
+## Part VI: Setting a Working Directory
 
-## Part Six: Setting a Working Directory
+The working directory is the location where files accessed and saved within a R session. Normally, the working directory is set at the beginning of every R file. The working directory should be set and the class data set at the beginning of each lab.
 
-A working directory is the location where you store your files when using R. Files will be saved to the working directory and accessed from the working directory. Normally you will set your working directory at the beginning of your R file. For each lab you will need to set the working directory and important the class data set.
+There are two methods of setting the working directory. First, the _setwd()_ function can be used with the directory path. For example, _setwd("C:/Directory\_to\_folder/")_. __Note:__ Forward slashes are used in place of backward slashes for directory paths.
 
-There are two ways to set your working directory. The first way is to include the code
+Second, within RStudio, the "Session" tab will set the working directory. The following steps provide guidance to the "Session" tab functionality: 
 
-setwd("your working directory name")
+1. Click the "Session" tab.
+2. Select "Set Working Directory."
+3. Select "Choose Directory."
+4. Select the working directory.
 
-The other way is to use the "Session" tab at the top of R Studio. To do this you need to:
-
-1. Click the session tab
-2. In the middle of the drop down, select "Set Working Directory"
-3. Then select "Choose Directory"
-4. Select the file you want to be your working directory
-
-For this class, make sure the class data set is saved in the working directory.
-
-To check your working directory, you would type:
+The _getwd()_ function returns the set working directory.
 
 ```{r directory, echo=TRUE}
 getwd()
 ```
 
+## Part VII: Importing Your Data
 
-## Part Seven: Importing Your Data
+Data sets should be downloaded from the GitHub repository, http://www.need_url.com. __Note:__ The data set should be saved within the working directory.
 
-First you need to download the data set from Canvas. Make sure you save the data set to the folder that you set as your working directory.
+Data sets are commonly saved with the comma separated value file extension (e.g., .csv). CSV files stores data similar to the Excel spreadsheet data structure, and therefore can be viewed easily within Excel. 
 
-The dataset should be saved as a .csv file, which is a Comma Separated Value file. CSV files are the norm for R data. Make sure to open the file in Excel first. It will look like a giant spreadsheet, and from here you can explore the data. 
-To load a data set into R, you use this syntax:
+__Note:__ Be careful when accessing CSV files within Excel. Excel removes leading zeroes from values, which may impact the integrity of your data if you save the file after viewing in Excel.
 
-data_set_name <- read.csv("filename.csv", header = TRUE)
+Loading a data set from a CSV file into R requires loading the data set with a function, and saving the contents of that data set to an object. For example, _data\_set\_name <- read.csv("file\_name.csv", header=TRUE)_. The _header=TRUE_ argument specifies that the "first row" of the CSV file contains the variable names for that data set's columns. If the CSV file does not contain the variable names in the first row, you can change _TRUE_ to _FALSE_.
 
-For these labs, your command should look like this:
+For labs, the following code should look like this:
 
-ds <- read.csv("Class Data Set Factored.csv", header = TRUE)
+_ds <- read.csv("Class Data Set Factored.csv", header = TRUE)_
 
-Go ahead and load your data set:
+__Try it!__ Load a data set.
 
 ```{r import, echo=TRUE}
 ds <- read.csv("Class Data Set Factored.csv", header = TRUE)
 ```
 
-You can name your data set whatever you want, but we tend to use "ds", or something similar, because it is simple.
+The name of a data set object can be anything. The best practice is to use an acronym, such as _ds_.
 
-## Part Eight: Connecting to Your Data
+## Part VIII: Connecting to Your Data
 
-Once you've importated your data, there are a couple different ways to access it. One way is to attach the data set. The syntax to attach a data set is:
+Imported data can be accessed various ways. First, variables can be directly accessed by attaching the data set via the _attach()_ function. For example, _attach(ds)_.
 
-attach(data_set_name)
+Attached data can be detached via a similar function, _detact()_. For example, _detach(ds)_.
 
-Likewise, you detach the data set with the following:
+However, the _attch()_ function is not the recommended method. Instead, variables can be accessed by joining the data set object name and the variable name via the dollar sign, _$_. For example, _ds$variable_
 
-detach(data_set_name)
-
-However, we do not recommend this method. Instead, we recommend the method that we have used thus far, the "$" method. As was mentioned earlier, using the dollar sign method allows you to work with multiple data sets at once, without having to worry about attaching and detaching data sets. The synatx for this method is:
-
-data_set_name$variable_name
-
-For example:
+The following exemplifies this method using the _dist_ variable within the _car_ package, within the _mean()_ function.
 
 ```{r var, echo=TRUE}
 mean(cars$dist, na.rm = TRUE)
 ```
 
-This syntax tells R to draw from the preloaded cars dataset, and to find the mean of the distance. 
-
-Now let's use our class data set. In the class data set, there is a variable named "age". To find the mean of the age, you would use
+Using the class data set stored in the _ds_ object, there exists an _age_ variable. The _mean()_ function can provide the mean age of this data set.
 
 ```{r age, echo=TRUE}
 mean(ds$age, na.rm = TRUE)
 ```
 
-There is also a variabe called "income". On your own, find the mean of the income variable:
+Additionally, there is a variable _income_ within _ds_. __Try it!__ Find the mean of the _income_ variable:
 
 ```{r income, echo=TRUE}
 
 ```
 
-If you are getting an NA result, make sure you include "na.rm=TRUE", to tell R to ignore the NAs.
+__Note:__ The _na.rm=TRUE_ argument is required within the _mean()_ function to avoid a NA result.
 
-## Part Nine: Exporting a CSV
+## Part IX: Exporting a CSV
 
-Sometimes you have made changes to the data set, or created a new one, and you want to export the data set to a .csv file that you can share with others. To do this, you would use the syntax:
+Saving a CSV data set can be performed via the _write.csv()_ function by specifying the object to save and the file name to write. For example, _write.csv(data\_set\_name, file = "filename.csv")_.
 
-write.csv(data_set_name, file = "filename.csv")
-
-Let's export our data set as a .csv and give it a new name. This will be saved in your working directory
+To demonstrate, the _ds_ data set is saved as newds.csv within the working directory. 
 
 ```{r export, echo=TRUE}
 write.csv(ds, file = "newds.csv")

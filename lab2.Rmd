@@ -1,10 +1,12 @@
 ---
 title: 'Lab Two: Describing and Visualizing Data'
-author: "Alex Davis"
+author:
+ - Alex Davis
+ - Cody Adams
 output: pdf_document
 ---
 
-In this lab we will go over the basics of exploring, describing, and visualizing your data. First let's make sure you've set your working directory. For this lab you will need to have the following packages installed:
+This lab discusses the basics of exploring, describing, and visualing data. The following packages are required for this lab: 
 
 1. car
 2. dplyr
@@ -13,9 +15,9 @@ In this lab we will go over the basics of exploring, describing, and visualizing
 5. descr
 6. psych
 
-Remember, the syntax to install a package is install.packages("packagename"). **Note**: these packages should already be installed from the class initialization script.
+__Reminder:__ Lab one introduced how to install packages via _install.packages()_ function. __Note:__ These packages should already be installed from the class initialization script.
 
-Once you have all of these installed, you need to load them into your library. Then you load your data set. We should include all of this at the beginning of the file.
+The installed packages require loading at the beginning of a R session.
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
@@ -29,124 +31,116 @@ library(descr)
 library(psych)
 ```
 
+## Part I: Factoring
 
-Once you've run your setup, you are ready to start the lab.
+The previous lab introduced several types of objects in R. For the purpose of this lab, objects are classified in two broad groups: factors and numeric.
 
+Factors are nominal data that a label is applied to.
+ - e.g., race, gender, party identification, etc. 
 
-## Part One: Factoring
+Numerics are data consisting of numbers, where it is ranked (ordinal and interval). 
 
-As we went over in the last lab, there are different object types in R. To keep it simple we break it down into two broad groups: 1) factors and 2) numeric/integer.
+When data is read into R (e.g., importing csv file), R automatically classifies the data by type. When data is recognized as non-numeric, R will classify it as a factor.
 
-A factor is nominal data that you want to aply a label to. Think race, gender, party identification, etc. 
-
-An integer is data that consists of numbers, where it is ranked (ordinal and interval). 
-
-When we read data into R (importing our .csv file), R attempts to classify the data by type. When you have data that is text, R will likely classify it as a factor.
-
-Let's start by looking at an example of a factor variable. In our class dataset, the variable f.party.2 is a factor variable that tells us the party affilation of the individuals who answered our survey. Let's take a look. The table() function allows us to look at the variable by category
+In the class dataset, the variable _f.party.2_ is a variable consisting of factors that identifies the party affilation of the individuals who answered a survey. The _table()_ function describes the variable by category.
 
 ```{r factor1, echo=TRUE}
 table(ds$f.party.2)
 ```
 
-Now try to take the mean of the variable:
+Attempting to take mean of the _f.party.2_ variable inevitably fails.
 
 ```{r mean, echo=TRUE}
 mean(ds$f.party.2)
 ```
 
-Notice that it doesn't work. This is because you cannot take the mean of a factor variable. That would be like trying to take the mean of words. 
+Party affiliation is nominal data that cannot be described via mean. Consequently, R will error when attempting to calculate the mean or median of factor variables. 
 
-Lets use the str() function to look at the structure of the variable:
+The _str()_ function describes structure of the _f.party.2_ variable:
 
 ```{r structure, echo=TRUE}
 str(ds$f.party.2)
 ```
 
-This should tell us that this variable is a factor with three levels, "Dem", "Ind", and "Rep".
+The _f.party.2_ variable is a factor with three levels: "Dem", "Ind", and "Rep."
 
-With many data sets, data is initially coded in numbers, and factored afterwards. For example, the basic political party variable in our data set is numeric:
+With many data sets, data are initially coded in numbers and factored afterwards. For example, the _party_ variable in the _ds_ data set is numeric:
 
 ```{r numeric, echo=TRUE}
 table(ds$party)
 ```
 
-Unless someone had the codebook, they would not know what 1,2,3, or 4 stood for. This is one reason we factor data.  Factoring data in R serves two broad purposes:
+Without a codebook to decipher the numeric values, statistician are incapable of explaining what 1, 2, 3, or 4 represent within the _ds_ data set. Factoring data remedies this issue. Factoring data in R serves two broad purposes:
 
 1. Applies labels to data
 2. Tells R to treat the data as categorical/nominal
 
-At a very basic level, you can factor a variable without applying labels to it. At the least, this tells R to treat it as categorical. This methods works when you need to factor a variable quickly. The basic syntax is to use the factor() command. It is important to note that when you are factoring a variable, you are in essence creating a new variable that is a factored version of an older variable. Therefore you also need to use the <- command and pick a name for the new factored variable. 
-
-Typically we put "f." before the variable name to remind us it is factored. Let's try it:
+At a very basic level, a variable can be factored without applying labels. At minimum, R will treat the data as categorical. This method is sufficient when a variable requires quick factoring. The basic syntax is to use the _factor()_ function. __Note:__ Best practice for factoring an existing variable is to create a variable within the same data set. Best practice suggests to append the new variable with _f._ to indicate the variable is factored.
 
 ```{r fac1, echo=TRUE}
 ds$f.gender <- factor(ds$gender)
 ```
 
-Remember that we put the $ sign to tell R what dataset to draw from, or to tell R what dataset to assign the new factored variable to. Let's look at a table of the new variable:
+__Reminder:__ The $ sign instructs R what data set to draw the variable from, or to tell R what data set to assign the new factored variable to. The new factored variable can be described via the _table()_ function.
 
 ```{r fac2, echo=TRUE}
 table(ds$f.gender)
 ```
 
-while this factored variable is split into two categories, we don't intuitively know which number is male and which is female. We should now assign labels to the variable. When factoring a variable, you need to tell R how many levels are in the variable, and which labels to assign to those levels. In this variable there are two levels, 0 and 1, and we need to assign the labels Women and Men to those variables. Lets factor the variable completely, then create a table to look at it.
+While this factored variable is split into two categories, it is not apparent which numbers represent male and female. Labels should be assigned to the numbers to clarify the relationship between the numbers and their meaning. When factoring a variable, R requires the number of levels within the variable and the corresponding labels. In the _f.gender_ variable there are two levels, 0 and 1, that require men and women labels.
 
 ```{r fac3, echo=TRUE}
 ds$f.gender <- factor(ds$gender, levels = c(0,1), labels = c("Women", "Men"))
 table(ds$f.gender)
 ```
 
-Notice how, in the syntax, you use the vector command, c(), to tell R the levels and labels of the variable.
+The vector function, _c()_, instructs R the levels and labels of the variable.
 
-Now let's factor the political party variable, where 1 = Dem, 2 = Rep, 3 = Ind, and 4 = Other, then create a table of the variable.
+The _f.party_ variable should also be factored, where 1 = Dem, 2 = Rep, 3 = Ind, and 4 = Other, then create a table of the variable.
 
 ```{r fac4, echo=TRUE}
 ds$f.party <- factor(ds$party, levels = c(1,2,3,4), labels = c("Dem", "Rep", "Ind", "Other"))
 table(ds$f.party)
 ```
 
-Now take a look at the structure of the variable. It should tell us it is a factor with 4 levels.
+The structure of the _f.party_ variable describes a factor with four levels.
 
 ```{r fac5, echo=TRUE}
 str(ds$f.party)
 ```
 
-There are other types of data conversions as well. In most cases, you will follow the basic syntax used to factor, except you could use "numeric" or "integer". For most purposes, numeric and integer are the same.
+There are other types of data conversions as well. In most cases, the basic syntax is the same as the _factor()_ function, except the function names are _numeric()_ or _integer()_. __Note:__ For most purposes, numeric and integer are the same.
 
 ### Coerce Factoring
 
-Sometimes the typical commands do not work, and you are forced to coerce the variable. When you coerce the variable, you are telling R to treat the variable as if it were a different object type. The coercive arguments are:
+Sometimes the typical commands do not work and variables must be coerced. When a variabled is coerced, R is instructed to treat the variable as if it were a different object type. The coercive functions are:
 
-1. as.factor()
-2. as.numeric()
-3. as.integer()
+1. _as.factor()_
+2. _as.numeric()_
+3. _as.integer()_
 
-Let's try to convert a factor variable into a numeric variable using the numeric() argument.
+__Try it!__ Convert a factor variable into a numeric variable using the _numeric()_ function.
 
 ```{r num, echo=TRUE}
 
 ```
 
-This doesn't work, so we should try using the coerce method:
+This fails, so the coerce function should be employed.
 
 ```{r num2, echo=TRUE}
 ds$n.party <- as.numeric(ds$f.party)
 ```
 
-Now let's examine the new variable:
+Examine the new variable with the _table()_ and _str()_ functions.
 
 ```{r num3, echo=TRUE}
 table(ds$n.party)
 str(ds$n.party)
 ```
 
+## Part II: Recoding
 
-Good work! Now let's move on to recoding.
-
-## Part Two: Recoding
-
-In R, we use the recode() function to reassign values to a variable. There are several broad purposes to recode a variable, including
+In R, the _recode()_ function reassigns values to a variable. There are several broad purposes to recode a variable, including:
 
 1. To correct or change incorrect data
 2. To restructure the data, making it easier for calculations
@@ -233,7 +227,7 @@ table(ds$f.AfAm)
 ```
 
 
-## Part Three: Building and Sorting Your Data
+## Part III: Building and Sorting Your Data
 
 
 In R, you have the option of building your data within the program itself. There are a variety of ways to do this, and we will go over the basics here. 
@@ -398,7 +392,7 @@ You can largely set whatever parameters you need by following the operator funct
 8. |	 Or  (example: x | y - pronounced "x OR y") 
 9. &	And (example: x & y - pronounced "x AND y") 
 
-## Part Four: Working with Nominal Data
+## Part IV: Working with Nominal Data
 
 Often times we have to work with nominal data. This is data that does not necessarily have a numeric value, but rather is categorized by a word or label. Think political party. Let's take a look at our factored party variable:
 
@@ -483,7 +477,7 @@ barplot(party.table.per, beside=TRUE, legend=rownames(party.table.per), col = c(
 ```
 
 
-## Part Five: Working with Ordinal Data
+## Part V: Working with Ordinal Data
 
 Recall that ordinal data is data that is assigned numeric values, but on an ordered scale. One very intuitive type of ordinal data is educaton level. Edcation level is on an ordered scale: some high school is higher than no high school, a high school diploma is higher than some high school, some college is higher than high school, etc. 
 
@@ -528,7 +522,7 @@ Those colors listed are hexadecimal colors, which R recognizes. You can check ou
 
 http://colorbrewer2.org/
 
-## Part Six: Working with Interval Data
+## Part VI: Working with Interval Data
 
 Interval data is similar to ordinal data, but with interval data the difference between levels does have some intuitive value to it. For this section we will use an ordinal measure, but treat it as if it is interval. In our class data set we have a variable that measures an individual's perception of the risk posed by global climate chage, glbcc_risk, on a scale of 0 being no risk to 10 being extreme risk. 
 
