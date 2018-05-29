@@ -93,7 +93,7 @@ df <- data.frame(answer = c("0", "1"), glbcc = c(no,yes), lower = c(no.low,yes.l
 ```
 
 
-Now that we have our data frame, let's create a new visualiazation that includues the confidence intervals. To do this, we make the same visualization from earlier, but include a geom_errorbar() functio. Inside the function we tell R to use the lower and upper confidence interval values:
+Now that we have our data frame, let's create a new visualiazation that includues the confidence intervals. To do this, we make the same visualization from earlier, but include a geom_errorbar() function. Inside the function we tell R to use the lower and upper confidence interval values:
 
 ```{r prop10, echo=TRUE}
 ggplot(df, aes(x=answer, y=glbcc)) +
@@ -251,7 +251,7 @@ chisq.test(gcc.table2[,,2])
 assocstats(gcc.table2[,,2])
 ```
 
-Both chi-square tests return significant results, and both Cramer's V scores are about .4, indicating strong and significant relationships between ideology and perceived risk of glimate change for both men and women. 
+Both chi-square tests return significant results, and both Cramer's V scores are about .4, indicating strong and significant relationships between ideology and perceived risk of climate change for both men and women. 
 
 ### Other Coefficients
 
@@ -290,7 +290,7 @@ Now we are able to do an independent t test for two populations. Let's establish
 t.test(ds$glbcc_risk ~ ds$f.part, var.equal = FALSE) # var.equal=FALSE is default, you don't need to include it.
 ```
 
-Based on our results, there appears to be a great differnece in perceived risk of climate change between Democrats and Republicans. We have to be clear about the null we are rejecting, though. Our null hypothesis is that there is no difference or that the differenc is zero. What we have here is a test result that tells us that the result is **not** zero. 
+Based on our results, there appears to be a differnece in perceived risk of climate change between Democrats and Republicans. We have to be clear about the null we are rejecting, though. Our null hypothesis is that there is no difference or that the difference is zero. What we have here is a test result that tells us that the result is **not** zero. 
 
 The test we just conducted is a two-tailed t test. Whenever your hypothesis is that the difference is not zero, you conduct a two tailed t test. If we wanted to specify a new hypothesis that the difference in perceived risk from climate change between Democrats and Republicans is greater than (or less than) zero, we would use a one-tailed t test. To do this, we include the command alt="greater" inside our t test function. Let's test this:
 
@@ -306,8 +306,6 @@ Let's suppose we now want to test if there is a difference in perceived risk of 
 
 ```{r hsd, echo=TRUE}
 leveneTest(ds$glbcc_risk~ds$f.party.2)
-
-
 ```
 
 This passes the Levene Test, so we can assume the variance is not the same. Now let's conduct a Tukey HSD test. Notice we're now using the f.party.2 variable, which is that factored variable that includes Democrats, Republicans, and Independents:
@@ -337,7 +335,7 @@ There is also a Pairwise-Wilcox test, which combines the Pairwise and Wilcox tes
 
 Let's move into a discussion of paired t tests. For a paired t test, the data needs to be connected somehow. For this section, we'll condstruct a data frame with hypothetical data that is appropriate for a paired t test. 
 
-Imagine there is a class with ten students and in the class the take two exams. The teacher wants to examine if there is an overall difference between the students' performances on exam one and exam two. This is a prime opportunity to use a paired t test. Let's build the hypothetical data frame:
+Imagine there is a class with ten students and in the class they take two exams. The teacher wants to examine if there is an overall difference between the students' performances on exam one and exam two. This is a prime opportunity to use a paired t test. Let's build the hypothetical data frame:
 
 ```{r paired, echo=TRUE}
 Student <- c("st1", "st2", "st3", "st4", "st5", "st6", "st7", "st8", "st9", "st10")
@@ -356,7 +354,7 @@ var.test(exam.ds$Exam1, exam.ds$Exam2)
 
 ```
 
-Based on the variance test, we can assume that there is similara variance. Now let's specify our hypotheses. Let's start with a two tailed t test. The alternative hypothesis will be that that difference in means between the two exams is not zero. The null is that there is no difference, that the difference is zero. Since these exams are connected (the same students took them), we will use a paired t test. We also need to specify that ther variance is equal:
+Based on the variance test, we can assume that there is similar variance. Now let's specify our hypotheses. Let's start with a two tailed t test. The alternative hypothesis will be that that difference in means between the two exams is not zero. The null is that there is no difference, that the difference is zero. Since these exams are connected (the same students took them), we will use a paired t test. We also need to specify that the variance is equal:
 
 ```{r paired3, echo=TRUE}
 t.test(exam.ds$Exam1, exam.ds$Exam2, paired = TRUE, var.equal = TRUE)
@@ -424,14 +422,14 @@ ggplot(examdf, aes(x=test, y=scores)) + # building the basic aesthetic
 ```
 
 
-Following the basic steps above will help you make nice visualizations for different needs.
+Following the basic steps above will help you make nice visualizations for different needs. Looking at this visualization, it may appear that there really is not a differnece between the two tests. After all, the confidence intervals overlap. However, what we are testing is if the difference between the means of the two tests is zero or not. This visualization is plotting the mean test scores with confidence intervals. So even though the visualization may not look like it, we still reject the null becuase our t test showed that there is a statistically significant difference that is not zero. 
 
 Let's suppose that the teacher wanted a visualization that plots each students' test scores from exam 1 and exam 2 so that they can easily compare them. We can create a grouped bar plot relatively simply that would allow the teacher to do just that. 
 
 First we would need to create a different data frame, one with an Exam vector, a student vector, and a score vector:
 
 ```{r vis6, echo=TRUE}
-Exam <- rep(c("Exam1", "Exam2"), each = 10) # Repeats "Exam1, Exam2" 10 times
+Exam <- rep(c("Exam1", "Exam2"), each = 10) # Repeats "Exam 1" 10 times and then "Exam 2" 10 times
 student <- rep(c("st1", "st2", "st3", "st4", "st5", "st6", "st7", "st8", "st9", "st10"),2) # Repeats the 10 student names 2 times
 scores <- c(99, 98, 67, 68, 70, 71, 72, 88, 75, 83, 94, 93, 62, 63, 65, 66, 67, 83, 70, 76) # Lists the 10 Exam 1 scores and then the 10 exam 2 scores. 
 exam.com <- data.frame(Exam, student, scores) # Creates the data frame
@@ -445,7 +443,7 @@ exam.com
 ```
 
 
-Now we build a grouped bar plot. We build like like we would any other bar plot, but this time we tell R to fill the visualization based on the exam (Exam 1 or 2), and we use a position.dodge() function to tell R ot place the bars next to each other:
+Now we build a grouped bar plot. We build this like we would any other bar plot, but this time we tell R to fill the visualization based on the exam (Exam 1 or 2), and we use a position.dodge() function to tell R to place the bars next to each other:
 
 ```{r vis8, echo=TRUE}
 
