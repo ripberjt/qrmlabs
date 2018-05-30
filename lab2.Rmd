@@ -404,7 +404,7 @@ If we were analyzing this data, the "Other" category might not tell us much. Let
 
 ```{r nom2, echo=TRUE}
 ds$f.party.2 <- car::recode(ds$f.party, "'Dem'='Dem'; 'Rep'='Rep' ;'Ind'='Ind' ;'Other'=NA;
-                            else=NA;NA=NA")
+							else=NA;NA=NA")
 table(ds$f.party.2)
 ```
 
@@ -464,7 +464,7 @@ Instead of having to type "table(ds$f.party.2)" inside the barplot function, we 
 
 ```{r bar2, echo=TRUE}
 barplot(party.table, beside=TRUE, legend=rownames(party.table), col = c("Blue", "White", "Red"),
-        ylab ="Frequency", main="Frequency of Respondents by Political Party")
+		ylab ="Frequency", main="Frequency of Respondents by Political Party")
 ```
 
 The specific syntax needed to customize visualiztions will get easier with time.
@@ -473,7 +473,7 @@ Remember the table we created that shows the percentage breakdown of the parties
 
 ```{r bar3, echo=TRUE}
 barplot(party.table.per, beside=TRUE, legend=rownames(party.table.per), col = c("Blue", "White", "Red"),
-        ylab ="Percentage", main="Percentage of Respondents by Political Party")
+		ylab ="Percentage", main="Percentage of Respondents by Political Party")
 ```
 
 
@@ -491,8 +491,8 @@ We can see that there are 8 categories in the ordered scale, but we aren't displ
 
 ```{r ord2, echo=TRUE}
 ds$f.education <- factor(ds$education, levels=c(1,2,3,4,5,6,7,8), 
-                   labels=c("< HS","HS/GED","Vocational/Technical", "Some College",
-                            "2 year/Associates", "Bachelor's Degree", "Master's degree", "PhD/JD/MD")) 
+				   labels=c("< HS","HS/GED","Vocational/Technical", "Some College",
+							"2 year/Associates", "Bachelor's Degree", "Master's degree", "PhD/JD/MD")) 
 table(ds$f.education, useNA = "always")
 ```
 
@@ -513,9 +513,9 @@ Now let's create a table object for the education data and create a new visualiz
 ```{r ord5, echo=TRUE}
 educ.table <- table(ds$f.education)
 barplot(educ.table, beside=TRUE, legend=rownames(educ.table), 
-        col = c("#fbb4ae", "#b3cde3", "#ccebc5", "#decbe4", "#fed9a6", "#ffffcc", "#e5d8bd"),
-        ylab ="Frequency", main="Frequency of Respondents by Education Level", 
-        args.legend = list(title = "Education", x = "topright", cex = .7), ylim = c(0, 700))
+		col = c("#fbb4ae", "#b3cde3", "#ccebc5", "#decbe4", "#fed9a6", "#ffffcc", "#e5d8bd"),
+		ylab ="Frequency", main="Frequency of Respondents by Education Level", 
+		args.legend = list(title = "Education", x = "topright", cex = .7), ylim = c(0, 700))
 ```
 
 Those colors listed are hexadecimal colors, which R recognizes. You can check out color schemes here:
