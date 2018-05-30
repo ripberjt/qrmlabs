@@ -142,11 +142,11 @@ str(ds$n.party)
 
 In R, the _recode()_ function reassigns values to a variable. There are several broad purposes to recode a variable, including:
 
-1. To correct or change incorrect data
-2. To restructure the data, making it easier for calculations
+1. To correct or change incorrect data.
+2. To restructure data, making it easier for calculations.
 3. To emphasize some intended effect.
 
-One example situation in which you would want to recode would be if you wanted to look at age groups instead of exact ages. If everyone in your survey reported their exact age (e.g. 54, 23, etc.) but you wanted to break down your data by age groups, like 18-25, 26-35, etc. the recode function would be the one to use.  
+For example, a recode is necessary to look at age groups instead of exact ages. If everyone in the survey reported their exact age (e.g., 54, 23, etc.) and age groups is necessary (e.g., 18-25, 26-35, etc.) the _recode()_ function is useful.
 
 To perform a recode, follow this basic syntax:
 
