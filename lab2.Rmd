@@ -6,7 +6,7 @@ author:
 output: pdf_document
 ---
 
-This lab discusses the basics of exploring, describing, and visualing data. The following packages are required for this lab: 
+This lab discusses the basics of exploring, describing, and visualizing data. The following packages are required for this lab: 
 
 1. car
 2. dplyr
