@@ -1,11 +1,12 @@
 ---
-title: 'Lab 4: Foundations for Inference'
-author: "Alex Davis"
-date: "May 21, 2018"
+title: 'Lab Four: Foundations for Inference'
+author:
+ - Alex Davis
+ - Cody Adams
 output: pdf_document
 ---
 
-This lab will give us the tools for the foundations of inference. We will revisit normality, and then move on to exploring stadard errors and confidence intervals, and end with learning about single sample t-tests. For this lab you will need the following packages:
+This lab introduces the tools for the foundation of inference by examining the normal distribution, standard errors, confidence errors, and single sample t-tests. The following packages are required:
 
 1. car
 2. psych
@@ -23,7 +24,7 @@ library(HistData)
 options(scipen=999)
 ```
 
-## Part One: Testing for Normality
+## Part I: Testing for Normality
 
 In lab three we started exploring the basics of visualizing normality. Much of the statistical work we do is built on the condition that our data is normally distributed. This topic is so important that it merits further discssion. In this section we will address ways to check if your data is normally distributed. 
 
@@ -115,7 +116,7 @@ As we can see, the W score is extremely close to one. Taking all of this into ac
 
 
 
-## Part Two : Standard Errors
+## Part II : Standard Errors
 
 Recall that the standard error can be thought of as the standard deviation of the sample distribution of the sample mean. That might be confusing, so just remember that it is the square root of the variance of the population divided by the n size of the sample population. You could also think of it as the standard deviation of the population divided by the square root of the n size of the sample population. However, we often don't know the standard deviation of the whole population, so we use the standard deviation of the sample population. 
 
@@ -133,7 +134,7 @@ describe(ds$age)
 
 Notice these answers are the same!
 
-## Part Three: Confidence Intervals
+## Part III: Confidence Intervals
 
 Knowing the standard error in the abstract might not intuitively seem very useful, but the standard error is vital to inferential statistics. The standard error is needed in order to calculate confidence intervals. Because we are trying to infer from a sample population something about a larger population, we have to understand that there will be some uncertainty in our calculations. Confidence intervals tell us just how much uncertainty there is.
 
@@ -238,7 +239,7 @@ Let's calculate the p value for testing if the true mean is not 60:
 
 Now recall that our 95% confidence interval from earlier went from 59.83 to 60.93. Now we have everything we need to know in order to test the hypothesis that the true mean of age is not 60. We can say that with 95% confidence, the true mean is between 59.83 and 60.93. Our p value of .191 does not allow us to reject the null hypothesis that the true mean is 60. Notice how this is extremely similar to the calculations from the t test.
 
-## Part Four: More on Single Sample T-tests
+## Part IV: More on Single Sample T-tests
 
 Above we went over the basics of confidence intervals and p values, and included a preliminary discussion of t-tests. Let's continue with that exploration. Whereas the normal distribution uses z scores, the t distribution uses t scores. The t distribution is based on sample estimates, wheres as the normal distribution is properly used when we know the population variance and population mean. 
 
@@ -271,12 +272,3 @@ t.test(ds$age, mu=58)
 ```
 
 We know for sure that the true mean is not 58!
-
-
-
-
-
-
-
-
-
