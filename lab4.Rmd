@@ -26,202 +26,214 @@ options(scipen=999)
 
 ## Part I: Testing for Normality
 
-In lab three we started exploring the basics of visualizing normality. Much of the statistical work we do is built on the condition that our data is normally distributed. This topic is so important that it merits further discssion. In this section we will address ways to check if your data is normally distributed. 
+Lab three introduced the basics of normal distributions. Much of the statistical work done is built on the condition of data that follows a normal distribution. Inspecting data for normality is done via numerous methods.
 
-Recall that we can generate normally distributed data within R using the rnorm function. Let's generate 1000 random values with a mean of 50 and a standard deviation of 5 and call it "random":
+Recall the _rnorm()_ function to generate random values that follow a normal distribution given specified parameters. The following _random_ object will consist of 1000 random values given $\mu$ = 50 and $\sigma$ = 5:
 
 ```{r norm1, echo=TRUE}
 random <- rnorm(1000, mean = 50, sd = 5)
 ```
 
-There are many different ways to test for normality, one of which is to visualize the data using a particular visualization. In the last lab we went over density plots, box plots, and QQ plots. Let's visualize our new data using a QQ plot. Remember that a QQ plot graphs the quantiles of your data against the qunaitiles of what normally-distributed data should be given the mean and standard deviation of the data. 
+Visualizing data is an important first step to inspecting data for normality. The previous lab introduced density plots, box plots, and QQ plots as means of visualizing data and their relationships to a normal distribution. Recall that the QQ plot graphs the quantiles of data against quantiles of a normal distribution, given the $\mu$ and $\sigma$ of the data.
 
 ```{r qq, echo=TRUE}
 qqPlot(random)
 ```
 
-We see that this data is obviously normally distributed. But let's turn to an empirical means of testing if your data is normally distributed. One such test is the Shapiro-Wilk test.
+The QQ plot of the _random_ object demonstrates the data closely follows a normal distribution. This is expected given the _random_ object was created via the _rnorm()_ function. __Note:__ Visualizing data for normality is an informal approach to inspecting for normality. Various empirical methods exist to test whether data follows a normal distribution, the most popular of which are:
+
+1. Shapiro–Wilk test
+2. Anderson–Darling test
+3. Kolmogorov–Smirnov test
+4. Pearson's chi-squared test
+
+The Shapiro-Wilk test is the most popular method, as the test has been demonstrate as providing the most power for a given significance.
 
 ### Shapiro-Wilk Test
 
-The Shapiro-Wilk test allows us to test and see if our data is normally-distributed. In R, you simply using the shapiro.test() function. There are some important things to note before using it, though:
+The _shapiro.test()_ function in R employs the Shapiro-Wilk test on data to test whether the data are normally distributed. Use of the Shapiro–Wilk test is contingent on univariate and continuous data. The hypotheses for the Shapiro-Wilk test are:
 
-1. The Shapiro-Wilk test should only be used on univariate, continuous data
-2. The Shapiro-Wilk Test does not provide accurate results for very large sample sizes. As a rule of thumb you shouldn't use it on an n-size over 5000. 
-3. The Shapiro-Wilk Test tests against the null hypothesis that **the data already follows the normal distributed**. If you are able to reject the null, that means that your data is **not normally-distributed**. Smaller test scores indicate that the data is not normal. 
-4. The test returns a W score. W = 1 would indicate perfect normality.
+$H_0$: The data are normally distributed  
+$H_1$: The data are not normally distributed
 
-Let's perform a Shapiro-Wilk test on our random data:
+__Note:__ The Shapiro-Wilk test for normality is a statistical test that provides a p-value of the test statistic, _W_. This lab will focus on the p-value approach for statistical tests, using an $\alpha$ value of 0.05 as the desired significance level.
 
 ```{r sw test, echo=TRUE}
 shapiro.test(random)
 ```
 
-Notice how this data has a W score of almost 1. If we had been working with data that was not generated to already be normally-distributed, this would be more than enough to indicate that the data is normaly-distributed. Remember, the S-W test is testing against the null that the data is already normally-distributed. Looking at the p-value, this makes sense. If we want our data to be normal, we actually do not want to reject the null when using the Shapiro-Wilk test. In this case, we have a very high p value, meaning that if the null hypothesis were true (in this case, if the data was normally distributed), we would have a good probability of observing the same result. All in all, we don't reject the null here and we can assert that our data is normally distributed. 
+The Shapiro-Wilk test p-value is greater than $\alpha$ = 0.05, therefore failing to reject $H_0$ concluding the data are normally distributed. Again, this is expected given the _random_ object was created via the _rnorm()_ function.
 
 ### Testing Normality 
 
-Now let's use a variety of methods to test for normality on data that we don't know is already normally-distributed. There is a data set about Old Faithful eruptions that comes pre-loaded in R, so let's use that. It provides data on the duration of eruptions in minutes, and the wait time in between eruptions in miunutes. Let's use the eruption length variable. First we'll look at the basics of it using the describe() function.
+R provides data pertaining to Yellowstone National Park's Old Faithful geyser in the _faithful_ object. Old Faithful eruptions are recorded as duration, in minutes, between events. First, the _describe()_ function provides valuable information for the _eruptions_ variable in the _faithful_ object.
 
 ```{r faith, echo=TRUE}
 describe(faithful$eruptions)
 ```
 
-
-Now let's use the sm.density() function to look at the actualy density distribution of the data what a normal distribution of the data should look like given its mean adn standard deviation:
+Comparing the _eruptions_ data to a normal distribution, given $\mu$ and $\sigma$ from the _eruptions_ data, is available via the _sm.density()_ function.
 
 ```{r faith2, echo=TRUE}
 sm.density(faithful$eruptions, model = "Normal")
 ```
 
-Notice that the actual distribution is bimodal (there are two peaks). This does not mean that the data is not normally-distributed, but it does mean that a simple visualization will not be enough for us to assess the normality of the data. This would be a prime situation to use the Shapiro-Wilk test. Let's do so:
+The black line represents the _eruptions_ data, and the blue shading represents the normal distribution given the $\mu$ and $\sigma$ values of _eruptions_. __Note:__ The _eruptions_ data appears bimodal, and does not fit the normal distribution model given the parameters calculated via the _eruptions_ data. 
 
-```{r faith3, echo=TRUE}
-shapiro.test(faithful$eruptions)
-```
-
-This result is a little more interesting. It looks as the if the data is not extremely close to the normal-distribution. The extremely small p value indicates strong certainty of this. To be sure, though, we should use a QQplot to further validate this:
+The _eruptions_ data is further examined using QQ plots via the _qqPlot()_ function:
 
 ```{r faith4, echo=TRUE}
 qqPlot(faithful$eruptions)
 ```
 
-After looking at the QQplot, it is pretty safe to reject the null hypothesis tested by the Shapiro-Wilk test and assert that the data is not normally-distributed.
+Most of the points in the QQ plot fall outside the region defined by the dashed lines, further suggesting the _eruptions_ data is likely not normally distributed. Lastly, a Shapiro-Wilk test can confirm whether the _eruptions_ data is normally distributed:
 
-Let's do one more test, this time with different data. The HistData package includes different datasets we can use. Let's use a variable that measures finger length and see if the distribution of finger length is normal. Let's start with a boxplot:
+```{r faith3, echo=TRUE}
+shapiro.test(faithful$eruptions)
+```
+
+The Shapiro-Wilk test p-value is less than $\alpha$ = 0.05, leading to reject $H_0$: data are normally distributed. In conclusion, the _eruptions_ data is not normally distributed. __Note:__ The visual plots are likely enough to confirm the _eruptions_ data are not normally distributed.
+
+The _MacdonellDF_ variable within the _HistData_ package consists of finger length data. Again, visualizing the data for normality is performed via various methods. A box plot is generated for the _MacdonellDF_ data:
 
 ```{r f, echo=TRUE}
 boxplot(MacdonellDF$finger)
 ```
 
-This is a pretty balanced boxplot. Now let's use the sm.density() function to look at the actual distribution vs projected normal distribution:
+The box plot appears balanced, indicating normality. The _sm.density()_ function should show the distribution of _MacdonellDF_ variable as similar to the projected normal distribution given the $\mu$ and $\sigma$ parameters of the _MacdonellDF_ variable.
 
 ```{r f2, echo=TRUE}
 sm.density(MacdonellDF$finger, model = "Normal")
 ```
 
-And now let's use a QQplot:
+Additionally, a QQ plot:
 
 ```{r f3, echo=TRUE}
 qqPlot(MacdonellDF$finger)
 ```
 
-Based on all the visualizations, it looks like this data is very normal. However, let's run a Shapiro-Wilk test just to be sure.
+The visualizations all suggest the data is normally distributed; however, a Shapiro-Wilk test is still useful to test for normality.
 
 ```{r f4, echo=TRUE}
 shapiro.test(MacdonellDF$finger)
 ```
 
-As we can see, the W score is extremely close to one. Taking all of this into account, we can surely assert that this data is normally-distributed. 
-
-
+__Note:__ Despite the visualizations suggesting normality, the Shapiro-Wilk test p-value is less than $\alpha$ = 0.05, resulting in rejecting the null hypothesis that the data are normally distributed. A closer examination of the QQ plot yields that most points exist outside the region, though at first glance nothing appears suspect. This merits a conversation on judgment for assessing whether the data could be treated as normally distributed.
 
 ## Part II : Standard Errors
 
-Recall that the standard error can be thought of as the standard deviation of the sample distribution of the sample mean. That might be confusing, so just remember that it is the square root of the variance of the population divided by the n size of the sample population. You could also think of it as the standard deviation of the population divided by the square root of the n size of the sample population. However, we often don't know the standard deviation of the whole population, so we use the standard deviation of the sample population. 
+Recall that the standard error is the standard deviation of the sample distribution, calculated as the square root of the standard deviation divided by the square root of the sample size.
 
-We can calculate the standard error of the age variable in our class dataset like this:
+- Population: $\frac{\sigma}{\sqrt{n}}$
+- Sample: $\frac{s}{\sqrt{n}}$
+
+R does not provide a single purpose function to calculate the standard error. As a result, the following demonstrates the previous formula to calculate the standard error:
 
 ```{r se, echo=TRUE}
 sd(ds$age, na.rm=T)/sqrt(length(ds$age)-sum(is.na(ds$age)))
 ```
 
-Fortunately for us, R can do all these complicated calculations for us. Using the describe() function, we can more easily find the standard error:
+Alternatively, the _describe()_ function includes the standard error statistic for a given variable, as follows:
 
 ```{r se2, echo=TRUE}
 describe(ds$age)
 ```
 
-Notice these answers are the same!
+__Note:__ The previous two methods return the same result.
 
 ## Part III: Confidence Intervals
 
-Knowing the standard error in the abstract might not intuitively seem very useful, but the standard error is vital to inferential statistics. The standard error is needed in order to calculate confidence intervals. Because we are trying to infer from a sample population something about a larger population, we have to understand that there will be some uncertainty in our calculations. Confidence intervals tell us just how much uncertainty there is.
+The standard error is vital to inferential statistics. For example, the standard error is required to calculate confidence intervals. Confidence intervals employ standard error to assist with inferring information from a sample of a larger population, through inclusion of uncertainty.
 
-Calculating confidence intervals should bring together and synthesize our knowledge of standard errors and z scores. Recall that under the normal distribution, a z score is how many standard deviations something is away from the mean. In order to calculate some level of confidence (90%, 95%, 99%), we need to know the z scores associated with those levels of confidence. Here they are:
+Confidence intervals synthesize  knowledge of standard error and z-scores. Recall that with the normal distribution, a z-score standardizes standard deviations values are from the mean. To calculate a level of confidence (90%, 95%, 99%), the z-score associated with those levels of confidence is necessary:
 
- - 90% = 1.645
- - 95% = 1.960
- - 99% = 2.576
+ - 90% confidence = 1.645
+ - 95% confidence = 1.960
+ - 99% confidence = 2.576
  
-Recall that the formula to calculate standard errors is:
+The formula for confidence level is:
 
-$$CI=\bar{x} \pm z\frac{s}{\sqrt{n}},$$
+$$CI=\bar{x} \pm z\frac{s}{\sqrt{n}},$$, or $CI=\bar{x} \pm z*SE$, 
 
-Or, more simply, the sample mean, plus (and minus) the z score of the level of confidence you want multipled by the standard error.
+Put simply, the confidence interval is the sample mean plus/minus the product of the z-score and standard error. 
 
-This makes more sense when you actually calculate it, so let's do so. Let's find the true mean of age, using our age variable, with a level of 95% confidence:
+Using the _age_ variable within the _ds_ data set, the a 95% confidence interval is calculated as follows: 
 
-First find the mean:
+First calculate the mean:
 
 ```{r ci1, echo=TRUE}
 mean(ds$age, na.rm = T)
 ```
 
-We are going for 95% confidence, so the z score we use will be 1.96 (rounded). We also need to know the standard error of the mean:
+Second, find the standard error:
 
 ```{r ci2, echo=TRUE}
 describe(ds$age)$se ## this is a way to pull the standard error out without having to look at everything else
 ```
 
-So now we have everything we need to find a confidence interval for the true mean of age. Let's find the upper level of the confidence interval:
+Given a 95% confidence interval, the z-score is 1.96. The upper value of the confidence interval is calculated as follows:
 
 ```{r ci3, echo=TRUE}
 60.38 + 1.96*.28
 ```
 
-Now the lower end:
+The lower value of the confidence interval is calculated as follows:
 
 ```{r ci4, echo=TRUE}
 60.38 - 1.96*.28
 ```
 
-Putting all this together, we can say that with 95% certainty, the true mean of age if between 59.83 and 60.93 (rounded).
+With 95% confidence, the population mean of _age_ is between 59.83 and 60.93 (rounded).
 
-If we wanted the confidence intervals to be a little more accurate, we could just tell R to use the mean and the standard error of the population without having to calculate them ourselves. Let's do that, but this time let's find the true mean of age at the 99% confidence level (we will use a z score of 2.58). First let's pull the standard error and assign it to an object called "se":
+Increasing confidence will increase the interval of the confidence interval. For example, the z-score associated to 99% is 2.58, so the confidence interval for 99% is calculated as follows:
 
 ```{r ci5, echo=TRUE}
 se <- describe(ds$age)$se
 ```
-Now let's do the calculation
+
+__Note:__ The standard error of the _age_ variable was stored as to the _se_ object via specifying only to return the standard error from the _describe()_ function. Using the _se_ object simplifies the confidence interval calculation as exemplified:
 
 ```{r ci6, echo=TRUE}
 mean(ds$age, na.rm = T) + 2.58*se
 mean(ds$age, na.rm = T) - 2.58*se
 ```
 
-Now we know that we are 99% certain that the true mean of age is between 59.64 and 61.09. Notice that this interval is larger than the 95% confidence level. This should intuitively make sense because we should be more sure that the true mean is somewhere in a larger interval. The small the interval, the less certain we become. 
+With 99% confidence, the population mean of _age_ is between 59.64 and 61.09. This interval is larger than the interval calculated for 95% confidence.
 
-To get an evenmore accurate idea of the true mean, R can calculate the confidence intervals for us. To do this, we need to recall the t distribution. The t distribution is used when you're working with a smaller n size, or when the data is not known to be normal. However, the t distribution also begins to approximate the z distribution as you have a larger n size. Since our n size is already large (over 2500), we can use the t distribution and know that it approximates the z distribution (what we've bene using so far). The function t.test() can be used to find the true mean. It tests whether the true mean is 0 and returns a p value for that. It will also give us 95% confidnece intervals for what the true mean actually is. 
+Alternatively, the _t.test()_ function in R provides the 95% confidence interval for a given variable.
 
 ```{r ci7, echo=TRUE}
 t.test(ds$age)
 ```
 
+The results of _t.test()_ is similar to the manual calculations performed previously. By default, the _t.test()_ tests whether $\mu$ for the variable is equal to zero. The hypotheses for the _t.test()_ function are:
 
-Notice that this is very similar to what we already calculated for 95% CI, but this is more accurate. Notice the extremely small p value? That is because the one sample t test by default tests whether the mean is equal to zero. Though confusing, the p value tells us the probability of observing this particular calculation, given the null hypothesis is true. In this case, the probabilty that we would observe the a mean of 60.38 when the true mean of age is 0. Obviously that is not going to happen, hense the p value of essentailly zero. We can change the null hypothesis, though. Let's now test whether the true mean of the population is 50:
+- $H_0$: $\bar{x}$ = $\mu$
+- $H_1%: $\bar{x}$ $\neq$ $\mu$
+
+Note the returned p-value of the previous _t.test()_ performed is less than $\alpha$ = 0.05; therefore, the null hypothesis is rejected. That is, given the sample data, with 95% confidence the $\mu$ is not zero.
+
+To explain a different way, using the same variable, but with a defined $\mu$ of 50, the _t.test()_ function can test whether $\mu$ is 50.
 
 ```{r ci8, echo=TRUE}
 t.test(ds$age, mu=50)
 ```
 
-
-Again, we are veyr sure that the mean is not 50. Notice that 50 does fall in the confidence interval. But what if we were testing with an age that does? Let's test whether the true mean of age is 60:
+The same result occurs: the null hypothesis is rejected. Once again, the _t.test()_ function is employed to test whether $\mu$ = 60:
 
 ```{r ci9, echo=TRUE}
 t.test(ds$age, mu=60)
 ```
 
-Notice now how there is more uncertainty! There is much higher p value, because it is much more likely we would observe a 60.36 given the true mean is 60. The p value of .19 does not meet the traditional threshold of .05 needed to reject the null hypothesis. 
+The result differs, such that the null hypothesis is not rejected as the p-value is greater than $\alpha$ = 0.05. That is, with 95% confidence, $\mu$ = 60.
 
-If we wanted to do this test using the normal z distribution instead of the t distribution, we can calculate the p values ourselves. Let's say we wanted to test whether the true mean of the age is 60, using the z distribution. We would need to
+__Note:__ The p-values can be calculated manually from z-scores to test population means using confidence intervals. This requires:
 
-1. Find the sample mean (xbar), in this case the mean of the variable.
-2. Calculate confidence intervals (we already did this earlier).
-3. Find the p value associated with our null (the true mean is 60).
- - To calculate the p vale we'll need to know our n size. In this case it is 2547.
+1. Calculate $\bar{x}$
+2. Calculate confidence intervals (as previously shown)
+3. Calculate the p-value associated with $H_0$
 
-Let's create some objects to make this calcution simpler:
+Objects are employed to simplify the calculation:
 
 ```{r p, echo=TRUE}
 xbar <- mean(ds$age, na.rm = T)
@@ -230,20 +242,26 @@ s <- sd(ds$age, na.rm = T)
 n <- 2547
 ```
 
-
-Let's calculate the p value for testing if the true mean is not 60:
+The p-value for if the population mean $\neq$ 60:
 
 ```{r p2, echo=TRUE}
 2*(1-pnorm(xbar, mean=a, sd=s/sqrt(n)))
 ```
 
-Now recall that our 95% confidence interval from earlier went from 59.83 to 60.93. Now we have everything we need to know in order to test the hypothesis that the true mean of age is not 60. We can say that with 95% confidence, the true mean is between 59.83 and 60.93. Our p value of .191 does not allow us to reject the null hypothesis that the true mean is 60. Notice how this is extremely similar to the calculations from the t test.
+The p-value of 0.191 is greater than $\alpha$ = 0.05; therefore, failing to reject $H_0$: $\mu$ = 60.
 
 ## Part IV: More on Single Sample T-tests
 
-Above we went over the basics of confidence intervals and p values, and included a preliminary discussion of t-tests. Let's continue with that exploration. Whereas the normal distribution uses z scores, the t distribution uses t scores. The t distribution is based on sample estimates, wheres as the normal distribution is properly used when we know the population variance and population mean. 
+The previous confidence interval section introduced a preliminary discussion of t-tests. The Student's t distribution is based on sample estimates, whereas the normal distribution is used when $\sigma$ and $\mu$ are known. 
 
-We'll now establish the building blocks of the single sample t test. Let's test whether the true mean of age is 58. We will need to identify the n size, the sample standard deviation, the sample mean, and the t statistic.
+Performing a t-test requires:
+
+1. n
+2. s
+3. $\bar{x}$
+4. t statistic
+
+To demonstrate, the following tests whether the population mean is 58 for the given data by defining the above parameters:
 
 ```{r t test, echo=TRUE}
 nAge <- length(ds$age)-sum(is.na(ds$age))
@@ -252,23 +270,23 @@ seAge <- sdAge/(sqrt(nAge)) # Standard error of age
 meanAge <- mean(ds$age, na.rm = TRUE)
 ```
 
-To find the t value we take the sample mean, subtract the population mean we're testing (58 in this case) and divide it by the standard error:
+To calculate the t statistic, the population mean is subtracted from the sample mean, and divided by the standard error as follows: 
 
 ```{r t test2, echo=TRUE}
 t_value <- (meanAge - 58)/seAge   
 t_value
 ```
 
-Now to find the two-sided p value under the t distribution:
+To calculate the two-sided p value under the t distribution:
 
 ```{r t test3, echo=TRUE}
 2*(1-pt(abs(t_value),df=nAge-1))
 ```
 
-We're getting a returned p value of 0. This should lend some certainty to what we know from previous tests, that the true mean is not 58. Let's use the t.test function to test this for sure:
+The returned p-value is less than $\alpha$ = 0.05, rejecting $H_0$: $\mu$ = 60. Put another way, $H_1%: $\mu$ $\neq$ 60.
 
 ```{r t test4, echo=TRUE}
 t.test(ds$age, mu=58)
 ```
 
-We know for sure that the true mean is not 58!
+With 95% confidence, $\mu$ $\neq$ 60.
