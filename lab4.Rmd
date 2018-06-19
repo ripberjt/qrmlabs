@@ -171,13 +171,13 @@ Second, find the standard error:
 describe(ds$age)$se ## this is a way to pull the standard error out without having to look at everything else
 ```
 
-Given a 95% confidence interval, the z-score is 1.96. The upper value of the confidence interval is calculated as follows:
+Given a 95% confidence interval, the z-score is 1.96. The upper bound of the confidence interval is calculated as follows:
 
 ```{r ci3, echo=TRUE}
 60.38 + 1.96*.28
 ```
 
-The lower value of the confidence interval is calculated as follows:
+The lower bound of the confidence interval is calculated as follows:
 
 ```{r ci4, echo=TRUE}
 60.38 - 1.96*.28

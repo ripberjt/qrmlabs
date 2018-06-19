@@ -1,6 +1,8 @@
 ---
-title: 'Lab 7: Bivariate Regression'
-author: "Alex Davis"
+title: 'Lab Seven: Bivariate Regression'
+author:
+ - Alex Davis
+ - Cody Adams
 output: pdf_document
 ---
 
@@ -18,7 +20,15 @@ library(gridExtra)
 options(scipen = 999)
 ```
 
-This lab will cover the basics of bivariate linear regression. The aim is to estimate a line that minimizes the error term. The deep mathematical specifics of regression is already covered in the book and so we won't spend too much time on it, but we will start with understanding how to do bivariate regression by hand. 
+This lab will cover the basics of bivariate linear regression. The aim is to estimate a line that minimizes the error term. The deep mathematical specifics of regression is already covered in the book and so we won't spend too much time on it, but we will start with understanding how to do bivariate regression by hand. The following packages are required for this lab: 
+
+1. ggplot2
+2. psych
+3. car
+4. memisc
+5. stargazer
+6. grid
+7. gridExtra
 
 ## Part I: Bivariate Regression by Hand
 
@@ -247,7 +257,7 @@ stats
 
 Looks like our calculations were correct!
 
-## Part Two: Bivariate Regression in R
+## Part II: Bivariate Regression in R
 
 Moving onto a section on doing bivariate regression in R, let's suppose you wanted to explore the relationship between ideology and one's opinions about how much of Oklahoma's electricity should come from renewable sources. The survey data we use for class asked respondents what percentage of the state's electricity should come from renewable sources. This will be our dependent variable. Our independent variable will be ideology.
 
@@ -328,7 +338,7 @@ ggplot(sub.ds, aes(x=sub.ds$ideol, y=sub.ds$renew)) +
   geom_smooth(method = lm) 
 ```
 
-## Part Three: The Residuals
+## Part III: The Residuals
 
 Recall that when using Ordinary Least Squares regression, there are three assumptions made about the error terms:
 
@@ -364,7 +374,7 @@ We can also look at a QQplot of the residuals:
 qqPlot(model1$residuals)
 ```
 
-## Part Four: Comparing Models
+## Part IV: Comparing Models
 
 Suppose you wanted to create multiple bivariate models and compare them to each other. Using the *mtable()* function from the memisc package, this is a simple thing to do. First decide what you want to compare. Let's create three models, each looking at the relationship between an independent variable and concern about global climate change. The three independent variables will be ideology, certainty that humans cause climate change, and age. We'll start by creating a subset of our data and removing missing observations, then we'll create the three models:
 
@@ -409,7 +419,7 @@ grid.arrange(ideol, cert, age)
 ```
 
 
-## Part Five: Hypothesis Testing
+## Part V: Hypothesis Testing
 
 Let's do one more example of how we would hypothesis test with bivaraite regression. First let's build a make-shift theory. In our class data set there is a variable, wtr_comm, that asks the respondent if they think the supplies of water in their region will be adequate to meet their community's needs over the next 25 years. In essence, this measures concern about water supply for the community.
 

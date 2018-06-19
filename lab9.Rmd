@@ -1,7 +1,8 @@
 ---
 title: 'Lab 9: Categorical Explanatory Variables, Dummy Variables, and Interactions'
-author: "Alex Davis"
-date: "June 12, 2018"
+author:
+ - Alex Davis
+ - Cody Adams
 output: pdf_document
 ---
 
@@ -19,9 +20,16 @@ setwd("~/Methods Labs")
 ds <- read.csv("Class Data Set Factored.csv")
 ```
 
-This lab will focus on the ways in which we can use and understand categorical independent variables. So far the independent variables we have worked with have mainly been interval or ordinal data. When working with categorical data, there are different approaches and techniques of interpretation. 
+This lab will focus on the ways in which we can use and understand categorical independent variables. So far the independent variables we have worked with have mainly been interval or ordinal data. When working with categorical data, there are different approaches and techniques of interpretation. The following packages are required for this lab: 
 
-## Part One: Dummy Variables
+1. ggplot2
+2. psych
+3. memisc
+4. stargazer
+5. gridExtra
+6. interplot
+
+## Part I: Dummy Variables
 
 As the textbook mentions, we often have situations in the social sciences that require analyzing variables that our categorical. Dummy variables are one way of doing so. A dummy variable is a dichotomous variable (0 or 1) in which 1 represents some present quality and 0 represents its absence. There is not any inherent organization or hierarchy, just the 1 is a particular presence and 0 is the absence. For example, A dummy variable for whether someone is a Democrat would be the value of 1 for Democrats and 0 for anyone else. There is no numeric difference, just a categorical difference. With a dummy variable, the 0 is called the "referent group". Often times dummy variables are used for race, gender, and political party. 
 
@@ -223,7 +231,7 @@ ggplot(df2, aes(x=party2, y=cert2, fill=gend)) +
 
 It appears that there might be a difference in climate change risk of the politicla parties by gender. If we really were to test how political beliefs vary as a function of gender and are related to opinions about climate change certainty, we would need to explore interaction terms.
 
-## Part Two: Interactions
+## Part II: Interactions
 
 Interactions estimate the effect of a variable x on y as a function of z. We measure this by multiplying x and z together in the model. Let's suppose we wanted to explore the effect of ideology on climate change certainty as a function of gender, meaning the relationship might be different for men and women. Let's include the other predictors (minus political party) from earlier and specify this model: 
 
@@ -414,7 +422,7 @@ ggplot() +
 Consider everything we've found so far. The positive interaction coefficient, the larger first difference for conservatives, and now this visualization. It is quite clear that the relationship between climate change risk and preferred level of federal climate change management is appears to be stronger for conservatives. The slopes of the lines become steeper as the idelogy score increases. This was not what we hypothesized, and therefore we cannot reject the null hypothesis. However, this is an interesting finding!
 
 
-## Part Three: Releveling Variables
+## Part III: Releveling Variables
 
 It was mentioned earlier in the lab that R can sometimes re-order a varaible. This is espeically the case the for factored variables, when R automatically reads them alphabetically. Sometimes you need to relevel a variable by necessity, sometimes by preference. Let's look at the factored party variable:
 
@@ -444,7 +452,7 @@ table(ds$f.party3)
 ```
 
 
-## Part Four: Interaction Plots
+## Part IV: Interaction Plots
 
 Earlier in our exploration of interactions we plotted estimated Y values as X varies as a function of Z. Specifically, we looked at the relationship between climate change management and climate change risk as a function of ideology. We plotted prediction lines for every level of ideology. However, there is another way we can explore interaction effects. Using the *interplot()* function, we can calculate and visualize esitmates of the estimated coefficient of an independent variable in an interaction. Meaning, instead of looking at predicted values of a dependent variable, we are looking at the estimated effect of an independent variable on a dependent variable in a model that includes a two-way interaction. 
 

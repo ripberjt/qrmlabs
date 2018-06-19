@@ -1,7 +1,8 @@
 ---
-title: 'Lab 6: Covariance and Correlation'
-author: "Alex Davis"
-date: "May 29, 2018"
+title: 'Lab Six: Covariance and Correlation'
+author:
+ - Alex Davis
+ - Cody Adams
 output: pdf_document
 ---
 
@@ -18,7 +19,7 @@ library(gridExtra)
 options(scipen = 999)
 ```
 
-## Part One: Covariance
+## Part I: Covariance
 
 So far we have examined single variables, and we've compared two variables to each other, but now we will begin moving into an exploration of the relationship between two variables. Our jumping off point will be covariance. Covariance measures how two variables move together. Finding the covariance of two variables is a good way to begin looking into if there is a relationship between two variables. 
 
@@ -95,7 +96,7 @@ This covariance is around -10000. What does this tell us? What we know is that t
 
 So how do we get to an intuitive understanding of the strength of associations? 
 
-## Part Two: Correlation
+## Part II: Correlation
 
 The answer to the previous question is correlation. Correlation is a way of standardizing covariance on a scale of negative one to one, with negative one being perfectly correlated negatively, zero being no correlation, and one being perfect positive correlation. In essence, the correlation coefficient is calculated by taking the covariance of two variables divided by the product of their standard deviations. For a sample population, we would use this formula:
 
