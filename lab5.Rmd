@@ -217,64 +217,61 @@ The _prop.table()_ function describes the relationship by proportions. We conver
 round(prop.table(gcc.table, 2) * 100, 1)
 ```
 
-##GOT HERE##
-We can see that there appears to be a difference between men and women. However, we don't know for sure. In this case we can use a chi-square test to explore whether there is a statistically significant difference. A chi-square test is a way of testing if there is a relationship between two variables. Fortunately we don't have to calculate it by hand, but essentially you take the expected frequency for each cell of a cross tabulation (based on total percentages) and subtracts the observed frequencies, then square those, then divide by the expected frequencies, and then sum the values. You then use that value you just calculated (the chi-square statistic) and the degrees of freedom to determine if there is a statistically significant relationship, based on the chi-square distribution. 
-
-In R, you can simply use the chisq.test() function on the table we created:
+There appears to be a difference in genders; however, as these differences are within a sample we cannot infer there is a difference in the population without an empirical test. We will use the Chi-Square test to empirically test whether there is a statistically significant difference in genders. The _chisq.test()_ function performs the Chi-Square test given a table:
 
 ```{r ct4, echo=TRUE}
 chisq.test(gcc.table)
 ```
 
-You can also use the summary() function on the table:
+__Note:__ The _summary()_ function will provide additional information about this table, independent of a Chi-Square test.
 
 ```{r ct5, echo=TRUE}
 summary(gcc.table)
 ```
 
+Given the Chi-Square test p-value < $\alpha$ = 0.05, the null hypothesis is rejected such that there is a statistically significant difference between gender and perceived risk of climate change. Substantive difference is as important as statistical significance, and a variety of methods exist to test the strength of relationships. For the Chi-Square test, finding Cramer's Vs is the appropriate method. The _assocstats()_ function will return a variety of coefficients and numbers, including Cramer's V.
 
-Based on our chi-square test, there does appear to be a statistically significant relationship between gender and perceived risk from climate change. With every test and finding, we should be thinking about substantive significance as well as statistical significance. With this relationship we found, we should ask how strong the relationship actually is. There are a variety of methods that can test this, but for the test we just ran, finding Cramer's V is most appropriate. We can find it by using the assocstats function. It will return a variety of coefficients and numbers, but we need only to use Cramer's V:
 
 ```{r ct6, echo=TRUE}
 assocstats(gcc.table)
 ```
 
-A Cramer's V score of 0.093 indicates a pretty weak association. The test returns a value on a scale of 0 to 1, with 1 being complete association. Our score of 0.093 is weak. 
+Cramer's V is a score ranging from 0 to 1, whereby 0 indicates a weak association and 1 indicates strong association. The Cramer's V score returned for the previous test is quite small, indicating a weak association.
 
-Let's say we wanted to look at gender as a control variable, with ideology as the indepedent variable. We can make a new table with perceived risk of climate change, ideology (Conservative, Moderate, Liberal), and gender:
+Perhaps we are interested as gender as a control variable, with ideology as the independent variable. A new table for perceived risk of climate change, ideology (conservative, moderate, liberal), and gender is as follows:
 
 ```{r, ct7, echo=TRUE}
 gcc.table2 <- table(ds$r.gccrsk, ds$f.ideology, ds$f.gender)
 gcc.table2
 ```
 
-Now we need to run a chi-square test and find Cramer's V for men and women separately. We do this by putting [,,1] inside the chi square function for men, and [,,2] for women. 
+Again, a Chi-Square test and Cramer's V will provide insight. To separate the genders, [,,1] is used for male and [,,2] is used for female.
 
-First for men:
+For male:
 
 ```{r ct8, echo=TRUE}
 chisq.test(gcc.table2[,,1])
 assocstats(gcc.table2[,,1])
 ```
 
-Now for women:
+For female:
 
 ```{r ct9, echo=TRUE}
 chisq.test(gcc.table2[,,2])
 assocstats(gcc.table2[,,2])
 ```
 
-Both chi-square tests return significant results, and both Cramer's V scores are about .4, indicating strong and significant relationships between ideology and perceived risk of climate change for both men and women. 
+Both chi-square tests return significant results, and both Cramer's V scores are about .4. The interpretation of this Cramer's V score is clearly stronger than the previous score; however, the score itself is not judged as a strong association.
 
 ### Other Coefficients
 
-There are other coefficient scores that are appropriate to use in certain situations. The Phi coefficient is used with a 2x2 contingency table. The contigency coefficient, C, is used for square tables. Keep these different methods in mind when doing cross-tabulations and chi-square tests.
+There are other coefficient scores that are appropriate to use in certain situations. The Phi coefficient is used with a 2x2 contingency table. The contingency coefficient, C, is used for square tables. Keep these different methods in mind when doing cross-tabulations and chi-square tests.
 
-## Part III: Independent T-Tests
+## Part III: Independent t-tests
 
-This section will provide more elaboration on t tests. So far we have started using t tests more often, as the t distribution is superior to the normal z distribution for sampling distribution and for small n sizes, and it begins to approximate the normal distribution with high n sizes. We're now going to spend time exploring t tests for two populations.
+This section elaborates on t-tests. So far we have emphasized t-tests, as the Student's t distribution can be used when n < 30, and when $\sigma$ is unknown. The rule of thumb is to use Student's t distribution in these two instances, and the normal distributions for all other cases; however, the Student's t distribution begins to approximate the normal distribution with high n sizes, so t-tests are applicable in most instances.
 
-When using t tests for two populations, you need to first decide if you should use an independent t test or a paired t test. An independent t test is used when the two groups you are testing are independent from each other. A paired t test is used when the two groups are paired or connected. For our class data set, it is mostly appropriate to use independent t tests. For an independent t test, you have to make sure that the variance between the two groups is not the same.
+When using t-tests for two populations, you need to first decide if you should use an independent t-test or a paired t-test. An independent t-test is used when the two groups are independent from each other. A paired t-test is used for paired or connected groups. For the class data set the independent t-tests is appropriate. For an independent t-test, the variance between groups must be unequal.
 
 Let's examine if there is a difference between the risk associated with climate change for Democrats and Republicans in our survey. In order to test only Democrats and Republicans, we need to recode our factored party variable to only include Democrats and Republicans:
 
@@ -283,70 +280,69 @@ ds$f.part <- recode(ds$f.party.2, "'Dem'='Dem'; 'Rep'='Rep'; else=NA")
 table(ds$f.part)
 ```
 
-Now let's start making sure there is not similar variance for Democrats and Republicans on their beliefs about the risk of climate change. First we'll look at their standard deviation and standard error:
+First we will compare variances for Democrats and Republicans on their risk perception of climate change. First we compare the standard deviations and standard errors:
 
 ```{r ind2, echo=TRUE}
 by(ds$glbcc_risk, ds$f.part, describe)
 ```
 
-Now we'll use a Levene Test to actually test if they have similar variance. If there is a p value of less than .05, we can assume that the variance is not similar.
+The Levene test is used to test if the difference in variances is statistically significant. Similar to previously discussed hypotheses, the Levene tests the following hypotheses:
+
+$H_0$: variances are equal  
+$H_1$: variances are not equal  
 
 ```{r ind3, echo=TRUE}
 leveneTest(ds$glbcc_risk, ds$f.part)
 ```
 
-Now we are able to do an independent t test for two populations. Let's establish a null hypothesis and an alternative hypothesis. It's reasonable for us to hypothesize that there is a difference in perceived risk of climate change between Demccrats and Republicans, that the difference in their means is not zero. Therefore the null hypothesis is that there is no difference between Democrats and Republicans in their perceived risk of climate change. Let's now test this:
+Given the p-value < $\alpha$ = 0.05, we reject the null hypothesis such that there is a statistically significant difference in variances. With this result we can perform an independent t-test for two populations. The framework for forming hypotheses is as follows:
+
+$H_0$: the two populations are indifferent; "there is no difference in perceived risk of climate change between democrats and republicans"
+$H_1$: the two populations are different; "there is a difference in perceived risk of climate change between democrats and republicans"
 
 ```{r ind4, echo=TRUE}
 t.test(ds$glbcc_risk ~ ds$f.part, var.equal = FALSE) # var.equal=FALSE is default, you don't need to include it.
 ```
 
-Based on our results, there appears to be a differnece in perceived risk of climate change between Democrats and Republicans. We have to be clear about the null we are rejecting, though. Our null hypothesis is that there is no difference or that the difference is zero. What we have here is a test result that tells us that the result is **not** zero. 
+Given the p-value < $\alpha$ = 0.05, we reject the null hypothesis such that there is a statistically significant difference in perceived risk of climate change between democrats and republicans.
 
-The test we just conducted is a two-tailed t test. Whenever your hypothesis is that the difference is not zero, you conduct a two tailed t test. If we wanted to specify a new hypothesis that the difference in perceived risk from climate change between Democrats and Republicans is greater than (or less than) zero, we would use a one-tailed t test. To do this, we include the command alt="greater" inside our t test function. Let's test this:
+The previous test is an example of a two-tailed test, which lacks directionality (greater than, less than). In contrast, a one-tailed t-test tests hypotheses that include direction. To perform a one-tailed t-test, we include the command alt="greater" inside the _t.test()_ function:
 
 ```{r ind5, echo=TRUE}
-t.test(ds$glbcc_risk ~ ds$f.part, alt = "greater")
+t.test(ds$glbcc_risk ~ ds$f.part, alt="greater")
 ```
 
-Notice this time that our alternative hypotehsis is that the true difference in means is greater than zero. Again, we would be able to reject the null. 
+### Other Independent Sample Tests
 
-### Other Independent Tests
+Not all research leads to testing two populations. For example, consider whether a difference exists in perceived risk of climate change among democrats, republicans, and independents. Further, if there are statistically significant differences, how could ideologies be ranked? Unfortunately, performing pairwise t-tests on the possible combinations is inadequate, due to the "family-wise error rate" associated to the p-value. The _pairwise.t.test()_ function employs the family-wise correction method (by default, Holm-Bonferroni method) to correct the p-value.
 
-Let's suppose we now want to test if there is a difference in perceived risk of climate change between Democrats, Republicans, and Independents. One option would be to conduct a Tukey Honest Significant Difference test, which can be used to test difference in means across more than two groups. For this test, the variances also cannot be the same. First we'll check the variance:
+Like traditional independent sample tests involving two samples, the variances must be unequal:
 
 ```{r hsd, echo=TRUE}
 leveneTest(ds$glbcc_risk~ds$f.party.2)
 ```
 
-This passes the Levene Test, so we can assume the variance is not the same. Now let's conduct a Tukey HSD test. Notice we're now using the f.party.2 variable, which is that factored variable that includes Democrats, Republicans, and Independents:
-
-```{r hsd2, echo=TRUE}
-TukeyHSD(aov(ds$glbcc_risk~ds$f.party.2))
-```
-It looks like there are statistically significant differences between all three groups. We can quickly calculate the p values with a Pairwise t test. 
+Given that the p-value < $\alpha$ = 0.05, we reject the null hypothesis such that there is a difference in variances. The _pairwise.t.test()_ function can perform the pairwise test, using the _f.party_2_ variable that was factored for democrats, republicans, and independents:
 
 ```{r pairwise, echo=TRUE}
 pairwise.t.test(ds$glbcc_risk, ds$f.party.2, pool.sd=FALSE)
 ```
 
-You read these results by looking at the cell labels. The top right cell is blank because that would be independents vs independents. We can see that the p values for all three comparisons are close approaching zero.
+The output of the _pairwise.t.test()_ function is read as a table, whereby each value is associated to the pairwise comparison.
 
-Another test we could use is the Wilcox Test. The Wilcox test can be used for an ordinal dependent variable. The test is not parametric and does't assume a distribution. It returns a p value and tests the null hypothesis that the different populations are identical. The Wilcox test can only compare two populations at a time, so let's go back to our f.part variable that includes only Democrats and Republicans.
+An alternative, multiple comparisons test, is the Tukey Honest Significance Difference test ("Tukey's test"), that is commonly used with Analysis of Variance (ANOVA). In short, Tukey's test is used to find means that are significantly difference between multiple samples. Tukey's test requires using the _aov()_ function to perform ANOVA, as follows:
 
-```{r wilcox, echo=TRUE}
-wilcox.test(ds$glbcc_risk ~ ds$f.part)
+```{r hsd2, echo=TRUE}
+TukeyHSD(aov(ds$glbcc_risk~ds$f.party.2))
 ```
 
-Again, a p value approaching zero. 
+The p-value < $\alpha$ = 0.05 between each pair. 
 
-There is also a Pairwise-Wilcox test, which combines the Pairwise and Wilcox tests.
+## Part IV: Paired t-test
 
-## Part IV: Paired T Test
+Paired t-tests are appropriate for data that are not independent. Consider the need to compare data from the same population for different points in time, such as semester exams for the same students in a class.
 
-Let's move into a discussion of paired t tests. For a paired t test, the data needs to be connected somehow. For this section, we'll condstruct a data frame with hypothetical data that is appropriate for a paired t test. 
-
-Imagine there is a class with ten students and in the class they take two exams. The teacher wants to examine if there is an overall difference between the students' performances on exam one and exam two. This is a prime opportunity to use a paired t test. Let's build the hypothetical data frame:
+The teacher wants to examine if there is a difference in the students' performances between exams one and two. The following hypothetical data frame could represent the students and their performance:
 
 ```{r paired, echo=TRUE}
 Student <- c("st1", "st2", "st3", "st4", "st5", "st6", "st7", "st8", "st9", "st10")
@@ -356,34 +352,40 @@ exam.ds <- data.frame(Student, Exam1, Exam2)
 exam.ds
 ```
 
-We just created a data frame named "exam.ds" with three vectors, the student, exam one, and exam two.
+The _exam.ds_ data frame consists of three vectors: the student, exam one, and exam two.
 
-First let's check the variance between the two groups:
+First check the variance between the two groups:
 
 ```{r paired2, echo=TRUE}
 var.test(exam.ds$Exam1, exam.ds$Exam2)
 
 ```
 
-Based on the variance test, we can assume that there is similar variance. Now let's specify our hypotheses. Let's start with a two tailed t test. The alternative hypothesis will be that that difference in means between the two exams is not zero. The null is that there is no difference, that the difference is zero. Since these exams are connected (the same students took them), we will use a paired t test. We also need to specify that the variance is equal:
+Given the p-value > $\alpha$ = 0.05, the null hypothesis is not rejected such that there is no statistically significant difference in variances.  
+  
+Next, we define our hypotheses for the paired test:  
+$H_0$: there is no difference between exams one and two for students  
+$H_1$: there is a difference between exams one and two for students
 
 ```{r paired3, echo=TRUE}
 t.test(exam.ds$Exam1, exam.ds$Exam2, paired = TRUE, var.equal = TRUE)
 ```
 
-Based on the result of this test, we can reject the null that the difference in means is zero. Let's now use a one tailed t test, still paired. We need to specify a new hypothesis, this time that the differnece in means between the two groups is greater than zero:
+Given the p-value < $\alpha$ = 0.05, the null hypothesis is rejected such that there is a statistically significant difference in means. Next, to determine directionality, the _alt="greater"_ argument is included in the _t.test()_ function. Additionally, the hypotheses are modified as follows:
+$H_0$: there is no difference between exams one and two for students  
+$H_1$: exams one performance is greater than exam two performance for students
 
 ```{r paired4, echo=TRUE}
 t.test(exam.ds$Exam1, exam.ds$Exam2, paired = TRUE, var.equal = TRUE, alt = "greater")
 ```
 
-Again, we can confidently reject the null. 
+Given the p-value < $\alpha$ = 0.05, the null hypothesis is rejected.
 
 ## Part V: Visualizing Differences in Means
 
-Let's now imagine that the teacher wanted these results turned into visualzations. Let's build some good visualizations that compare the test scores from exam one to exam two. To make this visualization we need to calculate the mean scores of both exams, the standard errors for both examns, and the confidence intervals for the mean scores of both exams.
+Visualization of data is essential to interpreting and communicating difference in means. To demonstrate, we will use _ggplot2_ to visualize the difference in exam scores used with the paired t-tests.
 
-First the mean scores:
+First, we consider the difference of means with confidence intervals. We start by calculating the means for each exam:
 
 ```{r vis, echo=TRUE}
 exam1 <- mean(exam.ds$Exam1, na.rm = T)
@@ -391,14 +393,14 @@ exam2 <- mean(exam.ds$Exam2, na.rm = T)
 
 ```
 
-Now the standard errors of the exams:
+Then, the standard errors:
 
 ```{r vis2, echo=TRUE}
 exam1.se <- describe(exam.ds$Exam1)$se
 exam2.se <- describe(exam.ds$Exam2)$se
 ```
 
-Now we need to calculate the confidence intervals for both exams. We'll construct 95% confidence intervals, so we will use 1.96:
+Lastly, the bounds for the confidence intervals. The 1.96 z-score is used for 95% confidence:
 
 ```{r vis3, echo=TRUE}
 exam1up <- exam1 + exam1.se*1.96
@@ -407,7 +409,7 @@ exam2up <- exam2 + exam2.se*1.96
 exam2low <- exam2 - exam2.se*1.96
 ```
 
-Next we need to create a data frame that has all of this information in respective vectors:
+Next, a data frame is constructed with the previous information in respective vectors:
 
 ```{r vis4, echo=TRUE}
 test <- c("Exam1", "Exam2")
@@ -417,7 +419,7 @@ lower <- c(exam1low, exam2low)
 examdf <- data.frame(test, scores, upper, lower)
 ```
 
-Now that we have the data frame, we will start building the visualization. Let's make this a more complete visualization than the previous ones we have made in this lab. Instead of making a bar plot, let's make a graphic that puts a point at the means for each exam, and then condfidence intervals as well. We'll also add some color and some labels. These commands are very reproducible for other data sets and visualizations using GGplot:
+Now, for the visualization. Instead of a bar plot, we will create a graph consisting of a point for the means for each exam, and the confidence intervals. In additional, we will add color and labels. These arguments are available for other data sets and visualizations using _ggplot2_:
 
 ```{r vis5, echo = TRUE}
 ggplot(examdf, aes(x=test, y=scores)) + # building the basic aesthetic
@@ -429,11 +431,11 @@ ggplot(examdf, aes(x=test, y=scores)) + # building the basic aesthetic
   ylab("Scores") # Name for y axis
 ```
 
-Following the basic steps above will help you make nice visualizations for different needs. Looking at this visualization, it may appear that there really is not a differnece between the two tests. After all, the confidence intervals overlap. However, what we are testing is if the difference between the means of the two tests is zero or not. This visualization is plotting the mean test scores with confidence intervals. So even though the visualization may not look like it, we still reject the null becuase our t test showed that there is a statistically significant difference that is not zero. 
+Following the basic steps above will help you make attractive visualizations for different needs.
 
-Let's suppose that the teacher wanted a visualization that plots each students' test scores from exam 1 and exam 2 so that they can easily compare them. We can create a grouped bar plot relatively simply that would allow the teacher to do just that. 
+Suppose the teacher wanted a visualization that plots each students' test scores between the two exams for easy comparison. A grouped bar plot is a simple approach to accomplish this.
 
-First we would need to create a different data frame, one with an Exam vector, a student vector, and a score vector:
+This requires a new data frame with vectors for exams, students, and scores:
 
 ```{r vis6, echo=TRUE}
 Exam <- rep(c("Exam1", "Exam2"), each = 10) # Repeats "Exam 1" 10 times and then "Exam 2" 10 times
@@ -442,13 +444,13 @@ scores <- c(99, 98, 67, 68, 70, 71, 72, 88, 75, 83, 94, 93, 62, 63, 65, 66, 67, 
 exam.com <- data.frame(Exam, student, scores) # Creates the data frame
 ```
 
-Now let's look at the new data frame. You'll notice that the way we constructed the data frame allows R to pair the test scores for the two exams with each student.
+The new data frame pairs the exams with the students and the respective score:
 
 ```{r vis7, echo=TRUE}
 exam.com
 ```
 
-Now we build a grouped bar plot. We build this like we would any other bar plot, but this time we tell R to fill the visualization based on the exam (Exam 1 or 2), and we use a position.dodge() function to tell R to place the bars next to each other:
+The grouped bar plot is constructed similar to a bar plot, except that the visualization is based on the exam and uses the _position.dodge()_ function to place bars near each other: 
 
 ```{r vis8, echo=TRUE}
 
