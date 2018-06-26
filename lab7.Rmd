@@ -184,12 +184,12 @@ SEA
 With the standard errors calculated, we can now find the corresponding t-statistics:
 
 ```{r t, echo=TRUE}
-t.B <- B/SEB
+t.B <- beta.hat/SEB
 t.B
 ```
 
 ```{r t2, echo=TRUE}
-t.A <- A/SEA
+t.A <- alpha.hat/SEA
 t.A
 ```
 
@@ -260,7 +260,7 @@ Let's compare to our coefficients, residual standard error, coefficient standard
 
 ```{r ols3, echo=TRUE}
 stats <- data.frame(name=c("Intercept", "Beta", "RSE", "IntSE", "BetaSE", "IntT", "BetaT", "Rsqr", "AdjRsqr"),
-                    values=c(A,B,RSE,SEA,SEB,t.A,t.B,r.sqr,adj.r2))
+                    values=c(alpha.hat,beta.hat,RSE,SEA,SEB,t.A,t.B,r.sqr,adj.r2))
 stats
 ```
 
