@@ -36,7 +36,7 @@ Calculating covariance of two variables of a known population is trivial, as the
 
 $cov(x,y)=\frac{\sum_{i=1}^n (x_{i}-\bar{x})(y_{i}-\bar{y})}{{n-1}}$
 
-Where x and y are two random variables, i is each observation (row), and n is the sample size.
+Where _x_ and _y_ are two random variables, _i_ is each observation (row), and _n_ is the sample size.
 
 ### Covariance by Hand 
 
