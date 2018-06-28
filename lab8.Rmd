@@ -20,7 +20,7 @@ ds <- read.csv("Class Data Set Factored.csv")
 ```
 
 
-This lab will cover the basics of mulitple linear regression. We will begin by covering the basics of working with matrices in R, then move to doing OLS regression in matrix form. After that, we will cover an introduction to multiple linear regression in R, followed by visualizing it. The following packages are required for this lab: 
+This lab will cover the basics of multiple linear regression. We will begin by covering the basics of working with matrices in R, then move to doing OLS regression in matrix form. After that, we will cover an introduction to multiple linear regression in R, followed by visualizing it. The following packages are required for this lab: 
 
 1. ggplot2
 2. psych
