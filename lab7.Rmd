@@ -1,5 +1,5 @@
 ---
-title: 'Lab Seven: Bivariate Regression'
+title: 'Lab Seven: Bivariate Linear Regression'
 author:
  - Alex Davis
  - Cody Adams
