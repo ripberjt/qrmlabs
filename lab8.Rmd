@@ -32,15 +32,15 @@ This lab covers the basics of multivariate linear regression. We begin by review
 
 The previous lab introduced the estimated bivariate linear regression model as follows:
 
-$$\hat{y_i}=\hat{\alpha}+\hat{\beta} x_i$$
+$$\hat{y}=\hat{\alpha}+\hat{\beta} x$$
 
-Where $\hat{\alpha}$ anf $\hat{\beta}$ could be solved via the following formulas:
+Where $\hat{\alpha}$ and $\hat{\beta}$ are solved via the following formulas:
 
 $$\hat{\alpha}=\bar{y} - \hat{\beta}\bar{x}$$
 
 $$\hat{\beta}=\frac{cov(x,y)}{var(x)}$$
 
-In this lab we use matrix algebra to calculate the least-squared estimates. This proves useful for multivariate linear regression models where the methods introduced for bivariate regression models become more complex and computationally cumbersome compared to express as equations.
+In this lab we use matrix algebra to calculate the least-squared estimates. This proves useful for multivariate linear regression models where the methods introduced for bivariate regression models become more complex and computationally cumbersome to express as equations.
 
 ### Matrix Algebra
 
@@ -56,7 +56,7 @@ $$x_{m\times n} = \begin{bmatrix}
 
 There are a number of operations in matrix algebra; however, this review focuses on those pertinent to solutions of the least-squared equations in multiple regression:
 
-1. Transpose of a matrix
+#### Transpose of a matrix
 
 The transpose of a matrix __A__, denoted as __A'__, is obtained by interchanging the rows and columns of the ___A___ matrix:
 
@@ -86,7 +86,7 @@ Aprime <- t(A)
 Aprime
 ```
 
-2. Row-column multiplication
+#### Row-column multiplication
 
 Matrix multiplication is done by summing the products of the row elements in the first matrix by the column elements in the second matrix in corresponding position. This is shown in the following example:
 
@@ -136,7 +136,7 @@ $$ A' \times B = \begin{bmatrix}
 
 Or, in R:
 
-```{r mat3, echo=TRUE}
+```{r mat4, echo=TRUE}
 B <- matrix(c(1,2,3,2,6,4,4,5,6),2,3)
 BxAprime <- B%*%Aprime
 BxAprime
@@ -149,27 +149,27 @@ $$ 5 \times 1 = 5$$
 Similarly, there exists an identity element in matrix algebra, denoted by the symbol _I_. The identity matrix is a square matrix with a 1 in the same pattern, regardless of size:
 $$I_{1\times1}=\begin{bmatrix} 1 \end{bmatrix}, I_{2\times2}=\begin{bmatrix}1 & 0 \\ 0 & 1\end{bmatrix}, I_{3\times3} = \begin{bmatrix} 1 & 0 & 0 \\ 0 & 1 & 0 \\ 0 & 0 & 1 \end{bmatrix}$$
 
-__Note:__ Regardless of order, any number multiplied by the identity matrix equals itself AI = IA = A. We demonstrate this in R:
+The following demonstrates the identity property for matrices:
 
-```{r mat4, echo=TRUE}
+```{r mat5, echo=TRUE}
 I <- matrix(c(1,0,0,0,1,0,0,0,1),3,3)
-AI <- A%*%I
-IA <- I%*%A
+AI <- A %*% I
 AI
-IA
+A
 ```
 
 Lastly, the reciprocal of A is known as the inverse matrix, denoted as $A^{-1}$. In ordinary algebra, the product of a number and its reciprocal is 1. In matrix algebra, the product of a matrix and its inverse is the identity matrix. $AA^{-1}=A^{-1}A=I$ __Note:__ Inverse matrices only exist for square matrices, and not all square matrices possess inverses. The inverse of a matrix can be found via the _solve()_ function as follows:
 
-```{r mat5, echo=TRUE}
-A.inv <- solve(A)
+```{r mat6, echo=TRUE}
+A.inv <- solve(AxAprime)
 A.inv
 ```
 
 The following R example demonstrates _I_ as the product of $AA^{-1}$:
 
-```{r mat6, echo=TRUE}
-Aident = A %*% A.inv
+```{r mat7, echo=TRUE}
+Aident = A.inv %*%  A
+Aident
 ```
 
 ### Representing System of Linear Equations as Matrices
@@ -196,7 +196,7 @@ Where, n is the number of independent variables, $\beta_0$ is the regression int
 
 Using this model we can imagine collected data as a system of linear equations. To demonstrate, suppose we collected the following data:
 
-```{r mat7, echo=TRUE}
+```{r mat8, echo=TRUE}
 ex.ds <- data.frame(x = c(1,2,3,4,5), y = c(1,1,2,2,4))
 ex.ds
 ```
@@ -333,7 +333,7 @@ Bhat
 
 Again, we check our work using the _lm()_ function:
 
-```{r ols10, echo=TRUE}
+```{r ols13, echo=TRUE}
 ols <- lm(Y ~ 0 + X)
 ols
 ```
@@ -460,7 +460,7 @@ coef(model)
 
 Now recall the scalar formula for multiple linear regression:
 
-$$\hat{y} = \hat{\beta_0} + \hat{\bata_1}x_1 + \hat{\beta_2}x_2 + \hat{\beta_3}x_3$$
+$$\hat{y} = \hat{\beta_0} + \hat{\beta_1}x_1 + \hat{\beta_2}x_2 + \hat{\beta_3}x_3$$
 
 Therefore for our model, the formula would be
 
