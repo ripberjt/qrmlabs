@@ -1,5 +1,5 @@
 ---
-title: 'Lab 9: Categorical Explanatory Variables, Dummy Variables, and Interactions'
+title: 'Lab Nine: Categorical Explanatory Variables, Dummy Variables, and Interactions'
 author:
  - Alex Davis
  - Cody Adams
@@ -16,7 +16,7 @@ library(stargazer)
 library(gridExtra)
 library(interplot)
 options(scipen = 999)
-setwd("~/Methods Labs")
+#setwd("~/Methods Labs")
 ds <- read.csv("Class Data Set Factored.csv")
 ```
 
@@ -32,7 +32,6 @@ This lab will focus on the ways in which we can use and understand categorical i
 ## Part I: Dummy Variables
 
 As the textbook mentions, we often have situations in the social sciences that require analyzing variables that our categorical. Dummy variables are one way of doing so. A dummy variable is a dichotomous variable (0 or 1) in which 1 represents some present quality and 0 represents its absence. There is not any inherent organization or hierarchy, just the 1 is a particular presence and 0 is the absence. For example, A dummy variable for whether someone is a Democrat would be the value of 1 for Democrats and 0 for anyone else. There is no numeric difference, just a categorical difference. With a dummy variable, the 0 is called the "referent group". Often times dummy variables are used for race, gender, and political party. 
-
 
 Up to this point we have not included categorical variables in any of our models. Now that we are going to utilize dummy variables, we can start including some in our models. The simplest one to start with is gender. In the class data set, the gender variable is coded as a 0 for women and 1 for men. This technically makes it a dummy variable for men, with women as the referent group. If we wanted to costruct a model that looked at how certainty of climate change varied by gender, ideology, education, income, and age, our equation would look like this:
 
@@ -75,16 +74,13 @@ In this visualization we turned off the confidence intervals to emphasize that y
 
 ### Multiple Dummy Variables
 
-Sometimes it is necessary to include multiple dummy variables in your model. This could be the case when you need to include multiple dummies that have two possible categories (like our gender variable), but it could also be the case that you need to inlcude multiple dummies to account for a variable that has multiple different options (e.g. Republican/Democrat/Independent/Other), or race, or a gender variable that includes more than two possiblities. When working with these types of dummy variables, you need to select one of the groups to be the reference group. Sometimes this is a decision driven by your theory and other times convenience. R will automatically select a reference group, but you can change it. When using dumym variables that have multiple categories, you are in essence creating a separate dummy variable for each of the groups versus the reference. For example, including political party in your model as an independent variable, with Republicans as the reference group, you would be creeating a dummy variable for Democrats (with Republicans as the 0), Independents (with Republicans as the 0), and Other (with Republicans as the zero). It is important to note that these variables are interpreted as the diffference between the reference group and each other group, but you can't interpret the other groups against each other. If you wanted to do that, you would need to change the reference category. 
+Sometimes it is necessary to include multiple dummy variables in your model. This could be the case when you need to include multiple dummies that have two possible categories (like our gender variable), but it could also be the case that you need to inlcude multiple dummies to account for a variable that has multiple different options (e.g. Republican/Democrat/Independent/Other), or race, or a gender variable that includes more than two possibilities. When working with these types of dummy variables, you need to select one of the groups to be the reference group. Sometimes this is a decision driven by your theory and other times convenience. R will automatically select a reference group, but you can change it. When using dumym variables that have multiple categories, you are in essence creating a separate dummy variable for each of the groups versus the reference. For example, including political party in your model as an independent variable, with Republicans as the reference group, you would be creeating a dummy variable for Democrats (with Republicans as the 0), Independents (with Republicans as the 0), and Other (with Republicans as the zero). It is important to note that these variables are interpreted as the diffference between the reference group and each other group, but you can't interpret the other groups against each other. If you wanted to do that, you would need to change the reference category. 
 
 Let's get into an example using political party as a dummy variable. Start by looking at a table of the factored party variable.
-
-
 
 ```{r dum5, echo=TRUE}
 table(ds.sub$f.party)
 ```
-
 
 First thing to take note of: Democrats are listed first, so they will be the reference category. The second thing to note is that, if you were to write out an equation for the regression model, you would include dummy variables for each of the other party options. In R, you can just include the factored party variable. R will read it as a factored variable and treat every party option as an independent dummy variable with Democrats as the reference category. Let's create a model based on the model we used earlier, but let's include the factored party variable as an independent variable. Due to potential multicollinearity issues, let's omit the ideology variable from the model. To make calculations simpler, we're also going to use the non-factored version of gender. Since its a binary group, this will not change any of the coefficients. 
 
@@ -158,7 +154,6 @@ ggplot(df, aes(x=party, y=cert)) +
   xlab("Political Party")
 ```
 
-
 Perhaps you noticed that our model suggests that gender also plays a role. Next we are going to breakdown the relationship by party and gender simultaneous, by creating different predictions for each gender within each party. First we will create a new model, this time including the factored gender variable:
 
 ```{r dum14, echo=TRUE}
@@ -228,8 +223,7 @@ ggplot(df2, aes(x=party2, y=cert2, fill=gend)) +
 
 ```
 
-
-It appears that there might be a difference in climate change risk of the politicla parties by gender. If we really were to test how political beliefs vary as a function of gender and are related to opinions about climate change certainty, we would need to explore interaction terms.
+It appears that there might be a difference in climate change risk of the political parties by gender. If we really were to test how political beliefs vary as a function of gender and are related to opinions about climate change certainty, we would need to explore interaction terms.
 
 ## Part II: Interactions
 
@@ -266,7 +260,6 @@ ggplot(lm4, aes(x=ideol, y=glbcc_risk, color=f.gender)) +
 
 Notice how the slopes are different for men and women. The slope is steeper for men, suggesting that there is more of an interaction for men. Let's make some predictions:
 
-
 First men:
 
 ```{r int4, echo=TRUE}
@@ -290,8 +283,7 @@ The difference between the first predicted value and the last is called the "fir
 
 Often times our theory and hypotheses dictate that we need to include an interaction between two variables when neither of them are binary. This makes the intuitive interpretation of the interaction coefficient more difficult, but nonetheless the process is still the same. Suppose you wanted to explore people's attitudes about the role of the federal government in climate change management. We can theorize that two primary predictors of these attitudes are ideology and climate change risk. Conservatives tend to be more likely to oppose federal government intervention, and someone more concerned about climate change should likely support more government management of the situation. Perhaps, though, we should include an interaction between the two variables. Let's suppose we wrote a whole research paper full of literature and theory supporting the idea that attitudes about the role of the federal government and perceived risk of climate change will be different for liberals and conservatives. We could theorize that the relationship between federal climate change management and climate change risk will be positive for everyone, with individuals perceving greater risk from climate change supporting more government management of it, but that the relationship will be weaker for conservatives, due to their general greater opposition to federal government intervention. Therefore we will specify the following hypothesis:
 
-The relationship between perceived climate change risk and support for federal government management of climate change will be positive, but conditional on ideology. The relationship will be more pronounced for liberals and less prounced for conservatives. 
-
+The relationship between perceived climate change risk and support for federal government management of climate change will be positive, but conditional on ideology. The relationship will be more pronounced for liberals and less pronounced for conservatives. 
 
 First let's take a look at the federal climate change management variable:
 
@@ -326,7 +318,6 @@ con <- predict(lm5,newdata=data.frame(ideol=(7), gender=mean(ds.sub$gender), edu
 ```
 
 Now compare them:
-
 
 Liberals:
 ```{r int11, echo=TRUE}
@@ -393,15 +384,11 @@ p7 <- data.frame(glbcc_risk=1:10, id7)
 
 Next we are going to create a color scale. This will help our visualization because we will be visualizing multiple lines. We'll create a scale with 7 values, one for each ideology score, that goes from blue (liberal) to red (conservative):
 
-
 ```{r int17, echo=TRUE}
 col_scale<-colorRampPalette(c("#0200bd50","#FF000050"))(7)
 ```
 
 Now to build the visualzation. We have been using geom_smooth(), but this time we will use geom_line(), because we already predicted the values we want to plot. Let's make this a complete visualization, including axis labels, and a title.
-
-
-
 
 ```{r int18, echo=TRUE}
 ggplot() +
@@ -420,7 +407,6 @@ ggplot() +
 ```
 
 Consider everything we've found so far. The positive interaction coefficient, the larger first difference for conservatives, and now this visualization. It is quite clear that the relationship between climate change risk and preferred level of federal climate change management is appears to be stronger for conservatives. The slopes of the lines become steeper as the idelogy score increases. This was not what we hypothesized, and therefore we cannot reject the null hypothesis. However, this is an interesting finding!
-
 
 ## Part III: Releveling Variables
 
@@ -443,14 +429,12 @@ ds$f.party2 <- factor(ds$party, levels = c(2,1,3,4), labels = c("Rep", "Dem", "I
 table(ds$f.party2)
 ```
 
-
 This is one way to go about it. This way has its merits, such as wanting to re-order every level of the variable, not just the reference group. But there is another way, one that changes the reference group onle. Using the *relevel()* function, and indicating the reference group with the *ref=* argument. Let's do so, and make Republicans the reference group:
 
 ```{r rel4, echo=TRUE}
 ds$f.party3 <- relevel(ds$f.party, ref = "Rep")
 table(ds$f.party3)
 ```
-
 
 ## Part IV: Interaction Plots
 
@@ -464,7 +448,7 @@ interplot(lm5, var1="glbcc_risk", var2 = "ideol")
 
 This plot graphs the estimated coefficient of climate change risk by ideology score. As we can see, the estimated effect of climate change risk on federal climate change management appears stronger for more conservative individuals. This is completely consistent with our earlier findings. 
 
-We can futher customize this plot, though. Instead of plotting individual estimates, we could plot a line that also visualizes the relationship. To do this we would specify *hist=T*, which plots a histogram on the bottom and a line for the estimated coefficients. Let's add titles on this plot as well:
+We can further customize this plot, though. Instead of plotting individual estimates, we could plot a line that also visualizes the relationship. To do this we would specify *hist=T*, which plots a histogram on the bottom and a line for the estimated coefficients. Let's add titles on this plot as well:
 
 ```{r ip2, echo=TRUE}
 interplot(m=lm5, var1="glbcc_risk", var2="ideol", hist=T) +
@@ -475,10 +459,3 @@ interplot(m=lm5, var1="glbcc_risk", var2="ideol", hist=T) +
 
 
 ```
-
-
-Good work!
-
-
-
-

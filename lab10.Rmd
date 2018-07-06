@@ -20,16 +20,11 @@ ds <- read.csv("Class Data Set Factored.csv")
 
 This lab will focus on addressing issues that arise with non-normality, non-linearity, and multicollinearity. We'll begin by addressing non-linearity. 
 
-## Part One: Non-linearity
-
-
-
-
+## Part I: Non-linearity
 
 ### Exploring Non-linearity
 
 With linear relationships between variables in their functional forms being one of the assumptions of OLS, we should always spend time exploring the linearity of the models we make.
-
 
 Perhaps you wanted to examine the relationship between ideology and candidate support in the 2016 presidential election. Our class data set asks respondents to indicate on a scale of 1 to 5 the level of support they have for the candidate they voted for in the 2016 presidential election. Let's build a model that regresses candidate support on ideology and relevent controls. First get your data and remove missing observations.
 
@@ -234,7 +229,7 @@ ggplot(df.cubed, aes(ideol, fit)) +
   theme_bw()
 ```
 
-## Part Two: Non-normality
+## Part II: Non-normality
 
 This section will go over the problem of non-normality and how to deal with it. One of the key assumptions of OLS is that the residuals of the model are normally ditributed. It is also important to make sure your variables are not skewed too far either negatively or positively. This examine will cover how to make sure your residuals are normally distributed, as well as how to handle greatly-skewed variables. 
 
@@ -328,7 +323,7 @@ shapiro.test(lm.trump$residuals)
 Recall that the Shapiro-Wilk test tests against the null hypothesis that the data is normally distributed. Our test result indicates that the residuals might not be normal, which is corroborated by the visualization. In a future lab we will go over one way to correct this, robust estimators. 
 
 
-## Part Three: Multicollinearity
+## Part III: Multicollinearity
 
 Multicollinearity occurs when the independent varaibles are perfectly correlated. This would render one unable to do any statistical analysis. Even though perfect multicollinearity is very rare, having highly correlated independent variables. The first way to explore potential multicollinearity is to check the correlation of the IVs. 
 
@@ -429,7 +424,7 @@ summary(mod)
 To interpret this model, we woudl say that a one unit increase in age corresponds with a 9.633 unit increase in square footage of home. Looking down at education, we would say that a one unit increase in *log income* corresponds with a 536.9 unit increase in home square footage. Practically speaking though, how large is the difference between the age increase and the log income increase? Obviously we cna see it is almost a 530 square foot difference, but when thinking about the overall distribution of the square footage variable, is that a lot? Moreover, a one unity chage in age is simply a one year change, whereas a one unity change in income is different, and the same applies to a one unit change in education.
 
 
-## Part Four: Standardizing Coefficients
+## Part IV: Standardizing Coefficients
 
 If you want to be able to compare coefficients, you need to standardize them. There are three options when standardizing:
 

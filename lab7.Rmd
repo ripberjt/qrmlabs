@@ -1,5 +1,5 @@
 ---
-title: 'Lab Seven: Bivariate Regression'
+title: 'Lab Seven: Bivariate Linear Regression'
 author:
  - Alex Davis
  - Cody Adams
@@ -40,7 +40,7 @@ Where, _y_ is the dependent variable, _i_ is the unit of analysis, $\alpha$ is t
 
 When working with samples, we develop an estimated model:
 
-$$\hat{y_i}=\hat{\alpha}+\hat{\beta} x_i$$
+$$\hat{y}=\hat{\alpha}+\hat{\beta} x$$
 
 Where, the hat implies the coefficients are estimates from data.
 

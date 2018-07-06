@@ -1,5 +1,5 @@
 ---
-title: 'Lab Eight: Multiple Linear Regression'
+title: 'Lab Eight: Multivariate Linear Regression'
 author:
  - Alex Davis
  - Cody Adams
@@ -15,12 +15,11 @@ library(memisc)
 library(stargazer)
 library(gridExtra)
 options(scipen = 999)
-setwd("~/Methods Labs")
+#setwd("~/Methods Labs")
 ds <- read.csv("Class Data Set Factored.csv")
 ```
 
-
-This lab will cover the basics of multiple linear regression. We will begin by covering the basics of working with matrices in R, then move to doing OLS regression in matrix form. After that, we will cover an introduction to multiple linear regression in R, followed by visualizing it. The following packages are required for this lab: 
+This lab covers the basics of multivariate linear regression. We begin by reviewing linear algebra to perform ordinary least squares (OLS) regression in matrix form. Then we cover an introduction to multiple linear regression and visualizations with R. The following packages are required for this lab: 
 
 1. ggplot2
 2. psych
@@ -29,222 +28,319 @@ This lab will cover the basics of multiple linear regression. We will begin by c
 5. stargazer
 6. gridExtra
 
-## Part I: Working with Matrices
+## Part I: Calculating Least-Squared Estimates
 
-### The Basics of the Matrix
+The previous lab introduced the estimated bivariate linear regression model as follows:
 
-We first need to go over some basics of matrix algebra. Matrix algebra provives the building blocks for multiple linear regression analysis, which we will learn all about throughout this lab. We will start by learning the basic parts of working with matrices. 
+$$\hat{y}=\hat{\alpha}+\hat{\beta} x$$
 
-A Matrix is a rectangular array of numbers with rows and columns, with each individual number in a matric called an element. When working with matrices, all operations performed on a matrix are performed simultaneously. To create a matrix in R, use the *matrix()* command. Take note of the syntax:
+Where $\hat{\alpha}$ and $\hat{\beta}$ are solved via the following formulas:
 
-*matrix(c(elements), #of rows, #of columns)*
+$$\hat{\alpha}=\bar{y} - \hat{\beta}\bar{x}$$
 
-Let's create a matrix called A with two rows and three columns. We'll fill it with some random values. When entering the elements of the matrix, you count down the columns, not across the rows.
+$$\hat{\beta}=\frac{cov(x,y)}{var(x)}$$
+
+In this lab we use matrix algebra to calculate the least-squared estimates. This proves useful for multivariate linear regression models where the methods introduced for bivariate regression models become more complex and computationally cumbersome to express as equations.
+
+### Matrix Algebra
+
+For multivariate regression analysis, the formulas for calculating coefficients are more easily found using matrix algebra. In this section we cover the basics of matrix algebra relevant to calculating the coefficients for an estimated linear regression model. A matrix is a rectangular array of numbers organized in rows and columns and each number within a matrix is an element. A matrix is defined as consisting of _m_ rows and _n_ columns. __Note:__ If m = n, the matrix is referred to as a square matrix.
+
+The following is a general form of a matrix:
+
+$$x_{m\times n} = \begin{bmatrix}
+    x_{11} & \dots & x_{1n} \\
+    \vdots & \ddots & \vdots \\
+    x_{m1} & \dots & x_{mn}
+\end{bmatrix}$$
+
+There are a number of operations in matrix algebra; however, this review focuses on those pertinent to solutions of the least-squared equations in multiple regression:
+
+#### Transpose of a matrix
+
+The transpose of a matrix __A__, denoted as __A'__, is obtained by interchanging the rows and columns of the ___A___ matrix:
+
+$$A = \begin{bmatrix}
+    1 & 2 & 4 \\
+    5 & 7 & 6
+\end{bmatrix}, A' = \begin{bmatrix}
+    1 & 5 \\
+    2 & 7 \\
+    4 & 5
+\end{bmatrix}$$
+
+__Note:__ The product of a matrix and its transpose is a square matrix.
+
+The _matrix()_ function in R will create a matrix object consisting of provided values in a defined number of rows and columns. The above matrix, _A_, is created as follows:
 
 ```{r mat, echo=TRUE}
-A <- matrix(c(10,-12,5,1,8,0),2,3)
+A <- matrix(c(1,2,4,5,7,6),2,3)
 A
 ```
 
-When working with matrices, you often have to transpose the matrix. When you transpose a matrix, you are make the first column become the first row, the second column become the second row, and so on and so on. We refer to a transposed matrix as the prime of the original matrix. So our matrix A transposed is A'. Let's transpose it. Simply use the *t()* function:
+Further, the _t()_ function will transpose a given matrix:
+
 
 ```{r mat2, echo=TRUE}
 Aprime <- t(A)
-```
-
-Now compare A and A':
-
-```{r mat3, echo=TRUE}
-A
 Aprime
 ```
 
-Notice how the first column in A became the first row in A', the second column in A became the second row in A', and so on? We'll come back to transposed matrices shortly.
+#### Row-column multiplication
 
-There are a variety of operations you cna perform on matrices. When you add matrices, the matrices must have the same dimensions (number of rows and columns). We have already created matrix A with two rows and three comumns, so let's create a matrix B with the same dimensions:
+Matrix multiplication is done by summing the products of the row elements in the first matrix by the column elements in the second matrix in corresponding position. This is shown in the following example:
+
+$$A = \begin{bmatrix}
+    1 & 2 & 4 \\
+    5 & 7 & 6
+\end{bmatrix} \times A' = \begin{bmatrix}
+    1 & 5 \\
+    2 & 7 \\
+    4 & 5
+\end{bmatrix} = \begin{bmatrix}
+    1*1+2*2+4*4 & 1*5+2*7+4*6 \\
+    5*1+7*2+6*4 & 5*5+7*7+6*6
+\end{bmatrix} = \begin{bmatrix}
+    21 & 43 \\
+    43 & 110
+\end{bmatrix}$$
+
+Similarly, the product of matrices can be calculated in R using the %\*% operator:
+
+```{r mat3, echo=TRUE}
+AxAprime <- A%*%Aprime
+AxAprime
+```
+
+__Note:__ Not all matrices can be multiplied. The number of columns in the first matrix must equal the number of columns in the second matrix. Further, unlike ordinary algebra multiplication, matrix multiplication is NOT commutative (order of operands matter). In the previous example we were able to find the product of A and A', because the number of columns in A (3) is equal to the number of rows in A' (3). Suppose we wanted the product of A' and B, where B is defined as the following matrix:
+
+$$B = \begin{bmatrix}
+    1 & 2 & 3\\
+    2 & 6 & 4 \\
+    4 & 5 & 6
+\end{bmatrix}$$
+
+We are unable to find the product of AB because the number of columns in A' (2) does not equal the number of rows in B (3). We are able to find the product of BA' as follows:
+
+$$ A' \times B = \begin{bmatrix}
+    1 & 2 & 4 \\
+    5 & 7 & 6
+\end{bmatrix} \times \begin{bmatrix}
+    1 & 2 & 3\\
+    2 & 6 & 4 \\
+    4 & 5 & 6
+\end{bmatrix} = \begin{bmatrix}
+    21 & 34 & 35 \\
+    42 & 82 & 79
+\end{bmatrix}$$
+
+Or, in R:
 
 ```{r mat4, echo=TRUE}
-B <- matrix(c(6,2,8,4,7,2),2,3)
+B <- matrix(c(1,2,3,2,6,4,4,5,6),2,3)
+BxAprime <- B%*%Aprime
+BxAprime
 ```
 
-When adding matrices, you add each element in A to its corresponding element in B. R does this for us when we tell it to add the matrices together:
+In ordinary algebra, 1 is the identity element, whereby any number multiplied by 1 returns that number:
+
+$$ 5 \times 1 = 5$$
+
+Similarly, there exists an identity element in matrix algebra, denoted by the symbol _I_. The identity matrix is a square matrix with a 1 in the same pattern, regardless of size:
+$$I_{1\times1}=\begin{bmatrix} 1 \end{bmatrix}, I_{2\times2}=\begin{bmatrix}1 & 0 \\ 0 & 1\end{bmatrix}, I_{3\times3} = \begin{bmatrix} 1 & 0 & 0 \\ 0 & 1 & 0 \\ 0 & 0 & 1 \end{bmatrix}$$
+
+The following demonstrates the identity property for matrices:
 
 ```{r mat5, echo=TRUE}
-AplusB <- A+B
-AplusB
+I <- matrix(c(1,0,0,0,1,0,0,0,1),3,3)
+AI <- A %*% I
+AI
+A
 ```
 
-Multiplying matrices is a little more complicated. To multiple two matrices, they must be conformable, which means the number of columns in the first matrix must equal the number of rows in the second. The two matrices we already created are not conformable, so let's create two new ones, C and D. C will have 2 rows and 3 columns and D will have 3 rows and 2 columns:
+Lastly, the reciprocal of A is known as the inverse matrix, denoted as $A^{-1}$. In ordinary algebra, the product of a number and its reciprocal is 1. In matrix algebra, the product of a matrix and its inverse is the identity matrix. $AA^{-1}=A^{-1}A=I$ __Note:__ Inverse matrices only exist for square matrices, and not all square matrices possess inverses. The inverse of a matrix can be found via the _solve()_ function as follows:
 
 ```{r mat6, echo=TRUE}
-C <- matrix(c(2,1,6,5,0,-2),3,2)
-D <- matrix(c(4,5,2,7,1,2),2,3)
-C
-D
+A.inv <- solve(AxAprime)
+A.inv
 ```
 
-When multiplying matrices, you multiple the first element of the first column in A by the first element of the first row in B and add them, then move onto the second elements, and so on. Fortunately R does this for us with the %*% command:
-
+The following R example demonstrates _I_ as the product of $AA^{-1}$:
 
 ```{r mat7, echo=TRUE}
-CxD <- C %*% D
-CxD
+Aident = A.inv %*%  A
+Aident
 ```
 
-You might have realized that transposing a matrix creates a conformable version of that matrix. This is in essence how to square a matrix. You multiple the matrix by the transposed version of the matrix. Let's transponse matrix C and then square it by multiplying it by its prime:
+### Representing System of Linear Equations as Matrices
+
+The previous lab introduced the estimated bivariate linear regression model as follows:
+
+$$\hat{y_i}=\hat{\alpha}+\hat{\beta} x_i$$
+
+Where $\hat{\alpha}$ anf $\hat{\beta}$ could be solved via the following formulas:
+
+$$\hat{\alpha}=\bar{y} - \hat{\beta}\bar{x}$$
+
+$$\hat{\beta}=\frac{cov(x,y)}{var(x)}$$
+
+In this lab we demonstrate how to use matrix algebra to calculate the least-squared estimates. For bivariate linear regression, the above formulas and matrix algebra will produce the same result; however, for multivariate linear regression the underlying methods that develop the above formulas become computationally complex such that matrix algebra is the preferred method to calculate the coefficients. 
+
+Using bivariate regression we explored hypotheses related to how preference for renewable energy is a function of ideology. Sometimes the dependent variable (_y_) is not easily explainable via a single independent variable (_x_), but rather multiple independent variables ($x_0, x_1, ..., x_n$). We can modify the bivariate regression model to append the additional variables of interest, as follows:
+
+ __Note:__ The $\alpha$ intercept coefficient is replaced with $\beta_0$.
+
+$$y_i=\beta_0+\sum^n_{j=1}{\beta_j x_{ij}}+\varepsilon_i$$
+
+Where, n is the number of independent variables, $\beta_0$ is the regression intercept, and $\beta_j$ is the slope for the $j^{th}$ variable. The above model is the general form of a regression model, and as such, will work for bivariate and multivariate models. If $n=1$, the model is exactly the same as the model stated in the textbook and previous lab.
+
+Using this model we can imagine collected data as a system of linear equations. To demonstrate, suppose we collected the following data:
 
 ```{r mat8, echo=TRUE}
-Cprime <- t(C)
-Csquared <- C %*% Cprime
-Csquared
+ex.ds <- data.frame(x = c(1,2,3,4,5), y = c(1,1,2,2,4))
+ex.ds
 ```
 
-In matrix algebra there is also something called the *identity matrix*. The identity matrix is a square matrix with 1s on the diagonal and 0s elsewhere. In essence, it acts like a 1 in algebra. In algebra, anything multiplied by 1 is itself. In matrix algebra, a matrix multiplied by its identity matrix is itself. For example:
+Using the linear regression model above, we can state the data as a system of linear equations:
 
-```{r mat9, echo=TRUE}
-E <- matrix(c(5,2,8,1),2,2)
-E
-I <- matrix(c(1,0,0,1),2,2)
-I
-E %*% I
-```
+$$1 = \beta_0 + \beta_1 * 1$$
+$$1 = \beta_0 + \beta_1 * 2$$
+$$2 = \beta_0 + \beta_1 * 3$$
+$$2 = \beta_0 + \beta_1 * 4$$
+$$4 = \beta_0 + \beta_1 * 5$$
 
-An understanding of the identity matrix is needed to understand how to work with matrix inversion. The matrix inversion operates similar to the process of dividing a number by itself in algebra. A matrix multiplied by its inverse if equal to the identity matrix. **This is only applicable to square matrices**. The notation for an inverse matrix:
+Given we are working with two variables, _x_ and _y_, our _n_ is 1, so we are working with the bivariate linear regression model. Now, we can use ordinary algebra to solve for $\beta_0$ and $\beta_1$. To do so, we will solve for one variable, then solve for the other. Given our system consists of 5 linear equations, the ordinary algebra approach is not practical.
 
-$$A^{-1}$$
+This is where matrix algebra is useful. The general regression model can be expressed in the following matrix form, where we capitalize variables to represent matrices:
 
-Therefore a matrix A multipled by its inverse is equal to the identity matrix, like this:
+$$Y=X\beta_1+\varepsilon$$
 
-$$A^{-1}A = I$$
+The system of linear equations can be converted into the following matrices:
 
-To actually solve for the inverse matrix by hand requires a lot of matrix algebra, which the book details richly. Fortunately, we can find the inverve matrix in R using the *solve()* function. We need to create a new matrix that is square. 
+$$Y = \begin{bmatrix}1 \\ 1 \\ 2 \\ 2 \\ 4\end{bmatrix}, X = \begin{bmatrix}1 & 1 \\ 1 & 2 \\ 1 & 3 \\ 1 & 4 \\ 1 & 5\end{bmatrix}, and \beta = \begin{bmatrix}\beta_0 \\ \beta_1\end{bmatrix}$$
 
-```{r mat10, echo=TRUE}
-M <- matrix(c(3,2,1,4),2,2)
-M
-```
-
-Now find the inverse of M:
-
-```{r mat11, echo=TRUE}
-M.inv <- solve(M)
-M.inv
-```
-
-Now to show that a matrix multiplied by its inverse is equal to the identity matrix:
-
-```{r mat12, echo=TRUE}
-M %*% M.inv
-```
+__Note:__ The first column of the X matrix is always 1. 
 
 ### OLS Regression and Matrices
 
-Recall the scalar formula for multiple linear regression:
+With data expressed in matrix form, we then use matrix algebra to calculate the least-squared estimates. The least-squared estimates formula is:
 
-$$Y= A + BX_1 + BX_2 + BX_3 + E$$
-When working in matrix notation, the formula is shortened:
+$$\hat{\beta}=(X'X)^{-1}X'Y$$
 
-$$y=Xb + e$$
-Therefore the formula for e:
+Using the matrices formed from the system of linear equations, we demonstrate calculating the least-squared estimates using R:
 
-$$e=y-Xb$$
-Just like in bivariate regression, the aim in multiple linear regression is to minimize the sum of squared errors. If the error matrix is e, then the sum of squared errors would be the sum of e'e. The book provides a very thorough mathematical proof, but in essence we want to find the b that minimizes the sum of squared errors. Through a great proof that can be found in Chapter 11, the formular to find this b is
-
-$$b=(X'X)^{-1}X'y$$
-
-We can solve this by hand in R! We need to create two matrices right now, X and y:
 
 ```{r ols, echo=TRUE}
-y <- matrix(c(6,11,4,3,5,9,10),7,1)
-y
-X <- matrix(c(1,1,1,1,1,1,1,4,7,2,1,3,7,8,5,2,6,9,4,3,2,4,3,4,6,5,4,5),7,4)
+Y <- matrix(c(1,1,2,2,4),5,1)
+Y
+X <- matrix(c(1,1,1,1,1,1,2,3,4,5),5,2)
 X
 ```
 
-Now we need to find X'. Recall that to do this, we need to transpose X:
+Now we need to find X' with the _t()_ function:
 
 ```{r ols2, echo=TRUE}
 Xprime <- t(X)
 Xprime
 ```
 
-Next we have to calculate (X'X):
+Next calculate (X'X):
 
 ```{r ols3, echo=TRUE}
 XprimeX <- Xprime%*%X
 XprimeX
 ```
 
-Now to find the inverse of (X'X):
+Now find the inverse of (X'X):
 
 ```{r ols4, echo=TRUE}
 XprimeXinv <- solve(XprimeX)
 XprimeXinv
 ```
 
-Remember the formula we are solving:
-
-$$b=(X'X)^{-1}X'y$$
-We have calculated the inverse of (X'X), so not we need to multiply it by X':
+Multiply $(X'X)^{-1}$ by $X'$:
 
 ```{r ols5, echo=TRUE}
 XprimeXinvXprime <- XprimeXinv%*%Xprime
 XprimeXinvXprime
 ```
 
-The final step is to multiple by y to find b:
+Now multiply by Y to find $\hat{\beta}$:
 
 ```{r ols6, echo=TRUE}
-b <- XprimeXinvXprime %*% y
+b <- XprimeXinvXprime %*% Y
 b
 ```
 
-So what did we just do? We just calculated a matrix of regression coefficients by hand! Based on our regression coefficients, let's calculate some predicted y values. Recall the formula:
-
-$$\hat{y}=Xb$$
-
-We already have everything we need to calculate a matrix of predicted y values:
+We read this matrix as $\beta_0$ is the first position and $\beta_1$ is the following position. __Note:__ We could just as easily used the method introduced in the last lab. The following R code demonstrates the equivalence:
 
 ```{r ols7, echo=TRUE}
-y.hat <- X %*% b
-y.hat
+df <- data.frame(x = c(1,2,3,4,5), y = c(1,1,2,2,4))
+covar <- cov(df$x, df$y)
+vari <- var(df$x)
+bhat <- covar/vari
+xbar <- mean(df$x)
+ybar <- mean(df$y)
+alpha <- ybar-bhat*xbar
+
+alpha
+bhat
 ```
 
-Now to calculate the vector of residuals. Rememeber that the residual is the distance beetween the actual observation and the predicted observation, so we substract the predicted values of y from the observed values of y:
+__Note:__ In the previous code block, _alpha_ is $\beta_0$ and _bhat_ is $\beta_1$.
 
-```{r ols8, echo=TRUE}
-e <- y - y.hat
-e
-```
+With the coefficients calculated, our estimated linear regression model is:
 
-Just like that, we've done multiple linaer regression by hand. Let's check our work. Just like in bivariate regression, use the *lm()* function:
+$$\hat{y}=-0.10+0.70x$$
 
-```{r ols9, echo=TRUE}
-ols <- lm(y ~ 0 + X)
+Let's check our work using the _lm()_ function:
+
+```{r ols10, echo=TRUE}
+ols <- lm(Y ~ 0 + X)
 ols
 b
 ```
 
+The previous example demonstrated calculating least-squared estimates for a bivariate regression model. Next is an example using matrix algebra to calculate the least-squared estimates for a multivariate linear regression model.
 
-Looks like our b matrix is correct. Now let's check the predicted values:
-
-```{r ols10, echo=TRUE}
-ols$fitted.values
-y.hat
-```
-
-Right again! Now to look at the residuals:
+Suppose we have the following data set:
 
 ```{r ols11, echo=TRUE}
-ols$residuals
-e
+mv.df <- data.frame(y = c(1,1,2,2,4), x1 = c(1,2,3,4,5), x2 = c(1,2,2,4,3))
+mv.df
 ```
 
-Excellent work. Now that we've covered the basics of matrices and OLS regression in matrix form, let's move onto learrning how to utilize R to efficiently do multiple linear regression analysis.
+The system of linear equations is:
+
+$1 = \beta_0 + \beta_1 * 1 + \beta_2 * 1$
+$1 = \beta_0 + \beta_1 * 2 + \beta_2 * 2$
+$2 = \beta_0 + \beta_1 * 3 + \beta_2 * 2$
+$2 = \beta_0 + \beta_1 * 4 + \beta_2 * 4$
+$4 = \beta_0 + \beta_1 * 5 + \beta_2 * 3$
+
+Converted to matrix form:
+
+$\begin{bmatrix}1 & 1 & 1 \\ 1 & 2 & 2 \\ 1 & 3 & 2 \\ 1 & 4 & 4 \\ 1 & 5 & 3 \end{bmatrix} \times \begin{bmatrix}\beta_0 \\ \beta_1 \\ \beta_2\end{bmatrix} = \begin{bmatrix}1\\1\\2\\2\\4\end{bmatrix}$
+
+We will use R to find the least-squared coefficients. Note that calculating Bhat in R has been reduced to a single line:
+
+```{r ols12, echo=TRUE}
+Y = matrix(c(1,2,2,4,4), 5, 1)
+X = matrix(c(1,1,1,1,1,1,2,3,4,5,1,2,2,4,3), 5, 3)
+Bhat = (solve((t(X) %*% X))) %*% (t(X) %*% Y)
+Bhat
+```
+
+Again, we check our work using the _lm()_ function:
+
+```{r ols13, echo=TRUE}
+ols <- lm(Y ~ 0 + X)
+ols
+```
 
 ## Part II: Multiple Regression in R
 
-The R syntax for multiple linear regression is similar to what we used for bivariate regression. Essentially you add independent variables to the *lm()* function. Let's construct a model that looks at climate change certainty as the dependent variable and age and ideology as the independent variables:
+The R syntax for multiple linear regression is similar to what we used for bivariate regression: add the independent variables to the _lm()_ function. Construct a model that looks at climate change certainty as the dependent variable with age and ideology as the independent variables:
 
 ```{r mlr, echo=TRUE}
 sub.ds <- subset(ds, select = c("glbcc_cert", "ideol", "age"))
@@ -258,7 +354,7 @@ Now look at the model:
 summary(model1)
 ```
 
-Before really understanding what these results tell us, we need to understand partial effects. Chapter 12 of the textbook goes into partial effects in great depth, so make sure you've read that. Essentially, multiple regression "controls" for the effects of other dependent variables when reporting the effect of one particular variable. This is not accidental. If multiple regression were not calculated in such a way, we would not be able to tease out the effects of variables without not knowing if the effect is actually caused by another variable. Let's explore this for our model. First construct a bivairate regression model for each of the independent variables in our multiple regression model:
+Before interpreting these results, we need to review partial effects. Chapter 12 of the textbook discusses partial effects in great detail. Essentially, multivariate regression "controls" for the effects of other dependent variables when reporting the effect of one particular variable. This is not accidental. Explore this for our model. First construct a bivariate regression model for each of independent variable in the multivariate regression model:
 
 ```{r mlr3, echo=TRUE}
 model2 <- lm(sub.ds$glbcc_cert ~ sub.ds$ideol)
@@ -266,30 +362,29 @@ model3 <- lm(sub.ds$glbcc_cert ~ sub.ds$age)
 mtable(model2, model3)
 ```
 
-Notice how the ideology coefficient in the bivariate model is larger than the ideology coefficient in the multiple regression model. The same is also true for the age variable. This is because the bivariate model reports the total effects of X on Y, but the multiple regression model reports the effects of X on Y when "controlling" for the other Xs. Let's look at the multiple regression model again:
+Notice the ideology coefficient in the bivariate model is larger than the ideology coefficient in the multivariate regression model. The same is also true for the age variable. This is because the bivariate model reports the total effects of X on Y, but the multivariate regression model reports the effects of X on Y when "controlling" for the other independent variables. Look at the multivariate regression model again:
 
 ```{r mlr4, echo=TRUE}
 summary(model1)
 ```
 
-To interpret these results, we would say that a one unit increase in ideology corresponds with a -0.392 unit decrease in climate change certainty, with all other variables held constant at their means. This is significant, as well. Given the large p value of the age coefficient, we would report that the partial effect of age on climate change certainty is not statisticially significant. You  might have noticed that the p value for the age coefficient was much smaller  
-in the bivariate model. Age lost its statistical significance when we included ideology. This is a good example of why, in most cases, multiple regression will give you a clearer picture of a relationship. Only looking at age and climate change risk, we could potentially conlcude that there is a significant relationship. However, when we include ideology in the model, it becomes clear that ideology is the actual cause of the change in climate change certainty.
+To interpret these results: a one unit increase in ideology corresponds with a -0.392 unit decrease in climate change certainty with all other variables held constant at their means. Further, given the p-value < $\alpha$ = 0.05, the change in climate change certainty is statistically significant. Further, assessing the p-value of the age coefficient yields that the partial effect of age on climate change certainty is not statistically significant. You may have noticed a difference in the p-value for the age variable's coefficient between the bivariate and multivariate regression models. This is due to the reduction in error in the model by adding the ideology variable. This is a good example of why, in most cases, multivariate regression provides a clearer picture of relationships. Only looking at age and climate change risk, we could potentially conclude that there is a statistically significant relationship; however, when appending ideology to model, we find that ideology is the more likely cause of change in climate change certainty.
 
-## Part III: Hypothesis Testing with Multiple Regression
+## Part III: Hypothesis Testing with Multivariate Regression
 
-Perhaps we wanted to explore the relationship between people's opinions about fossil fuels and ideology. Our class data set includes a question asking respondents what percentage of Oklahoma's electrcity should come from fossil fuels. It is reasonable to posit that more conservative individuals will want a higher percentage of the state's electricty to come from fossil fuels. For this test, we are going to include other indendentr variables, like age, income, and education. Let's establish a hypothesis that the more conservative a respondent is, the more electricity they want to come from fossil fuels, all other variables held constant. The null hypothesis is that there is not difference in preferred percentage of electricity coming from fossil fuels by ideology. First we need to look at our variables:
+Perhaps we want to explore the relationship between opinions about fossil fuels and ideology. The class data set includes a question asking respondents what percentage of Oklahoma's electricity should come from fossil fuels. It is reasonable to posit that more conservative individuals will want a higher percentage of the state's electricity to come from fossil fuels. For this test, we include other independent variables: age, income, and education. We establish a hypothesis that the more conservative a respondent is, the more electricity they want to come from fossil fuels, all other variables held constant. The null hypothesis is that there is no difference in preferred percentage of electricity coming from fossil fuels by ideology. First we look at our variables:
 
 ```{r mlr5, echo=TRUE}
 str(ds$okelec_foss)
 ```
 
-Notice that R reads the fossil fuels variable as a factor. We need to change this to a numeric variable. We will coerce it and create a new variable:
+Notice that R reads the fossil fuels variable as a factor. We change this to a numeric variable. We coerce it and create a new variable:
 
 ```{r mlr6, echo=TRUE}
 ds$foss <- as.numeric(ds$okelec_foss)
 ```
 
-Now let's look at all our variables. First we will create a subset of the data and remove missing observations, then use the *describe()* function:
+Now let's look at all the variables. First we create a subset of the data and remove missing observations, then use the _describe()_ function:
 
 ```{r mlr7, echo=TRUE}
 ds.sub <- subset(ds, select = c("income", "education", "ideol", "foss", "age"))
@@ -306,7 +401,7 @@ Now construct the model:
 model <- lm(foss ~ income + education + age + ideol, data = ds.sub)
 ```
 
-Note the different syntaax in constructing this model. Instead of writing *dataset$variable* every time, you can write the variable names, and at the end of the model include *data=dataset*. 
+Note the different syntax in constructing this model. Instead of writing _dataset$variable_ every time, you can write the variable names, and at the end of the model include _data=dataset_. 
 
 Now examine the model:
 
@@ -314,13 +409,13 @@ Now examine the model:
 summary(model)
 ```
 
-To interpret these results, let's start with the intercept. In a regression model, the intercept is the expexted mean of our dependent variable when our independent variables are 0. In this case the expected mean is 5.83. Now examine the variable that our hypothesis is concerned with, ideology. Looking at the ideology variable, we can see that there is a statistically significant coefficient of 3.07. We can interpret this by saying that a one unit increase in ideology (from liberal to conservative) corresponds with a 3.07 unit increase in preferred percentage of electricty coming from fossil fuels, all other variables held constant. There are also significant relationships for age and income, suggesting an increase in those correspond with an increase in the dependent variable as well. The adjusted R squared vlue of .15 suggests that our model accounts for about 15 percent of the variation in the dependent variable. 
+To interpret these results, we start with the intercept. In a regression model, the intercept is the expected mean of our dependent variable when our independent variables are 0. In this case the expected mean is 5.83. In some models this has meaning; however, given none of our independent variables adopt a zero value, this provides minimal value to interpretation. Now examine the variable that the hypothesis is concerned with: ideology. We see there is a statistically significant coefficient of 3.07. We interpret this by saying that a one unit increase in ideology (from liberal to conservative) corresponds with a 3.07 unit increase in preferred percentage of electricity coming from fossil fuels, all other variables held constant. There are also statistically significant relationships for age and income, suggesting an increase in those correspond with an increase in the dependent variable as well. The adjusted R squared value of .15 suggests that our model accounts for 15 percent of the variability in the dependent variable. 
 
-As is almost always the case, we need to visualize the model. Visualizing multiple linear regression isn't as simple as visualizing bivariate relationships. There is no intuitive way for us to visualize, in one graphic, how all of these variables look while all others are held constant simultaneously. For a relationship with one dependent variable and two independent variables, we can make a three dimensional scatterplot and regression plane. However, these still don't provide a very intuitive visualization. 
+Next we need to visualize the model. Visualizing multiple linear regression is not as simple as visualizing bivariate relationships. There is no intuitive way for us to visualize, in one graphic, how all of these variables look while all others are held constant simultaneously. For a relationship with one dependent variable and two independent variables, we can make a three dimensional scatter plot and regression plane; however, these still don't provide a very intuitive visualization. 
 
-### Visualizing Multiple Linear Regression
+### Visualizing Multivariate Linear Regression
 
-The best way to visualize multiple linear regression is to create a visualization for each independent variable while holding the other independent variables constant. Doing this allows us to see how each relationship between the DV and IV looks. Constructing each graph in GGplot is essentially the same as going so for bivariate regression. Specify the data source (in this case the model itself), then the variables in the aesthetic (x,y), then use *geom_smooth(method="lm")* to construct a regression line. We'll use the *grid.arrange()* function to put each visualization in a grid together. 
+The best way to visualize multiple linear regression is to create a visualization for each independent variable while holding the other independent variables constant. Doing this allows us to see how each relationship between the DV and IV looks. Constructing each graph in _ggplot2_ is essentially the same as for bivariate linear regression.
 
 ```{r mlr10, echo=TRUE}
 id <-ggplot(model, aes(ideol,foss)) + # Ideology visualization
@@ -334,9 +429,9 @@ inc <- ggplot(model, aes(income,foss)) + # Income visualization
 grid.arrange(id,age,educ,inc)
 ```
 
-Now we can see the general relationship between each independent variable and the dependent variable. The *geom_smooth()* function defaults to showing 95% confidence intervals. You can technically turn them off with the *se=FALSE* argument, but that is not recommended. Notice the very large confidence interval in the income visualization, especially at the higher income levels. This happens because there are fewer observations with verg high incomes. A smaller sample size leads to a larger standard error, and in turn larger confidence intervals. 
+Now we can see the general relationship between each independent variable and the dependent variable. The _geom_smooth()_ function defaults to showing 95% confidence intervals. You can disable the confidence intervals with the _se=FALSE_ argument, but that is not recommended. Notice the very large confidence interval in the income visualization, especially at the higher income levels. This happens because there are fewer observations with very high incomes. A smaller sample size leads to a larger standard error, and in turn larger confidence intervals. 
 
-Recall that our hypothesis stated that the more conservative a respondent, the more electricty they will prefer comes from fossil fuels. We can safely reject the null hypothsis, given the clear relationship and overall evidence that there is a positive relationship. Let's build a solid, paper-worthy visualization of the relationship betweeen ideology and opinions on fossil fuels from our model.
+Recall that the hypothesis stated that the more conservative a respondent, the more electricity they will prefer comes from fossil fuels. We can safely reject the null hypothesis, given the clear relationship and overall evidence that there is a positive relationship. Let's build a solid, paper-worthy visualization of the relationship between ideology and opinions on fossil fuels from our model.
 
 ```{r mlr11, echo=TRUE}
 
@@ -357,60 +452,59 @@ ggplot(model, aes(ideol,foss)) +
 
 Regression analysis is performed not only to explain relationships, but also to predict. In R, we can use the model we built to predict values of the dependent variable based on the values of the independent variables. Doing so is rather simple. Recall that our model attempts to explain how much of the state's electricity a respondent thinks should come from fossil fuels as a function of their ideology, age, education, and income. 
 
-To start predicting, first we need to identify what values we want to assign to our independent variables. Perhaps you wanted to know the preferred percentage of energy coming from fossil fuels for an individual with a bachelor's degree, an income of 45000, 40 years old, and a moderate (3) ideology. First we need to know the beta coefficients for each variable:
+To start predicting, we need to identify what values we want to assign to our independent variables. Perhaps you wanted to know the preferred percentage of energy coming from fossil fuels for an individual with a bachelor's degree, an income of 45000, 40 years old, and a moderate (3) ideology. First we need to know the beta coefficients for each variable:
 
 ```{r predict, echo=TRUE}
 coef(model)
 ```
 
-
 Now recall the scalar formula for multiple linear regression:
 
-$$\hat{Y}_= A + BX_1 + BX_2 + BX_3 + E$$
+$$\hat{y} = \hat{\beta_0} + \hat{\beta_1}x_1 + \hat{\beta_2}x_2 + \hat{\beta_3}x_3$$
 
 Therefore for our model, the formula would be
 
-$$Y= \alpha + \beta_{income} + \beta_{educ} + \beta_{age} + \beta_{ideol} + \epsilon$$
-To find predicted values, the method is rather simple. Multiply each coefficient by the value we specified for each independent variable, add them together, and add the intercept value. Note that for a bachelor's degree, the value of the education variable is 6. 
+$$\hat{y} = \beta_{intercept} + \beta_{income} + \beta_{educ} + \beta_{age} + \beta_{ideol}$$
+
+__Note:__ For a bachelor's degree, the value of the education variable is 6. 
 
 ```{r predict2, echo=TRUE}
 (5.83 + (.000014*(45000)) + (-.19*(6)) + (.19*(40)) + (3.07*(3)))
 ```
 
-Based on our calculation, an individual with out specification is predicted to think that about 22% of the state's electricity should come from fossil fuels. There is a more precise way to do this calculation, as is often the case. Using the *predict()* function, we can tell R to return predicted values based on specifications of variable values. 
+Based on the calculation, an predicted result is 22% of the state's electricity should come from fossil fuels. There is a more precise way to do this calculation, as is often the case. Using the _predict()_ function, we can tell R to return predicted values based on specifications of variable values. 
 
 ```{r predict3, echo=TRUE}
 predict(model, newdata = data.frame(ideol=3, income=45000, education=6, age=40))
 ```
 
-Notice our original estimate is a little off. This is because we rounded. However, the numbers are very similar!
+__Note:__ The original estimate is a little off due to rounding.
 
-We can use the *predict()* function to find more than one value at a time. If we use the *seq()* argument, we can tell R to predict values for a sequence of values:
+The _predict()_ function can return multiple values at a time. If we use the _seq()_ argument, we can tell R to predict values for a sequence of values:
 
 ```{r predict4, echo=TRUE}
 predict(model, newdata = data.frame(ideol=seq(1:7), income=45000, education=5, age=45))
 ```
 
-We've been specifying values for the income, education, and age variables that are not the means. However, it is often appropriate to predict values when all other variables are held constant at their means. We can use the *predict()* function for this too!
+We've specified values for income, education, and age variables that are not the means. However, it is often appropriate to predict values when all other variables are held constant at their means. We can use the _predict()_ function for this too!
 
 ```{r predict5, echo=TRUE}
-p <- predict(model, newdata = data.frame(ideol=seq(1:7), income=mean(ds.sub$income, na.rm = T), education=mean(ds.sub$education, na.rm = T),
-                                    age=mean(ds.sub$age, na.rm = T)), se.fit = T)
+p <- predict(model, newdata = data.frame(ideol=seq(1:7), income=mean(ds.sub$income, na.rm = T), education=mean(ds.sub$education, na.rm = T),                                  age=mean(ds.sub$age, na.rm = T)), se.fit = T)
 p
 ```
 
-For a moment we'll switch to using base visualizations to make a connection between the prediction line we make earlier and the values we just calculated. Let's say we wanted to plot a line with the predicted values above. We can use the *plot()* function and the *lines()* function to do so.
+For a moment we switch to using base visualizations to make a connection between the prediction line we make earlier and the values we just calculated. Suppose we wanted to plot a line with the predicted values above. We can use the _plot()_ function and the _lines()_ function to do so.
 
 ```{r predict6, echo=TRUE}
 plot(ds.sub$foss~ds.sub$ideol)
 lines(p$fit~seq(1,7,1))
 ```
 
-Now scroll up and look at our earlier visualization. Notice that the lines are the same. By plotting the values we predicted, we did what GGplot does for us. When we calculate predicted values with all other variables held constant, we are creating points in a prediction line.
+Now scroll up and look at the earlier visualization. Notice that the lines are the same. By plotting the values we predicted, we did what _ggplot2_ does for us. When we calculate predicted values with all other variables held constant, we are creating points in a prediction line.
 
-When we use GGplot, we normally end up having confidence intervals around the prediction line. Let's take the long way in making confidence inetervals so you get a better sense of what is going on when GGplot makes them for us. Recall that confidence intervals are calculated using t scores (or z scores, depending on the distribution) and standard errors. When working with the t distribution like we are, we default to 95% confidence intervals, which is derived from a t score of 1.96. Earlier in the *predict()* function that gave us our values, we included the *se.fit=T* argument. This calculated standard errors for the points as well. To calculate the confidence interval for each point, we sinply need to add the predicted value to 1.96 multiplied by the standard error for that point.
+When we use _ggplot2_, we have confidence intervals around the prediction line. Let's take the long way in making confidence intervals so you get a better sense of what is going on when _ggplot2_ makes them for us. Recall that confidence intervals are calculated using t-scores (or z-scores, depending on the distribution) and standard errors. When working with the Student's t distribution, we default to 95% confidence intervals, which is derived from a t-score of 1.96. Earlier in the _predict()_ function that gave us our values, we included the _se.fit=T_ argument. This calculated standard errors for the points as well. To calculate the confidence interval for each point, we need to add the predicted value to 1.96 multiplied by the standard error for that point.
 
-We can visualize confidence intervals using the *polygon()* function, in which we rell R to make a polygon up to a point and then reverse it from that point, and include the values of the confidence intervals.  
+We visualize confidence intervals using the _polygon()_ function, which instructs R to make a polygon up to a point and then reverse it from that point, and include the values of the confidence intervals.  
 
 ```{r predict7, echo=TRUE}
 plot(ds.sub$foss~ds.sub$ideol)
@@ -418,15 +512,3 @@ lines(p$fit~seq(1,7,1), col="red", lwd=2)
 polygon(c(seq(1,7,1), rev(seq(1,7,1))), c(p$fit+1.96*p$se.fit, rev(p$fit-1.96*p$se.fit)), col = "#0052d250", border = FALSE )
 
 ```
-
-Creating confidence intervals for a regression line is simply a matter of calculating the confidence intervals for each point, based on the standard error for each point. Fortunately GGplot does this for us, but it is important to understand the calculations behind it. 
-
-
-
-
-
-
-
-
-
-

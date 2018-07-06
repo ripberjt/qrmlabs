@@ -25,7 +25,7 @@ options(scipen = 999)
 
 This lab will help us understand how to diagnose and address potential problems in OLS regression. In the last lab, we addressed the OLS assumptions of normality of residuals, linearity, and multicollinearity. This lab will address how to deal with outliers and heteroscedasticity, but it will also provide a refresher on exploring and visualizing your data. 
 
-## Part One: Introduction to the Data
+## Part I: Introduction to the Data
 
 For this lab we will use a data set that contains information on movies from the IMDB website. The initial data set contains almost 60,000 observations, so let's subset the data to make it a little smaller:
 
@@ -117,7 +117,7 @@ ggplotly(budget)
 ```
 
 
-## Part Two: Outliers
+## Part II: Outliers
 
 The next step is to construct the model.
 
@@ -255,7 +255,7 @@ stargazer(fit1, fit.omit, fit.m, fit.mm, type="text",single.row=TRUE)
 
 The biggest difference here is that the residual standard error for the robust models is quite a bit lower. There are also some differences in the coefficients. When dealing with outliers, there is not a one-size-fits-all solution. Let your theory contribute to what solution you use. 
 
-## Part Three: Heteroskedasticity
+## Part III: Heteroskedasticity
 
 One of the key assumptions of OLS is homoskedasticity, constant error variance. One way to check for this is by making a spread level plot, which allows us to see the spread of the residuals:
 
@@ -283,7 +283,7 @@ Now let's compare the original model to the model using robust standard errors. 
 stargazer(fit1,fit1,type="text",single.row=TRUE,se=list(se.fit1,rse.fit1))
 ```
 
-## Part Four: Revisiting Linearity
+## Part IV: Revisiting Linearity
 
 Let's revisit addressing the assumption of linearity. Let's construct the residual plots that we made in the last lab. We need to predict values of Y and add that to the data set, add the residuals to thedata set, melt the data and select the IVs, and predicted values, then use *ggplot()* and *facet_wrap()* to make the plots:
 
@@ -440,10 +440,3 @@ ggplot(df.budget, aes(budget_1m, fit)) +
   theme_bw()
   
 ```
-
-
-
-
-
-
-
