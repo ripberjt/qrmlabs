@@ -1,6 +1,8 @@
 ---
 title: 'Lab Ten: Non-normality, Non-linearity, and Multicollinearity'
-author: "Alex Davis"
+author:
+ - Alex Davis
+ - Cody Adams
 output: pdf_document
 ---
 
@@ -14,7 +16,7 @@ library(stargazer)
 library(gridExtra)
 library(reshape2)
 options(scipen = 999)
-setwd("~/Methods Labs")
+#setwd("~/Methods Labs")
 ds <- read.csv("Class Data Set Factored.csv")
 ```
 
@@ -46,7 +48,6 @@ table(sub$vote_cand_spt)
 ```
 
 We can see that the mode is 3, a response that indicates a moderate amount of support for the candidate the respondent voted for. We can also tell that there is a negative skew, beacuse there are a lot more responses in the higher values than the lower ones.
-
 
 Next let's build the model:
 
@@ -104,7 +105,6 @@ We see that our squared ideology term is statistically significant, but the coef
 anova(model, poly)
 ```
 
-
 The results suggest that including ideology squared did improve the fit. We can also look at the adjusted R-squared values:
 
 ```{r comp2, echo=TRUE}
@@ -120,7 +120,6 @@ ggplot(sub, aes(ideol, vote_cand_spt)) +
   geom_jitter(aes(ideol, vote_cand_spt)) +
   geom_point(aes(ideol, vote_cand_spt))
 ```
-
 
 Now let's add the regression line and confidence interval. To do this we will:
 
@@ -165,7 +164,6 @@ ggplot(df.poly, aes(ideol, fit)) +
 
 This visualization seems to support our theory that the relationship between ideology and candidate support is quadratic, that more ideologically extreme individuals have more support for the candidate they voted for than moderates. 
 
-
 Let's now use an example where a cubed exponent would be appropriate. A very common model we've used has been exploring the relationship between ideology and climate change risk. Perhaps the relationship between the two is not best described linearly. Let's first make a model we've looked at many times before:
 
 ```{r cube, echo=TRUE}
@@ -193,8 +191,6 @@ cubed <- lm(formula = glbcc_risk ~ age + gender + poly(ideol, 3)  + education, d
 summary(cubed)
 ```
 
-
-
 Now compare the two models:
 
 ```{r cube4, echo=TRUE}
@@ -207,8 +203,7 @@ It actually looks like the cube term does not describe the data very well. The a
 anova(lm1, cubed)
 ```
 
-
-The anova test tells us that our cubed model is a better fit. This is likely due to the square term, which registered very significant. Nonetheless, let's visualize this so you have experience seeing cubed lines. 
+The ANOVA test tells us that our cubed model is a better fit. This is likely due to the square term, which registered very significant. Nonetheless, let's visualize this so you have experience seeing cubed lines. 
 
 We'll follow the same steps as last time, predicting values, calculating the confidence interval, and plotting using *geom_line()* and *geom_ribbon()*. 
 
@@ -218,7 +213,7 @@ p.cubed <- predict(cubed, newdata = data.frame(ideol=seq(1,7,.1), education=mean
 up.cubed <- p.cubed$fit + 1.96*p.cubed$se.fit
 low.cubed <- p.cubed$fit - 1.96*p.cubed$se.fit
 df.cubed <- data.frame(ideol=seq(1,7,.1), p.cubed, up.cubed, low.cubed)
-windows()
+#windows()
 ggplot(df.cubed, aes(ideol, fit)) +
   geom_line(data=df.cubed, aes(ideol, fit), size=1, color="dodgerblue") +
   geom_ribbon(aes(ymin=low.cubed, ymax=up.cubed), alpha=.2) +
@@ -274,7 +269,6 @@ grid.arrange(inc, educ, id, nrow=1, ncol=3)
 
 ```
 
-
 It is clear that the income variable has a large positive. Education and ideology are swked, but not terribly so. One way to fix a skewed variable is to transform it, often by a log. Let's do that:
 
 ```{r non6, echo=TRUE}
@@ -321,7 +315,6 @@ shapiro.test(lm.trump$residuals)
 ```
 
 Recall that the Shapiro-Wilk test tests against the null hypothesis that the data is normally distributed. Our test result indicates that the residuals might not be normal, which is corroborated by the visualization. In a future lab we will go over one way to correct this, robust estimators. 
-
 
 ## Part III: Multicollinearity
 
@@ -393,7 +386,6 @@ ggplot(d.melt, aes(value, mod.res,group=variable)) +
   facet_wrap(~variable, scales = "free_x")
 ```
 
-
 There does not appear to be an issue with non-linearity either, so we have no reason to include any exponents in the model. 
 
 The next step is to check for non-normality of the residuals:
@@ -407,11 +399,9 @@ ggplot(d, aes(res))+
 ```
 
 
-
 ```{r ex9, echo=TRUE}
 shapiro.test(mod$residuals)
 ```
-
 
 Our results and visualization indicate that there could be a problem with non-normality. 
 
@@ -422,7 +412,6 @@ summary(mod)
 ```
 
 To interpret this model, we woudl say that a one unit increase in age corresponds with a 9.633 unit increase in square footage of home. Looking down at education, we would say that a one unit increase in *log income* corresponds with a 536.9 unit increase in home square footage. Practically speaking though, how large is the difference between the age increase and the log income increase? Obviously we cna see it is almost a 530 square foot difference, but when thinking about the overall distribution of the square footage variable, is that a lot? Moreover, a one unity chage in age is simply a one year change, whereas a one unity change in income is different, and the same applies to a one unit change in education.
-
 
 ## Part IV: Standardizing Coefficients
 
@@ -470,43 +459,3 @@ summary(z.mod3)
 ```
 
 Being careful to interpret this correctly, we would say that a one standard deviation change in log income corresponds with a .32 standard deviation increase in square footage, and so on. 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
