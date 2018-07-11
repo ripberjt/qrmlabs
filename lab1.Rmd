@@ -196,7 +196,7 @@ __Note:__ The _memisc_ package contains object/package conflicts with the _car_ 
 
 ### Updating Packages
 
-Most packages are regularly updated. The  _old.packages()_ function compare installed packages to their latest versions online.
+Most packages are regularly updated. The  _old.packages()_ function compares installed packages to their latest versions online.
 
 ```{r old, echo=TRUE}
 
