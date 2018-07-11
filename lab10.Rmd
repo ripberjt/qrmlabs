@@ -1,5 +1,5 @@
 ---
-title: 'Lab Ten: Non-normality, Non-linearity, and Multicollinearity'
+title: 'Lab Ten: Non-linearity, Non-normality, and Multicollinearity'
 author:
  - Alex Davis
  - Cody Adams
@@ -20,15 +20,21 @@ options(scipen = 999)
 ds <- read.csv("Class Data Set Factored.csv")
 ```
 
-This lab will focus on addressing issues that arise with non-normality, non-linearity, and multicollinearity. We'll begin by addressing non-linearity. 
+This lab focuses on addressing issues that arise with non-linearity, non-normality, and multicollinearity. We begin by addressing non-linearity. The following packages are required for this lab: 
+
+1. ggplot2)
+2. psych
+3. car
+4. memisc
+5. stargazer
+6. gridExtra
+7. reshape2
 
 ## Part I: Non-linearity
 
 ### Exploring Non-linearity
 
-With linear relationships between variables in their functional forms being one of the assumptions of OLS, we should always spend time exploring the linearity of the models we make.
-
-Perhaps you wanted to examine the relationship between ideology and candidate support in the 2016 presidential election. Our class data set asks respondents to indicate on a scale of 1 to 5 the level of support they have for the candidate they voted for in the 2016 presidential election. Let's build a model that regresses candidate support on ideology and relevent controls. First get your data and remove missing observations.
+A critical assumption of OLS is that the relationship between variables are linear in their functional form, therefore it is imperative to inspect whether a model consist of non-linear relationships between variables of interest. As the book describes, regression diagnostics is largely an art. To demonstrate, suppose you want to examine the relationship between ideology and candidate support in the 2016 presidential election. The survey associated to the class data set asked respondents to indicate on a scale of 1 to 5 the level of support they have for the candidate they voted for in the 2016 presidential election. We will start by exploring data in preparation for a linear regression model:
 
 ```{r poly, echo=TRUE}
 sub <- subset(ds, select = c("vote_cand_spt", "ideol","education", "income", "age", "gender", "f.gender", "glbcc_cert", "f.party", "glbcc_risk", "cncrn_econ"))
@@ -47,16 +53,16 @@ Now a table:
 table(sub$vote_cand_spt)
 ```
 
-We can see that the mode is 3, a response that indicates a moderate amount of support for the candidate the respondent voted for. We can also tell that there is a negative skew, beacuse there are a lot more responses in the higher values than the lower ones.
+We can see that the modal value is 3, a response indicating moderate support for the candidate the respondent voted for. We also observe a negative skew indicating more responses in the higher values.
 
-Next let's build the model:
+Next build the linear regression model:
 
 ```{r lin, echo=TRUE}
 model <- lm(vote_cand_spt ~ ideol + education + income + age + gender, data = sub)
 summary(model)
 ```
 
-According to our model, the ideology variable does not play any role in candidate support. Before giving up completely, we should examine the linearity of the variables. One way to do this is to plot the residuals by the values of the independent variables. In theory these relationships should constitute a straight line, with the residuals spread around a line at zero.  To build this visualization we need to:
+Based on the p-values for the model variables, the ideology variable does not appear to help us understand what candidate the responded supported; however, we should examine the linearity of the variables. One way to do this is to plot the residuals by the values of the independent variables. Residual relationships should constitute a straight line with the residuals spread around a line at zero. To build this visualization we need to:
 
 1. Create variables in the data set for the residuals and fitted (predicted) values.
 2. Melt the data into long form, sorted by independent variables.
@@ -69,16 +75,14 @@ sub$mod.fit <- predict(model)
 sub$mod.res <- residuals(model)
 ```
 
-Now we need to melt the data. This takes data that is wide and makes it long. More specifically for our purposes, it is going to create a column in the data that sorts values by the independent variables:
+Now we need to melt the data into rows with unique id-variable combinations.
 
 ```{r lin3, echo=TRUE}
 sub.melt <- melt(sub, measure.vars = c("ideol", "education", "income", "age", "gender", "mod.fit"))
 head(sub.melt)
 ```
 
-There are now two new columns, a "variable" column and a "value" column, the values that correspond with the variable listed in the variable column. 
-
-The next step is to plot the residuals by the values of the independent variables. We're also going to use *geom_smooth()* to create a loess line that approximates the spread of our data, and we will use *geom_hline()* to plot a horizontal line at 0. Then we will use *facet_wrap()* to tell create different plots for each independent variable:
+The next step is to plot the residuals by the values of the independent variables. We're going to use _geom_smooth()_ to create a loess line that approximates the spread of our data, and we will use _geom_hline()_ to plot a horizontal line at 0. Then we will use _facet_wrap()_ to tell create different plots for each independent variable of the model:
 
 ```{r lin4, echo=TRUE}
 ggplot(sub.melt, aes(value, mod.res, group=variable)) +
@@ -88,32 +92,32 @@ ggplot(sub.melt, aes(value, mod.res, group=variable)) +
   facet_wrap(~variable, scales = "free_x")
 ```
 
-We can see that there are some potential non-linearities. The ideology visualization makes a compelling case that the ideology variable is non-linear. The next step is to consider adding an exponent, squaring the ideology variable. In the social sciences we want to be wary of overfitting our data. Therefore its important to have an understanding of why you are including an exponent, and to have a grasp on the theoretical reasons for doing do.
+We can see there are some potential non-linear relationships, for instance: the ideology variable. The next step is to consider adding an exponent the ideology variable. __Note:__ We want to avoid over fitting our model to the data. Therefore its important to have an understanding of why you are including an exponent.
 
-When thinking about how ideology might influence candidate support, this could be an instance when a quadratic model might be appropriate. Think about it: it doesn't make any sense to theorize that the more conservative an individaul, the more enthusiastic they were for the candidate they voted for, regardless of the candidate, but it **does** make sense to theorize that the more ideologically extreme an individaul is (very liberal or very conservative) the more they supported the candidate they voted for. Perhaps the moderates voting in the 2016 election felt left our or alienated by the polarized political environment, and therefore could have had support for the candidate they voted for. 
+For example, when thinking about how ideology might influence candidate support, this could be an instance when a quadratic model might be appropriate. Think about it: it doesn't make any sense to theorize that the more conservative an individual, the more enthusiastic they were for the candidate they voted for, regardless of the candidate, but it **does** make sense to theorize that the more ideologically extreme an individual is (very liberal or very conservative) the more they supported the candidate they voted for. Perhaps the moderates voting in the 2016 election felt left our or alienated by the polarized political environment, and therefore could have had support for the candidate they voted for. 
 
-Let's start by building a new model, one that includes ideology squared. It is important to note, though, that the syntax to use a polynomial is: *poly(var,# of powers)*. You cannot just put ideol^2 in the model by itself. You include the *poly* function because it creates an independent variable for each of the powers, which is required to create orthogonal power terms. Let's construct the model:
+With this in mind, let's build a new model to include ideology as a squared term. __Note:__ The syntax to use a polynomial is: _poly(var,# of powers)_. The _poly_ function creates an independent variable for each of the powers as required to create orthogonal power terms. Let's construct the model:
 
 ```{r poly4, echo=TRUE}
 poly <- lm(vote_cand_spt ~ poly(ideol,2) + education + income + age + gender, data = sub)
 summary(poly)
 ```
 
-We see that our squared ideology term is statistically significant, but the coefficient does not really provide us an intuituitive interpretation. We need to visualize the relationship to really see what's going on. First, though, let's see if this model provides a better fit for our data. Compare the models using *anova()*. This will test if our second model improved the fit.
+We see that our squared ideology term is statistically significant, but the coefficient may not provide us an intuitive interpretation. Before visualizing the model, it may be helpful to compare the new model to the previous, via the _anova()_ function, to compare fit to the data:
 
 ```{r comp, echo=TRUE}
 anova(model, poly)
 ```
 
-The results suggest that including ideology squared did improve the fit. We can also look at the adjusted R-squared values:
+The significant p-value for the second line implies the second model is a better fit. We can also compare the adjusted $R^2$ values:
 
 ```{r comp2, echo=TRUE}
 mtable(model, poly)
 ```
 
-These results make a strong case that the polynomial model is superior. This is backed up by tests and theory. Let's move onto the visualization. Since ideoloy is our variable of interest, we will visualize the relationship between ideology and candidate support while holding the other variables constant at their means.
+The coefficients for the individual variables in the quadratic model are statistically significant, suggesting they help us understand our dependent variable. Let's move onto the visualization. Since ideology is our variable of interest, we will visualize the relationship between ideology and candidate support while holding the other variables constant at their means.
 
-Start by looking at a scatter plot. We'll need to jitter the data because ideology is a fixed scale:
+Start by looking at a scatter plot. To assistWe'll need to jitter the data because ideology is a discrete variable:
 
 ```{r poly5, echo=TRUE}
 ggplot(sub, aes(ideol, vote_cand_spt)) +
@@ -121,34 +125,34 @@ ggplot(sub, aes(ideol, vote_cand_spt)) +
   geom_point(aes(ideol, vote_cand_spt))
 ```
 
-Now let's add the regression line and confidence interval. To do this we will:
+Now add the regression line and confidence interval. To do this we will:
 
-1. Create predicted values and standard error values of candidate support using the *predict()* function, while holding all other values constant at their mean.
-2. Generate upper and lower bands of the confidence interval.
-3. Add all vectors to a data frame.
+1. Create predicted values and standard error values of candidate support using the _predict()_ function, while holding all other values constant at their mean.
+2. Generate upper and lower limits of the confidence interval.
+3. Add the vectors to a data frame.
 4. Visualize.
 
-First predict. We are going to sequence ideology from 1 to 7 by 0.1 instead of by 1 so that we get a smoother line:
+First predict. We are going to sequence ideology from 1 to 7 by 0.1 instead of by 1 to produce a smoother line:
 
 ```{r poly6, echo=TRUE}
 p.poly <- predict(poly, newdata = data.frame(ideol=seq(1,7,.1), education=mean(sub$education), income=mean(sub$income),
                                              age=mean(sub$age), gender=mean(sub$gender)), se.fit = T)
 ```
 
-Now create the upper and lower bands of the confidence interval:
+Now create the upper and lower limits of the confidence interval:
 
 ```{r poly7, echo=TRUE}
 up.poly <- p.poly$fit + 1.96*p.poly$se.fit
 low.poly <- p.poly$fit - 1.96*p.poly$se.fit
 ```
 
-Add all vectors to a data frame:
+Add the vectors to a data frame:
 
 ```{r poly8, echo=TRUE}
 df.poly <- data.frame(ideol=seq(1,7,.1), p.poly, up.poly, low.poly)
 ```
 
-The next step is to visualize. Use *geom_line()* to create the line, and *geom_ribbon()* to create the confidence interval. For practice, let's label the axes and add a title. 
+The next step is to visualize. Use _geom_line()_ to create the line, and _geom_ribbon()_ to create the confidence interval. For practice, let's label the axes and add a title. 
 
 ```{r poly9, echo=TRUE}
 ggplot(df.poly, aes(ideol, fit)) +
@@ -164,14 +168,14 @@ ggplot(df.poly, aes(ideol, fit)) +
 
 This visualization seems to support our theory that the relationship between ideology and candidate support is quadratic, that more ideologically extreme individuals have more support for the candidate they voted for than moderates. 
 
-Let's now use an example where a cubed exponent would be appropriate. A very common model we've used has been exploring the relationship between ideology and climate change risk. Perhaps the relationship between the two is not best described linearly. Let's first make a model we've looked at many times before:
+Let's use an example where a cubed exponent would be appropriate. A very common model we've used has been exploring the relationship between ideology and climate change risk. Perhaps the relationship between the two is not best described linearly. Let's first make a model we've looked at many times before:
 
 ```{r cube, echo=TRUE}
 lm1 <- lm(glbcc_risk ~ age + gender + ideol + education, data = sub)
 summary(lm1)
 ```
 
-Now let's plot the residuals by the independent variables:
+Now plot the residuals by the independent variables:
 
 ```{r cube2, echo=TRUE}
 sub$lm1.fit <- predict(lm1)
@@ -184,7 +188,7 @@ ggplot(lm1.melt, aes(value, lm1.res, group=variable)) +
   facet_wrap(~variable, scales = "free_x")
 ```
 
-Looking at the ideology variable, we can see that it is likely not linear. It looks more like the loess line moves above and below the line at zero, suggesting that a cube term might be more appropriate than a square term. Let's build a model that cubes ideology:
+Looking at the ideology variable, we can see that it is likely not linear. It looks more like the loess line moves above and below the line at zero. This may imply that a cube term might be appropriate. Build a model that cubes ideology:
 
 ```{r cube3, echo=TRUE}
 cubed <- lm(formula = glbcc_risk ~ age + gender + poly(ideol, 3)  + education, data = sub)
@@ -197,15 +201,15 @@ Now compare the two models:
 mtable(lm1, cubed)
 ```
 
-It actually looks like the cube term does not describe the data very well. The adjusted R squared appears to marginally increase in the cubed model, but that does not tell us much. Let's use anova:
+It actually looks like the cube term does not describe the data very well. The adjusted R squared appears to marginally increase in the cubed model, but that does not tell us much. Let's use ANOVA:
 
 ```{r cube5, echo=TRUE}
 anova(lm1, cubed)
 ```
 
-The ANOVA test tells us that our cubed model is a better fit. This is likely due to the square term, which registered very significant. Nonetheless, let's visualize this so you have experience seeing cubed lines. 
+The ANOVA test tells us that our cubed model is a better fit. This is likely due to the square term, which is statistically significant. Nonetheless, let's visualize this so you have experience seeing cubed lines. 
 
-We'll follow the same steps as last time, predicting values, calculating the confidence interval, and plotting using *geom_line()* and *geom_ribbon()*. 
+Follow the same steps as last time, predicting values, calculating the confidence interval, and plotting using _geom_line()_ and _geom_ribbon()_. 
 
 ```{r cube6, echo=TRUE}
 p.cubed <- predict(cubed, newdata = data.frame(ideol=seq(1,7,.1), education=mean(sub$education), income=mean(sub$income),
@@ -226,29 +230,29 @@ ggplot(df.cubed, aes(ideol, fit)) +
 
 ## Part II: Non-normality
 
-This section will go over the problem of non-normality and how to deal with it. One of the key assumptions of OLS is that the residuals of the model are normally ditributed. It is also important to make sure your variables are not skewed too far either negatively or positively. This examine will cover how to make sure your residuals are normally distributed, as well as how to handle greatly-skewed variables. 
+This section will go over the problem of non-normality and how to deal with it. One of the key assumptions of OLS is that the residuals of the model are normally distributed. It is also important to make sure your variables are not skewed too far either negatively or positively. Let's cover how to examine whether residuals are normally distributed, as well as how to handle greatly-skewed variables. 
 
-To begin, suppose you wanted to examine how different independent variables are related to a vote for Donald Trump in the 2016 presidential election. We will need to clean up the class data set variable on 2016 presidential votes. Let's look at it:
+To begin, suppose you want to examine how different independent variables are related to a vote for Donald Trump in the 2016 presidential election. We need to clean up the class data set variable on 2016 presidential votes. Let's look at it:
 
 ```{r non, echo=TRUE}
 table(ds$vote_cand)
 ```
 
-The codebook for the class data set tells us that a response of 0 indicates a vote for Trump, 1 is for Clinton, 2 for Gary Johnson, 3 for Jill Stein, and 4 for a different candidate. Let's change the variable so that it only includes Trump and Clinton. To transform this variable into a binary indicator of a vote for Trump or Clinton, we need to recode the variable so that responses of 1 equals 0, a response of 0 equals 1, with all else an NA:
+The codebook for the class data set tells us that a response of 0 indicates a vote for Trump, 1 is for Clinton, 2 for Gary Johnson, 3 for Jill Stein, and 4 for a different candidate. Change the variable so that it only includes Trump and Clinton. To transform this variable into a binary indicator of a vote for Trump or Clinton, we need to recode the variable so that responses of 1 equals 0, a response of 0 equals 1, with all else an NA:
 
 ```{r non2, echo=TRUE}
 ds$v.trump <- car::recode(ds$vote_cand, "0=1; 1=0; else=NA;NA=NA")
 table(ds$v.trump)
 ```
 
-Now let's pull our variables into a new data set and remove missing observations:
+Now pull the variables into a new data set and remove missing observations:
 
 ```{r non3, echo=TRUE}
 new.ds <- subset(ds, select=c("income", "gender", "ideol", "v.trump", "education"))
 new.ds <- na.omit(new.ds)
 ```
 
-Now let's look at our independent variables that are not binary:
+Now review independent variables that are not binary:
 
 ```{r non4, echo=TRUE}
 psych::describe(new.ds$income)
@@ -256,7 +260,7 @@ psych::describe(new.ds$education)
 psych::describe(new.ds$ideol)
 ```
 
-Now let's look at the density distrubtions of them:
+Look at the density distributions:
 
 ```{r non5, echo=TRUE}
 inc <- ggplot(new.ds, aes(income))+
@@ -269,13 +273,13 @@ grid.arrange(inc, educ, id, nrow=1, ncol=3)
 
 ```
 
-It is clear that the income variable has a large positive. Education and ideology are swked, but not terribly so. One way to fix a skewed variable is to transform it, often by a log. Let's do that:
+It is clear that the income variable has a large positive. Education and ideology are slightly skewed. One way to fix a skewed variable is to transform it, often by a log. Let's try that:
 
 ```{r non6, echo=TRUE}
 new.ds$log.inc <- log(new.ds$income)
 ```
 
-Now let's look at it:
+Now review it:
 
 ```{r non7, echo=TRUE}
 psych::describe(new.ds$log.inc)
@@ -286,14 +290,14 @@ ggplot(new.ds, aes(log.inc))+
   geom_density(adjust=3)
 ```
 
-We can see that there is much less skew. Transforming a variable does not really change how you use it in a model, but it does change the interpretation of it. Now the variable is ordered in logs. So a mean of 10.96 incidicates 10.96 natural logs income. Now let's build the model, using the log of income instead of the income variable:
+The skew appears to be reduced. Transforming a variable does not really change how you use it in a model, but it does change the interpretation. Now the variable is ordered in logs. So a mean of 10.96 indicates 10.96 natural logs income. Now let's build the model, using the log of income instead of the income variable:
 
 ```{r non9, echo=TRUE}
 lm.trump <- lm(v.trump ~  log.inc + education + gender + ideol, data=new.ds)
 summary(lm.trump)
 ```
 
-Regarding the ideology variable, there really should not be any surprises. More conservative individuals voted for Trump. Education is significant, but the coefficient is rather small. Our model suggeests that education played a minor role in voting, with more education tending to go with voting for Clinton. Our log.income variable does not seem to play a role. Let's now look at the normality of the residuals. First assign the residuals to our data set:
+Regarding the ideology variable, there really should not be any surprises. More conservative individuals voted for Trump. Education is significant, but the coefficient is rather small. Our model suggests that education helps us explain voting, with more education tending to go with voting for Clinton. Our log.income variable does not help us to explain voting. Let's now look at the normality of the residuals. First assign the residuals to our data set:
 
 ```{r non10, echo=TRUE}
 new.ds$res <- residuals(lm.trump)
@@ -308,29 +312,29 @@ ggplot(new.ds, aes(res))+
                 color="red")
 ```
 
-The pure eye test indicates that we might have an issue with non-normality of the residuals. Let's run the Shapiro-Wilk test as well:
+The eye test indicates that we might have an issue with non-normality of the residuals. Let's run the Shapiro-Wilk test as well:
 
 ```{r non12, echo=TRUE}
 shapiro.test(lm.trump$residuals)
 ```
 
-Recall that the Shapiro-Wilk test tests against the null hypothesis that the data is normally distributed. Our test result indicates that the residuals might not be normal, which is corroborated by the visualization. In a future lab we will go over one way to correct this, robust estimators. 
+Recall that the Shapiro-Wilk test tests against the null hypothesis that data are normally distributed. Our test result indicates that the residuals might not be normal, which is corroborated by the visualization. In a future lab we will go over one way to correct this, robust estimators. 
 
 ## Part III: Multicollinearity
 
-Multicollinearity occurs when the independent varaibles are perfectly correlated. This would render one unable to do any statistical analysis. Even though perfect multicollinearity is very rare, having highly correlated independent variables. The first way to explore potential multicollinearity is to check the correlation of the IVs. 
+Multicollinearity occurs when one independent variable of a model can be predicted with a high degree of accuracy by another independent variable. Even though perfect multicollinearity is very rare, checking for multicollinearity is an important exercise. The first way to explore potential multicollinearity is to check the collinearity between independent variables:
 
 ```{r mc, echo=TRUE}
 cor(data.frame(new.ds$ideol, new.ds$log.inc, new.ds$education))
 ```
 
-There does not appear to be extremely highly-correlated variables. We should also find the variance inflation factor, which measures the increase in variance of the other coefficients due to the inclusion of a particular variable:
+There does not appear to be extremely highly-correlated variables. We should find the variance inflation factor, which measures the increase in variance of the other coefficients due to the inclusion of a particular variable:
 
 ```{r mc2, echo=TRUE}
 vif(lm.trump)
 ```
 
-Generally speaking, you dont' want to have a value greater than 5. This model does not appear to have an issue with multicollinearity. 
+Generally speaking, you do not want to have a value greater than 5. This model does not appear to have an issue with multicollinearity. 
 
 Now let's use an example that combines everything we've gone over so far. Let's examine the relationship between square footage of the respondent's home and income, age, and education. Start by selecting the data and removing missing observations:
 
@@ -340,7 +344,7 @@ d <- na.omit(d)
 head(d)
 ```
 
-First let's examine the independent variables:
+First examine the independent variables:
 
 ```{r ex2, echo=TRUE}
 psych::describe(d$age)
@@ -386,7 +390,7 @@ ggplot(d.melt, aes(value, mod.res,group=variable)) +
   facet_wrap(~variable, scales = "free_x")
 ```
 
-There does not appear to be an issue with non-linearity either, so we have no reason to include any exponents in the model. 
+There does not appear to be an issue with non-linearity either, so we have no reason to include exponents in the model. 
 
 The next step is to check for non-normality of the residuals:
 
@@ -411,17 +415,17 @@ Let's take a look at the results of the model again:
 summary(mod)
 ```
 
-To interpret this model, we woudl say that a one unit increase in age corresponds with a 9.633 unit increase in square footage of home. Looking down at education, we would say that a one unit increase in *log income* corresponds with a 536.9 unit increase in home square footage. Practically speaking though, how large is the difference between the age increase and the log income increase? Obviously we cna see it is almost a 530 square foot difference, but when thinking about the overall distribution of the square footage variable, is that a lot? Moreover, a one unity chage in age is simply a one year change, whereas a one unity change in income is different, and the same applies to a one unit change in education.
+To interpret this model, we would say that a one unit increase in age corresponds with a 9.633 unit increase in square footage of home. Looking at education, we would say that a one unit increase in *log income* corresponds with a 536.9 unit increase in home square footage. Practically speaking though, how large is the difference between the age increase and the log income increase? We can see it is almost a 530 square foot difference, but when thinking about the overall distribution of the square footage variable, is that a lot? 
 
 ## Part IV: Standardizing Coefficients
 
-If you want to be able to compare coefficients, you need to standardize them. There are three options when standardizing:
+If you want to compare coefficients of different scales, you need to standardize them. There are three options when standardizing:
 
-1. Standardize the DV
-2. Standardize the IVs
+1. Standardize the dependent variable.
+2. Standardize the independent variables.
 3. Standardize all the variables.
 
-Standardizing a variable makes it scaled in standard deviations. This allows us to compare across variables that were orignally scaled differently. Let's use the same model, but this time we will standardize the dependent variable only. Use the *scale()* function on the footage variable to standardize it:
+Standardizing a variable makes it scaled in standard deviations. This allows us to compare across variables that were originally scaled in different units. Let's use the previously developed model, but this time we will standardize the dependent variable only. Use the _scale()_ function on the footage variable to standardize it:
 
 ```{r stan, echo=TRUE}
 d$z.footage <- scale(d$footage)
@@ -434,7 +438,7 @@ z.mod1 <- lm(z.footage ~ age + education + log.inc, data=d)
 summary(z.mod1)
 ```
 
-Since we only standardized the dependent variable, we would interpret this as saying that a one unit increase in age corresponds with a .008 standard deviation increase in square footage. For log income, we would say that a one unit increase in log income corresponds with a .45 standard deviation increase in square footage. Of course, these results hold all other variables constant. 
+Since we only standardized the dependent variable, we would interpret this as saying that a one unit increase in age corresponds with a .008 standard deviation increase in square footage. For log income, we would say that a one unit increase in log income corresponds with a .45 standard deviation increase in square footage.
 
 Now let's standardize the independent variables only:
 
@@ -458,4 +462,4 @@ z.mod3 <- lm(z.footage ~ z.log.income + z.education + z.age, data=d)
 summary(z.mod3)
 ```
 
-Being careful to interpret this correctly, we would say that a one standard deviation change in log income corresponds with a .32 standard deviation increase in square footage, and so on. 
+Being careful to interpret this correctly, we would say that a one standard deviation change in log income corresponds with a .32 standard deviation increase in square footage.
