@@ -56,7 +56,7 @@ mean(ds$f.party.2)
 
 Party affiliation is nominal data that cannot be described via mean. Consequently, R will error when attempting to calculate the mean or median of factor variables. 
 
-The _str()_ function describes structure of the _f.party.2_ variable:
+The _str()_ function describes the structure of the _f.party.2_ variable:
 
 ```{r structure, echo=TRUE}
 str(ds$f.party.2)
@@ -87,7 +87,7 @@ __Reminder:__ The $ sign instructs R what data set to draw the variable from, or
 table(ds$f.gender)
 ```
 
-While this factored variable is split into two categories, it is not apparent which numbers represent male and female. Labels should be assigned to the numbers to clarify the relationship between the numbers and their meaning. When factoring a variable, R requires the number of levels within the variable and the corresponding labels. In the _f.gender_ variable there are two levels, 0 and 1, that require men and women labels.
+While this factored variable is split into two categories, it is not apparent which numbers represent male and female. Labels should be assigned to the numbers to clarify the relationship between the numbers and their meaning. When factoring a variable, R requires the number of levels within the variable and the corresponding labels. In the _f.gender_ variable there are two levels, 0 and 1, that require woman and men labels.
 
 ```{r fac3, echo=TRUE}
 ds$f.gender <- factor(ds$gender, levels = c(0,1), labels = c("Women", "Men"))
@@ -155,9 +155,7 @@ Performing a recode is best demonstrated via example. The best practice for reco
 Within the class data set is an _ideol_ variable describing ideology. Currently the ideology variable goes from 1 to 7, with 1 being very liberal and 7 being very conservative. The ideology variable can be recoded from seven levels to three, liberal, moderate, and conservative, via the _recode()_ function. Values from 1 to 2 will recode as 1, 3 to 5 will recode as 2, and 6 to 7 will recode as 3. The _recode()_ function is provided by the _car_ package. 
 
 ```{r recode1, echo=TRUE}
-
 ds$r.ideol <- car::recode(ds$ideol, "1:2=1; 3:5=2; 6:7=3; else=NA; NA=NA")
-
 ```
 
 The _table()_ function describes the result of recoding the _ideol_ variable.
