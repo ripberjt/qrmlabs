@@ -400,8 +400,8 @@ table(ds$f.party)
 If analyzing the data, the "Other" category does not explain much. In this case, recoding the Other responses as NA will exclude Other from summaries.
 
 ```{r nom2, echo=TRUE}
-ds$f.party.2 <- car::recode(ds$f.party, "'Dem'='Dem'; 'Rep'='Rep' ;'Ind'='Ind' ;'Other'=NA;
-							else=NA;NA=NA")
+ds$f.party.2 <- car::recode(ds$f.party, "'Dem'='Dem' ; 'Rep'='Rep' ;'Ind'='Ind';
+                            'Other'=NA; else=NA; NA=NA")
 table(ds$f.party.2)
 ```
 
@@ -441,7 +441,7 @@ The _freq()_ function returns the count in each group and proportions. To constr
 
 ```{r prop, echo=TRUE}
 table(ds$f.party.2) %>%
-  prop.table()*100
+  prop.table() * 100
 ```
 
 ### Visualizing Nominal Data
@@ -468,7 +468,7 @@ To create a visualization that only includes Democrats, Republicans, and Indepen
 
 ```{r bar1.5, echo=TRUE}
 ds %>% filter(f.party.2 != "NA") %>%
-  ggplot(., aes(f.party.2, fill=f.party.2)) +
+  ggplot(., aes(f.party.2, fill = f.party.2)) +
   geom_bar()
 ```
 
@@ -508,8 +508,8 @@ table(ds$education)
 The _education_ variable contains 8 categories on an ordered scale. Factoring the _education_ variable to apply labels will provide meaning to each value.
 
 ```{r ord2, echo=TRUE}
-ds$f.education <- factor(ds$education, levels=c(1,2,3,4,5,6,7,8), 
-				   labels=c("< HS","HS/GED","Vocational/Technical", "Some College",
+ds$f.education <- factor(ds$education, levels=c(1, 2, 3, 4, 5, 6, 7, 8), 
+				   labels=c("< HS","HS/GED", "Vocational/Technical", "Some College",
 							"2 year/Associates", "Bachelor's Degree", "Master's degree", "PhD/JD/MD")) 
 table(ds$f.education, useNA = "always")
 ```
@@ -524,15 +524,26 @@ The _barplot()_ function will visualize education levels.
 
 ```{r ord4, echo=TRUE}
 ggplot(ds, aes(f.education)) +
-  geom_bar()
+  geom_bar() 
 ```
 
-More detail is available via a table object and visualization.
+Notice the very muddled labels. One way to solve this is to flip the coordinates of the plot by using *coord_flip()*:
+
+```{r ord4.5, echo=TRUE}
+ggplot(ds, aes(f.education)) +
+  geom_bar() +
+  coord_flip()
+```
+
+
+More detail is available by adding colors. There are a few different methods of adding colors using ggplot. Include _fill=f.education_ to indicate that the bars will be filled with color, and *scale_fill_manual()* to indiciate the colors:
 
 ```{r ord5, echo=TRUE}
 ggplot(ds, aes(f.education, fill=f.education)) +
   geom_bar() +
-  scale_fill_manual(values = c("#fbb4ae", "#b3cde3", "#ccebc5", "#decbe4", "#fed9a6", "#ffffcc", "#e5d8bd", "#d3d3d3"))
+  scale_fill_manual(values = c("#fbb4ae", "#b3cde3", "#ccebc5", "#decbe4",
+                               "#fed9a6", "#ffffcc", "#e5d8bd", "#d3d3d3")) +
+  coord_flip()
 ```
 
 __Note:__ The colors in the previous example are hexadecimal colors. Color schemes are available via the following website:
@@ -562,7 +573,7 @@ A histogram is the appropriate visualization for interval data. Histograms retur
 
 ```{r hist, echo=TRUE}
 ggplot(ds, aes(glbcc_risk)) +
-  geom_histogram(bins=10) +
+  geom_histogram(bins = 10) +
   scale_x_continuous(breaks = 0:10)
 ```
 
@@ -577,13 +588,13 @@ To adjust the bandwidth, use _adjust=_  to specify a value.
 
 ```{r dens2, echo=TRUE}
 ggplot(ds, aes(glbcc_risk)) +
-  geom_density(adjust=3)
+  geom_density(adjust = 3)
 ```
 
 
 Last, a box plot can be generated via the _boxplot()_ function. Technically a box plot in GGplot requires both an x and y value, so simply indiciate "" for the x portion of the aesthetic. 
 
 ```{r box, echo=TRUE}
-ggplot(ds, aes(x="", y=glbcc_risk)) +
+ggplot(ds, aes(x = "", y = glbcc_risk)) +
   geom_boxplot()
 ```

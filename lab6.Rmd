@@ -108,7 +108,7 @@ An important follow-up question is: which variable is more strongly associated t
 
 Correlation standardizes covariance on a scale of negative one to one, whereby the magnitude from zero indicates strength of relationship. Similar to covariance, a positive and negative value reflects the respective relationship. The formula for correlation is the following:
 
-$r_{xy}=\frac{cov(x,y)}{s_xs_y}$
+$$r_{xy}=\frac{cov(x,y)}{s_xs_y}$$
 
 Where x and y are two random variables.
 
