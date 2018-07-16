@@ -18,6 +18,7 @@ This lab discusses the basics of visualizing data, probability, the normal distr
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ds <- read.csv("Class Data Set Factored.csv")
+ds <- read.csv("https://github.com/ripberjt/qrmlabs/raw/master/Class%20Data%20Set%20Factored.csv")
 library(sfsmisc)
 library(psych)
 library(sm)
@@ -214,7 +215,11 @@ ggplot() +
 
 
 
+<<<<<<< HEAD
 Let's start figuring out how to check if our data is normally distributed. There are many packages than will generate a density curve of your data and a projected normal distribution for comparison, but building all of the visualizations in ggplot provides both an intuitive and informative method of doing so. Start by creating a density plot of the randomly generated data. 
+=======
+Let's start figuring out how to check if our data is normally distributed. At the beginning of this lab we should have installed and loaded the package "sm". We use the _sm.density()_ function to visualize data and to project what should be the normal distribution of the data, given the mean and standard deviation of the data. Let's start with our randomly generated data. We include the _model="Normal"_ argument at the end of the function, so that _sm.density_ knows to use the normal distribution.
+>>>>>>> 0179aa32c42f6ebb6885a47980b35922964e07a7
 
 ```{r three4, echo=TRUE}
 ggplot() +

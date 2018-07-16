@@ -1,7 +1,8 @@
 ---
 title: 'Lab Twelve: Logistic Regression'
-author: "Alex Davis"
-date: "June 28, 2018"
+author:
+ - Alex Davis
+ - Cody Adams
 output: pdf_document
 ---
 
@@ -18,17 +19,25 @@ library(MASS)
 library(pscl)
 library(DAMisc)
 options(scipen = 999)
-setwd("~/Methods Labs")
-ds<-read.csv("Class Data Set Factored.csv")
-
+ds<-read.csv("https://github.com/ripberjt/qrmlabs/raw/master/Class%20Data%20Set%20Factored.csv")
 ```
 
+This lab covers the basics of logistic regression, part of the broader generalized linear model family. GLMs relate a linear model to a response variable that does not have a normal distribution. Often you will use "logit" regression when working with a dependent variable that has limited responses, like a binary DV or an ordered DV. Logit regression uses Maximum Likelihood Estimation, which aims to identify the probability of obtaining the observed data as a function of the model parameters. The following packages are required for this lab: 
 
-This lab will cover the basics of logistic regression, part of the broader generalized linear model family. GLMs relate a linear model to a response variable that does not have a normal distribution. Often you will use logit regression when working with a dependent variable that has limited responses, like a binary DV or an ordered DV. Logit regression uses Maximum Liklihood Estimation, which aims to identify the probablity of obtaining the observed data as a function of the model parameters. 
+1. ggplot2
+2. psych
+3. car
+4. memisc
+5. stargazer
+6. gridExtra
+7. reshape2
+8. MASS
+9. pscl
+10. DAMisc
 
-## Part One: Logistic Regression with a Binary DV
+## Part I: Logistic Regression with a Binary DV
 
-Recall from lab 10 that we previously attempted to use OLS regression to explore the relationship between a number of independent variables and a vote for Trump. While using OLS provided useful information, some would consider logistic regression more appropriate in that instance. This is because of the binary DV (voted for Trump or did not) that does not follow the normal distribution. Let's construct a logit regression model that explores how certain IVs predict a vote for Trump. First we need to recode and factor the candidate variable. Make it binary and exclude candidates other than Trump and Clinton, where a vote for Trump is 1 and Clinton is 0. Then factor the varible:
+Recall from lab ten that we attempted to use OLS regression to explore the relationship between a number of independent variables and a vote for Trump. While using OLS provided useful information, some would consider logistic regression more appropriate in that instance. This is because of the binary DV (voted for Trump or did not) that does not follow the normal distribution. Let's construct a logit regression model that explores how certain IVs predict a vote for Trump. First we need to recode and factor the candidate variable to make it binary and exclude candidates other than Trump and Clinton, where a vote for Trump is 1 and Clinton is 0. We start by factoring the variable:
 
 ```{r log, echo=TRUE}
 ds$trump <- car::recode(ds$vote_cand, "0=1;1=0;else=NA;NA=NA")
@@ -36,28 +45,27 @@ ds$f.trump <- factor(ds$trump, levels = c(0,1), labels = c("Clinton", "Trump"))
 table(ds$f.trump)
 ```
 
-Now select a subset of the data and remove missing observations:
+Next, select a subset of the data and remove missing observations:
 
 ```{r log2, echo=TRUE}
 ds.sub <- subset(ds, select=c("f.trump", "gender", "ideol", "income", "education", "race"))
 ds.sub <- na.omit(ds.sub)
 ```
 
-
-Next build the generalized linear model. 
+Build the generalized linear model:
 
 ```{r log3, echo=TRUE}
 logit1 <- glm(f.trump ~ ideol + gender + education + income, data=ds.sub, family=binomial(link=logit), x=TRUE)
 summary(logit1)
 ```
 
-The coefficents returned are logged odds, so there really is not much we can get from looking at them alone. However, from looking at the coefficients alone, we can tell than ideology and education both affect the probablity of voing for Trump. In order to understand any sense of magnitude, we need to convert these from logged odds to odds, and then to percentages. To convert logged odds to odds, take the antilog of the coefficients using the *exp()* function:
+The coefficients returned are logged odds, so there really is not much we can get from looking at them alone; however, from looking at the coefficients alone, we can tell that ideology and education both affect the probability of voting for Trump. In order to understand the sense of magnitude, we need to convert these from logged odds to odds, and then to percentages. To convert logged odds to odds, take the exponent of the coefficients using the _exp()_ function:
 
 ```{r log4, echo=TRUE}
 exp(coef(logit1))
 ```
 
-Odds are difficult to interpret intuitively, but to get a sense of what they're telling us, remember that odds greater than 1 indicate increased probablility, and odds less than one indicate a decrease in probability. The statistically significant coefficients from the model are ideology and education. Based on the odds of each IV, we can tell that an increase in ideology increases the probability of a Trump vote, and an increase in education decreases the probability of a Trump vote. To get a more intuitive understand, we can convert these to precentages. To do this you subtract the odds from 1. Do this for the ideology and education variables only, because those are the only siginificant ones:
+Odds are difficult to interpret intuitively, but to get a sense of what they're telling us, remember that odds greater than 1 indicate increased probability, and odds less than one indicate a decrease in probability. The statistically significant coefficients from the model are ideology and education. Based on the odds of each IV, we can tell that an increase in ideology improves the probability of a Trump vote, and an increase in education reduces the probability of a Trump vote. To get a more intuitive understanding, we can convert these to percentages. To do this you subtract the odds from 1. Do this for the ideology and education variables only, because those are the only siginificant ones:
 
 Ideology:
 
@@ -71,9 +79,9 @@ Education:
 1- exp(logit1$coef[4])
 ```
 
-This may seem counter-intuitive, but since we subtracted 1 from the odds, a negative percentage is actually an increase in probability. The -2.48 for ideology can be interpretted as a 248% increase in the odds of voting for Trump. The point is that an increasing ideology score (liberal to conservative) drastically increased the probability of a vote for Trump. The .19 for education indicates that an increase in education decreased the odds of voting for Trump by about 19%. 
+This may seem counter-intuitive, but since we subtracted 1 from the odds, a negative percentage is actually an increase in probability. The -2.48 for ideology can be interpreted as a 248% increase in the odds of voting for Trump. The point is that an increasing ideology score (liberal to conservative) drastically increased the probability of a vote for Trump. The .19 for education indicates that an increase in education decreased the odds of voting for Trump by about 19%. 
 
-Notice that even at this point, we are still dealing with some level of abstraction. A 248% increase in odds is hard to understand. Perhaps the best reason to use a logit model is that it allows us to generate predicted probabilies of some outcome. Similar to how we used OLS and the *predict()* function to describe and predict a relationship, logit regression allows us to obtain a predicted probability that a particular outcome occurs, given a certain set of parameters. In our case, we cna generate predicted probabilties of voting for Trump. Let's find the predicted probabilties of voting for Trump as ideology increases and all other IVs are held constant at their means. We first need to generate some simulated data that sequences ideology from 1 to 7 and holds all other values at their means:
+Notice that even at this point, we are still dealing with some level of abstraction (a 248% increase in odds is hard to understand). Perhaps the best reason to use a logit model is that it allows us to generate predicted probabilities of some outcome. Similar to how we used OLS and the _predict()_ function to describe and predict a relationship, logit regression allows us to obtain a predicted probability that a particular outcome occurs, given a certain set of parameters. In our case, we can generate predicted probabilities of voting for Trump. Let's find the predicted probabilities of voting for Trump as ideology increases and all other IVs are held constant at their means. We first need to generate some simulated data that sequences ideology from 1 to 7 and holds all other values at their means:
 
 ```{r log7, echo=TRUE}
 ideol.data <- with(ds, data.frame(education = mean(education, na.rm=T),
@@ -83,47 +91,47 @@ ideol.data <- with(ds, data.frame(education = mean(education, na.rm=T),
 ideol.data
 ```
 
-Now use the *predict()* function to calculate predicted probabilties of voting for Trump at the various ideology levels:
+Now use the _predict()_ function to calculate predicted probabilities of voting for Trump at the various ideology levels:
 
 ```{r log8, echo=TRUE}
 ideol.data$predicted.prob <- predict(logit1, newdata=ideol.data, type = "response")
 ```
 
-Take a look at your data:
+Take a look at the data:
 
 ```{r log9, echo=TRUE}
 ideol.data
 ```
 
-As we would likely expect, increasing ideology increases the probability of voting for Trump. At an ideology level of 7, there is almost a guarantee of voting for Trump. To get a sense of what this would look like, we can visualize these predicted probabilities rather easily. We need to calculate lower and upper bounds of the confience interval, combine that into a data frame with ideology and the predicted probabilities, and then visualize. First, though, we need to use the *predict()* function again, this time including *type="link"* and *se.fit=T* to include standard errors:
+As we would likely expect, increasing ideology increases the probability of voting for Trump. At an ideology level of 7, there is almost a guarantee of voting for Trump. To get a sense of what this would look like, we can visualize these predicted probabilities rather easily. We need to calculate lower and upper bounds of the confidence interval, combine that into a data frame with ideology and the predicted probabilities, and then visualize. First, though, we need to use the _predict()_ function including _type="link"_ and _se.fit=T_ to include standard errors:
 
 ```{r log10, echo=TRUE}
 ideol.ci <- predict(logit1, newdata=ideol.data, type="link", se.fit = T)
 ideol.ci
 ```
 
-Now we can calculate confidence intervals using the *plogis()* function:
+Now we calculate confidence intervals using the _plogis()_ function:
 
 ```{r log11, echo=TRUE}
 lower <- plogis(with(ideol.ci, fit -1.96 * se.fit))
 upper <- plogis(with(ideol.ci, fit + 1.96 * se.fit))
 ```
 
-Now create a vector for the predicted probabilities:
+Create a vector for the predicted probabilities:
 
 ```{r log12, echo=TRUE}
 prob<-ideol.data$predicted.prob
 ```
 
 
-Next combine it all into a data frame, along with a sequencing of ideology from 1 to 7
+Combine it all into a data frame, along with a sequencing of ideology from 1 to 7:
 
 ```{r log13, echo=TRUE}
 ideol.df <- data.frame(ideol=1:7,prob,upper,lower)
 ideol.df
 ```
 
-Visualizing these predicted probabilites is similar to how we have visualized in the past. Use *geom_point()* and *geom_errorbar()*:
+Visualizing the predicted probabilities is similar to how we have visualized in the past. Use _geom_point()_ and _geom_errorbar()_:
 
 ```{r log14, echo=TRUE}
 ggplot(ideol.df, aes(ideol,prob)) +
@@ -131,80 +139,76 @@ ggplot(ideol.df, aes(ideol,prob)) +
   geom_errorbar(aes(ymin=lower, ymax=upper), width=.2)
 ```
 
-Great work! 
-
-
 ### Goodness of Fit, Logit Regression
 
-Determining model fit when perfoming logit regression is different than when doing OLS. There are three main methods of exploring model fit, Psuedo-R squared, Log-liklihood, and AIC. The best way to understand logit model fit is by comparison, so let's create a null model that tries to predict a Trump vote only by the intercept term:
+Determining model fit when performing logit regression is different than when doing OLS. There are three main methods of exploring model fit, Pseudo-R squared, Log-likelihood, and AIC. The best way to understand logit model fit is by comparison, so let's create a null model that tries to predict a Trump vote only by the intercept term:
 
 ```{r log15, echo=TRUE}
 logit.null <- glm(f.trump ~ 1, data=ds.sub, family = binomial(link=logit))
 summary(logit.null)
 ```
 
-To test model fit via log-liklihood, we can calculate what is called the deviance statistic, or G squared. G squared tests whether the difference in the log-liklihoods of the null model and the demographic model (our initial model) ar statistically distinguishable from zero. If so, our demographic model is a better fit. First let's the log-liklihoods for each model:
+To test model fit via log-likelihood, we can calculate what is called the deviance statistic, or G squared. G squared tests whether the difference in the log-likelihoods of the null model and the demographic model (our initial model) are statistically distinguishable from zero. If so, our demographic model is a better fit. First let's the log-likelihoods for each model:
 
 ```{r log16, echo=TRUE}
 loglikli.null <- logLik(logit.null)
 loglikli.demo <- logLik(logit1)
 ```
 
-To fing G squared, you substract the null log-liklihood from the demographic log-liklihood:
+To fing G squared, you subtract the null log-likelihood from the demographic log-likelihood:
 
 ```{r log17, echo=TRUE}
 G <- loglikli.demo - loglikli.null
 ```
 
-To test if the G statistic is significant, you run a chi-squre test with q degrees of freedom, where q is the difference in the number of IVs in the model. Our demographic model has 4 IVs (ideology, age, education, income) and the null model has 1, so q is 3:
+To test if the G statistic is significant, you use a Chi-Square test with q degrees of freedom, where q is the difference in the number of IVs in the model. Our demographic model has 4 IVs (ideology, age, education, income) and the null model has 1, so q is 3:
 
 ```{r log18, echo=TRUE}
 pchisq(G, df = 3, lower.tail = FALSE)
 ```
 
-We can conclude with a great amount of confidence that our demographic model better explains a vote for Trump than the null model. 
+We can conclude with confidence that the demographic model better explains a vote for Trump than the null model. 
 
-A similr approach can be made ot compare nested models, similar to a nested F-test. Using the *anova()* function and specfifying chi-squared, we can test if adding or substracting a particular variable improves model fit. Let's include race in a new model and compare it to our first model:
+A similar approach can be made to compare nested models, similar to a nested F-test. Using the _anova()_ function and specifying chi-squared, we can test if adding or subtracting a particular variable improves model fit. Let's include race in a new model and compare it to our first model:
 
 ```{r log19, echo=TRUE}
 logit2 <- glm(f.trump ~ ideol + gender + education + income + race, data=ds.sub, family=binomial(link=logit), x=TRUE)
 summary(logit2)
 ```
 
-Now compare the models:
+Now compare models:
 
 ```{r log20, echo=TRUE}
 anova(logit1, logit2, test="Chisq")
 ```
 
-The test indicates that including race improves the model!
+The test indicates that including race improves the model.
 
-Another way to examine model fit is psuedo-R squared. This is not compeltely analogous to the actualy R squared, because we're not trying to simply explain the variance in Y. However, psuedo-R squared compares the residual deviance of the null model to that of the actual model and ranges of 0 to 1, with higher values indicating better model fit. Deviance in a logit model is similar to the residual sum of squares in an OLS model. To find psuedo-R squared you take 1 minus the deviance of the actual model divided by the deviance of the null model. Let's use the new model that includes race:
+Another way to examine model fit is pseudo-R squared. This is not completely analogous to R squared, because we're not trying to simply explain the variance in Y. However, pseudo-R squared compares the residual deviance of the null model to that of the actual model and ranges of 0 to 1, with higher values indicating better model fit. Deviance in a logit model is similar to the residual sum of squares in an OLS model. To find pseudo-R squared you take 1 minus the deviance of the actual model divided by the deviance of the null model. Let's use the new model that includes race:
 
 ```{r log21, echo=TRUE}
 psuedoR2 <- 1- (logit2$deviance/logit2$null.deviance)
 psuedoR2
 ```
 
-The final method we'll go over is AIC, or Akaine Information Criteria. AIC is only useful in comparing two models, and like adjusted R squared it penalizes for increased model parameters. Fortunately, AIC is calculated for us when we look at the summary of the model. A smaller AIC value indicates better model fit. Let's again compare the two actual logit models (not the null model)
+The final method we go over is AIC, or Akaine Information Criteria. AIC is only useful in comparing two models, and like adjusted R squared it penalizes for increased model parameters. Fortunately, AIC is calculated for us when we look at the summary of the model. A smaller AIC value indicates better model fit. Let's again compare the two actual logit models (not the null model)
 
 ```{r log22, echo=TRUE}
 stargazer(logit1, logit2, type="text", single.row = TRUE)
 ```
 
-The AIC values indicate the the model including race is a better fit, which our log-liklihood test also indicated. 
-
+The AIC values indicate the the model including race is a better fit, which our log-likelihood test also indicated. 
 
 ### Percent Correctly Predicted
 
-Another way we can assess how effective our model is at describing and predicting our data is by looking at the percent correclty predicted. Using the *hitmiss()* function found in the *pscl* package, we can look at how well our model predicts the outcomes for when y and 0 and when y equals 1, and we can immediately compare it to how well a null model predicts outcomes. Let's do thsi for both the logit model that does not include race and the one that does:
+Another way to assess how effective our model is at describing and predicting our data is by looking at the percent correctly predicted. Using the _hitmiss()_ function found in the _pscl_ package, we can look at how well the model predicts the outcomes for when y and 0 and when y equals 1, and we can immediately compare it to how well a null model predicts outcomes. Let's do this for both the logit model that does not include race and the one that does:
 
 ```{r pcp, echo=TRUE}
 hitmiss(logit1)
 hitmiss(logit2)
 ```
 
-It appears our model including race better predicts outcomes, which our other diagnostics so far have also suggested. One other method is to examine proportional reduction in error, which looks at how a model reduces error in predictions versus a null model. Let's look at the PRE for the logit model that includes race. To do so, use the *pre()* function from the *DAMisc* package:
+It appears the model with race better predicts outcomes, which our other diagnostics so far have also suggested. One other method is to examine proportional reduction in error, which looks at how a model reduces error in predictions versus a null model. Let's look at the PRE for the logit model that includes race. To do so, use the _pre()_ function from the _DAMisc_ package:
 
 ```{r pre, echo=TRUE}
 pre(logit2)
@@ -215,20 +219,19 @@ The ? function can help you remember what all of the acronyms mean, but for now,
 
 Now let's go over logit regression with groups. Let's continue looking into the probability of a vote for Trump, but let's include political party into the mix. We can use logit regression to find the probability of voting for Trump as ideology varies across political parties. Let's pull a new subset of the data that removes missing observations and includes the factored party variable:
 
-
 ```{r log23, echo=TRUE}
 ds.sub2 <- subset(ds, select=c("f.trump", "gender", "ideol", "income", "education", "race", "f.party.2"))
 ds.sub2 <- na.omit(ds.sub2)
 ```
 
-Notice that we used the factored party variable that only includes Democrats, Independents, and Republicans. Now let's build the model:
+Notice that we used the factored party variable that only includes Democrats, Independents, and Republicans. Let's build the model:
 
 ```{r log24, echo=TRUE}
 logit3 <- glm(f.trump ~ ideol + gender + education + income + race + f.party.2, family = binomial(link=logit), data = ds.sub2, x = TRUE)
 summary(logit3)
 ```
 
-With Democrats as the reference group, Indepndents and Republicans have an increased probability of voting for Trump, which makes sense for Oklahoma voters. Let's generate predicted probabilities. First let's create data frames for each party:
+With Democrats as the reference group, Independents and Republicans have an increased probability of voting for Trump, which makes sense for Oklahoma voters. Next we generate predicted probabilities. First create data frames for each party:
 
 ```{r log25, echo=TRUE}
 rep.data <- with(ds.sub2, data.frame(gender = mean(gender), 
@@ -252,13 +255,13 @@ dem.prob <-  predict(logit3, newdata=dem.data, type = "response")
 ind.prob <-  predict(logit3, newdata=ind.data, type = "response")
 ```
 
-Let's start building the visualization. This will be similar to the last visualization, but we'll be plotting predicted probabilities for each ideology score in each party, so 21 points in all. There are a number of steps, but they're all intuitive. Let's first combine the predicted probabilities into a vector. Let's keep this consistent with the way R tends to handle factored variables and go in alphabetical order of the parties:
+Start by building the visualization. This will be similar to the last visualization, but we plot predicted probabilities for each ideology score in each party, so 21 points in all. First, combine the predicted probabilities into a vector. Keep this consistent with the way R tends to handle factored variables and go in alphabetical order of the parties:
 
 ```{r log27, echo=TRUE}
 p.prob <- c(dem.prob, ind.prob, rep.prob)
 ```
 
-Now generate data to calculate the confidence intervals:
+Next, generate data to calculate the confidence intervals:
 
 ```{r log28, echo=TRUE}
 rep.ci <- predict(logit3, newdata = rep.data, type="link", se.fit = T)
@@ -266,7 +269,7 @@ dem.ci <- predict(logit3, newdata = dem.data, type="link", se.fit = T)
 ind.ci <- predict(logit3, newdata = ind.data, type="link", se.fit = T)
 ```
 
-Now calculate the upper and lower bounds for each party:
+Then calculate the upper and lower limits for each party:
 
 ```{r log29, echo=TRUE}
 rep.low <- plogis(with(rep.ci, fit - 1.96*se.fit))
@@ -277,29 +280,28 @@ ind.low <- plogis(with(ind.ci, fit - 1.96*se.fit))
 ind.up <- plogis(with(ind.ci, fit + 1.96 * se.fit))
 ```
 
-Now combine the upper bounds and lower bounds into two vectors. Make sure to keep them in alphabetical order:
+Combine the upper limits and lower limits into two vectors. Make sure to maintain alphabetical order:
 
 ```{r log30, echo=TRUE}
 up <- c(dem.up, ind.up, rep.up)
 low <- c(dem.low, ind.low, rep.low)
 ```
 
-Next create the idelogy and party labels. Since there are 21 observations, there need to be 21 labels. We need to sequence ideology 1 through 7 three times, and repeat each party label (in alphabetical order) seven times. If this does not quite make sense, it will when you look at the completed data frame:
+Next create the ideology and party labels. Since there are 21 observations, there need to be 21 labels. We need to sequence ideology 1 through 7 three times, and repeat each party label (in alphabetical order) seven times. If this does not quite make sense, it will when you look at the completed data frame:
 
 ```{r log31, echo=TRUE}
 ideology <- rep(1:7,3)
 party <- rep(c("Democrat", "Independent", "Republican"), each=7)
 ```
 
-Now we can combine everything into one data frame:
+Now we combine everything into one data frame:
 
 ```{r log32, echo=TRUE}
 df <- data.frame(party, ideology, p.prob, up, low)
 df
 ```
 
-
-We now have everything we need to make a great visualization. We'll plot the points and error bars just like we did last time, but we'll assign colors by political party, and we'll specify blue for Democrats, purple for Independents, and red for Republicans:
+We have everything we need to make a great visualization. We plot the points and error bars just like we did last time, but we assign colors by political party, and specify blue for Democrats, purple for Independents, and red for Republicans:
 
 ```{r log33, echo=TRUE}
 ggplot(df, aes(ideology,p.prob, color=party)) +
@@ -313,11 +315,11 @@ ggplot(df, aes(ideology,p.prob, color=party)) +
   theme_bw()
 ```
 
-## Part Two: Ordered Logit and Creating an Index
+## Part II: Ordered Logit and Creating an Index
 
-Logit regression can be used in more than just situations with a binary DV. Ordered logit analysis is done in a similar way, but with an ordered DV. Instead of simply assessing the probability of one outcome, ordered logit analyis gives us the probability of moving from one level to the next. We're going to use ordered logit analysis to also learn how to create an index and work with one as your dependent variable. 
+Logit regression can be used in more than just situations with a binary DV. Ordered logit analysis is done in a similar way, but with an ordered DV. Instead of simply assessing the probability of one outcome, ordered logit analysis gives us the probability of moving from one level to the next. We're going to use ordered logit analysis to also learn how to create an index and work with one as your dependent variable. 
 
-The class data set survey asked respondents to indicate whether or not they do a number of energy-saving activities at their home, like turning the lights off, installing insulation, unplugging appliances, etc. Perhaps you were interested in how a variety of IVs influence one's propensity to do these activities. You could use binary logit regression to find the probability of individuals doing one of these particular activities. However, you could use ordered logit regression to include all the activties and use an additive index of them as your dependent variable. Let's start by creating an index of the energy-saving activities:
+The class data set survey includes responses that indicate whether or not the participant does a number of energy-saving activities at their home, like turning the lights off, installing insulation, unplugging appliances, etc. Perhaps you are interested in how a variety of IVs influence one's propensity to do these activities. You could use binary logit regression to find the probability of individuals doing one of these particular activities. However, you could use ordered logit regression to include all the activities and use an additive index of them as your dependent variable. Start by creating an index of the energy-saving activities:
 
 ```{r ind, echo=TRUE}
 energy <- with(ds, cbind(enrgy_steps_lghts, enrgy_steps_heat, enrgy_steps_ac, enrgy_steps_savappl, enrgy_steps_unplug, enrgy_steps_insul,
@@ -330,7 +332,7 @@ Now take a look at the index:
 psych::describe(energy)
 ```
 
-Let's now add these variables together. This will create an index that scores 1 if an individual does one of the activities, 2 if they do two, and so on and so on. 
+Add these variables together. This will create an index that scores 1 if an individual does one of the activities, 2 if they do two, and so on and so on:
 
 ```{r ind3, echo=TRUE}
 ds$s.energy <- with(ds, enrgy_steps_lghts + enrgy_steps_heat + enrgy_steps_ac + enrgy_steps_savappl + enrgy_steps_unplug + enrgy_steps_insul +
@@ -343,41 +345,41 @@ Examine the index:
 psych::describe(ds$s.energy)
 ```
 
-
-Let's make a barplot of the index:
+Make a bar plot of the index:
 
 ```{r ind5, echo=TRUE}
 ggplot(ds, aes(s.energy)) +
   geom_bar()
 ```
 
-Now let's start building the model. First select our relevant variables and remove missing observations:
+Start building the model. First select our relevant variables and remove missing observations:
 
 ```{r ord, echo=TRUE}
 ds.sub3 <- subset(ds, select=c("s.energy", "ideol", "age", "glbcc_risk"))
 ds.sub3 <- na.omit(ds.sub3)
 ```
 
-In order to use the energy index as a dependent variable, we should tell R to treat it as a factor:
+In order to use the energy index as a dependent variable, we treat it as a factor:
 
 ```{r ord2, echo=TRUE}
 ds.sub3$f.energy <- as.factor(ds.sub3$s.energy)
 ```
 
-There are a number of ways to do ordered logit, but for this example we'll use the *polr()* function found in the *MASS* package.:
+There are a number of ways to do ordered logit, but for this example we use the _polr()) function found in the _MASS_ package.:
 
 ```{r ord3, echo=TRUE}
 ord1 <- polr(f.energy ~ ideol + age + glbcc_risk, data=ds.sub3, Hess=TRUE)
 ```
 
-Use *stargazer()* to look at the results:
+Use _stargazer()_ to look at the results:
 
 ```{r ord4, echo=TRUE}
 stargazer(ord1, type="text", style="apsr", single.row = T)
 ```
-Our results indicate that an increased risk associated with climate change corresponds with an an increase in the odds of doing enery-saving techniques at home. When doing ordered logit, coefficient interpretation is even less intuitive than it is with a binary DV. This makes generating predicted probabilities even more important. We are going to generate predicted probabilites of each level of the DV (0 through 8) as perceived climate change risk increases and the other IVs are held constant at their means. It should make sense that we have to do it this way. We can't really explain the relationship in any other way with the information we have. 
 
-First we'll create a data frame to work with:
+The results indicate an increased risk associated with climate change corresponds with an an increase in the odds of doing emery-saving techniques at home. When doing ordered logit, coefficient interpretation is even less intuitive than it is with a binary DV. This makes generating predicted probabilities even more important. We are going to generate predicted probabilities of each level of the DV (0 through 8) as perceived climate change risk increases and the other IVs are held constant at their means. It should make sense that we have to do it this way. We can't really explain the relationship in any other way with the information we have. 
+
+First we create a data frame to work with:
 
 ```{r ord5, echo=TRUE}
 ord.df <- data.frame(ideol=mean(ds.sub3$ideol),
@@ -385,7 +387,7 @@ ord.df <- data.frame(ideol=mean(ds.sub3$ideol),
                      glbcc_risk = seq(0,10,1))
 ```
 
-Now we use the *predict()* function to generate predicted probabilities of each level of the DV as we sequence climate change risk from 0 to 10:
+Now we use the _predict()_ function to generate predicted probabilities of each level of the DV as we sequence climate change risk from 0 to 10:
 
 ```{r ord6, echo=TRUE}
 prob.df <- cbind(ord.df, predict(ord1, ord.df, type="probs"))
@@ -397,7 +399,7 @@ The next step is to melt the data. This will allow us to eventually generate a p
 m.df <- melt(prob.df, id.vars = c("ideol", "age", "glbcc_risk"), variable.name = "Level", value.name = "Probability")
 ```
 
-Next we will create the visualization. With an ordered logit model, we can visualize predicted probabilities of observing each separate level of the DV (how many energy saving activities), as perceived climate change risk increases. We'll use *facet_wrap()* to create individaul visualizations for each level of the DV, so that the graphic does not get too hard to interpret. We'll also create a color scale that goes from red to green. 
+Next we will create the visualization. With an ordered logit model, we can visualize predicted probabilities of observing each separate level of the DV (how many energy saving activities), as perceived climate change risk increases. We use _facet_wrap()_ to create individaul visualizations for each level of the DV, so that the graphic does not get too hard to interpret. We also create a color scale that goes from red to green. 
 
 ```{r ord8, echo=TRUE}
 col_scale<-colorRampPalette(c("#FF0000","#228B22"))(9)
@@ -407,17 +409,4 @@ ggplot(m.df, aes(x = glbcc_risk, y = Probability, colour = Level)) +
   facet_wrap(~Level, scales = "free")
 ```
 
-Taking a quick look at these visualizations, we can see that for doing 0 to 2 energy saving activities at home, increasing climate change risk largely corresponds with decreasing probability. This makes sense. Once we reach 4 energy saving activities, increasing climate change risk largely corresponds with increased probabilities. This also makes sense. In the next lab we will take this type of analysis one step farther and learn about simulations and predicted values of the DV! 
-
-
-
-
-
-
-
-
-
-
-
-
-
+Taking a quick look at these visualizations, we can see that for doing 0 to 2 energy saving activities at home, increasing climate change risk largely corresponds with decreasing probability. This makes sense. Once we reach 4 energy saving activities, increasing climate change risk largely corresponds with increased probabilities.

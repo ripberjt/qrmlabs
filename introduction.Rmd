@@ -1,0 +1,58 @@
+---
+title: "Lab One: Introduction and Basics"
+author:
+- Alex Davis
+- Cody Adams
+output: pdf_document
+---
+
+```{r prereq, echo=FALSE}
+
+packages <- c("car", "dplyr", "reshape2", "modeest", "descr", "psych", "ggplot2", "sfsmisc", "sm", "car", "HistData", "vcd", "grid", "gridExtra", "memisc", "stargazer", "interplot", "MASS", "sandwich", "plotly", "pscl", "DAMisc", "zeligverse", "Rcpp", "rmarkdown", "knitr")
+
+for (pkg in packages) {
+	if (pkg %in% rownames(installed.packages()) == FALSE) {
+		install.packages(pkg)
+	}
+}
+
+```
+
+# Introduction
+
+The following labs append the open source textbook, ___Quantitative Research Methods for Political Science, Public Policy and Public Administration (With Applications in R): 3rd Edition___, available for download via: https://shareok.org/handle/11244/52244. The labs are primarily the work of Alex Davis (Alexander.w.davis-1@ou.edu) and Cody Adams (codyadams@ou.edu).
+
+# Requirements
+
+Each lab is written in R Markdown, allowing readers to follow along and interact with examples via their favorite R IDE (e.g., RStudio), or to knit as a PDF. For more information on R Markdown, visit: https://rmarkdown.rstudio.com/.
+
+Statistical analysis in R is possible via a plethora of publicly available packages. These labs introduce various functions from select packages to expand the base functions of R, and therefore the following packages are required:
+
+1. car
+2. dplyr
+3. reshape2
+4. modeest
+5. descr
+6. psych
+7. ggplot2
+8. sfsmisc
+9. sm
+10. car
+11. HistData
+12. vcd
+13. grid
+14. gridExtra
+15. memisc
+16. stargazer
+17. interplot
+18. MASS
+19. sandwich
+20. plotly
+21. pscl
+22. DAMisc
+23. zeligverse
+24. Rcpp
+25. Rmarkdown
+26. knitr
+
+For convenience, executing the _setup.R_ script or knitting this document within RStudio, installs these packages if they are not already installed.

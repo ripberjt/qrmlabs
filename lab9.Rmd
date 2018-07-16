@@ -16,8 +16,7 @@ library(stargazer)
 library(gridExtra)
 library(interplot)
 options(scipen = 999)
-#setwd("~/Methods Labs")
-ds <- read.csv("Class Data Set Factored.csv")
+ds <- read.csv("https://github.com/ripberjt/qrmlabs/raw/master/Class%20Data%20Set%20Factored.csv")
 ```
 
 This lab focuses on ways in which we use and understand categorical independent variables. So far the independent variables we have worked with have been interval or ordinal data. When working with categorical data, there are different approaches and techniques of interpretation. The following packages are required for this lab: 
@@ -115,7 +114,7 @@ party <- c("Democrat", "Independent", "Republican", "Other")
 party
 ```
 
-Now construct a vector with the point estimates. We'll call it _cert_ since we are measuring climate change certainty. The order of our party name vector was determined by the order that we predicted the estimated values:
+Now construct a vector with the point estimates. We name it _cert_ since we are measuring climate change certainty. The order of our party name vector was determined by the order that we predicted the estimated values:
 
 ```{r dum9, echo=TRUE}
 cert <- values$fit

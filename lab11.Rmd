@@ -1,7 +1,8 @@
 ---
 title: 'Lab Eleven: Diagnosing and Addressing Problems in Linear Regression'
-author: "Alex Davis"
-date: "June 25, 2018"
+author:
+ - Alex Davis
+ - Cody Adams
 output: pdf_document
 always_allow_html: yes
 ---
@@ -19,22 +20,34 @@ library(stargazer)
 library(MASS)
 library(sandwich)
 library(plotly)
-ds <- read.csv("imdb_2014.csv")
+ds <- read.csv("https://github.com/ripberjt/qrmlabs/raw/master/imdb_2014.csv")
 options(scipen = 999)
 ```
 
-This lab will help us understand how to diagnose and address potential problems in OLS regression. In the last lab, we addressed the OLS assumptions of normality of residuals, linearity, and multicollinearity. This lab will address how to deal with outliers and heteroscedasticity, but it will also provide a refresher on exploring and visualizing your data. 
+This lab helps us understand how to diagnose and address potential problems in OLS regression. In the last lab, we addressed OLS assumptions of normality of residuals, linearity, and multicollinearity. This lab addresses outliers and heteroscedasticity and also provides a refresher on exploring and visualizing your data. The following packages are required for this lab: 
+
+1. ggplot2
+2. psych
+3. car
+4. memisc
+5. stargazer
+6. gridExtra
+7. reshape2
+8. stargazer
+9. MASS
+10. sandwich
+11. plotly
 
 ## Part I: Introduction to the Data
 
-For this lab we will use a data set that contains information on movies from the IMDB website. The initial data set contains almost 60,000 observations, so let's subset the data to make it a little smaller:
+For this lab we will use a data set that contains information on movies from the IMDB website. The initial data set contains almost 60,000 observations, so we subset the data to make it a little smaller:
 
 ```{r int, echo=TRUE}
 ds<-subset(ds,year>=1995 & votes>1000 & Short!=1)
 ds<-na.omit(ds)
 ```
 
-Now let's explore the data. Start with examining the structure. This will tell us a lot about the data set:
+Now explore the data. Start with examining the structure of the data set:
 
 ```{r int2, echo=TRUE}
 str(ds)
@@ -58,14 +71,13 @@ Now look at the first observations:
 head(ds)
 ```
 
-Now explore some descriptive statistics:
+Explore some descriptive statistics:
 
 ```{r int6, echo=TRUE}
 describe(ds)
 ```
 
-
-Now let's clean up a couple of the variables. First scale the budget variable by millions of dollars, then scale votes by thousands, and factor the year variable:
+We will want to start with a clean up a couple variables. First, we can scale the budget variable by millions of dollars, scale votes by thousands, and factor the year variable:
 
 ```{r int7, echo=TRUE}
 ds$budget_1m<-ds$budget/1000000
@@ -82,8 +94,7 @@ ggplot(melt.ds, aes(value)) +
   facet_wrap(~variable, scale="free")
 ```
 
-
-Now let's look at the bivariate plots for the relationship between length, budget, votes, and rating. This is where we'll begin looking at potential outliers. Build each individual visualizaztion and then use *ggplotly()* to create an interactive interface that will allow you to identify individual observations. 
+Now let's look at the bivariate plots for the relationship between length, budget, votes, and rating. This is where we might find potential outliers. Build each visualization and then use _ggplotly()_ to create an interactive interface that will allow you to identify individual observations. 
 
 ```{r int9, echo=TRUE}
 vote <- ggplot(ds, aes(votes_1k, rating, label=title)) +
@@ -105,7 +116,6 @@ ggplotly(length)
 
 ```
 
-
 ```{r int11, echo=TRUE}
 budget <- ggplot(ds, aes(budget_1m, rating, label=title)) +
   geom_point(color="#0000FF50") +
@@ -116,29 +126,28 @@ ggplotly(budget)
 
 ```
 
-
 ## Part II: Outliers
 
-The next step is to construct the model.
+The next step is to construct a model:
 
 ```{r int12, echo=TRUE}
 fit1<-lm(rating~length+budget_1m+votes_1k,data=ds)
 stargazer(fit1,type="text",single.row=TRUE)
 ```
 
-Normally we would be primarily interested in how this model explains our data. For this section, we are more interested in the observations that are not explained by this model. Let's identify some outliers. First create predicted ratings based on our model:
+Normally we are primarily interested in how this model explains our data. For this section, we are more interested in the observations that are not explained by this model. Let's identify some outliers. First create predicted ratings based on our model:
 
 ```{r out, echo=TRUE}
 ds$predicted_rating<-predict(fit1)
 ```
 
-One simple way to find some possible outliers is to use the *outlierTest()* function:
+One simple way to find some possible outliers is to use the _outlierTest()_ function:
 
 ```{r out2, echo=TRUE}
 outlierTest(fit1)
 ```
 
-Here we see four potential outliers. Let's compare their predicted rating based on their budget, length, and number of votes, to their actual rating:
+We see four potential outliers... let's compare their predicted rating based on their budget, length, and number of votes, to their actual rating:
 
 ```{r out3, echo=TRUE}
 ds["From Justin to Kelly",c("rating", "predicted_rating")]
@@ -147,42 +156,40 @@ ds["Werewolf",c("rating", "predicted_rating")]
 ds["Glitter",c("rating", "predicted_rating")]
 ```
 
-We can see that there is a large disconnect between these movies' ratings and their predicted ratings. 
+We can see that there is a large discrepancy between these movies' ratings and their predicted ratings. 
 
-There are a variety of ways to visually inspect outliers. Let's start by making an influence plot:
+There are a variety of ways to visually inspect outliers. Let's start with an influence plot:
 
 ```{r out4, echo=TRUE}
 influencePlot(fit1)
 ```
 
-This plots the residuals by their hat-values. This identifies the Matrix and the first Lord of the Rings as potential outliers, so let's look at their ratings and predicted ratings:
+An influence plot shows the residuals by their hat-values. This identifies the Matrix and the first Lord of the Rings as potential outliers, so let's compare their ratings to predicted ratings:
 
 ```{r out5, echo=TRUE}
 ds["Lord of the Rings: The Fellowship of the Ring, The",c("rating", "predicted_rating")]
 ds["Matrix, The",c("rating", "predicted_rating")]
 ```
 
-Notice these are flagged as potential outliers for a different reason. These two movies are rated very, but their predicted ratings are even higher. In fact, their predicted ratings are impossible, because the highest rating is a 10. 
+These movies are flagged outliers for a different reason than the movies we found earlier. These two movies are rated high, but their predicted ratings are even higher (above the maximum possible value of 10).
 
-Another way we can examine outliers is to look at the DFBetas. DFBetas measure the influence of case *i* on the *j* estimated coefficients. Put another way, measuring DFBetas asks how many standard errors a particular beta changes when case i is removed. The standard rule of thumb is if the absolute value of a DFBETA  is greater than 2 divided by the square root of n, there could be cause for concern. Let's calculate that value:
+Another way to examine outliers is to look at the DFBetas. DFBetas measure the influence of case *i* on the *j* estimated coefficients. Put another way, measuring DFBetas asks how many standard errors a particular beta changes when case *i* is removed. The rule of thumb is if the absolute value of a DFBETA is greater than 2 divided by the square root of n, there could be cause for concern. Let's calculate that value:
 
 ```{r out6, echo=TRUE}
 df <- 2/sqrt(1261)
 df
 ```
 
-We cna find the DFBetas easily:
+We can find the DFBetas easily:
 
 ```{r out7, echo=TRUE}
 dfbs.fit1<-dfbetas(fit1)
 head(dfbs.fit1)
 ```
 
+With a large data set, listing every DFBeta value is not efficient. Instead, we should plot the DFBetas with lines at the calculated value. We will use the _identify()_ function to mark specific observations. Each of the coefficients will have its own plot. __Note:__ The _windows()_ (or _quartz()_) function does not knit with RMarkdown; however, the function is used to build the plot on the screen as you follow along within the RMD document. 
 
-With a large data set like the one here, it isn't very efficient to try and list every DFBeta value that could be a cause for concern. Instead let's plot the DFBetas and put lines at the calculate value. We'll also use the *identify()* function to identify specific observations.  We'll create plots for each of the coefficients. You'll need to include *windows()* and run all the lines of code at the same time. But you'll need to delete the *windows()* function in order to knit the file to pdf.
-
-
-```{r out8, echo=TRUE}
+```{r out8, echo=TRUE, error=TRUE}
 windows()
 plot(dfbs.fit1[,"length"])
 abline(h = c(2/sqrt(1261), -2/sqrt(1261)), lty = 2, col = "red")
@@ -191,8 +198,7 @@ identify(dfbs.fit1[,"length"],labels=ds$title)
 ```
 
 
-
-```{r out9, echo=TRUE}
+```{r out9, echo=TRUE, error=TRUE}
 windows()
 plot(dfbs.fit1[,"budget_1m"])
 abline(h = c(2/sqrt(1261), -2/sqrt(1261)), lty = 2, col = "red")
@@ -200,8 +206,7 @@ identify(dfbs.fit1[,"budget_1m"],labels=ds$title)
 
 ```
 
-
-```{r out10, echo=TRUE}
+```{r out10, echo=TRUE, error=TRUE}
 windows()
 plot(dfbs.fit1[,"votes_1k"])
 abline(h = c(2/sqrt(1261), -2/sqrt(1261)), lty = 2, col = "red")
@@ -209,22 +214,19 @@ identify(dfbs.fit1[,"votes_1k"],labels=ds$title)
 
 ```
 
-Take note: **You'll need to delete the windows() function in order to knit to pdf.**
-
-
-All of these diagnostics so far indicate that we have a potential outlier problem. There are a few ways to deal with this. First, you can simply keep them in the model and make no change. This is a perfectly viable method, especially if you don't have a technical or theoretical reason to not do so. Another method of dealing with outliers is to omit them and re-run the model. Let's look at the outliers identified by the outlier test again:
+All of the diagnostics so far indicate that there are outliers to address. There are a few ways to deal with this: First, you can keep them in the model. This is a perfectly viable method, especially if you don't have a technical or theoretical reason to remove them. Another method of dealing with outliers is to omit them and re-run the model. Let's look at the outliers identified by the outlier test again:
 
 ```{r out11, echo=TRUE}
 outlierTest(fit1)
 ```
 
-Now omit these using the following operator. Essentially this tells R not to inlcude the rows with the titles of the outlier movies. 
+Omit these using the following operator. Essentially this tells R not to include the rows with the titles of the outlier movies. 
 
 ```{r out12, echo=TRUE}
 ds.omit <- ds[ !(ds$title %in% c("From Justin to Kelly", "You Got Served", "Werewolf", "Glitter")),]
 ```
 
-Next make a new model with the ds.omit data:
+Next make a new model with the _ds.omit_ data:
 
 ```{r out13, echo=TRUE}
 fit.omit <- lm(rating~length+budget_1m+votes_1k,data=ds.omit)
@@ -236,40 +238,39 @@ Compare the two models side by side:
 stargazer(fit1, fit.omit, type="text",single.row=TRUE)
 ```
 
+Notice the minimal changes. The omitted observations changed 3 of the four coefficients, and increased the adjusted R squared value. 
 
-Notice that there is not a huge change, but simply omitted those four obsevations changed 3 of the four coefficits, and increased the adjusted R squared value. 
-
-Another option when dealing with outliers is to use robust regression, which weights the observations based on influence. Make a new model using robust regression, which is indicated by using the *rlm()* function instead of the *lm()* function. There are two methods, "M" and "MM". **Insert difference between the two**
+Another option when dealing with outliers is to use robust regression, which weights the observations based on influence. Make a new model using robust regression using the _rlm()_ function. There are two methods, "M" and "MM", and both should be evaluated to determine which model best represents your needs.
 
 ```{r out15, echo=TRUE}
 fit.m <- rlm(rating~length+budget_1m+votes_1k,data=ds, method = "M")
 fit.mm <- rlm(rating~length+budget_1m+votes_1k,data=ds, method = "MM")
 ```
 
-Now compare all four models:
+Compare the four models:
 
 ```{r out16, echo=TRUE}
 stargazer(fit1, fit.omit, fit.m, fit.mm, type="text",single.row=TRUE)
 
 ```
 
-The biggest difference here is that the residual standard error for the robust models is quite a bit lower. There are also some differences in the coefficients. When dealing with outliers, there is not a one-size-fits-all solution. Let your theory contribute to what solution you use. 
+The biggest difference here is the residual standard error for the robust models is quite a bit lower. There are also differences in the coefficients. With outliers, there is not a one-size-fits-all solution. Let your theory contribute to what solution you use. 
 
-## Part III: Heteroskedasticity
+## Part III: Heteroscedasticity
 
-One of the key assumptions of OLS is homoskedasticity, constant error variance. One way to check for this is by making a spread level plot, which allows us to see the spread of the residuals:
+One of the key assumptions of OLS is homoscedasticity (constant error variance). One way to check for this is by making a spread level plot, which allows us to see the spread of the residuals:
 
 ```{r het, echo=TRUE}
 spreadLevelPlot(fit1)
 ```
 
-There does not seem to be a constant spread of residuals, which could indicate a problem with heteroskedasticity. We can further investigate this by doing a Non-constant Variance Test. This tests the against the null hypothesis that error variance changes (heteroskedasticity). So if you cannot reject the null, you might have a problem with heteroskedasticity:
+There does not appear to be constant spread of residuals, which could indicate a problem with heteroscedasticity. We can further investigate this by doing a Non-constant Variance Test. This tests the null hypothesis that error variance changes (heteroscedasticity). That is, if you fail to reject the null there exists heteroscedasticity:
 
 ```{r het2, echo=TRUE}
 ncvTest(fit1)
 ```
 
-Based on both the test and the visualization, it is clear that we have an issue with heteroskedasticity. There are a couple ways to deal with heteroskedasticity. One method is robust standard errors. Robust standard errors don't change the beta estimates, but rather effect the value of the standard errors, which makes the p values more accurate. To use robust standard errors for our model, we would do this:
+Based on the test and visualization, it is clear there is an issue with heteroscedasticity. There are a couple ways to deal with heteroscedasticity. One method is robust standard errors. Robust standard errors don't change the beta estimates, but rather affect the value of the standard errors, which improve the p-values accuracy. To use robust standard errors for the model:
 
 ```{r het3, echo=TRUE}
 se.fit1<-sqrt(diag(vcov(fit1)))
@@ -277,7 +278,7 @@ vcov.fit1<-vcovHC(fit1,method="white1",type="HC1")
 rse.fit1<-sqrt(diag(vcov.fit1))
 ```
 
-Now let's compare the original model to the model using robust standard errors. Use *se=list(se.fit1,rse.fit1)* to tell R to use the original standard errors for the first model and robust for the second.
+Now compare the original model to the model using robust standard errors. Use _se=list(se.fit1,rse.fit1)_ for R to use the original standard errors for the first model and robust for the second.
 
 ```{r het4, echo=TRUE}
 stargazer(fit1,fit1,type="text",single.row=TRUE,se=list(se.fit1,rse.fit1))
@@ -285,7 +286,7 @@ stargazer(fit1,fit1,type="text",single.row=TRUE,se=list(se.fit1,rse.fit1))
 
 ## Part IV: Revisiting Linearity
 
-Let's revisit addressing the assumption of linearity. Let's construct the residual plots that we made in the last lab. We need to predict values of Y and add that to the data set, add the residuals to thedata set, melt the data and select the IVs, and predicted values, then use *ggplot()* and *facet_wrap()* to make the plots:
+Let's revisit addressing the assumption of linearity by constructing the residual plots that we made in the last lab. We need to predict values of _y_ and add that to the data set, add the residuals to the data set, melt the data and select the IVs, and predicted values, then use _ggplot()_ and _facet_wrap()_ to make the plots:
 
 ```{r lin, echo=TRUE}
 ds$fit1.p <- predict(fit1)
@@ -298,15 +299,14 @@ ggplot(ds.melt, aes(value, fit1.r, group=variable)) +
   facet_wrap(~variable, scales = "free")
 ```
 
-
-We definitely seem to have a linearity problem. The budget graphics appears to be the most linear, and the others suggest potential non-linear relationships. Let's examine some more information about the variables:
+There appears to be a linearity problem. The budget graphics appears to be the most linear, and the others suggest non-linear relationships. Let's examine some more information about the variables:
 
 ```{r lin2, echo=TRUE}
 describe(ds$length)
 describe(ds$budget_1m)
 describe(ds$votes_1k)
 ```
-There is quite a bit of skew for all three variables, so let's respecify the model, but use the log of each variable this tims:
+There is skew for all three variables, so let's respecify the model by using log of each variable:
 
 ```{r lin3, echo=TRUE}
 
@@ -321,7 +321,7 @@ ggplot(log.melt, aes(value, fit.log.r, group=variable)) +
   facet_wrap(~variable, scales = "free")
 ```
 
-This method seems to fix some problems and create some new ones. The votes graphic suggests a more linear relationship, but problems persist. Perhaps a polynomial model is more appropriate. Let's square every IV in the next model:
+This method fixed some problems and created new ones. The votes graphic suggests a more linear relationship, but problems persist. Perhaps a polynomial model is more appropriate. Let's square every IV in the next model:
 
 ```{r lin4, echo=TRUE}
 fit.poly<-lm(rating~poly(length,2)+poly(budget_1m,2)+poly(votes_1k,2),data=ds)
@@ -336,7 +336,7 @@ ggplot(poly.melt, aes(value, fit.poly.r, group=variable)) +
 
 ```
 
-Let's compare the last three models:
+Compare the last three models:
 
 ```{r lin5, echo=TRUE}
 stargazer(fit1, fit.log, fit.poly, single.row = TRUE, type="text")
@@ -370,8 +370,7 @@ ggplot(ds, aes(fit.poly.r)) +
 
 ```
 
-The log model has the highest adjusted R squared value, the lowest residual standard error, and its residuals appear to approximate the normal distribution better than the other two models. Let's use it to make predictions and create good, paper-worthy visualizations. 
-
+The log model has the highest adjusted R squared value, the lowest residual standard error, and its residuals appear to approximate the normal distribution better than the other two models. Let's use it to make predictions and create visualizations. 
 
 First create predicted values for movie ratings by holding all IVs constant at their means except one at at time. 
 
@@ -390,7 +389,7 @@ df.length <- data.frame(length=89:134, p.length, up.length, low.length)
 
 ```
 
-Now we'll make the visualization:
+Now make the visualization:
 
 ```{r pred3, echo=TRUE}
 ggplot(df.length, aes(length, fit)) +
@@ -405,7 +404,7 @@ ggplot(df.length, aes(length, fit)) +
 
 ```
 
-Great! Now do the same for the next two IVs:
+Now do the same for the next two IVs:
 
 ```{r pred4, echo=TRUE}
 up.votes <- p.votes$fit + 1.96*p.votes$se.fit
@@ -427,8 +426,6 @@ ggplot(df.votes, aes(votes_1k, fit)) +
   theme_bw()
   
 ```
-
-
 
 ```{r pred6, echo=TRUE}
 ggplot(df.budget, aes(budget_1m, fit)) +

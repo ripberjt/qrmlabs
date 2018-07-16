@@ -16,13 +16,12 @@ library(stargazer)
 library(gridExtra)
 library(reshape2)
 options(scipen = 999)
-#setwd("~/Methods Labs")
-ds <- read.csv("Class Data Set Factored.csv")
+ds <- read.csv("https://github.com/ripberjt/qrmlabs/raw/master/Class%20Data%20Set%20Factored.csv")
 ```
 
-This lab focuses on addressing issues that arise with non-linearity, non-normality, and multicollinearity. We begin by addressing non-linearity. The following packages are required for this lab: 
+This lab focuses on issues that arise with non-linearity, non-normality, and multicollinearity. We begin with non-linearity. The following packages are required for this lab: 
 
-1. ggplot2)
+1. ggplot2
 2. psych
 3. car
 4. memisc
@@ -117,7 +116,7 @@ mtable(model, poly)
 
 The coefficients for the individual variables in the quadratic model are statistically significant, suggesting they help us understand our dependent variable. Let's move onto the visualization. Since ideology is our variable of interest, we will visualize the relationship between ideology and candidate support while holding the other variables constant at their means.
 
-Start by looking at a scatter plot. To assistWe'll need to jitter the data because ideology is a discrete variable:
+Start by looking at a scatter plot. To assist we need to jitter the data because ideology is a discrete variable:
 
 ```{r poly5, echo=TRUE}
 ggplot(sub, aes(ideol, vote_cand_spt)) +
