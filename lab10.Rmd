@@ -20,7 +20,7 @@ options(scipen = 999)
 ds <- read.csv("Class Data Set Factored.csv")
 ```
 
-This lab focuses on addressing issues that arise with non-linearity, non-normality, and multicollinearity. We begin by addressing non-linearity. The following packages are required for this lab: 
+This lab focuses on issues that arise with non-linearity, non-normality, and multicollinearity. We begin with non-linearity. The following packages are required for this lab: 
 
 1. ggplot2
 2. psych

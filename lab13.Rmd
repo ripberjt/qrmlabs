@@ -1,7 +1,8 @@
 ---
 title: 'Lab Thirteen: Statistical Simulations'
-author: "Alex Davis"
-date: "July 6, 2018"
+author:
+ - Alex Davis
+ - Cody Adams
 output: pdf_document
 ---
 
@@ -26,7 +27,7 @@ ds<-read.csv("Class Data Set Factored.csv")
 
 So far we have covered many different techniques of statistical anaylsis. This lab will cover the basics of statistical simulations. As a foundation for this, we will be using the various functions associated with the Zelig Project. Zelig provides a method of simulating outcomes based on certain parameters, but it also provides a different way of constructing almost any model in R. Make sure and load the *zeligverse* package. 
 
-## Part One: The Basics
+## Part I: The Basics
 
 The basics of Zelig can be broken down into four steps:
 
@@ -118,7 +119,7 @@ ggplot(ols.ed.df, aes(factor(education), qi_ci_median))+
   geom_point()
 ```
 
-## Part Two: Other Models
+## Part II: Other Models
 
 Zelig can be utilized for many different types of models. Let's run through an example of logistic regression. Let's run through the example we used in the last lab, predicing a vote for Trump. This time we'll use Zelig, though:
 
@@ -296,7 +297,7 @@ ggplot(inc.out, aes(factor(log.inc), qi_ci_median)) +
   geom_point(size=2)
 ```
 
-## Part Three: Zelig with non-Zelig Models:
+## Part III: Zelig with non-Zelig Models:
 
 There are some models that can be specified outside of Zelig but that you can still use the Zelig functions on. The complete list can be found on the Zelig website, but we'll just use the *lm()* function. Here's a classic model from our labs:
 
