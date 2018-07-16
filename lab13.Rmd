@@ -59,7 +59,7 @@ ds.sub <- subset(ds) %>%
   na.omit()
 ```
 
-Use OLS regression to look at the relationship between square footage of a home (DV) and the IVs income, age, and education. First We'll use _zelig()_ to specify the model, indicate _model="ls"_. For the income variable use logged income. As we've shown many times throughout the labs, the income variable has a skew. 
+Use OLS regression to look at the relationship between square footage of a home (DV) and the IVs income, age, and education. First we use _zelig()_ to specify the model, indicate _model="ls"_. For the income variable use logged income. As we've shown many times throughout the labs, the income variable has a skew. 
 
 ```{r zel2, echo=TRUE}
 ds.sub$log.inc <- log(ds.sub$income)
@@ -98,7 +98,7 @@ Next we use _plot()_ to visualize the various QIs. I recommend clicking the "Sho
 plot(ols.sim)
 ```
 
-We can use Zelig to simulate based on a range of values, similar to how we would sequence one independent variable when we would predict in past labs. Let's simulate the data for the whole range of education values, from 1 to 8. We'll use to pipe operator, %>%, to simplify the syntax. 
+We can use Zelig to simulate based on a range of values, similar to how we would sequence one independent variable when we would predict in past labs. Let's simulate the data for the whole range of education values, from 1 to 8. We use to pipe operator, %>%, to simplify the syntax. 
 
 ```{r zel8, echo=TRUE}
 ols2.ed <- setx(ols1, education=1:8) %>%
@@ -330,7 +330,7 @@ ggplot(lm1.out, aes(x=factor(ideol), y=qi_ci_median)) +
     geom_point(size=2)
 ```
 
-Let's move onto a different model that might provide some interesting findings. In a previous lab we looked the relationship between ideology and support for the candidate an individual voted for. Recall that we used polynomial terms to find a better model fit and concluded that the relationship was not strictly linear. Let's take that question one step further and break it down by political party. Perhaps there are linear relationships when we look at candidate support by ideology and party. We'll use Zelig to run simulations and predict values of candidate support for each of the ideology levels based on political party. 
+Let's move onto a different model that might provide some interesting findings. In a previous lab we looked the relationship between ideology and support for the candidate an individual voted for. Recall that we used polynomial terms to find a better model fit and concluded that the relationship was not strictly linear. Let's take that question one step further and break it down by political party. Perhaps there are linear relationships when we look at candidate support by ideology and party. We use Zelig to run simulations and predict values of candidate support for each of the ideology levels based on political party. 
 
 First subset the data:
 

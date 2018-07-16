@@ -17,7 +17,7 @@ library(vcd)
 options(scipen = 999)
 ```
 
-This lab covers the basics of inference for two populations. We'll go through proportions and cross tabulations; the different types of two sample t-tests; difference in one and two tailed tests; and how to plot means and the differences between means. The following packages are required for this lab: 
+This lab covers the basics of inference for two populations. We go through proportions and cross tabulations; the different types of two sample t-tests; difference in one and two tailed tests; and how to plot means and the differences between means. The following packages are required for this lab: 
 
 1. ggplot2
 2. psych

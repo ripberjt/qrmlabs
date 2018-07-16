@@ -115,7 +115,7 @@ party <- c("Democrat", "Independent", "Republican", "Other")
 party
 ```
 
-Now construct a vector with the point estimates. We'll call it _cert_ since we are measuring climate change certainty. The order of our party name vector was determined by the order that we predicted the estimated values:
+Now construct a vector with the point estimates. We name it _cert_ since we are measuring climate change certainty. The order of our party name vector was determined by the order that we predicted the estimated values:
 
 ```{r dum9, echo=TRUE}
 cert <- values$fit

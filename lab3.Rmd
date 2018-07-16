@@ -203,7 +203,7 @@ curve(dnorm(x, mean=mean(random, na.rm=T), sd=sd(random, na.rm=T)), add=TRUE, co
 
 ```
 
-Let's start figuring out how to check if our data is normally distributed. At the beginning of this lab we should have installed and loaded the package "sm". We'll be using the sm.density() function to visualize data and to project what should be the normal distribution of the data, given the mean and standard deviation of the data. Let's start with our randomly generated data. We'll include the model="Normal" argument at the end of the function, so that sm.density knows to use the normal distribution.
+Let's start figuring out how to check if our data is normally distributed. At the beginning of this lab we should have installed and loaded the package "sm". We use the _sm.density()_ function to visualize data and to project what should be the normal distribution of the data, given the mean and standard deviation of the data. Let's start with our randomly generated data. We include the _model="Normal"_ argument at the end of the function, so that _sm.density_ knows to use the normal distribution.
 
 ```{r three4, echo=TRUE}
 sm.density(random, model = "Normal")

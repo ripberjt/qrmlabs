@@ -193,7 +193,7 @@ psuedoR2 <- 1- (logit2$deviance/logit2$null.deviance)
 psuedoR2
 ```
 
-The final method we'll go over is AIC, or Akaine Information Criteria. AIC is only useful in comparing two models, and like adjusted R squared it penalizes for increased model parameters. Fortunately, AIC is calculated for us when we look at the summary of the model. A smaller AIC value indicates better model fit. Let's again compare the two actual logit models (not the null model)
+The final method we go over is AIC, or Akaine Information Criteria. AIC is only useful in comparing two models, and like adjusted R squared it penalizes for increased model parameters. Fortunately, AIC is calculated for us when we look at the summary of the model. A smaller AIC value indicates better model fit. Let's again compare the two actual logit models (not the null model)
 
 ```{r log22, echo=TRUE}
 stargazer(logit1, logit2, type="text", single.row = TRUE)

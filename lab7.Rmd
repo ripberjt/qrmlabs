@@ -375,7 +375,7 @@ qqPlot(model1$residuals)
 
 ## Part IV: Comparing Models
 
-Suppose you wanted to create multiple bivariate models and contrast them. This is possible using the _mtable()_ function from the _memisc_ package. To demonstrate, we create three models looking at the relationship between an independent variable and concern about global climate change. The three independent variables will be ideology, certainty that humans cause climate change, and age. We'll start by creating a subset of our data and removing missing observations:
+Suppose you wanted to create multiple bivariate models and contrast them. This is possible using the _mtable()_ function from the _memisc_ package. To demonstrate, we create three models looking at the relationship between an independent variable and concern about global climate change. The three independent variables will be ideology, certainty that humans cause climate change, and age. We start by creating a subset of our data and removing missing observations:
 
 ```{r comp, echo=TRUE}
 sub <- subset(ds, select=c(glbcc_risk, glbcc_cert, age, ideol))
