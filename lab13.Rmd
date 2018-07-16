@@ -21,8 +21,7 @@ library(DAMisc)
 library(zeligverse)
 library(dplyr)
 options(scipen = 999)
-setwd("~/Methods Labs")
-ds<-read.csv("Class Data Set Factored.csv")
+ds<-read.csv("https://github.com/ripberjt/qrmlabs/raw/master/Class%20Data%20Set%20Factored.csv")
 ```
 
 So far we have covered many different techniques of statistical analysis. This lab will cover the basics of statistical simulations. As a foundation for this, we will be using the various functions associated with the Zelig Project. Zelig provides a method of simulating outcomes based on certain parameters, but it also provides a different way of constructing almost any model in R. The following packages are required for this lab: 

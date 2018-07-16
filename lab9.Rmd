@@ -16,8 +16,7 @@ library(stargazer)
 library(gridExtra)
 library(interplot)
 options(scipen = 999)
-#setwd("~/Methods Labs")
-ds <- read.csv("Class Data Set Factored.csv")
+ds <- read.csv("https://github.com/ripberjt/qrmlabs/raw/master/Class%20Data%20Set%20Factored.csv")
 ```
 
 This lab focuses on ways in which we use and understand categorical independent variables. So far the independent variables we have worked with have been interval or ordinal data. When working with categorical data, there are different approaches and techniques of interpretation. The following packages are required for this lab: 

@@ -20,7 +20,7 @@ library(stargazer)
 library(MASS)
 library(sandwich)
 library(plotly)
-ds <- read.csv("imdb_2014.csv")
+ds <- read.csv("https://github.com/ripberjt/qrmlabs/raw/master/imdb_2014.csv")
 options(scipen = 999)
 ```
 

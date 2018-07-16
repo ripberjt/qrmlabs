@@ -15,8 +15,7 @@ library(memisc)
 library(stargazer)
 library(gridExtra)
 options(scipen = 999)
-#setwd("~/Methods Labs")
-ds <- read.csv("Class Data Set Factored.csv")
+ds <- read.csv("https://github.com/ripberjt/qrmlabs/raw/master/Class%20Data%20Set%20Factored.csv")
 ```
 
 This lab covers the basics of multivariate linear regression. We begin by reviewing linear algebra to perform ordinary least squares (OLS) regression in matrix form. Then we cover an introduction to multiple linear regression and visualizations with R. The following packages are required for this lab: 

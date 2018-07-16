@@ -8,8 +8,7 @@ output: pdf_document
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
-#setwd("~/Methods Labs")
-ds <- read.csv("Class Data Set Factored.csv")
+ds <- read.csv("https://github.com/ripberjt/qrmlabs/raw/master/Class%20Data%20Set%20Factored.csv")
 library(ggplot2)
 library(psych)
 library(car)
