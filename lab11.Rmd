@@ -23,7 +23,7 @@ ds <- read.csv("imdb_2014.csv")
 options(scipen = 999)
 ```
 
-This lab will help us understand how to diagnose and address potential problems in OLS regression. In the last lab, we addressed the OLS assumptions of normality of residuals, linearity, and multicollinearity. This lab will address how to deal with outliers and heteroscedasticity, but it will also provide a refresher on exploring and visualizing your data. 
+This lab will help us understand how to diagnose and address potential problems in OLS regression. In the last lab, we addressed the OLS assumptions of normality of residuals, linearity, and multicollinearity. This lab addresses how to deal with outliers and heteroscedasticity and also provides a refresher on exploring and visualizing your data. 
 
 ## Part I: Introduction to the Data
 
@@ -64,7 +64,6 @@ Now explore some descriptive statistics:
 describe(ds)
 ```
 
-
 Now let's clean up a couple of the variables. First scale the budget variable by millions of dollars, then scale votes by thousands, and factor the year variable:
 
 ```{r int7, echo=TRUE}
@@ -81,7 +80,6 @@ ggplot(melt.ds, aes(value)) +
   geom_histogram(fill="#0000FF") +
   facet_wrap(~variable, scale="free")
 ```
-
 
 Now let's look at the bivariate plots for the relationship between length, budget, votes, and rating. This is where we'll begin looking at potential outliers. Build each individual visualizaztion and then use *ggplotly()* to create an interactive interface that will allow you to identify individual observations. 
 
@@ -105,7 +103,6 @@ ggplotly(length)
 
 ```
 
-
 ```{r int11, echo=TRUE}
 budget <- ggplot(ds, aes(budget_1m, rating, label=title)) +
   geom_point(color="#0000FF50") +
@@ -115,7 +112,6 @@ budget <- ggplot(ds, aes(budget_1m, rating, label=title)) +
 ggplotly(budget)
 
 ```
-
 
 ## Part II: Outliers
 
@@ -178,11 +174,9 @@ dfbs.fit1<-dfbetas(fit1)
 head(dfbs.fit1)
 ```
 
-
 With a large data set like the one here, it isn't very efficient to try and list every DFBeta value that could be a cause for concern. Instead let's plot the DFBetas and put lines at the calculate value. We'll also use the *identify()* function to identify specific observations.  We'll create plots for each of the coefficients. You'll need to include *windows()* and run all the lines of code at the same time. But you'll need to delete the *windows()* function in order to knit the file to pdf.
 
-
-```{r out8, echo=TRUE}
+```{r out8, echo=TRUE, error=TRUE}
 windows()
 plot(dfbs.fit1[,"length"])
 abline(h = c(2/sqrt(1261), -2/sqrt(1261)), lty = 2, col = "red")
@@ -191,8 +185,7 @@ identify(dfbs.fit1[,"length"],labels=ds$title)
 ```
 
 
-
-```{r out9, echo=TRUE}
+```{r out9, echo=TRUE, error=TRUE}
 windows()
 plot(dfbs.fit1[,"budget_1m"])
 abline(h = c(2/sqrt(1261), -2/sqrt(1261)), lty = 2, col = "red")
@@ -200,8 +193,7 @@ identify(dfbs.fit1[,"budget_1m"],labels=ds$title)
 
 ```
 
-
-```{r out10, echo=TRUE}
+```{r out10, echo=TRUE, error=TRUE}
 windows()
 plot(dfbs.fit1[,"votes_1k"])
 abline(h = c(2/sqrt(1261), -2/sqrt(1261)), lty = 2, col = "red")
@@ -210,7 +202,6 @@ identify(dfbs.fit1[,"votes_1k"],labels=ds$title)
 ```
 
 Take note: **You'll need to delete the windows() function in order to knit to pdf.**
-
 
 All of these diagnostics so far indicate that we have a potential outlier problem. There are a few ways to deal with this. First, you can simply keep them in the model and make no change. This is a perfectly viable method, especially if you don't have a technical or theoretical reason to not do so. Another method of dealing with outliers is to omit them and re-run the model. Let's look at the outliers identified by the outlier test again:
 
@@ -235,7 +226,6 @@ Compare the two models side by side:
 ```{r out14, echo=TRUE}
 stargazer(fit1, fit.omit, type="text",single.row=TRUE)
 ```
-
 
 Notice that there is not a huge change, but simply omitted those four obsevations changed 3 of the four coefficits, and increased the adjusted R squared value. 
 
@@ -297,7 +287,6 @@ ggplot(ds.melt, aes(value, fit1.r, group=variable)) +
   geom_hline(yintercept = 0) +
   facet_wrap(~variable, scales = "free")
 ```
-
 
 We definitely seem to have a linearity problem. The budget graphics appears to be the most linear, and the others suggest potential non-linear relationships. Let's examine some more information about the variables:
 
@@ -372,7 +361,6 @@ ggplot(ds, aes(fit.poly.r)) +
 
 The log model has the highest adjusted R squared value, the lowest residual standard error, and its residuals appear to approximate the normal distribution better than the other two models. Let's use it to make predictions and create good, paper-worthy visualizations. 
 
-
 First create predicted values for movie ratings by holding all IVs constant at their means except one at at time. 
 
 ```{r pred, echo=TRUE}
@@ -427,8 +415,6 @@ ggplot(df.votes, aes(votes_1k, fit)) +
   theme_bw()
   
 ```
-
-
 
 ```{r pred6, echo=TRUE}
 ggplot(df.budget, aes(budget_1m, fit)) +
