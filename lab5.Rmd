@@ -13,6 +13,7 @@ library(ggplot2)
 library(psych)
 library(car)
 library(vcd)
+library(dplyr)
 options(scipen = 999)
 ```
 
@@ -22,31 +23,28 @@ This lab covers the basics of inference for two populations. We go through propo
 2. psych
 3. car
 4. vcd
+5. dpylr
 
 ## Part I: Proportions
 
-To start with proportions, We will use the _glbcc_ variable from the class dataset that contains respondents' opinions on global climate change. We start with describing the data. A zero indicates "no" and 1 indicates "yes."
+To start with proportions, We will use the _glbcc_ variable from the class dataset that contains respondents' opinions on global climate change. Specifically, it asks if they believe that greenhouse gases cause global temperatures to increase. We start with describing the data. A zero indicates "no" and 1 indicates "yes."
 
 ```{r prop, echo=TRUE}
 t.gcc <- table(ds$glbcc)
 t.gcc
 ```
 
-Now we can describe the population proportions. To do this we use the _prop.table()_ function. We will specify the _prop.table()_ function to round to 4 decimals.
+Now we can describe the population proportions. To do this we use the _prop.table()_ function. 
 
 ```{r prop2, echo=TRUE}
-p.t.gcc <- round(prop.table(t.gcc), 4)
-p.t.gcc 
+table(ds$glbcc) %>% prop.table()
 ```
 
 The _prop.table()_ function describes the proportions of the population that believe humans cause climate change. Let's visualize the proportions. 
 
-__Note:__ This lab introduces the _ggplots_ package, which will be used for visualizations moving forward. The _ggplot_ package includes various methods of visualizing data beyond the base visualization functions provided by R.
-
 Data frames are required for ggplot visualizations, which can be constructed from the tables using the _data.frame()_ and _c()_ functions. The following is an example method of creating a data frame manually with values from the previous tables.
 
 ```{r prop3, echo=TRUE}
-p.t.gcc
 df <- data.frame(answer = c("0","1"), glbcc = c("0.4287", "0.5713"))
 ggplot(df, aes(x=answer, y=glbcc)) +
   geom_bar(stat = "identity") 
@@ -55,7 +53,7 @@ ggplot(df, aes(x=answer, y=glbcc)) +
 As we learned in the last lab, there are uncertainties associated to point estimates. We can include confidence intervals to get a range of values for which we are confident (at some level) the value actually falls between. To calculate confidence intervals we need to find the standard error of the proportionn and assign it to an object that we will name _se_.
 
 ```{r prop4, echo=TRUE}
-se <-sqrt((0.5713*(1-0.5713)/2547)) 
+se <-sqrt((0.5713 * (1 - 0.5713)/2547)) 
 se
 ```
 
@@ -98,28 +96,27 @@ yes.low <- yes - 1.96 * se
 For simplicity in creating a data frame, we can use the previously created objects. 
 
 ```{r prop9, echo=TRUE}
-df <- data.frame(answer = c("0", "1"), glbcc = c(no,yes), lower = c(no.low,yes.low),
+df <- data.frame(answer = c("0", "1"), glbcc = c(no, yes), 
+                 lower = c(no.low, yes.low),
                  upper = c(no.up, yes.up))
 ```
 
 With the new data frame we can create a visualization that includes the confidence intervals. The code is similar to the previous _ggplot_ code used, but now with the addition of the _geom\_errorbar()_ function. The _geom\_errorbar()_ function requires arguments to use the lower and upper bound values for the confidence intervals:
 
 ```{r prop10, echo=TRUE}
-ggplot(df, aes(x=answer, y=glbcc)) +
-  geom_bar(stat="identity")+
-  geom_errorbar(aes(ymin=lower, ymax=upper))
+ggplot(df, aes(x = answer, y = glbcc)) +
+  geom_bar(stat = "identity") +
+  geom_errorbar(aes(ymin = lower, ymax = upper))
 ```
 
 ### Two Populations
 
-Research is often interested in differences between distinct populations. Using the _glbcc_ variable, we will review responses differentiated by gender.
+Research is often interested in differences between distinct populations. Using the _glbcc_ variable, we will review responses differentiated by gender. 
 
 ```{r 2prop, echo=TRUE}
 t.gcc.gend <- table(ds$glbcc, ds$f.gender)
 t.gcc.gend
-t.gcc.gend.p <- round(prop.table(t.gcc.gend, 2), 4)
-t.gcc.gend.p
-
+t.gcc.gend.p <- prop.table(t.gcc.gend)
 ```
 
 Respondent opinions on climate change can be examined on the difference of gender. This requires extracting the second row from the data set to create a table: 
@@ -129,21 +126,21 @@ yes.table <- t.gcc.gend.p[2,]
 yes.table
 ```
 
-To create a visualization, we will start with the mean proportion of support by gender:
+To visually examine which gender has, on average, higher belief that greenshouse gases cause climate change, plotting the two mean levels of belief for the genders is a good place to start. To create a visualization, the mean level of _glbcc_ needs to be found for each gender. We will use the _filter()_ function to simplify the calculations:
 
 ```{r 2prop3, echo=TRUE}
-men2 <- 0.5273
-women2 <- 0.6013
+male <- filter(ds, gender==1)
+female <- filter(ds, gender==0)
 ```
 
-Next we will calculate the standard error by gender. We will use the _subset()_ function to simplify the calculations:
+Assign the mean levels of support to objects titled _men2_ and _women2_.
 
 ```{r 2prop4, echo=TRUE}
-male <- subset(ds, gender==1)
-female <- subset(ds, gender==0)
+men2 <- mean(male$glbcc)
+women2 <- mean(female$glbcc)
 ```
 
-Now the _describe()_ function used for the standard errors per gender:
+Now the _describe()_ function is used for the standard errors per gender:
 
 ```{r 2prop5, echo=TRUE}
 men.se <- describe(male$glbcc)$se
@@ -162,8 +159,8 @@ women.low <- women2 - 1.96*women.se
 The confidence intervals used to create a data frame for the visualization:
 
 ```{r 2prop7, echo=TRUE}
-
-df2 <- data.frame(gender = c("Men", "Women"), glbcc = c(men2,women2), lower = c(men.low,women.low),
+df2 <- data.frame(gender = c("Men", "Women"), glbcc = c(men2,women2), 
+                 lower = c(men.low,women.low),
                  upper = c(men.up, women.up))
 ```
 
@@ -194,26 +191,25 @@ The t-test yields a p-value < $\alpha$ = 0.05, thereby the null hypothesis is re
 
 Another way to examine the difference of gender and beliefs about climate change is cross tabulation. Cross tabulations describe relationships between two variables. The basic building block of cross tabulations are tables, a skill acquired in previous labs.
 
-For this section, we will use the _glbcc\_risk_ variable, that measures the level of risk respondents associate with climate change (on a scale of zero to ten). The range associated to this scale is simplified to zero to five:
+For this section, we will use the _glbcc\_risk_ variable, that measures the level of risk respondents associate with climate change (on a scale of zero to ten). The range associated to this scale is simplified to zero to five using the _recode()_ function:
 
-For this section let's use a different climate change variable from our class data set: glbcc_risk. This variable measures the level of risk the repsondent associates with climate change, on a scale of zero to ten. That's a pretty wide scale, so let's brush up on our recoding and recode the variable to only go from zero to five:
 
 ```{r ct1, echo=TRUE}
-ds$r.gccrsk <- recode(ds$glbcc_risk, "0:1=1; 2:3=2; 4:6=3; 7:8:=4; 9:10=5")
+ds$r.gccrsk <- car::recode(ds$glbcc_risk, "0:1=1; 2:3=2; 4:6=3; 7:8:=4; 9:10=5")
 table(ds$r.gccrsk)
 ```
 
-Next the variable is separated by gender using the _table()_ function. The dependent variable (_r.gccrsk_) is specified followed by the independent variable (_f.gender_):
+Next the variable is separated by gender using the _table()_ function. The dependent variable, _r.gccrsk_, is specified followed by the independent variable, _f.gender_:
 
 ```{r ct2, echo=TRUE}
 gcc.table <- table(ds$r.gccrsk, ds$f.gender)
 gcc.table
 ```
 
-The _prop.table()_ function describes the relationship by proportions. We convert the proportion to percentage, then use the percentage by column and by row. The 2 and the 1 tell R to do so: 
+The _prop.table()_ function describes the relationship by proportions. We convert the proportion to percentage of each response level by gender by including _margin=2_.
 
 ```{r ct3, echo=TRUE}
-round(prop.table(gcc.table, 2) * 100, 1)
+gcc.table %>% prop.table(margin = 2) * 100
 ```
 
 There appears to be a difference in genders; however, as these differences are within a sample we cannot infer there is a difference in the population without an empirical test. We will use the Chi-Square test to empirically test whether there is a statistically significant difference in genders. The _chisq.test()_ function performs the Chi-Square test given a table:
@@ -237,7 +233,7 @@ assocstats(gcc.table)
 
 Cramer's V is a score ranging from 0 to 1, whereby 0 indicates a weak association and 1 indicates strong association. The Cramer's V score returned for the previous test is quite small, indicating a weak association.
 
-Perhaps we are interested as gender as a control variable, with ideology as the independent variable. A new table for perceived risk of climate change, ideology (conservative, moderate, liberal), and gender is as follows:
+Perhaps we are interested in gender as a control variable, with ideology as the independent variable. A new table for perceived risk of climate change, ideology (conservative, moderate, liberal), and gender is as follows:
 
 ```{r, ct7, echo=TRUE}
 gcc.table2 <- table(ds$r.gccrsk, ds$f.ideology, ds$f.gender)
@@ -275,7 +271,7 @@ When using t-tests for two populations, you need to first decide if you should u
 Let's examine if there is a difference between the risk associated with climate change for Democrats and Republicans in our survey. In order to test only Democrats and Republicans, we need to recode our factored party variable to only include Democrats and Republicans:
 
 ```{r ind, echo=TRUE}
-ds$f.part <- recode(ds$f.party.2, "'Dem'='Dem'; 'Rep'='Rep'; else=NA")
+ds$f.part <- car::recode(ds$f.party.2, "'Dem'='Dem'; 'Rep'='Rep'; else=NA")
 table(ds$f.part)
 ```
 
@@ -287,8 +283,8 @@ by(ds$glbcc_risk, ds$f.part, describe)
 
 The Levene test is used to test if the difference in variances is statistically significant. Similar to previously discussed hypotheses, the Levene tests the following hypotheses:
 
-$H_0$: variances are equal  
-$H_1$: variances are not equal  
+-$H_0$: variances are equal  
+-$H_1$: variances are not equal  
 
 ```{r ind3, echo=TRUE}
 leveneTest(ds$glbcc_risk, ds$f.part)
@@ -296,11 +292,11 @@ leveneTest(ds$glbcc_risk, ds$f.part)
 
 Given the p-value < $\alpha$ = 0.05, we reject the null hypothesis such that there is a statistically significant difference in variances. With this result we can perform an independent t-test for two populations. The framework for forming hypotheses is as follows:
 
-$H_0$: the two populations are indifferent; "there is no difference in perceived risk of climate change between democrats and republicans"
-$H_1$: the two populations are different; "there is a difference in perceived risk of climate change between democrats and republicans"
+-$H_0$: the two populations are indifferent; "there is no difference in perceived risk of climate change between Democrats and Republicans"
+-$H_1$: the two populations are different; "there is a difference in perceived risk of climate change between Democrats and Republicans"
 
 ```{r ind4, echo=TRUE}
-t.test(ds$glbcc_risk ~ ds$f.part, var.equal = FALSE) # var.equal=FALSE is default, you don't need to include it.
+t.test(ds$glbcc_risk ~ ds$f.part, var.equal = FALSE) # var.equal=FALSE is default
 ```
 
 Given the p-value < $\alpha$ = 0.05, we reject the null hypothesis such that there is a statistically significant difference in perceived risk of climate change between democrats and republicans.
@@ -313,7 +309,7 @@ t.test(ds$glbcc_risk ~ ds$f.part, alt="greater")
 
 ### Other Independent Sample Tests
 
-Not all research leads to testing two populations. For example, consider whether a difference exists in perceived risk of climate change among democrats, republicans, and independents. Further, if there are statistically significant differences, how could ideologies be ranked? Unfortunately, performing pairwise t-tests on the possible combinations is inadequate, due to the "family-wise error rate" associated to the p-value. The _pairwise.t.test()_ function employs the family-wise correction method (by default, Holm-Bonferroni method) to correct the p-value.
+Not all research leads to testing two populations. For example, consider whether a difference exists in perceived risk of climate change among Democrats, Republicans, and independents. Further, if there are statistically significant differences, how could ideologies be ranked? Unfortunately, performing pairwise t-tests on the possible combinations is inadequate, due to the "family-wise error rate" associated to the p-value. The _pairwise.t.test()_ function employs the family-wise correction method (by default, Holm-Bonferroni method) to correct the p-value.
 
 Like traditional independent sample tests involving two samples, the variances must be unequal:
 
@@ -321,7 +317,7 @@ Like traditional independent sample tests involving two samples, the variances m
 leveneTest(ds$glbcc_risk~ds$f.party.2)
 ```
 
-Given that the p-value < $\alpha$ = 0.05, we reject the null hypothesis such that there is a difference in variances. The _pairwise.t.test()_ function can perform the pairwise test, using the _f.party_2_ variable that was factored for democrats, republicans, and independents:
+Given that the p-value < $\alpha$ = 0.05, we reject the null hypothesis such that there is a difference in variances. The _pairwise.t.test()_ function can perform the pairwise test, using the _f.party_2_ variable that was factored for Democrats, Republicans, and independents:
 
 ```{r pairwise, echo=TRUE}
 pairwise.t.test(ds$glbcc_risk, ds$f.party.2, pool.sd=FALSE)
@@ -332,7 +328,7 @@ The output of the _pairwise.t.test()_ function is read as a table, whereby each 
 An alternative, multiple comparisons test, is the Tukey Honest Significance Difference test ("Tukey's test"), that is commonly used with Analysis of Variance (ANOVA). In short, Tukey's test is used to find means that are significantly difference between multiple samples. Tukey's test requires using the _aov()_ function to perform ANOVA, as follows:
 
 ```{r hsd2, echo=TRUE}
-TukeyHSD(aov(ds$glbcc_risk~ds$f.party.2))
+aov(ds$glbcc_risk ~ ds$f.party.2) %>% TukeyHSD()
 ```
 
 The p-value < $\alpha$ = 0.05 between each pair. 
@@ -357,14 +353,13 @@ First check the variance between the two groups:
 
 ```{r paired2, echo=TRUE}
 var.test(exam.ds$Exam1, exam.ds$Exam2)
-
 ```
 
 Given the p-value > $\alpha$ = 0.05, the null hypothesis is not rejected such that there is no statistically significant difference in variances.  
   
 Next, we define our hypotheses for the paired test:  
-$H_0$: there is no difference between exams one and two for students  
-$H_1$: there is a difference between exams one and two for students
+-$H_0$: there is no difference between exams one and two for students  
+-$H_1$: there is a difference between exams one and two for students
 
 ```{r paired3, echo=TRUE}
 t.test(exam.ds$Exam1, exam.ds$Exam2, paired = TRUE, var.equal = TRUE)
@@ -421,38 +416,34 @@ examdf <- data.frame(test, scores, upper, lower)
 Now, for the visualization. Instead of a bar plot, we will create a graph consisting of a point for the means for each exam, and the confidence intervals. In additional, we will add color and labels. These arguments are available for other data sets and visualizations using _ggplot2_:
 
 ```{r vis5, echo = TRUE}
-ggplot(examdf, aes(x=test, y=scores)) + # building the basic aesthetic
-  geom_point(size=3, shape=19, col = "dodgerblue3") + # telling R to place points, the shape and color as well.
-  geom_errorbar(aes(ymin=lower, ymax=upper), width=.1, col="dodgerblue3") + # making error bars based on the confidence intervals
-  ylim(10,100) + # Setting the y axis
-  ggtitle("Exam Scores") + # Main title
-  xlab("Exams") + # Name for x axis
-  ylab("Scores") # Name for y axis
+ggplot(examdf, aes(x = test, y = scores)) +
+  geom_point(size = 3, shape = 19, col = "dodgerblue3") + 
+  geom_errorbar(aes(ymin = lower, ymax = upper), width = .1, col = "dodgerblue3") + 
+  ylim(10, 100) + 
+  ggtitle("Exam Scores") + 
+  xlab("Exams") + 
+  ylab("Scores") 
 ```
 
 Following the basic steps above will help you make attractive visualizations for different needs.
 
 Suppose the teacher wanted a visualization that plots each students' test scores between the two exams for easy comparison. A grouped bar plot is a simple approach to accomplish this.
 
-This requires a new data frame with vectors for exams, students, and scores:
+This requires a different type of data frame. So far the data has been "wide" data, but we need "long" data. The _melt()_ function found in the _dplyr_ package converts data from wide to long format. Include "Exam1" and "Exam2" as the measured variables. 
 
 ```{r vis6, echo=TRUE}
-Exam <- rep(c("Exam1", "Exam2"), each = 10) # Repeats "Exam 1" 10 times and then "Exam 2" 10 times
-student <- rep(c("st1", "st2", "st3", "st4", "st5", "st6", "st7", "st8", "st9", "st10"),2) # Repeats the 10 student names 2 times
-scores <- c(99, 98, 67, 68, 70, 71, 72, 88, 75, 83, 94, 93, 62, 63, 65, 66, 67, 83, 70, 76) # Lists the 10 Exam 1 scores and then the 10 exam 2 scores. 
-exam.com <- data.frame(Exam, student, scores) # Creates the data frame
+exam.m <- melt(exam.ds, measure.vars = c("Exam1", "Exam2"))
 ```
 
-The new data frame pairs the exams with the students and the respective score:
+The new data frame pairs the exams with the students and the respective score. This is what is meant by "long" data. 
 
 ```{r vis7, echo=TRUE}
-exam.com
+exam.m
 ```
 
-The grouped bar plot is constructed similar to a bar plot, except that the visualization is based on the exam and uses the _position.dodge()_ function to place bars near each other: 
+The grouped bar plot is constructed similar to a bar plot, except that the visualization is based on the exam and uses the _position.dodge()_ function to place bars near each other and the _fill=Exam_ argument to specify what the groups 
 
 ```{r vis8, echo=TRUE}
-
-ggplot(exam.com, aes(x=student, y=scores, fill=Exam)) +
+ggplot(exam.m, aes(x=Student, y=value, fill=variable)) +
   geom_bar(stat="identity", position = position_dodge())
 ```

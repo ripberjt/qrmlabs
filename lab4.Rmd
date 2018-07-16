@@ -4,6 +4,7 @@ author:
  - Alex Davis
  - Cody Adams
 output: pdf_document
+
 ---
 
 This lab introduces the tools for the foundation of inference by examining the normal distribution, standard errors, confidence errors, and single sample t-tests. The following packages are required:
@@ -46,16 +47,16 @@ ggplot(as.data.frame(random), aes(sample = random)) +
 
 The QQ plot of the _random_ object demonstrates the data closely follows a normal distribution. This is expected given the _random_ object was created via the _rnorm()_ function. __Note:__ Visualizing data for normality is an informal approach to inspecting for normality. Various empirical methods exist to test whether data follows a normal distribution, the most popular of which are:
 
-1. Shapiro–Wilk test
-2. Anderson–Darling test
-3. Kolmogorov–Smirnov test
-4. Pearson's chi-squared test
+1. Shapiro - Wilk test
+2. Anderson - Darling test
+3. Kolmogorov - Smirnov test
+4. Pearson's chi - squared test
 
 The Shapiro-Wilk test is the most popular method, as the test has been demonstrate as providing the most power for a given significance.
 
 ### Shapiro-Wilk Test
 
-The _shapiro.test()_ function in R employs the Shapiro-Wilk test on data to test whether the data are normally distributed. Use of the Shapiro–Wilk test is contingent on univariate and continuous data. The hypotheses for the Shapiro-Wilk test are:
+The _shapiro.test()_ function in R employs the Shapiro-Wilk test on data to test whether the data are normally distributed. Use of the Shapiro-Wilk test is contingent on univariate and continuous data. The hypotheses for the Shapiro-Wilk test are:
 
 $H_0$: The data are normally distributed  
 $H_1$: The data are not normally distributed
@@ -90,14 +91,14 @@ The black line represents the _eruptions_ data, and the blue line represents the
 The _eruptions_ data is further examined using QQ plots via the _qqPlot()_ function:
 
 ```{r faith4, echo=TRUE}
-qqPlot(faithful$eruptions)
+ggplot(faithful, aes(sample = eruptions)) +
+  stat_qq()
 ```
 
 Most of the points in the QQ plot fall outside the region defined by the dashed lines, further suggesting the _eruptions_ data is likely not normally distributed. Lastly, a Shapiro-Wilk test can confirm whether the _eruptions_ data is normally distributed:
 
 ```{r faith3, echo=TRUE}
-ggplot(faithful, aes(sample = eruptions)) +
-  stat_qq()
+shapiro.test(faithful$eruptions)
 ```
 
 The Shapiro-Wilk test p-value is less than $\alpha$ = 0.05, leading to reject $H_0$: data are normally distributed. In conclusion, the _eruptions_ data is not normally distributed. __Note:__ The visual plots are likely enough to confirm the _eruptions_ data are not normally distributed.
@@ -105,19 +106,25 @@ The Shapiro-Wilk test p-value is less than $\alpha$ = 0.05, leading to reject $H
 The _MacdonellDF_ variable within the _HistData_ package consists of finger length data. Again, visualizing the data for normality is performed via various methods. A box plot is generated for the _MacdonellDF_ data:
 
 ```{r f, echo=TRUE}
-ggplot(MacdonellDF, aes(x = "", y))
+ggplot(MacdonellDF, aes(x = "", y = finger)) +
+  geom_boxplot()
 ```
 
-The box plot appears balanced, indicating normality. The _sm.density()_ function should show the distribution of _MacdonellDF_ variable as similar to the projected normal distribution given the $\mu$ and $\sigma$ parameters of the _MacdonellDF_ variable.
+The box plot appears balanced, indicating normality. Generating a density plot should show the distribution of _MacdonellDF_ variable as similar to the projected normal distribution given the $\mu$ and $\sigma$ parameters of the _MacdonellDF_ variable.
 
 ```{r f2, echo=TRUE}
-sm.density(MacdonellDF$finger, model = "Normal")
+ggplot(MacdonellDF, aes(finger)) +
+  geom_density() +
+  stat_function(fun = "dnorm", args = list(mean = mean(MacdonellDF$finger), 
+                                                       sd = sd(MacdonellDF$finger)), color = "red", size = 1.5,
+                alpha = .3)
 ```
 
 Additionally, a QQ plot:
 
 ```{r f3, echo=TRUE}
-qqPlot(MacdonellDF$finger)
+ggplot(MacdonellDF, aes(sample = finger)) +
+  stat_qq()
 ```
 
 The visualizations all suggest the data is normally distributed; however, a Shapiro-Wilk test is still useful to test for normality.
@@ -138,7 +145,7 @@ Recall that the standard error is the standard deviation of the sample distribut
 R does not provide a single purpose function to calculate the standard error. As a result, the following demonstrates the previous formula to calculate the standard error:
 
 ```{r se, echo=TRUE}
-sd(ds$age, na.rm=T)/sqrt(length(ds$age)-sum(is.na(ds$age)))
+sd(ds$age, na.rm = T)/sqrt(length(ds$age) - sum(is.na(ds$age)))
 ```
 
 Alternatively, the _describe()_ function includes the standard error statistic for a given variable, as follows:
@@ -161,7 +168,10 @@ Confidence intervals synthesize  knowledge of standard error and z-scores. Recal
  
 The formula for confidence level is:
 
-$$CI=\bar{x} \pm z\frac{s}{\sqrt{n}},$$, or $CI=\bar{x} \pm z*SE$, 
+$$CI=\bar{x} \pm z\frac{s}{\sqrt{n}},$$ 
+or
+
+$$CI=\bar{x} \pm z*SE$$
 
 Put simply, the confidence interval is the sample mean plus/minus the product of the z-score and standard error. 
 
@@ -182,13 +192,13 @@ describe(ds$age)$se ## this is a way to pull the standard error out without havi
 Given a 95% confidence interval, the z-score is 1.96. The upper bound of the confidence interval is calculated as follows:
 
 ```{r ci3, echo=TRUE}
-60.38 + 1.96*.28
+60.38 + 1.96 * 0.28
 ```
 
 The lower bound of the confidence interval is calculated as follows:
 
 ```{r ci4, echo=TRUE}
-60.38 - 1.96*.28
+60.38 - 1.96 * 0.28
 ```
 
 With 95% confidence, the population mean of _age_ is between 59.83 and 60.93 (rounded).
@@ -202,8 +212,8 @@ se <- describe(ds$age)$se
 __Note:__ The standard error of the _age_ variable was stored as to the _se_ object via specifying only to return the standard error from the _describe()_ function. Using the _se_ object simplifies the confidence interval calculation as exemplified:
 
 ```{r ci6, echo=TRUE}
-mean(ds$age, na.rm = T) + 2.58*se
-mean(ds$age, na.rm = T) - 2.58*se
+mean(ds$age, na.rm = T) + 2.58 * se
+mean(ds$age, na.rm = T) - 2.58 * se
 ```
 
 With 99% confidence, the population mean of _age_ is between 59.64 and 61.09. This interval is larger than the interval calculated for 95% confidence.
@@ -216,21 +226,21 @@ t.test(ds$age)
 
 The results of _t.test()_ is similar to the manual calculations performed previously. By default, the _t.test()_ tests whether $\mu$ for the variable is equal to zero. The hypotheses for the _t.test()_ function are:
 
-- $H_0$: $\bar{x}$ = $\mu$
-- $H_1%: $\bar{x}$ $\neq$ $\mu$
+- $H_0: \bar{x} = \mu$
+- $H_1: \bar{x} \neq \mu$
 
 Note the returned p-value of the previous _t.test()_ performed is less than $\alpha$ = 0.05; therefore, the null hypothesis is rejected. That is, given the sample data, with 95% confidence the $\mu$ is not zero.
 
 To explain a different way, using the same variable, but with a defined $\mu$ of 50, the _t.test()_ function can test whether $\mu$ is 50.
 
 ```{r ci8, echo=TRUE}
-t.test(ds$age, mu=50)
+t.test(ds$age, mu = 50)
 ```
 
 The same result occurs: the null hypothesis is rejected. Once again, the _t.test()_ function is employed to test whether $\mu$ = 60:
 
 ```{r ci9, echo=TRUE}
-t.test(ds$age, mu=60)
+t.test(ds$age, mu = 60)
 ```
 
 The result differs, such that the null hypothesis is not rejected as the p-value is greater than $\alpha$ = 0.05. That is, with 95% confidence, $\mu$ = 60.
@@ -253,7 +263,7 @@ n <- 2547
 The p-value for if the population mean $\neq$ 60:
 
 ```{r p2, echo=TRUE}
-2*(1-pnorm(xbar, mean=a, sd=s/sqrt(n)))
+2 * (1 - pnorm(xbar, mean = a, sd = s/sqrt(n)))
 ```
 
 The p-value of 0.191 is greater than $\alpha$ = 0.05; therefore, failing to reject $H_0$: $\mu$ = 60.
@@ -272,8 +282,8 @@ Performing a t-test requires:
 To demonstrate, the following tests whether the population mean is 58 for the given data by defining the above parameters:
 
 ```{r t test, echo=TRUE}
-nAge <- length(ds$age)-sum(is.na(ds$age))
-sdAge <- sd(ds$age, na.rm=TRUE) # Standard deviation of age
+nAge <- length(ds$age) - sum(is.na(ds$age))
+sdAge <- sd(ds$age, na.rm = TRUE) # Standard deviation of age
 seAge <- sdAge/(sqrt(nAge)) # Standard error of age
 meanAge <- mean(ds$age, na.rm = TRUE)
 ```
@@ -288,13 +298,15 @@ t_value
 To calculate the two-sided p value under the t distribution:
 
 ```{r t test3, echo=TRUE}
-2*(1-pt(abs(t_value),df=nAge-1))
+2 * (1 - pt(abs(t_value), df = nAge - 1))
+
 ```
 
-The returned p-value is less than $\alpha$ = 0.05, rejecting $H_0$: $\mu$ = 60. Put another way, $H_1%: $\mu$ $\neq$ 60.
+The returned p-value is less than $\alpha$ = 0.05, rejecting $H_0$: $\mu$ = 60. Put another way, $H_1$:  
+$\mu \neq 60$.
 
 ```{r t test4, echo=TRUE}
-t.test(ds$age, mu=58)
+t.test(ds$age, mu = 58)
 ```
 
-With 95% confidence, $\mu$ $\neq$ 60.
+With 95% confidence, $\mu \neq 60$
