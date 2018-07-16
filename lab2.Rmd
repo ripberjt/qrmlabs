@@ -14,6 +14,7 @@ This lab discusses the basics of exploring, describing, and visualizing data. Th
 4. modeest
 5. descr
 6. psych
+7. ggplot2
 
 __Reminder:__ Lab one introduced how to install packages via _install.packages()_ function. __Note:__ These packages should already be installed from the class initialization script.
 
@@ -29,6 +30,7 @@ library(reshape2)
 library(modeest)
 library(descr)
 library(psych)
+library(ggplot2)
 ```
 
 ## Part I: Factoring
@@ -368,6 +370,25 @@ Boolean operators assist with building data subsets in R:
 8. | Or (example: x | y - pronounced "x OR y") 
 9. & And (example: x & y - pronounced "x AND y") 
 
+
+
+### The Pipe Operator: A Better Way to Work with Data
+
+Sometimes sorting through your data, subsetting it filtering it, etc., can result in a lot of confucing syntax. To avoid this, many people have started using the pipe operator: %>%, found in the _dplyr_ package. In essence, the pipe operator "pipes" one function to the next, chaining it. For example, if you wanted to filter the data to include only the variables "gender", "income", and "age", and then remove any missing obervations, you could do this:
+
+```{r pipe, echo=TRUE}
+ds.sub <- filter(ds) %>% select("gender", "income", "age") %>% na.omit()
+```
+
+You can read this as a "first this, then this" type of sequence. This tells R "first filter the data, then select the variables, then remove missing observations." Try another example of the pipe function. This time filter the data to include only respondents older than 65, then slice the data to include only the first 500 observations:
+
+```{r pipe2, echo=TRUE}
+ds.old <- filter(ds, age > 65) %>% slice(1:500) %>% na.omit()
+```
+
+
+
+
 ## Part IV: Working with Nominal Data
 
 Often times data is nominal. This is data that does not necessarily have a numeric value, but rather is categorized by a word or label (e.g., race, political party, etc.). The factored _party_ variable is an example.
@@ -390,10 +411,10 @@ __Note:__ When recoding a factored variable, label names must be in in apostroph
 
 When working with nominal data, there are some inapplicable statistics. For example, the mean for the factored political party variable does not exist. However, finding the mode for nominal data is useful. Recall from mathematics that the mode is the value, or in this case the label, that occurs the most often. 
 
-In R, the _modeest_ package provides the _mlv()_ function to return the mode for data ta set. __Note:__ The mlv() package does not work for factored variables. To accommodate this limitation, the factored variable can be coerced to a number using the _as.integer()_ function.
+In R, the _modeest_ package provides the _mlv()_ function to return the mode for data ta set. __Note:__ The mlv() package does not work for factored variables. To accommodate this limitation, the factored variable can be coerced to a number using the _as.integer()_ function. You also must remove missing observations.
 
 ```{r mode1,echo=TRUE}
-mlv(as.integer(ds$f.party.2), na.rm = TRUE)
+as.integer(ds$f.party.2) %>% na.omit() %>% mlv()
 ```
 
 The modal value is 3, which corresponds with the third nominal variable that can be checked via the _table()_ function.
@@ -404,10 +425,10 @@ table(ds$f.party.2)
 
 The _table()_ function returns 3 as corresponding to Republican, so Republican is the modal value. 
 
-Another method to find the mode is to make a table and sort the table by how often the labels occur. 
+Another method to find the mode is to make a table and sort the table by how often the labels occur.
 
 ```{r mode3, echo=TRUE}
-sort(table(ds$f.party.2), decreasing = TRUE)
+table(ds$f.party.2) %>% sort(decreasing = TRUE)
 ```
 
 The _freq()_ function returns the frequency of values.
@@ -416,38 +437,62 @@ The _freq()_ function returns the frequency of values.
 freq(ds$f.party.2, plot = FALSE)
 ```
 
-The _freq()_ function returns the count in each group and proportions. To construct a table that shows the proportion breakdown only: first create a table of the variable then use prop.table() then multiply by 100.
+The _freq()_ function returns the count in each group and proportions. To construct a table that shows the proportion breakdown only, make a table of the party breakdown, then pipe it to a proportion table, then multiple by 100:
 
 ```{r prop, echo=TRUE}
-party.table <- table(ds$f.party.2)
-party.table.per <- prop.table(party.table)*100
-party.table.per
+table(ds$f.party.2) %>%
+  prop.table()*100
 ```
 
 ### Visualizing Nominal Data
 
-R has nearly countless ways to visualize data. A simple method is a bar plot. 
+R has nearly countless ways to visualize data. GGplot will be the primary visualization method for these labs. There are many different visualization packages and sets of packages, but GGplot provides a consistent set of visualization tools that shares a common language and syntax. A great introcution to GGplot can be found here:
+https://www.rstudio.com/wp-content/uploads/2015/03/ggplot2-cheatsheet.pdf
 
-Bar plots are great for visualizing nominal data. The _barplot()_ function will visualize an object. Using the _barplot()_ function, political party can be visualized.
+To make a visualization with GGplot, first call it with the _ggplot()_ function, then specify what type of visualization you want to make. The steps are:
+
+1. Call GGplot
+2. Specify the aesthetic mapping
+3. Choose what type of visualization by using the *geom_* function.
+
+As a note, making a visualization with GGplot requires multiple functions. Make sure to include a + sign after each function. 
+
+A good place to start is with a bar plot. To do this, use *geom_bar()*. 
 
 ```{r bar1, echo=TRUE}
-barplot(table(ds$f.party.2))
+ ggplot(ds, aes(f.party.2)) +
+  geom_bar() 
 ```
 
-Alternative to "table(ds$f.party.2)" inside the barplot function is using the previously created party.table object. Additionally, a legend and color will provide more value to the bar plot.
+To create a visualization that only includes Democrats, Republicans, and Independents, use the _filter()_ function to filter out NAs, then pipe it to GGplot. Color can also be included by specifying _fill=f.party.2_. 
+
+```{r bar1.5, echo=TRUE}
+ds %>% filter(f.party.2 != "NA") %>%
+  ggplot(., aes(f.party.2, fill=f.party.2)) +
+  geom_bar()
+```
+
+GGplot has a default color pallete that it assigns to groups based on the order they appear in the data. However, matching the color red with Democrats and the color blue with Republicans might not make a lot of intuitive sense. By using the *scale_fill_manual()* function, specific colors cna be specified.
+
 
 ```{r bar2, echo=TRUE}
-barplot(party.table, beside=TRUE, legend=rownames(party.table), col = c("Blue", "White", "Red"),
-		ylab ="Frequency", main="Frequency of Respondents by Political Party")
+ds %>% filter(f.party.2 != "NA") %>%
+  ggplot(., aes(f.party.2, fill=f.party.2)) +
+  geom_bar() +
+  scale_fill_manual(values = c("blue", "green", "red"))
 ```
 
-The specific syntax needed to customize visualizations gets easier with time.
+Construct one more visualization. This time, include a title by using _ggtitle()_ and axis labels by using _xlab()_ and _ylab()_.
 
-Recall the table created to show the proportion among respondents of political parties. To visualize the nominal data using the _barplot()_ function:
 
 ```{r bar3, echo=TRUE}
-barplot(party.table.per, beside=TRUE, legend=rownames(party.table.per), col = c("Blue", "White", "Red"),
-		ylab ="Percentage", main="Percentage of Respondents by Political Party")
+ds %>% filter(f.party.2 != "NA") %>%
+  ggplot(., aes(f.party.2, fill=f.party.2)) +
+  geom_bar() +
+  scale_fill_manual(values = c("blue", "green", "red")) +
+  ggtitle("Breakdown of Political Parties") +
+  xlab("Political Party") +
+  ylab("Count")
 ```
 
 ## Part V: Working with Ordinal Data
@@ -472,23 +517,22 @@ table(ds$f.education, useNA = "always")
 Using the _sort()_ function can return the modal education level.
 
 ```{r ord3, echo=TRUE}
-sort(table(ds$f.education), decreasing = TRUE)
+table(ds$f.education) %>% sort(descreasing=TRUE)
 ```
 
 The _barplot()_ function will visualize education levels.
 
 ```{r ord4, echo=TRUE}
-barplot(table(ds$f.education))
+ggplot(ds, aes(f.education)) +
+  geom_bar()
 ```
 
 More detail is available via a table object and visualization.
 
 ```{r ord5, echo=TRUE}
-educ.table <- table(ds$f.education)
-barplot(educ.table, beside=TRUE, legend=rownames(educ.table), 
-		col = c("#fbb4ae", "#b3cde3", "#ccebc5", "#decbe4", "#fed9a6", "#ffffcc", "#e5d8bd"),
-		ylab ="Frequency", main="Frequency of Respondents by Education Level", 
-		args.legend = list(title = "Education", x = "topright", cex = .7), ylim = c(0, 700))
+ggplot(ds, aes(f.education, fill=f.education)) +
+  geom_bar() +
+  scale_fill_manual(values = c("#fbb4ae", "#b3cde3", "#ccebc5", "#decbe4", "#fed9a6", "#ffffcc", "#e5d8bd", "#d3d3d3"))
 ```
 
 __Note:__ The colors in the previous example are hexadecimal colors. Color schemes are available via the following website:
@@ -513,30 +557,33 @@ mlv(ds$glbcc_risk, na.rm = TRUE)
 
 The _mlv()_ function returns the modal value as 10.
 
-A histogram is the appropriate visualization for interval data. Histograms returns values on a continuous scale as opposed to individual values. The _hist()_ function is provided by R to visualize interval data.
+A histogram is the appropriate visualization for interval data. Histograms returns values on a continuous scale as opposed to individual values. To make a histogram, follow the same basic steps as before, but this time use *geom_histogram()* instead. Also specify *bins=10* and scake the x axis to label each point of the variable:
 
 
 ```{r hist, echo=TRUE}
-hist(ds$glbcc_risk)
+ggplot(ds, aes(glbcc_risk)) +
+  geom_histogram(bins=10) +
+  scale_x_continuous(breaks = 0:10)
 ```
 
-Alternatively, employing the _plot()_ function in conjunction with the _density()_ function will plot the density for interval data. Removing all missing values from a variable is necessary to view density. The _na.omit()_ function within the _density()_ function will remove all missing values.
+TO look at the density distribution, use *geom_density()*. 
 
 ```{r dens, echo=TRUE}
-density.gcc <- density(na.omit(ds$glbcc_risk))
-plot(density.gcc)
+ggplot(ds, aes(glbcc_risk)) +
+  geom_density()
 ```
 
-The _densityPlot()_ function in the _car_ package accomplishes the same result. Again, a density plot requires all missing values to be omitted.
+To adjust the bandwidth, use _adjust=_  to specify a value.
 
 ```{r dens2, echo=TRUE}
-densityPlot(na.omit(ds$glbcc_risk))
-densityPlot(na.omit(ds$glbcc_risk), adjust = 25)
+ggplot(ds, aes(glbcc_risk)) +
+  geom_density(adjust=3)
 ```
-The first density plot uses default bin widths, and the second uses bin widths of 25.
 
-Last, a box plot can be generated via the _boxplot()_ function.
+
+Last, a box plot can be generated via the _boxplot()_ function. Technically a box plot in GGplot requires both an x and y value, so simply indiciate "" for the x portion of the aesthetic. 
 
 ```{r box, echo=TRUE}
-boxplot(ds$glbcc_risk, xlab = "GCC Risk", main = "Percieved Risk of Global Climate Change")
+ggplot(ds, aes(x="", y=glbcc_risk)) +
+  geom_boxplot()
 ```
