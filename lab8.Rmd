@@ -14,6 +14,7 @@ library(car)
 library(memisc)
 library(stargazer)
 library(gridExtra)
+library(dplyr)
 options(scipen = 999)
 ds <- read.csv("https://github.com/ripberjt/qrmlabs/raw/master/Class%20Data%20Set%20Factored.csv")
 ```
@@ -26,6 +27,7 @@ This lab covers the basics of multivariate linear regression. We begin by review
 4. memisc
 5. stargazer
 6. gridExtra
+7. dplyr
 
 ## Part I: Calculating Least-Squared Estimates
 
@@ -73,7 +75,7 @@ __Note:__ The product of a matrix and its transpose is a square matrix.
 The _matrix()_ function in R will create a matrix object consisting of provided values in a defined number of rows and columns. The above matrix, _A_, is created as follows:
 
 ```{r mat, echo=TRUE}
-A <- matrix(c(1,2,4,5,7,6),2,3)
+A <- matrix(c(1, 2, 4, 5, 7, 6), 2, 3)
 A
 ```
 
@@ -107,7 +109,7 @@ $$A = \begin{bmatrix}
 Similarly, the product of matrices can be calculated in R using the %\*% operator:
 
 ```{r mat3, echo=TRUE}
-AxAprime <- A%*%Aprime
+AxAprime <- A %*% Aprime
 AxAprime
 ```
 
@@ -136,8 +138,8 @@ $$ A' \times B = \begin{bmatrix}
 Or, in R:
 
 ```{r mat4, echo=TRUE}
-B <- matrix(c(1,2,3,2,6,4,4,5,6),2,3)
-BxAprime <- B%*%Aprime
+B <- matrix(c(1, 2, 3, 2, 6, 4, 4, 5, 6), 2, 3)
+BxAprime <- B %*% Aprime
 BxAprime
 ```
 
@@ -146,12 +148,13 @@ In ordinary algebra, 1 is the identity element, whereby any number multiplied by
 $$ 5 \times 1 = 5$$
 
 Similarly, there exists an identity element in matrix algebra, denoted by the symbol _I_. The identity matrix is a square matrix with a 1 in the same pattern, regardless of size:
+
 $$I_{1\times1}=\begin{bmatrix} 1 \end{bmatrix}, I_{2\times2}=\begin{bmatrix}1 & 0 \\ 0 & 1\end{bmatrix}, I_{3\times3} = \begin{bmatrix} 1 & 0 & 0 \\ 0 & 1 & 0 \\ 0 & 0 & 1 \end{bmatrix}$$
 
 The following demonstrates the identity property for matrices:
 
 ```{r mat5, echo=TRUE}
-I <- matrix(c(1,0,0,0,1,0,0,0,1),3,3)
+I <- matrix(c(1, 0, 0, 0, 1, 0, 0, 0, 1),3, 3)
 AI <- A %*% I
 AI
 A
@@ -167,7 +170,7 @@ A.inv
 The following R example demonstrates _I_ as the product of $AA^{-1}$:
 
 ```{r mat7, echo=TRUE}
-Aident = A.inv %*%  A
+Aident <- A.inv %*%  A
 Aident
 ```
 
@@ -196,16 +199,21 @@ Where, n is the number of independent variables, $\beta_0$ is the regression int
 Using this model we can imagine collected data as a system of linear equations. To demonstrate, suppose we collected the following data:
 
 ```{r mat8, echo=TRUE}
-ex.ds <- data.frame(x = c(1,2,3,4,5), y = c(1,1,2,2,4))
+ex.ds <- data.frame(x = c(1, 2, 3, 4, 5),
+                    y = c(1, 1, 2, 2, 4))
 ex.ds
 ```
 
 Using the linear regression model above, we can state the data as a system of linear equations:
 
 $$1 = \beta_0 + \beta_1 * 1$$
+
 $$1 = \beta_0 + \beta_1 * 2$$
+
 $$2 = \beta_0 + \beta_1 * 3$$
+
 $$2 = \beta_0 + \beta_1 * 4$$
+
 $$4 = \beta_0 + \beta_1 * 5$$
 
 Given we are working with two variables, _x_ and _y_, our _n_ is 1, so we are working with the bivariate linear regression model. Now, we can use ordinary algebra to solve for $\beta_0$ and $\beta_1$. To do so, we will solve for one variable, then solve for the other. Given our system consists of 5 linear equations, the ordinary algebra approach is not practical.
@@ -230,9 +238,9 @@ Using the matrices formed from the system of linear equations, we demonstrate ca
 
 
 ```{r ols, echo=TRUE}
-Y <- matrix(c(1,1,2,2,4),5,1)
+Y <- matrix(c(1, 1, 2, 2, 4), 5, 1)
 Y
-X <- matrix(c(1,1,1,1,1,1,2,3,4,5),5,2)
+X <- matrix(c(1, 1, 1, 1, 1, 1, 2, 3, 4, 5), 5, 2)
 X
 ```
 
@@ -246,7 +254,7 @@ Xprime
 Next calculate (X'X):
 
 ```{r ols3, echo=TRUE}
-XprimeX <- Xprime%*%X
+XprimeX <- Xprime %*% X
 XprimeX
 ```
 
@@ -260,7 +268,7 @@ XprimeXinv
 Multiply $(X'X)^{-1}$ by $X'$:
 
 ```{r ols5, echo=TRUE}
-XprimeXinvXprime <- XprimeXinv%*%Xprime
+XprimeXinvXprime <- XprimeXinv %*% Xprime
 XprimeXinvXprime
 ```
 
@@ -274,13 +282,13 @@ b
 We read this matrix as $\beta_0$ is the first position and $\beta_1$ is the following position. __Note:__ We could just as easily used the method introduced in the last lab. The following R code demonstrates the equivalence:
 
 ```{r ols7, echo=TRUE}
-df <- data.frame(x = c(1,2,3,4,5), y = c(1,1,2,2,4))
+df <- data.frame(x = c(1, 2, 3, 4, 5), y = c(1, 1, 2, 2, 4))
 covar <- cov(df$x, df$y)
 vari <- var(df$x)
-bhat <- covar/vari
+bhat <- covar / vari
 xbar <- mean(df$x)
 ybar <- mean(df$y)
-alpha <- ybar-bhat*xbar
+alpha <- ybar - bhat * xbar
 
 alpha
 bhat
@@ -305,7 +313,9 @@ The previous example demonstrated calculating least-squared estimates for a biva
 Suppose we have the following data set:
 
 ```{r ols11, echo=TRUE}
-mv.df <- data.frame(y = c(1,1,2,2,4), x1 = c(1,2,3,4,5), x2 = c(1,2,2,4,3))
+mv.df <- data.frame(y = c(1, 1, 2, 2, 4),
+                    x1 = c(1, 2, 3, 4, 5),
+                    x2 = c(1, 2, 2, 4, 3))
 mv.df
 ```
 
@@ -319,14 +329,14 @@ $4 = \beta_0 + \beta_1 * 5 + \beta_2 * 3$
 
 Converted to matrix form:
 
-$\begin{bmatrix}1 & 1 & 1 \\ 1 & 2 & 2 \\ 1 & 3 & 2 \\ 1 & 4 & 4 \\ 1 & 5 & 3 \end{bmatrix} \times \begin{bmatrix}\beta_0 \\ \beta_1 \\ \beta_2\end{bmatrix} = \begin{bmatrix}1\\1\\2\\2\\4\end{bmatrix}$
+$$\begin{bmatrix}1 & 1 & 1 \\ 1 & 2 & 2 \\ 1 & 3 & 2 \\ 1 & 4 & 4 \\ 1 & 5 & 3 \end{bmatrix} \times \begin{bmatrix}\beta_0 \\ \beta_1 \\ \beta_2\end{bmatrix} = \begin{bmatrix}1\\1\\2\\2\\4\end{bmatrix}$$
 
 We will use R to find the least-squared coefficients. Note that calculating Bhat in R has been reduced to a single line:
 
 ```{r ols12, echo=TRUE}
-Y = matrix(c(1,2,2,4,4), 5, 1)
-X = matrix(c(1,1,1,1,1,1,2,3,4,5,1,2,2,4,3), 5, 3)
-Bhat = (solve((t(X) %*% X))) %*% (t(X) %*% Y)
+Y <- matrix(c(1, 2, 2, 4, 4), 5, 1)
+X <- matrix(c(1, 1, 1, 1, 1, 1, 2, 3, 4, 5, 1, 2, 2, 4, 3), 5, 3)
+Bhat <- (solve((t(X) %*% X))) %*% (t(X) %*% Y)
 Bhat
 ```
 
@@ -342,8 +352,7 @@ ols
 The R syntax for multiple linear regression is similar to what we used for bivariate regression: add the independent variables to the _lm()_ function. Construct a model that looks at climate change certainty as the dependent variable with age and ideology as the independent variables:
 
 ```{r mlr, echo=TRUE}
-sub.ds <- subset(ds, select = c("glbcc_cert", "ideol", "age"))
-sub.ds <- na.omit(sub.ds)
+sub.ds <- filter(ds) %>% dplyr::select("glbcc_cert", "ideol", "age") %>% na.omit()
 model1 <- lm(sub.ds$glbcc_cert ~ sub.ds$ideol + sub.ds$age)
 ```
 
@@ -386,8 +395,10 @@ ds$foss <- as.numeric(ds$okelec_foss)
 Now let's look at all the variables. First we create a subset of the data and remove missing observations, then use the _describe()_ function:
 
 ```{r mlr7, echo=TRUE}
-ds.sub <- subset(ds, select = c("income", "education", "ideol", "foss", "age"))
-ds.sub <- na.omit(ds.sub)
+ds.sub <- filter(ds) %>% 
+  dplyr::select("income", "education", "ideol", "foss", "age") %>%
+  na.omit()
+
 describe(ds.sub$foss)
 describe(ds.sub$income)
 table(ds.sub$education)
@@ -428,24 +439,8 @@ inc <- ggplot(model, aes(income,foss)) + # Income visualization
 grid.arrange(id,age,educ,inc)
 ```
 
-Now we can see the general relationship between each independent variable and the dependent variable. The _geom_smooth()_ function defaults to showing 95% confidence intervals. You can disable the confidence intervals with the _se=FALSE_ argument, but that is not recommended. Notice the very large confidence interval in the income visualization, especially at the higher income levels. This happens because there are fewer observations with very high incomes. A smaller sample size leads to a larger standard error, and in turn larger confidence intervals. 
+Now we can see the general relationship between each independent variable and the dependent variable. The *geom_smooth()_*function defaults to showing 95% confidence intervals. You can disable the confidence intervals with the _se=FALSE_ argument, but that is not recommended. Notice the very large confidence interval in the income visualization, especially at the higher income levels. This happens because there are fewer observations with very high incomes. A smaller sample size leads to a larger standard error, and in turn larger confidence intervals. 
 
-Recall that the hypothesis stated that the more conservative a respondent, the more electricity they will prefer comes from fossil fuels. We can safely reject the null hypothesis, given the clear relationship and overall evidence that there is a positive relationship. Let's build a solid, paper-worthy visualization of the relationship between ideology and opinions on fossil fuels from our model.
-
-```{r mlr11, echo=TRUE}
-
-ggplot(model, aes(ideol,foss)) +
-  geom_smooth(aes(ideol, foss), method="lm") +
-  ggtitle("Fossil Fuel Energy by Ideology") +
-  ylab("% of State's Electricity Should Come From Fossil Fuels") +
-  theme(axis.title.y = element_text(size = rel(.8), angle = 90)) + # Allows you to change font size and angle. 
-  xlab("Ideology: Liberal to Conservative") +
-  scale_x_continuous(breaks=c(1:7), labels = c("1", "2", "3", "4", "5", "6", "7")) +
-  coord_cartesian(ylim = c(15,40), xlim = c(1,7)) +
-  theme_bw()
-  
-
-```
 
 ## Part IV: Predicting with OLS Regression
 
@@ -468,13 +463,13 @@ $$\hat{y} = \beta_{intercept} + \beta_{income} + \beta_{educ} + \beta_{age} + \b
 __Note:__ For a bachelor's degree, the value of the education variable is 6. 
 
 ```{r predict2, echo=TRUE}
-(5.83 + (.000014*(45000)) + (-.19*(6)) + (.19*(40)) + (3.07*(3)))
+(5.83 + (.000014 * (45000)) + (-.19 * (6)) + (.19 * (40)) + (3.07 * (3)))
 ```
 
-Based on the calculation, an predicted result is 22% of the state's electricity should come from fossil fuels. There is a more precise way to do this calculation, as is often the case. Using the _predict()_ function, we can tell R to return predicted values based on specifications of variable values. 
+Based on the calculation, a predicted result is 22% of the state's electricity should come from fossil fuels. There is a more precise way to do this calculation, as is often the case. Using the _predict()_ function, we can tell R to return predicted values based on specifications of variable values. 
 
 ```{r predict3, echo=TRUE}
-predict(model, newdata = data.frame(ideol=3, income=45000, education=6, age=40))
+predict(model, newdata = data.frame(ideol = 3, income = 45000, education = 6, age = 40))
 ```
 
 __Note:__ The original estimate is a little off due to rounding.
@@ -482,32 +477,60 @@ __Note:__ The original estimate is a little off due to rounding.
 The _predict()_ function can return multiple values at a time. If we use the _seq()_ argument, we can tell R to predict values for a sequence of values:
 
 ```{r predict4, echo=TRUE}
-predict(model, newdata = data.frame(ideol=seq(1:7), income=45000, education=5, age=45))
+predict(model, newdata = data.frame(ideol = seq(1:7), income = 45000, education = 5, age = 45))
 ```
 
 We've specified values for income, education, and age variables that are not the means. However, it is often appropriate to predict values when all other variables are held constant at their means. We can use the _predict()_ function for this too!
 
 ```{r predict5, echo=TRUE}
-p <- predict(model, newdata = data.frame(ideol=seq(1:7), income=mean(ds.sub$income, na.rm = T), education=mean(ds.sub$education, na.rm = T),                                  age=mean(ds.sub$age, na.rm = T)), se.fit = T)
+p <- predict(model, newdata = data.frame(ideol = seq(1:7), income = mean(ds.sub$income, na.rm = T),
+                                         education = mean(ds.sub$education, na.rm = T), 
+                                         age=mean(ds.sub$age, na.rm = T)), se.fit = T)
 p
 ```
 
-For a moment we switch to using base visualizations to make a connection between the prediction line we make earlier and the values we just calculated. Suppose we wanted to plot a line with the predicted values above. We can use the _plot()_ function and the _lines()_ function to do so.
 
-```{r predict6, echo=TRUE}
-plot(ds.sub$foss~ds.sub$ideol)
-lines(p$fit~seq(1,7,1))
+
+Recall that the earlier hypothesis stated that the more conservative a respondent, the more electricity they will prefer comes from fossil fuels. We can safely reject the null hypothesis, given the clear relationship and overall evidence that there is a positive relationship. To conlcude, let's build a solid, paper-worthy visualization of the relationship between ideology and opinions on fossil fuels from our model.
+
+__Note__:Until now, we have used *geom_smooth()* to create regression lines. However, the superior method of creating regression lines is to generate predictions outside of ggplot and use *geom_line()* to plot the line and *geom_ribbom()* to plot the confidence intervals. This is because *geom_smooth()* does not let you set the specific DV values. However, the _predict()_ function tells R to predict values of the IV based on specific values of the DV. To create a good regression line and confidence interval using the _predict()_ function, instruct R to hold all DVs at their means except ideology. Sequence ideology from 1 to 7, and include _se.fit=TRUE_, then assign the fitted values to an object:
+
+
+```{r mlr11, echo=TRUE}
+id.p <- predict(model, newdata = data.frame(ideol = seq(1,7,1), age = mean(ds.sub$age), 
+                                            income = mean(ds.sub$income), 
+                                            education = mean(ds.sub$education)), se.fit = T)
+value <- id.p$fit
 ```
 
-Now scroll up and look at the earlier visualization. Notice that the lines are the same. By plotting the values we predicted, we did what _ggplot2_ does for us. When we calculate predicted values with all other variables held constant, we are creating points in a prediction line.
+The code above generated predicted values for a regression, or fit, line, and it generated standard error values. Recall that confidence intervals are calculated using t-scores (or z-scores, depending on the distribution) and standard errors. When working with the Student's t distribution, we default to 95% confidence intervals, which is derived from a t-score of 1.96. Therefore to find the upper and lower bounds of the condfidence interval, take the predicted value and add or substract 1.96 times the standard error. 
 
-When we use _ggplot2_, we have confidence intervals around the prediction line. Let's take the long way in making confidence intervals so you get a better sense of what is going on when _ggplot2_ makes them for us. Recall that confidence intervals are calculated using t-scores (or z-scores, depending on the distribution) and standard errors. When working with the Student's t distribution, we default to 95% confidence intervals, which is derived from a t-score of 1.96. Earlier in the _predict()_ function that gave us our values, we included the _se.fit=T_ argument. This calculated standard errors for the points as well. To calculate the confidence interval for each point, we need to add the predicted value to 1.96 multiplied by the standard error for that point.
-
-We visualize confidence intervals using the _polygon()_ function, which instructs R to make a polygon up to a point and then reverse it from that point, and include the values of the confidence intervals.  
-
-```{r predict7, echo=TRUE}
-plot(ds.sub$foss~ds.sub$ideol)
-lines(p$fit~seq(1,7,1), col="red", lwd=2)
-polygon(c(seq(1,7,1), rev(seq(1,7,1))), c(p$fit+1.96*p$se.fit, rev(p$fit-1.96*p$se.fit)), col = "#0052d250", border = FALSE )
-
+```{r mlr11.5, echo=TRUE}
+upper <- value + 1.96 * id.p$se.fit
+lower <- value - 1.96 * id.p$se.fit
 ```
+
+Next put all three vectors into a data frame and include an ideology sequencing from 1 to 7:
+
+```{r mlr11.75, echo=TRUE}
+id.df <- data.frame(ideol = 1:7, value, upper, lower)
+```
+
+
+Build the visualization:
+
+```{r mlr12, echo=TRUE}
+ggplot(id.df, aes(ideol, value)) +
+  geom_line(size=1.5, color = "dodgerblue2") +
+  geom_ribbon(ymax = upper, ymin = lower, alpha = .5, fill = "dodgerblue2") +
+  ggtitle("Fossil Fuel Energy by Ideology") +
+  ylab("% of State's Electricity Should Come From Fossil Fuels") +
+  xlab("Ideology") +
+  scale_x_continuous(breaks=c(1:7), labels = c("1", "2", "3", "4", "5", "6", "7")) +
+  coord_cartesian(ylim = c(15, 40), xlim = c(1, 7)) +
+  theme_bw()
+```
+
+
+
+
