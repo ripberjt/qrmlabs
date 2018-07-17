@@ -15,6 +15,7 @@ library(car)
 library(vcd)
 library(grid)
 library(gridExtra)
+library(dplyr)
 options(scipen = 999)
 ```
 
@@ -26,6 +27,7 @@ Research is not always interested in the contrast of two variables, but oftentim
 4. vcd
 5. grid
 6. gridExtra
+7. dplyr
 
 ## Part I: Covariance
 
@@ -33,7 +35,7 @@ Covariance is the measure of change in one variable associated to change in anot
 
 Calculating covariance of two variables of a known population is trivial, as the product of variation of two variables. However, for samples, covariance is calculated via the following formula:
 
-$cov(x,y)=\frac{\sum_{i=1}^n (x_{i}-\bar{x})(y_{i}-\bar{y})}{{n-1}}$
+$$cov(x,y)=\frac{\sum_{i=1}^n (x_{i}-\bar{x})(y_{i}-\bar{y})}{{n-1}}$$
 
 Where _x_ and _y_ are two random variables, _i_ is each observation (row), and _n_ is the sample size.
 
@@ -42,34 +44,34 @@ Where _x_ and _y_ are two random variables, _i_ is each observation (row), and _
 To find covariance by hand, let's construct a hypothetical data set with variables x and y. We only give each variable three values so that the calculation will be shorter:
 
 ```{r cov, echo=TRUE}
-x <- c(25,27,29)
-y <- c(5,15,9)
+x <- c(25, 27, 29)
+y <- c(5, 15, 9)
 ```
 
 First we calculate the difference of each value and the mean for the variables:
 
 ```{r cov2, echo=TRUE}
-xdev <- x-mean(x)
-ydev <- y-mean(y)
+xdev <- x - mean(x)
+ydev <- y - mean(y)
 ```
 
 Next we find the product of the above differences:
 
 ```{r cov3, echo=TRUE}
-xdev_ydev <- xdev*ydev
+xdev_ydev <- xdev * ydev
 xdev_ydev
 ```
 
 We complete the numerator by finding the sum of the products:
 
 ```{r cov4, echo=TRUE}
-sum <- sum(xdev_ydev)
+sum_xdev_ydev <- sum(xdev_ydev)
 ```
 
 Lastly, we complete the covariance calculation by dividing the numerator by the denominator. The denominator is calculated as one less than the sample size:
 
 ```{r cov5, echo=TRUE}
-cov_xy <- sum/(3-1)
+cov_xy <- sum_xdev_ydev / (3 - 1)
 cov_xy
 ```
 
@@ -78,7 +80,7 @@ cov_xy
 By using the _cov()_ function, R calculates the covariance. We demonstrate the _cov()_ function by confirming the previous section's calculations:
 
 ```{r cov6, echo=TRUE}
-cov(x,y)
+cov(x, y)
 ```
 
 ### Covariance in Class Data Set
@@ -108,7 +110,7 @@ An important follow-up question is: which variable is more strongly associated t
 Correlation standardizes covariance on a scale of negative one to one, whereby the magnitude from zero indicates strength of relationship. Similar to covariance, a positive and negative value reflects the respective relationship. The formula for correlation is the following:
 
 $$r_{xy}=\frac{cov(x,y)}{s_xs_y}$$
-
+  
 Where x and y are two random variables.
 
 ### Correlation by Hand
@@ -118,13 +120,13 @@ To find covariance by hand, let's use the data set we constructed earlier to cal
 Recall we calculated covariance manually via the following steps:
 
 ```{r cor, echo=TRUE}
-x <- c(25,27,29)
-y <- c(5,15,9)
-xdev <- x-mean(x)
-ydev <- y-mean(y)
-xdev_ydev <- xdev*ydev
-sum <- sum(xdev_ydev)
-cov_xy <- (1/(3-1))*sum
+x <- c(25, 27, 29)
+y <- c(5, 15, 9)
+xdev <- x - mean(x)
+ydev <- y - mean(y)
+xdev_ydev <- xdev * ydev
+sum_xdev_ydev <- sum(xdev_ydev)
+cov_xy <- (1 / (3 - 1)) * sum_xdev_ydev
 cov_xy
 ```
 
@@ -146,8 +148,8 @@ Returning to the class data set, we can find the correlation coefficient for cer
 
 ```{r cor4, echo=TRUE}
 numerator <- cov(ds$glbcc_cert, ds$glbcc_risk, use = "complete.obs")
-denominator <- sd(ds$glbcc_cert, na.rm = T)*sd(ds$glbcc_risk, na.rm = T)
-numerator/denominator
+denominator <- sd(ds$glbcc_cert, na.rm = T) * sd(ds$glbcc_risk, na.rm = T)
+numerator / denominator
 ```
 
 The correlation coefficient is $\approx$ 0.37.
@@ -157,11 +159,10 @@ Now let's find the correlation coefficient for ideology and perceived risk from 
 First we will create a subset from the class data set _ds_ for the variables of interest, absent of missing observations. __Note:__ This subset includes additional variables, _f.gender_ and _f.party.2_ for use later in this lab.
 
 ```{r cor5, echo=TRUE}
-ds.sub <- subset(ds, select = c(glbcc_risk, ideol, f.gender, f.party.2))
-ds.sub <- na.omit(ds.sub)
+ds.sub <- filter(ds) %>% select("glbcc_risk", "ideol", "f.gender", "f.party.2") %>% na.omit()
 ```
 
-The perceived risk and ideology variables are assigned to _x_ and _y_ variables within the _sd.sub_ object, as to follow the formula.
+The perceived risk and ideology variables are assigned to _x_ and _y_ variables within the _ds.sub_ object, as to follow the formula.
 
 ```{r cor6, echo=TRUE}
 ds.sub$x <- ds.sub$glbcc_risk
@@ -180,17 +181,17 @@ y.m.ybar <- ds.sub$y - ybar
 n <- length(ds.sub$x)
 n
 
-cov.xy <- (sum(x.m.xbar*y.m.ybar))/(n-1)
+cov.xy <- (sum(x.m.xbar * y.m.ybar)) / (n - 1)
 cov.xy
 ```
 
 Next, we find the correlation coefficient using the covariance as the numerator and the product of both variable standard deviations as the denominator: 
 
 ```{r cor11, echo=TRUE}
-sd.x <- sqrt((sum(x.m.xbar^2))/(n-1))
+sd.x <- sqrt((sum(x.m.xbar^2)) / (n - 1))
 sd.x
 
-sd.y <- sqrt((sum(y.m.ybar^2))/(n-1))
+sd.y <- sqrt((sum(y.m.ybar^2)) / (n - 1))
 sd.y
 
 sd.xy <- sd.x*sd.y
@@ -218,8 +219,8 @@ cor(ds$income, ds$glbcc_risk, use = "complete.obs")
 
 The correlation coefficient of -0.06 informs us of two things: the relationship is negative and very weak. __Note:__ The correlation coefficient is drawn from observations within a sample, and therefore is a random value. That is, if we were to collect multiple samples we would calculate different correlation coefficients for each sample collected. This leads to a new hypothesis: is there a relationship between income and perceived risk? To test this we employ Pearson's product-moment correlation available via the _cor.test()_ function. Our testing hypotheses are:  
 
-$H_0$: the true correlation coefficient is zero  
-$H_1$: the true correlation coefficient is not zero
+-$H_0$: the true correlation coefficient is zero  
+-$H_1$: the true correlation coefficient is not zero
 
 ```{r cor.test, echo=TRUE}
 cor.test(ds$income, ds$glbcc_risk, use="complete.obs")
@@ -256,7 +257,7 @@ This resulting matrix provides the correlation coefficients for two variables at
 Additionally, recalling that each correlation coefficient itself is a random value, a test is required for inference. The _corr.test()_ provided by the _psych_ package is an alternative to the _cor.test()_ function previously used. The _corr.test()_ function supports examining variable pairs simultaneously within a given data set. Use the _print()_ function with the _short=FALSE_ argument to view the complete test with confidence intervals and p-values.
 
 ```{r cor.group3, echo=TRUE}
-print(corr.test(group, use = "complete.obs"), short = FALSE)
+corr.test(group, use = "complete.obs") %>% print(short = FALSE)
 ```
 
 ## Part III: Visualizing Correlation
@@ -266,40 +267,39 @@ The simplest form to visualize correlation is a scatter plot with a trend line.
 We will review the relationship between ideology and perceived risk from climate change. Build the basic visualization by using _ggplot()_ and the _geom_point_ functions, with ideology on the x axis and perceived risk about climate change on the y axis. Use the _ds.sub_ dataset, because we removed the missing values. 
 
 ```{r vis, echo=TRUE}
-ggplot(ds.sub, aes(x=ds.sub$ideol, y=ds.sub$glbcc_risk)) +
-  geom_point(shape=1)
+ggplot(ds.sub, aes(x = ideol, y = glbcc_risk)) +
+  geom_point(shape = 1)
 ```
 
-Notice how this doesn't really make sense? This is because there are thousands of observations being placed on a discrete set of values. To get a better idea of the relationship, we can tell R to jitter the points. This provides a better picture of the relationship. This time use the _geom_jitter_ function instead of the _geom_point_ function:
+Notice how this doesn't really make sense? This is because there are thousands of observations being placed on a discrete set of values. To get a better idea of the relationship, we can tell R to jitter the points. This provides a better picture of the relationship. This time use the *geom_jitter* function instead of the *geom_point* function:
 
 ```{r vis2, echo=TRUE}
-ggplot(ds.sub, aes(x=ds.sub$ideol, y=ds.sub$glbcc_risk)) +
-  geom_jitter(shape=1)
+ggplot(ds.sub, aes(x = ideol, y = glbcc_risk)) +
+  geom_jitter(shape = 1)
 ```
 
 Notice the apparent negative correlation. Verify this by checking the correlation:
 
 ```{r vis3, echo=TRUE}
 cor(ds.sub$ideol, ds.sub$glbcc_risk, use = "complete.obs")
-
 ```
 
-A trend line to the scatter plot helps to interpret directionality of a given variable pair. The next lab will further introduce trend lines, but for now we introduce it via the _geom_smooth()_ function by including the _method=lm_ argument. We also need to include _geom_point()_ for each point.
+A trend line to the scatter plot helps to interpret directionality of a given variable pair. The next lab will further introduce trend lines, but for now we introduce it via the *geom_smooth()* function by including the _method=lm_ argument. We also need to include *geom_point()* for each point.
 
 ```{r vis4, echo=TRUE}
-ggplot(ds.sub, aes(x=ds.sub$ideol, y=ds.sub$glbcc_risk)) +
-  geom_point(shape=1) +
+ggplot(ds.sub, aes(x = ideol, y = glbcc_risk)) +
+  geom_point(shape = 1) +
   geom_smooth(method = lm) +
-  geom_jitter(shape=1)
+  geom_jitter(shape = 1)
 ```
 
 The ideology points can be differentiated by other variables, such as gender, to examine potential difference among gender by defining the _color_ argument as follows:
 
 ```{r vis5, echo=TRUE}
-ggplot(ds.sub, aes(x=ds.sub$ideol, y=ds.sub$glbcc_risk, color=ds.sub$f.gender)) +
-  geom_point(shape=1) +
+ggplot(ds.sub, aes(x = ideol, y = glbcc_risk, color = f.gender)) +
+  geom_point(shape = 1) +
   geom_smooth(method = lm) +
-  geom_jitter(shape=1)
+  geom_jitter(shape = 1)
 ```
 
 ### Another Example: Political Party
@@ -307,8 +307,8 @@ ggplot(ds.sub, aes(x=ds.sub$ideol, y=ds.sub$glbcc_risk, color=ds.sub$f.gender)) 
 Let's look at this relationship broken down by political party. Perhaps you wanted to see if the relationship looks different for Republicans and Democrats. We can first subset the data for Republicans and Democrats:
 
 ```{r part, echo=TRUE}
-ds.rep <- subset(ds.sub, f.party.2=="Rep")
-ds.dem <- subset(ds.sub, f.party.2=="Dem")
+ds.dem <- filter(ds.sub, f.party.2 == "Dem")
+ds.rep <- filter(ds.sub, f.party.2 == "Rep")
 ```
 
 Next we investigate the correlation between ideology and perceived risk of climate change for Republicans and Democrats separately:
@@ -323,20 +323,20 @@ The correlation coefficient is slightly more negative for Democrats.
 To visualize: first create the scatter plot and trend lines for each party subset separately and for both combined. Assign each plot to an object. Then using the _grid.arrange()_ function, plot each of them:
 
 ```{r part3, echo=TRUE}
-rep <- ggplot(ds.rep, aes(x=ds.rep$ideol, y=ds.rep$glbcc_risk)) +
-  geom_point(shape=1) +
-  geom_smooth(method=lm) +
-  geom_jitter(shape=1)
+rep <- ggplot(ds.rep, aes(x = ideol, y = glbcc_risk)) +
+  geom_point(shape = 1) +
+  geom_smooth(method = lm) +
+  geom_jitter(shape = 1)
 
-dem <- ggplot(ds.dem, aes(x=ds.dem$ideol, y=ds.dem$glbcc_risk)) +
-  geom_point(shape=1) +
-  geom_smooth(method=lm) +
-  geom_jitter(shape=1)
+dem <- ggplot(ds.dem, aes(x = ideol, y = glbcc_risk)) +
+  geom_point(shape = 1) +
+  geom_smooth(method = lm) +
+  geom_jitter(shape = 1)
 
-party <- ggplot(ds.sub, aes(x=ds.sub$ideol, y=ds.sub$glbcc_risk, color = ds.sub$f.party.2)) +
-  geom_point(shape=1) +
-  geom_smooth(method=lm) +
-  geom_jitter(shape=1)
+party <- ggplot(ds.sub, aes(x = ideol, y = glbcc_risk, color = f.party.2)) +
+  geom_point(shape = 1) +
+  geom_smooth(method = lm) +
+  geom_jitter(shape = 1)
 
 grid.arrange(party, rep, dem)
 ```
@@ -348,8 +348,7 @@ There does not appear to be a big difference in the relationship.
 We cap this lab off with creating one last visualization. First create a new subset of our data exclusive of all missing observations. Include variables for climate change risk and age. 
 
 ```{r 2vis, echo=TRUE}
-sub.ds <- subset(ds, select = c("glbcc_risk", "age"))
-sub.ds <- na.omit(sub.ds)
+sub.ds <- filter(ds) %>% select("glbcc_risk", "age") %>% na.omit()
 ```
 
 First we look at our age variable.
@@ -367,9 +366,9 @@ cor.test(sub.ds$glbcc_risk, sub.ds$age)
 There is a slight negative correlation. We can interpret this as indicating that younger people are slightly more concerned about climate change. Now we construct the visualization:
 
 ```{r 2vis4, echo=TRUE}
-ggplot(sub.ds, aes(y=sub.ds$glbcc_risk, x=sub.ds$age)) +
-  geom_point(shape=20, color = "#e20000") +
-  geom_jitter(shape=20, color = "#e20000") +
+ggplot(sub.ds, aes(y = glbcc_risk, x = age)) +
+  geom_point(shape = 20, color = "#e20000") +
+  geom_jitter(shape = 20, color = "#e20000") +
   geom_smooth(method = lm) +
   xlab("Age") +
   ylab("Climate Change Risk") +
