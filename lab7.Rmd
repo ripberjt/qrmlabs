@@ -16,6 +16,7 @@ library(memisc)
 library(stargazer)
 library(grid)
 library(gridExtra)
+library(dplyr)
 options(scipen = 999)
 ```
 
@@ -28,6 +29,7 @@ This lab will cover the basics of bivariate linear regression, introducing via m
 5. stargazer
 6. grid
 7. gridExtra
+8. dplyr
 
 ## Part I: Bivariate Linear Regression by Hand
 
@@ -47,14 +49,14 @@ This lab focuses on the ordinary least squares method to find $\hat{\alpha}$ and
 
 To demonstrate, we will explore the relationship between ideology and concern for natural resources. The first step is to subset the variables of interest absent of NA values:
 
-```{r 1, echo=TRUE}
-ds.sub <- subset(ds, select = c("ideol","cncrn_natres"))
-ds.sub <- na.omit(ds.sub)
+```{r 71, echo=TRUE}
+ds.sub <- filter(ds) %>% 
+  dplyr::select("ideol", "cncrn_natres") %>% na.omit()
 ```
 
 Reviewing the variables is an important first step:
 
-```{r 2, echo=TRUE}
+```{r 72, echo=TRUE}
 describe(ds.sub$ideol)
 describe(ds.sub$cncrn_natres)
 ```
@@ -70,14 +72,14 @@ $$\hat{\beta}=\frac{cov(x,y)}{var(x)}$$
 
 First create _x_ and _y_ variables to make the calculations simpler, with _x_ being the independent variable and _y_ being the dependent variable:
 
-```{r biv, echo=TRUE}
+```{r 7biv, echo=TRUE}
 ds.sub$x <- ds.sub$ideol
 ds.sub$y <- ds.sub$cncrn_natres
 ```
 
 Next we calculate the cov(x,y) for the numerator and var(x) for the denominator:
 
-```{r biv2, echo=TRUE}
+```{r 7biv2, echo=TRUE}
 r <- cor(ds.sub$x, ds.sub$y)
 cov.xy <- cov(ds.sub$x, ds.sub$y, use = "complete.obs")
 var.x <- var(ds.sub$x, na.rm = T)
@@ -85,7 +87,7 @@ var.x <- var(ds.sub$x, na.rm = T)
 
 Finally, to calculate $\hat{\beta}$:
 
-```{r biv3, echo=TRUE}
+```{r 7biv3, echo=TRUE}
 beta.hat <- cov.xy / var.x
 ```
 
@@ -95,35 +97,35 @@ $$\hat{\alpha}=\bar{y} - \hat{\beta}\bar{x}$$
 
 Calculate $\bar{y}$ and $\bar{x}$ from the sample data:
 
-```{r biv4, echo=TRUE}
+```{r 7biv4, echo=TRUE}
 ybar <- mean(ds.sub$y, na.rm = T)
 xbar <- mean(ds.sub$x, na.rm = T)
 ```
 
 Use $\bar{y}$, $\bar{x}$, and $\hat{\beta}$ to calculate $\hat{\alpha}$:
 
-```{r biv5, echo=TRUE}
+```{r 7biv5, echo=TRUE}
 alpha.hat <- ybar - beta.hat * xbar
 ```
 
 Take a look at our calculated $\hat{\alpha}$ and $\hat{\beta}$:
 
-```{r biv6, echo=TRUE}
+```{r 7biv6, echo=TRUE}
 alpha.hat
 beta.hat
 ```
 
 Now create some predicted values of y, concern for natural resources, based on our estimated regression model:
 
-```{r biv7, echo=TRUE}
+```{r 7biv7, echo=TRUE}
 yhat <- alpha.hat + beta.hat * ds.sub$x
 head(yhat) # Returns the first 5 values
 ```
 
 To draw inference using the estimated regression model we need to understand how _x_ helps us understand _y_. More formally, we explore this relationship by evaluating the residuals associated to the coefficients $\hat{\alpha}$ and $\hat{\beta}$. We are interested in whether the coefficients are statistically different than zero.
 
-$H_0$: $\beta$ = 0  
-$H_1$: $\beta$ $\neq$ 0
+-$H_0$: $\beta$ = 0  
+-$H_1$: $\beta$ $\neq$ 0
 
 Put simply, if the coefficient $\hat{\beta}$ is zero, than that is to say that no value of x helps us understand y ($0*x=0$).
 
@@ -131,7 +133,7 @@ If we assume the residuals follow a normal distribution, then we can calculate t
 
 Recall that residuals are the differences in the observed values of the data and the predicted values of the estimated regression model. We can calculate residuals by subtracting the $\hat{y}$ values we just calculated from the _y_ values:
 
-```{r biv8, echo=TRUE}
+```{r 7biv8, echo=TRUE}
 res <- ds.sub$y - yhat
 ```
 
@@ -140,55 +142,55 @@ Now that we have the residuals, we need to calculate the residual standard error
 1. The residual sum of squares
 2. The degrees of freedom for our model
 
-```{r rss, echo=TRUE}
+```{r 7rss, echo=TRUE}
 res.sqr <- res^2
 RSS <- sum(res.sqr, na.rm=T)
 ```
 
 Now we need to calculate the degrees of freedom. In this case, we have the intercept and the ideology variable, so we subtract two. Since we subset our data to remove all missing observations, we know the n size for x and y are the same:
 
-```{r df, echo=TRUE}
-df <- length(ds.sub$y)-2
+```{r 7df, echo=TRUE}
+df <- length(ds.sub$y) - 2
 df
 ```
 
 With the residual sum of squares and the degrees of freedom, we have what we need to find the residual standard error:
 
-```{r rse, echo=TRUE}
-RSE <- sqrt(RSS/df)
+```{r 7rse, echo=TRUE}
+RSE <- sqrt(RSS / df)
 RSE
 ```
 
 With the residual standard error, we can now start to calculate the standard errors for our coefficients: $\hat{\alpha}$ and $\hat{\beta}$ (ideology). To calculate these, we need to find the total sum of squares of the independent variable, x:
 
-```{r tssx, echo=TRUE}
+```{r 7tssx, echo=TRUE}
 TSSx <- sum((ds.sub$x - xbar)^2)
 TSSx
 ```
 
 Now that we have the total sum of squares for the independent variable, we can find the standard errors of our coefficients:
 
-```{r SEb, echo=TRUE}
-SEB <- RSE/sqrt(TSSx)
+```{r 7SEb, echo=TRUE}
+SEB <- RSE / sqrt(TSSx)
 SEB
 ```
 
 For the standard error of $\hat{\alpha}$, the calculation is different:
 
-```{r SEa, echo=TRUE}
-SEA <- RSE*sqrt((1/2508)+(xbar^2/TSSx))
+```{r 7SEa, echo=TRUE}
+SEA <- RSE * sqrt((1 / 2508)+(xbar^2 / TSSx))
 SEA
 ```
 
 With the standard errors calculated, we can now find the corresponding t-statistics:
 
-```{r t, echo=TRUE}
-t.B <- beta.hat/SEB
+```{r 7t, echo=TRUE}
+t.B <- beta.hat / SEB
 t.B
 ```
 
-```{r t2, echo=TRUE}
-t.A <- alpha.hat/SEA
+```{r 7t2, echo=TRUE}
+t.A <- alpha.hat / SEA
 t.A
 ```
 
@@ -204,22 +206,22 @@ Now we turn to $R^2$, the measure how well the estimated regression model explai
 
 We already have the residual sum of squares. We found it by taking the sum of the residuals squared. Earlier we calculated the total sum of squares for our independent variable, x, but now we need to find the total sum of squares for our dependent variable, y.
 
-```{r r, echo=TRUE}
+```{r 7r, echo=TRUE}
 TSS <- sum((ds.sub$y - ybar)^2)
 TSS
 ```
 
 Now that we have the residual sum of squares and the total sum of squares, we can find the explained sum of squares. The explained sum of squares tells us how much of the variance of the dependent variable is accounted for by our model.
 
-```{r ess, echo=TRUE}
+```{r 7ess, echo=TRUE}
 ESS <- TSS - RSS
 ESS
 ```
 
 $R^2$ is found by dividing the explained sum of squares by the total sum of squares:
 
-```{r r2, echo=TRUE}
-r.sqr <- ESS/TSS
+```{r 7r2, echo=TRUE}
+r.sqr <- ESS / TSS
 r.sqr
 ```
 
@@ -233,8 +235,8 @@ $$1-\frac{(1-R^{2})(n-1)}{n-k-1}$$
 
 where k is the number of predictors in our model, not including the intercept(A). We can actually find this pretty simply. Recall that we are working with an n size of 2508. Our k value is 1, becuase we only have one predictor in the model (ideology). Find the adjusted R squared value:
 
-```{r adjr, echo=TRUE}
-adj.r2 <- 1-(((1-r.sqr)*(2508-1))/(2508-1-1))
+```{r 7adjr, echo=TRUE}
+adj.r2 <- 1-(((1 - r.sqr) * (2508 - 1)) / (2508 - 1 - 1))
 adj.r2
 ```
 
@@ -245,21 +247,23 @@ _lm(y ~ x)_
 
 To demonstrate with the _cncrn_natres_ and _ideol_ variables:
 
-```{r ols, echo=TRUE}
-model <- lm(ds.sub$cncrn_natres~ds.sub$ideol)
+```{r 7ols, echo=TRUE}
+model <- lm(ds.sub$cncrn_natres ~ ds.sub$ideol)
 ```
 
 Further, the _summary()_ function will provide results of our model, including t-statistics and $R^2$ values:
 
-```{r ols2, echo=TRUE}
+```{r 7ols2, echo=TRUE}
 summary(model)
 ```
 
 Let's compare to our coefficients, residual standard error, coefficient standard errors, t scores, r squared, and adjusted r squared:
 
-```{r ols3, echo=TRUE}
-stats <- data.frame(name=c("Intercept", "Beta", "RSE", "IntSE", "BetaSE", "IntT", "BetaT", "Rsqr", "AdjRsqr"),
-                    values=c(alpha.hat,beta.hat,RSE,SEA,SEB,t.A,t.B,r.sqr,adj.r2))
+```{r 7ols3, echo=TRUE}
+stats <- data.frame(name = c("Intercept", "Beta", "RSE", "IntSE", "BetaSE", "IntT",
+                             "BetaT", "Rsqr", "AdjRsqr"),
+                    values = c(alpha.hat, beta.hat, RSE, SEA, SEB, t.A, t.B,
+                             r.sqr, adj.r2))
 stats
 ```
 
@@ -267,32 +271,31 @@ stats
 
 Suppose you are interested in the relationship between ideology and opinions about how much of Oklahoma's electricity should come from renewable sources. The class data set includes these variables as _ideol_ and _okelec_renew_. A new subset data set is created with these variables, absent missing observations, to develop an estimated regression model:
 
-```{r br, echo=TRUE}
-sub.ds <- subset(ds, select=c("okelec_renew", "ideol"))
-sub.ds <- na.omit(sub.ds)
+```{r 7br, echo=TRUE}
+sub.ds <- filter(ds) %>% dplyr::select("okelec_renew", "ideol") %>% na.omit()
 ```
 
 The _okelec_renew_ variable is new to us, so we should examine its structure:
 
-```{r br2, echo=TRUE}
+```{r 7br2, echo=TRUE}
 str(sub.ds$okelec_renew)
 ```
 
 The variable appears to be a factor, which needs to be coerced as a numeric type. Recall the _as.numeric()_ function:
 
-```{r br3, echo=TRUE}
+```{r 7br3, echo=TRUE}
 sub.ds$renew <- as.numeric(sub.ds$okelec_renew)
 ```
 
 Reassess the structure to ensure it is numeric:
 
-```{r br4, echo=TRUE}
+```{r 7br4, echo=TRUE}
 str(sub.ds$renew)
 ```
 
 With the variable now numeric, examine it using the _describe()_ function:
 
-```{r br5, echo=TRUE}
+```{r 7br5, echo=TRUE}
 describe(sub.ds$renew)
 ```
 
@@ -300,23 +303,24 @@ Before proceeding, we should formalize a hypothesis. Perhaps we hypothesize that
 
 First we  examine the normality of both variables. Create a histogram and overlay it with a normal distribution curve, with the correct mean and standard deviation.:
 
-```{r br6, echo=TRUE}
-ggplot(sub.ds, aes(renew))+
-  geom_histogram(aes(y=..density..), bins = 10) +
-  stat_function(fun = dnorm, args = list(mean=mean(sub.ds$renew), sd = sd(sub.ds$renew)))
+```{r 7br6, echo=TRUE}
+ggplot(sub.ds, aes(renew)) +
+  geom_histogram(aes(y= ..density.. ), bins = 10) +
+  stat_function(fun = dnorm, args = list(mean = mean(sub.ds$renew),
+                                         sd = sd(sub.ds$renew)))
 ```
 
 
-```{r br7, echo=TRUE}
-ggplot(sub.ds, aes(ideol))+
-  geom_histogram(aes(y=..density..), bins = 7) +
-  stat_function(fun = dnorm, args = list(mean=mean(sub.ds$ideol), sd = sd(sub.ds$ideol)))
+```{r 7br7, echo=TRUE}
+ggplot(sub.ds, aes(ideol)) +
+  geom_histogram(aes(y = ..density..), bins = 7) +
+  stat_function(fun = dnorm, args = list(mean = mean(sub.ds$ideol), sd = sd(sub.ds$ideol)))
 ```
 
 Now construct the model:
 
-```{r br8, echo=TRUE}
-model1 <- lm(sub.ds$renew~sub.ds$ideol)
+```{r 7br8, echo=TRUE}
+model1 <- lm(sub.ds$renew ~ sub.ds$ideol)
 summary(model1)
 ```
 
@@ -324,17 +328,17 @@ Based on the results, ideology helps us understand preference for renewable ener
 
 We should always visualize a relationship that we're trying to convey. Start by constructing a scatter plot and adding a regression line:
 
-```{r br9, echo=TRUE}
-ggplot(sub.ds, aes(x=sub.ds$ideol, y=sub.ds$renew)) +
-  geom_point(shape=1) +
+```{r 7br9, echo=TRUE}
+ggplot(sub.ds, aes(x = ideol, y = renew)) +
+  geom_point(shape = 1) +
   geom_smooth(method = lm) +
-  geom_jitter(shape=1)
+  geom_jitter(shape = 1)
 ```
 
-Sometimes it is more beneficial when visualizing the relationship to plot the regression line without first showing the scatter plot. To do this with ggplot2, simply do not include the _geom_point()_ or _geom_jitter()_ functions in the visualization.
+Sometimes it is more beneficial when visualizing the relationship to plot the regression line without first showing the scatter plot. To do this with ggplot2, simply do not include the *geom_point()* or *geom_jitter()* functions in the visualization.
 
-```{r br10, echo=TRUE}
-ggplot(sub.ds, aes(x=sub.ds$ideol, y=sub.ds$renew)) +
+```{r 7br10, echo=TRUE}
+ggplot(sub.ds, aes(x = ideol, y = renew)) +
   geom_smooth(method = lm) 
 ```
 
@@ -348,68 +352,69 @@ Recall that when using Ordinary Least Squares regression, there are three assump
 
 To look at the residual values for the estimated regression model, use the _names()_ function:
 
-```{r res, echo=TRUE}
+```{r 7res, echo=TRUE}
 names(model)
 ```
 
 In R we can examine the distribution of the residuals relatively simply. First assign the residuals to an object:
 
-```{r res2, echo=TRUE}
+```{r 7res2, echo=TRUE}
 resid <- model$residuals
 ```
 
 Now plot a histogram of the residuals, adding a normal density curve with the mean and standard deviation of our residuals:
 
-```{r res3, echo=TRUE}
+```{r 7res3, echo=TRUE}
 ggplot(model, aes(model$residuals)) +
-  geom_histogram(aes(y= ..density..)) +
-   stat_function(fun = dnorm, args = list(mean=mean(model$residuals), sd = sd(model$residuals)))
+  geom_histogram(aes(y =  ..density..)) +
+   stat_function(fun = dnorm, args = list(mean = mean(model$residuals), sd = sd(model$residuals)))
 ```
 
 We also look at a QQ plot of the residuals:
 
-```{r res4, echo=TRUE}
-qqPlot(model1$residuals)
+```{r 7res4, echo=TRUE}
+ggplot(model, aes(sample = model$residuals)) +
+  stat_qq()
 ```
 
 ## Part IV: Comparing Models
 
 Suppose you wanted to create multiple bivariate models and contrast them. This is possible using the _mtable()_ function from the _memisc_ package. To demonstrate, we create three models looking at the relationship between an independent variable and concern about global climate change. The three independent variables will be ideology, certainty that humans cause climate change, and age. We start by creating a subset of our data and removing missing observations:
 
-```{r comp, echo=TRUE}
-sub <- subset(ds, select=c(glbcc_risk, glbcc_cert, age, ideol))
-sub <- na.omit(sub)
-model1 <- lm(sub$glbcc_risk~sub$ideol)
-model2 <- lm(sub$glbcc_risk~sub$glbcc_cert)
-model3 <- lm(sub$glbcc_risk~sub$age)
+```{r 7comp, echo=TRUE}
+sub <- filter(ds) %>% dplyr::select("glbcc_risk", "glbcc_cert", "age", "ideol") %>%
+  na.omit() 
+model1 <- lm(sub$glbcc_risk ~ sub$ideol)
+model2 <- lm(sub$glbcc_risk ~ sub$glbcc_cert)
+model3 <- lm(sub$glbcc_risk ~ sub$age)
 ```
 
 Using the _mtable()_ function, we can create regression tables that compare all three of the models:
 
-```{r comp2, echo=TRUE}
+```{r 7comp2, echo=TRUE}
 mtable(model1, model2, model3)
 ```
 
 Alternatively, you can use the _stargazer()_ function to create tables for your models. The _stargazer()_ function is different in that you can specify a table created with text or with LaTex code that you can subsequently paste into a LaTex document. We'll create a text table, but if you wanted to create a Latex table, you would use the _type=text_ argument.
 
-```{r com3, echo=TRUE}
+```{r 7com3, echo=TRUE}
 stargazer(model1, model2, model3, type="text", style="apsr")
 ```
  
 ### Visualizing Multiple Models
 
-The tree models can be visualized together via the _grid.arrange()_ function.
+The three models can be visualized together via the _grid.arrange()_ function.
 
-```{r vis, echo=TRUE}
-ideol <- ggplot(sub, aes(x=sub$ideol, y=sub$glbcc_risk)) +
+```{r 7vis, echo=TRUE}
+ideol <- ggplot(sub, aes(x = ideol, y = glbcc_risk)) +
   geom_smooth(method = lm) +
   ggtitle("Ideology and Concern for Climate Change")
 
-cert <- ggplot(sub, aes(x=sub$glbcc_cert, y=sub$glbcc_risk)) +
+cert <- ggplot(sub, aes(x = glbcc_cert, y = glbcc_risk)) +
   geom_smooth(method = lm) +
   ggtitle("Climate Change Certainty and Concern for Climate Change")
 
-age <- ggplot(sub, aes(x=sub$age, y=sub$glbcc_risk)) +
+age <- ggplot(sub, aes(x = age, y = glbcc_risk)) +
   geom_smooth(method = lm) +
   ggtitle("Age and Concern for Climate Change")
 
@@ -428,18 +433,17 @@ Built on this theory, we can specify a hypothesis that individuals more concerne
 
 We create a subset of the dataset that includes out two variables and remove missing observations:
 
-```{r hyp, echo=TRUE}
-new.ds <- subset(ds, select = c("wtr_comm", "glbcc_risk"))
-new.ds <- na.omit(new.ds)
+```{r 7hyp, echo=TRUE}
+new.ds <- filter(ds) %>%  dplyr::select("wtr_comm", "glbcc_risk") %>% na.omit()
 ```
 
 Now examine the variables:
 
-```{r hyp2, echo=TRUE}
+```{r 7hyp2, echo=TRUE}
 describe(new.ds$wtr_comm)
 ```
 
-```{r hyp3, echo=TRUE}
+```{r 7hyp3, echo=TRUE}
 describe(new.ds$glbcc_risk)
 ```
 
@@ -447,27 +451,27 @@ Note that the climate change risk variable goes from 0 to 10 and the water suppl
  
 Now visualize the normality of the variables:
 
-```{r hyp4, echo=TRUE}
+```{r 7hyp4, echo=TRUE}
 ggplot(new.ds, aes(wtr_comm)) +
-  geom_density(adjust=3) +
-  stat_function(fun = dnorm, args = list(mean=mean(new.ds$wtr_comm), sd = sd(new.ds$wtr_comm)), color="blue")
+  geom_density(adjust = 3) +
+  stat_function(fun = dnorm, args = list(mean = mean(new.ds$wtr_comm), sd = sd(new.ds$wtr_comm)), color = "blue")
 ```
 
-```{r hyp5, echo=TRUE}
+```{r 7hyp5, echo=TRUE}
 ggplot(new.ds, aes(glbcc_risk)) +
-  geom_density(adjust=3) +
-  stat_function(fun = dnorm, args = list(mean=mean(new.ds$glbcc_risk), sd = sd(new.ds$glbcc_risk)), color="blue")
+  geom_density(adjust = 3) +
+  stat_function(fun = dnorm, args = list(mean = mean(new.ds$glbcc_risk), sd = sd(new.ds$glbcc_risk)), color = "blue")
 ```
 
 Next, create the model. Recall that the dependent variable is concern for water supply and the independent variable is climate change risk.
 
-```{r hyp6, echo=TRUE}
-lm1 <- lm(new.ds$wtr_comm~new.ds$glbcc_risk)
+```{r 7hyp6, echo=TRUE}
+lm1 <- lm(new.ds$wtr_comm ~ new.ds$glbcc_risk)
 ```
 
 Now examine and interpret the results:
 
-```{r hyp7, echo=TRUE}
+```{r 7hyp7, echo=TRUE}
 summary(lm1)
 ```
 
@@ -475,22 +479,24 @@ The independent variable coefficient is about -.09, with a corresponding p-value
 
 We examine the normality of the residuals:
 
-```{r hyp8, echo=TRUE}
+```{r 7hyp8, echo=TRUE}
 ggplot(lm1, aes(lm1$residuals)) +
-  geom_density(adjust=3) +
-  stat_function(fun = dnorm, args = list(mean=mean(lm1$residuals), sd = sd(lm1$residuals)), color="blue")
+  geom_density(adjust = 3) +
+  stat_function(fun = dnorm, args = list(mean = mean(lm1$residuals), sd = sd(lm1$residuals)), color = "blue")
 ```
 
 Now build a good visualization that would be worthy of a paper:
 
-```{r hyp9, echo=TRUE}
-ggplot(new.ds, aes(x=wtr_comm, y=glbcc_risk)) +
+```{r 7hyp9, echo=TRUE}
+ggplot(new.ds, aes(wtr_comm, glbcc_risk)) +
   geom_smooth(method = lm) +
-  coord_cartesian(ylim = c(2,9), xlim = c(1,5)) +
+  coord_cartesian(ylim = c(2, 9), xlim = c(1, 5)) +
   ggtitle("Concern for Water and Climate Change") +
   xlab("Considers Water Supply Adequate") +
   ylab("Perceived Climate Change Risk") +
-  scale_x_continuous(breaks=c(1,2,3,4,5), labels=c("Definitely No", "Probably No", "Unsure", "Probably Yes", "Definitely Yes")) +
+  scale_x_continuous(breaks=c(1, 2 ,3 ,4 ,5), labels=c("Definitely No", 
+                                                       "Probably No", "Unsure",
+                                                       "Probably Yes", "Definitely Yes")) +
   theme_bw()
   
 ```
