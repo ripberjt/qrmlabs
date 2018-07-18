@@ -48,13 +48,13 @@ The basics of Zelig can be broken down into four steps:
 3. _sim()_ to simulate the quantities of interest.
 4. _plot()_ to visualize the simulation results. 
 
-As the lab progresses, we will amend the steps, but the steps are almost always a good place to start.
+As the lab progresses, we will amend the steps, but these are almost always a good place to start.
 
 First create a subset of data and remove missing observations.
 
 ```{r 13_zel, echo=TRUE}
-ds.sub <- subset(ds) %>%
-  select("footage", "income", "education", "age") %>%
+ds.sub <- filter(ds) %>%
+  dplyr::select("footage", "income", "education", "age") %>%
   na.omit()
 ```
 
@@ -79,12 +79,12 @@ table(ds.sub$education)
 According to the code book, a 2 indicates a High School education, and 6 indicates a Bachelor's degree. We can set the x value of education to both 2 and 6, and then have Zelig run Monte Carlo simulations, creating quantities of interest that we can compare. Use _setx()_ and _setx1()_ to set the two x values:
 
 ```{r 13_zel5, echo=TRUE}
-ols1.ed <- setx(ols1, education=2)
-ols1.ed <- setx1(ols1.ed, education=6)
+ols1.ed <- setx(ols1, education = 2)
+ols1.ed <- setx1(ols1.ed, education = 6)
 ols1.ed
 ```
 
-The next step is to use the _sim()_ function. This will use Monte Carlo simulations to generate quantiles of interest at each of the specified levels. In the past we might have predicted a Y value based on a model, but this will allow us to see mean, standard deviation, and more. 
+The next step is to use the _sim()_ function. This will use Monte Carlo simulations to generate quantiles of interest at each of the specified levels. In the past we might have predicted a Y value based on a model, but this will allow us to see mean, standard deviation, and more, based on 1000 simulations at each level of x. 
 
 ```{r 13_zel6, echo=TRUE}
 ols.sim <- sim(ols1.ed)
@@ -107,7 +107,7 @@ plot(ols2.ed)
 
 ### Plotting Predictions with Zelig
 
-Zelig is useful in another way: plotting predictions. By adding only two more steps to the process, R can return a data frame of information in the tidyverse format that we plot with _ggplot2_. Let's plot predicted values of Y, square footage of home, by each education level. We've got the simulated values, so use _zelig_qi_to_df()_ to transform the data into a data frame, and use _qi_slimmer()_ to slim the values and generate confidence intervals for each point:
+Zelig is useful in another way: plotting predictions. By adding only two more steps to the process, R can return a data frame of information in the tidyverse format that we plot with _ggplot2_. Let's plot predicted values of Y, square footage of home, by each education level. We've got the simulated values, so use *zelig_qi_to_df()* to transform the data into a data frame, and use *qi_slimmer()* to slim the values and generate confidence intervals for each point:
 
 ```{r 13_zel9, echo=TRUE}
 ols.ed.df <- zelig_qi_to_df(ols2.ed) %>%
@@ -120,42 +120,42 @@ Take a look at the new data:
 ols.ed.df
 ```
 
-Logged income and age are held at their means, education is sequenced from 1 to 8, and there are three other groups of values. _Qi_ci_min_ is the lower limit, _qi_ci_median_ is the estimate, and __ is the upper limit. Let's plot them. Make sure to use _factor(education)_ to treat each level separately. 
+Logged income and age are held at their means, education is sequenced from 1 to 8, and there are three other groups of values. *Qi_ci_min* is the lower limit, *qi_ci_median* is the estimate, and *qi_ci_max* is the upper limit. Let's plot them. Make sure to use _factor(education)_ to treat each level separately. 
 
 ```{r 13_zel11, echo=TRUE}
-ggplot(ols.ed.df, aes(factor(education), qi_ci_median))+
-  geom_errorbar(aes(ymin=qi_ci_min, ymax=qi_ci_max)) +
+ggplot(ols.ed.df, aes(factor(education), qi_ci_median)) +
+  geom_errorbar(aes(ymin = qi_ci_min, ymax = qi_ci_max)) +
   geom_point()
 ```
 
 ## Part II: Other Models
 
-Zelig can be utilized for many different types of models. Let's run through an example of logistic regression. Let's run through the example we used in the last lab, predicting a vote for Trump.
+Zelig can be utilized for many different types of models. Let's run through an example of logistic regression. For instance, we can run through the example we used in the last lab, predicting a vote for Trump.
 
 ```{r 13_zel12, echo=TRUE}
-ds$trump <- car::recode(ds$vote_cand, "0=1;1=0;else=NA;NA=NA")
-ds$f.trump <- factor(ds$trump, levels = c(0,1), labels = c("Clinton", "Trump"))
+ds$trump <- car::recode(ds$vote_cand, "0 = 1;1 = 0;else = NA;NA = NA")
 ```
 
 Subset the data and remove missing observations:
 
 ```{r 13_zel13, echo=TRUE}
-ds.sub <- subset(ds, select=c("f.trump","footage", "trump", "gender", "ideol", "income", "education", "race", "age"))
-ds.sub <- na.omit(ds.sub)
+ds.sub <- filter(ds) %>% select("footage", "trump", "gender",
+                                "ideol", "income", "education", "race", "age") %>%
+  na.omit()
 ds.sub$log.inc <- log(ds.sub$income)
 ```
 
 Build a model that includes gender, ideology, logged income, education, and race. To indicate a logit model, include _model="logit"_:
 
 ```{r 13_zel14, echo=TRUE}
-z.log <- zelig(trump ~ gender + ideol + log.inc + education + race, data=ds.sub, model="logit", cite=FALSE)
+z.log <- zelig(trump ~ gender + ideol + log.inc + education + race, data = ds.sub, model="logit", cite=FALSE)
 summary(z.log)
 ```
 
 Since we used ideology in the last lab, let's find the predicted probabilities of voting for Trump based on education levels:
 
 ```{r 13_zel15, echo=TRUE}
-log.out <- setx(z.log, education=1:8) %>%
+log.out <- setx(z.log, education = 1:8) %>%
   sim() %>%
   zelig_qi_to_df() %>%
   qi_slimmer()
@@ -170,8 +170,8 @@ Next make the visualization. To show that there are different ways to visualize 
 
 ```{r 13_zel17, echo=TRUE}
 ggplot(log.out, aes(factor(education), qi_ci_median))+
-  geom_errorbar(aes(ymin=qi_ci_min, ymax=qi_ci_max),width=.2) +
-  geom_point(size=2) +
+  geom_errorbar(aes(ymin = qi_ci_min, ymax = qi_ci_max), width = .2) +
+  geom_point(size = 2) +
   ylab("Predicted Probability of Trump Vote") +
   xlab("Education Level") +
   coord_flip()
@@ -179,23 +179,25 @@ ggplot(log.out, aes(factor(education), qi_ci_median))+
 
 ### Ordered Logit 
 
-Recall that in the last lab, we created an index of energy-saving activities and used ordered logit to assess the probability of individuals doing the activities based on their perceived climate change risk. Let's revisit that model and go one step farther than we did last time. Instead of looking at predicted probabilities, we will use Zelig to simulate predicted values, actually predicting the number of energy-saving activities individuals do based on their climate change risk. 
+Recall that in the last lab, we created an index of energy-saving activities and used ordered logit to assess the probability of individuals doing the activities based on their perceived climate change risk. Let's revisit that model and go one step farther than we did last time. Instead of looking at predicted probabilities, we will use Zelig to simulate predicted values, actually predicting the number of energy-saving activities individuals do based on their perceived climate change risk. 
 
 First create the index again:
 
 ```{r 13_ord, echo=TRUE}
-energy <- with(ds, cbind(enrgy_steps_lghts, enrgy_steps_heat, enrgy_steps_ac, enrgy_steps_savappl, enrgy_steps_unplug, enrgy_steps_insul,
+energy <- with(ds, cbind(enrgy_steps_lghts, enrgy_steps_heat, enrgy_steps_ac, 
+                         enrgy_steps_savappl, enrgy_steps_unplug, enrgy_steps_insul,
                          enrgy_steps_savdoor, enrgy_steps_bulbs))
 
-ds$s.energy <- with(ds, enrgy_steps_lghts + enrgy_steps_heat + enrgy_steps_ac + enrgy_steps_savappl + enrgy_steps_unplug + enrgy_steps_insul +
-                         enrgy_steps_savdoor + enrgy_steps_bulbs)
+ds$s.energy <- with(ds, enrgy_steps_lghts + enrgy_steps_heat + enrgy_steps_ac +
+                        enrgy_steps_savappl + enrgy_steps_unplug + enrgy_steps_insul +
+                        enrgy_steps_savdoor + enrgy_steps_bulbs)
 ```
 
 Subset the data and remove missing observations:
 
 ```{r 13_ord2, echo=TRUE}
-ds.sub3 <- subset(ds, select=c("s.energy", "ideol", "age", "glbcc_risk"))
-ds.sub3 <- na.omit(ds.sub3)
+ds.sub3 <- filter(ds) %>% dplyr::select("s.energy", "ideol", "age", "glbcc_risk") %>%
+  na.omit()
 ```
 
 Create a factored version of the index:
@@ -207,13 +209,14 @@ ds.sub3$f.energy <- factor(ds.sub3$s.energy)
 Build the model using _model="ologit"_:
 
 ```{r 13_ord4, echo=TRUE}
-logit <- zelig(f.energy ~ ideol + age + glbcc_risk, data=ds.sub3, model = "ologit", cite=FALSE)
+logit1 <- zelig(f.energy ~ ideol + age + glbcc_risk, data=ds.sub3,
+               model = "ologit", cite=FALSE)
 ```
 
 Let's review the results:
 
 ```{r 13_ord5, echo=TRUE}
-summary(logit)
+summary(logit1)
 ```
 
 We're primarily interested in the relationship between climate change risk and energy-saving activities. Normally the next step would be to sequence climate change risk from one to ten and generate predicted probabilities, but we already did that in the last lab. This time, let's use Zelig to generate predicted values. These next steps might get a little messy, so here they are:
@@ -221,38 +224,39 @@ We're primarily interested in the relationship between climate change risk and e
 1. Use _setx()_ and _sim()_ to simulate values for each level of climate change risk. Then use _get_qi()_ to extract the predicted values. We have to do this for each level separately.
 2. Put all the predicted values into a data frame:
 3. Use _melt()_ to melt the data frame into long form:
-4. Use ggplot2 and _facet_wrap()_ to create bar plots of the predicted values.
+4. Use ggplot2 and *facet_wrap()* to create bar plots of the predicted values.
 
 We can do steps one and two together in one line of code by piping:
 
 ```{r 13_ord6, echo=TRUE}
-pv.0 <- setx(logit, glbcc_risk=0) %>% sim() %>% get_qi(qi="pv", xvalue="x")
+pv.0 <- setx(logit1, glbcc_risk = 0) %>% sim() %>% get_qi(qi = "pv", xvalue = "x")
 
-pv.1 <- setx(logit, glbcc_risk=1) %>% sim() %>% get_qi(qi="pv", xvalue="x")
+pv.1 <- setx(logit1, glbcc_risk = 1) %>% sim() %>% get_qi(qi = "pv", xvalue = "x")
 
-pv.2 <- setx(logit, glbcc_risk=2) %>% sim() %>% get_qi(qi="pv", xvalue="x")
+pv.2 <- setx(logit1, glbcc_risk = 2) %>% sim() %>% get_qi(qi = "pv", xvalue = "x")
 
-pv.3 <- setx(logit, glbcc_risk=3) %>% sim() %>% get_qi(qi="pv", xvalue="x")
+pv.3 <- setx(logit1, glbcc_risk = 3) %>% sim() %>% get_qi(qi = "pv", xvalue = "x")
 
-pv.4 <- setx(logit, glbcc_risk=4) %>% sim() %>% get_qi(qi="pv", xvalue="x")
+pv.4 <- setx(logit1, glbcc_risk = 4) %>% sim() %>% get_qi(qi = "pv", xvalue = "x")
 
-pv.5 <- setx(logit, glbcc_risk=5) %>% sim() %>% get_qi(qi="pv", xvalue="x")
+pv.5 <- setx(logit1, glbcc_risk = 5) %>% sim() %>% get_qi(qi = "pv", xvalue = "x")
 
-pv.6 <- setx(logit, glbcc_risk=6) %>% sim() %>% get_qi(qi="pv", xvalue="x")
+pv.6 <- setx(logit1, glbcc_risk = 6) %>% sim() %>% get_qi(qi = "pv", xvalue = "x")
 
-pv.7 <- setx(logit, glbcc_risk=7) %>% sim() %>% get_qi(qi="pv", xvalue="x")
+pv.7 <- setx(logit1, glbcc_risk = 7) %>% sim() %>% get_qi(qi = "pv", xvalue = "x")
 
-pv.8 <- setx(logit, glbcc_risk=8) %>% sim() %>% get_qi(qi="pv", xvalue="x")
+pv.8 <- setx(logit1, glbcc_risk = 8) %>% sim() %>% get_qi(qi = "pv", xvalue = "x")
 
-pv.9 <- setx(logit, glbcc_risk=9) %>% sim() %>% get_qi(qi="pv", xvalue="x")
+pv.9 <- setx(logit1, glbcc_risk = 9) %>% sim() %>% get_qi(qi = "pv", xvalue = "x")
 
-pv.10 <- setx(logit, glbcc_risk=10) %>% sim() %>% get_qi(qi="pv", xvalue="x")
+pv.10 <- setx(logit1, glbcc_risk = 10) %>% sim() %>% get_qi(qi = "pv", xvalue = "x")
 ```
 
 Put the predicted values into a data frame:
 
 ```{r 13_ord7, echo=TRUE}
-pv.df <- data.frame(pv.0,pv.1,pv.2,pv.3,pv.4,pv.5,pv.6,pv.7,pv.8,pv.9,pv.10)
+pv.df <- data.frame(pv.0, pv.1, pv.2, pv.3, pv.4, pv.5,
+                    pv.6, pv.7, pv.8, pv.9, pv.10)
 ```
 
 Melt the data:
@@ -267,8 +271,8 @@ Plot the predicted values. Remember, these are the predicted values that Zelig f
 ```{r 13_ord9, echo=TRUE}
 ggplot(pv.m, aes(value)) +
   geom_bar() +
-  facet_wrap(~variable, scales = "fixed") +
-  scale_x_continuous(breaks=c(0:10))
+  facet_wrap( ~ variable, scales = "fixed") +
+  scale_x_continuous(breaks = c(0:10))
 ```
 
 We can deduce from this visualization that the skew shifts more negative as climate change risk increases, indicating that individuals more concerned about climate change are doing more energy-saving activities. 
@@ -278,7 +282,8 @@ We can deduce from this visualization that the skew shifts more negative as clim
 Let's go back to the example model that regressed home square footage on logged income, age, and education. Recall the model:
 
 ```{r 13_ex, echo=TRUE}
-ols1 <- zelig(footage ~ log.inc + age + education, data = ds.sub, model = "ls", cite = FALSE)
+ols1 <- zelig(footage ~ log.inc + age + education, data = ds.sub,
+              model = "ls", cite = FALSE)
 summary(ols1)
 ```
 
@@ -289,7 +294,8 @@ describe(ds.sub$log.inc)
 ```
 
 ```{r 13_ex3, echo=TRUE}
-inc.out <- setx(ols1, education=6, log.inc=9.21:13.71) %>%
+inc.out <- setx(ols1, education=6,
+                log.inc = seq(min(ds.sub$log.inc), max(ds.sub$log.inc))) %>%
   sim() %>%
   zelig_qi_to_df() %>%
   qi_slimmer()
@@ -306,7 +312,7 @@ ggplot(inc.out, aes(factor(log.inc), qi_ci_median)) +
 
 ## Part III: Zelig with non-Zelig Models:
 
-There are some models that can be specified outside of Zelig but that you can use the Zelig functions on. The complete list can be found on the Zelig website, but demonstrate with the _lm()_ function. Here's a classic model from our labs:
+There are some models that can be specified outside of Zelig but that you can use the Zelig functions on. The complete list can be found on the Zelig website, but we can demonstrate with the _lm()_ function. Here's a classic model from our labs:
 
 ```{r 13_ex5, echo=TRUE}
 ds$log.inc <- log(ds$income)
@@ -324,9 +330,9 @@ lm1.out <- setx(lm1, ideol=1:7) %>%
 ```
 
 ```{r 13_ex7, echo=TRUE}
-ggplot(lm1.out, aes(x=factor(ideol), y=qi_ci_median)) +
-    geom_errorbar(aes(ymin=qi_ci_min, ymax=qi_ci_max),width=.2) +
-    geom_point(size=2)
+ggplot(lm1.out, aes(x=factor(ideol), y = qi_ci_median)) +
+    geom_errorbar(aes(ymin = qi_ci_min, ymax = qi_ci_max), width = .2) +
+    geom_point(size = 2)
 ```
 
 Let's move onto a different model that might provide some interesting findings. In a previous lab we looked the relationship between ideology and support for the candidate an individual voted for. Recall that we used polynomial terms to find a better model fit and concluded that the relationship was not strictly linear. Let's take that question one step further and break it down by political party. Perhaps there are linear relationships when we look at candidate support by ideology and party. We use Zelig to run simulations and predict values of candidate support for each of the ideology levels based on political party. 
@@ -334,7 +340,7 @@ Let's move onto a different model that might provide some interesting findings. 
 First subset the data:
 
 ```{r 13_ex8, echo=TRUE}
-d <- subset(ds) %>%
+d <- filter(ds) %>%
   select("ideol", "education", "vote_cand_spt", "income", "age", "gender", "f.party.2") %>%
   na.omit() 
 d$log.inc <- log(d$income)
@@ -365,11 +371,16 @@ lm2.out <- zelig_qi_to_df(lm2.out) %>%
 Next plot the results of the simulations:
 
 ```{r 13_ex12, echo=TRUE}
-ggplot(lm2.out, aes(factor(ideol), qi_ci_median, color=f.party.2)) +
-  geom_errorbar(aes(ymin=qi_ci_min, ymax=qi_ci_max),width=.2) +
-  geom_point(size=2) +
-  scale_color_manual(values=c("blue", "purple", "red")) +
-  facet_wrap(~f.party.2, scales = "fixed")
+ggplot(lm2.out, aes(factor(ideol), qi_ci_median, color = f.party.2)) +
+  geom_errorbar(aes(ymin = qi_ci_min, ymax = qi_ci_max), width = .2) +
+  geom_point(size = 2) +
+  scale_color_manual(values = c("blue", "purple", "red"),
+                     name = c("Party")) +
+  facet_wrap( ~ f.party.2, scales = "fixed") +
+  ggtitle("Candidate Support by Party and Ideology") +
+  xlab("Ideology") +
+  ylab("Candidate Support") +
+  theme_bw()
 ```
 
 This visualization tells us some interesting information: Independents do not appear to be have as much support for the candidate they voted for, regardless of their ideology. It also appears that Democrats and Republicans follow the same trend, with more conservative Democrats tending to support the candidate they voted for a little more, and the same for Republicans. 
