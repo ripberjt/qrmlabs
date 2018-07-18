@@ -6,7 +6,17 @@ author:
 output: pdf_document
 ---
 
-```{r setup, include=FALSE}
+This lab covers the basics of multivariate linear regression. We begin by reviewing linear algebra to perform ordinary least squares (OLS) regression in matrix form. Then we cover an introduction to multiple linear regression and visualizations with R. The following packages are required for this lab: 
+
+1. ggplot2
+2. psych
+3. car
+4. memisc
+5. stargazer
+6. gridExtra
+7. dplyr
+
+```{r 8_setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 library(ggplot2)
 library(psych)
@@ -18,16 +28,6 @@ library(dplyr)
 options(scipen = 999)
 ds <- read.csv("https://github.com/ripberjt/qrmlabs/raw/master/Class%20Data%20Set%20Factored.csv")
 ```
-
-This lab covers the basics of multivariate linear regression. We begin by reviewing linear algebra to perform ordinary least squares (OLS) regression in matrix form. Then we cover an introduction to multiple linear regression and visualizations with R. The following packages are required for this lab: 
-
-1. ggplot2
-2. psych
-3. car
-4. memisc
-5. stargazer
-6. gridExtra
-7. dplyr
 
 ## Part I: Calculating Least-Squared Estimates
 
@@ -74,7 +74,7 @@ __Note:__ The product of a matrix and its transpose is a square matrix.
 
 The _matrix()_ function in R will create a matrix object consisting of provided values in a defined number of rows and columns. The above matrix, _A_, is created as follows:
 
-```{r mat, echo=TRUE}
+```{r 8_mat, echo=TRUE}
 A <- matrix(c(1, 2, 4, 5, 7, 6), 2, 3)
 A
 ```
@@ -82,7 +82,7 @@ A
 Further, the _t()_ function will transpose a given matrix:
 
 
-```{r mat2, echo=TRUE}
+```{r 8_mat2, echo=TRUE}
 Aprime <- t(A)
 Aprime
 ```
@@ -108,7 +108,7 @@ $$A = \begin{bmatrix}
 
 Similarly, the product of matrices can be calculated in R using the %\*% operator:
 
-```{r mat3, echo=TRUE}
+```{r 8_mat3, echo=TRUE}
 AxAprime <- A %*% Aprime
 AxAprime
 ```
@@ -137,7 +137,7 @@ $$ A' \times B = \begin{bmatrix}
 
 Or, in R:
 
-```{r mat4, echo=TRUE}
+```{r 8_mat4, echo=TRUE}
 B <- matrix(c(1, 2, 3, 2, 6, 4, 4, 5, 6), 2, 3)
 BxAprime <- B %*% Aprime
 BxAprime
@@ -153,7 +153,7 @@ $$I_{1\times1}=\begin{bmatrix} 1 \end{bmatrix}, I_{2\times2}=\begin{bmatrix}1 & 
 
 The following demonstrates the identity property for matrices:
 
-```{r mat5, echo=TRUE}
+```{r 8_mat5, echo=TRUE}
 I <- matrix(c(1, 0, 0, 0, 1, 0, 0, 0, 1),3, 3)
 AI <- A %*% I
 AI
@@ -162,14 +162,14 @@ A
 
 Lastly, the reciprocal of A is known as the inverse matrix, denoted as $A^{-1}$. In ordinary algebra, the product of a number and its reciprocal is 1. In matrix algebra, the product of a matrix and its inverse is the identity matrix. $AA^{-1}=A^{-1}A=I$ __Note:__ Inverse matrices only exist for square matrices, and not all square matrices possess inverses. The inverse of a matrix can be found via the _solve()_ function as follows:
 
-```{r mat6, echo=TRUE}
+```{r 8_mat6, echo=TRUE}
 A.inv <- solve(AxAprime)
 A.inv
 ```
 
 The following R example demonstrates _I_ as the product of $AA^{-1}$:
 
-```{r mat7, echo=TRUE}
+```{r 8_mat7, echo=TRUE}
 Aident <- A.inv %*%  A
 Aident
 ```
@@ -198,7 +198,7 @@ Where, n is the number of independent variables, $\beta_0$ is the regression int
 
 Using this model we can imagine collected data as a system of linear equations. To demonstrate, suppose we collected the following data:
 
-```{r mat8, echo=TRUE}
+```{r 8_mat8, echo=TRUE}
 ex.ds <- data.frame(x = c(1, 2, 3, 4, 5),
                     y = c(1, 1, 2, 2, 4))
 ex.ds
@@ -237,7 +237,7 @@ $$\hat{\beta}=(X'X)^{-1}X'Y$$
 Using the matrices formed from the system of linear equations, we demonstrate calculating the least-squared estimates using R:
 
 
-```{r ols, echo=TRUE}
+```{r 8_ols, echo=TRUE}
 Y <- matrix(c(1, 1, 2, 2, 4), 5, 1)
 Y
 X <- matrix(c(1, 1, 1, 1, 1, 1, 2, 3, 4, 5), 5, 2)
@@ -246,42 +246,42 @@ X
 
 Now we need to find X' with the _t()_ function:
 
-```{r ols2, echo=TRUE}
+```{r 8_ols2, echo=TRUE}
 Xprime <- t(X)
 Xprime
 ```
 
 Next calculate (X'X):
 
-```{r ols3, echo=TRUE}
+```{r 8_ols3, echo=TRUE}
 XprimeX <- Xprime %*% X
 XprimeX
 ```
 
 Now find the inverse of (X'X):
 
-```{r ols4, echo=TRUE}
+```{r 8_ols4, echo=TRUE}
 XprimeXinv <- solve(XprimeX)
 XprimeXinv
 ```
 
 Multiply $(X'X)^{-1}$ by $X'$:
 
-```{r ols5, echo=TRUE}
+```{r 8_ols5, echo=TRUE}
 XprimeXinvXprime <- XprimeXinv %*% Xprime
 XprimeXinvXprime
 ```
 
 Now multiply by Y to find $\hat{\beta}$:
 
-```{r ols6, echo=TRUE}
+```{r 8_ols6, echo=TRUE}
 b <- XprimeXinvXprime %*% Y
 b
 ```
 
 We read this matrix as $\beta_0$ is the first position and $\beta_1$ is the following position. __Note:__ We could just as easily used the method introduced in the last lab. The following R code demonstrates the equivalence:
 
-```{r ols7, echo=TRUE}
+```{r 8_ols7, echo=TRUE}
 df <- data.frame(x = c(1, 2, 3, 4, 5), y = c(1, 1, 2, 2, 4))
 covar <- cov(df$x, df$y)
 vari <- var(df$x)
@@ -302,7 +302,7 @@ $$\hat{y}=-0.10+0.70x$$
 
 Let's check our work using the _lm()_ function:
 
-```{r ols10, echo=TRUE}
+```{r 8_ols10, echo=TRUE}
 ols <- lm(Y ~ 0 + X)
 ols
 b
@@ -312,7 +312,7 @@ The previous example demonstrated calculating least-squared estimates for a biva
 
 Suppose we have the following data set:
 
-```{r ols11, echo=TRUE}
+```{r 8_ols11, echo=TRUE}
 mv.df <- data.frame(y = c(1, 1, 2, 2, 4),
                     x1 = c(1, 2, 3, 4, 5),
                     x2 = c(1, 2, 2, 4, 3))
@@ -333,7 +333,7 @@ $$\begin{bmatrix}1 & 1 & 1 \\ 1 & 2 & 2 \\ 1 & 3 & 2 \\ 1 & 4 & 4 \\ 1 & 5 & 3 \
 
 We will use R to find the least-squared coefficients. Note that calculating Bhat in R has been reduced to a single line:
 
-```{r ols12, echo=TRUE}
+```{r 8_ols12, echo=TRUE}
 Y <- matrix(c(1, 2, 2, 4, 4), 5, 1)
 X <- matrix(c(1, 1, 1, 1, 1, 1, 2, 3, 4, 5, 1, 2, 2, 4, 3), 5, 3)
 Bhat <- (solve((t(X) %*% X))) %*% (t(X) %*% Y)
@@ -342,7 +342,7 @@ Bhat
 
 Again, we check our work using the _lm()_ function:
 
-```{r ols13, echo=TRUE}
+```{r 8_ols13, echo=TRUE}
 ols <- lm(Y ~ 0 + X)
 ols
 ```
@@ -351,20 +351,20 @@ ols
 
 The R syntax for multiple linear regression is similar to what we used for bivariate regression: add the independent variables to the _lm()_ function. Construct a model that looks at climate change certainty as the dependent variable with age and ideology as the independent variables:
 
-```{r mlr, echo=TRUE}
+```{r 8_mlr, echo=TRUE}
 sub.ds <- filter(ds) %>% dplyr::select("glbcc_cert", "ideol", "age") %>% na.omit()
 model1 <- lm(sub.ds$glbcc_cert ~ sub.ds$ideol + sub.ds$age)
 ```
 
 Now look at the model:
 
-```{r mlr2, echo=TRUE}
+```{r 8_mlr2, echo=TRUE}
 summary(model1)
 ```
 
 Before interpreting these results, we need to review partial effects. Chapter 12 of the textbook discusses partial effects in great detail. Essentially, multivariate regression "controls" for the effects of other dependent variables when reporting the effect of one particular variable. This is not accidental. Explore this for our model. First construct a bivariate regression model for each of independent variable in the multivariate regression model:
 
-```{r mlr3, echo=TRUE}
+```{r 8_mlr3, echo=TRUE}
 model2 <- lm(sub.ds$glbcc_cert ~ sub.ds$ideol)
 model3 <- lm(sub.ds$glbcc_cert ~ sub.ds$age)
 mtable(model2, model3)
@@ -372,7 +372,7 @@ mtable(model2, model3)
 
 Notice the ideology coefficient in the bivariate model is larger than the ideology coefficient in the multivariate regression model. The same is also true for the age variable. This is because the bivariate model reports the total effects of X on Y, but the multivariate regression model reports the effects of X on Y when "controlling" for the other independent variables. Look at the multivariate regression model again:
 
-```{r mlr4, echo=TRUE}
+```{r 8_mlr4, echo=TRUE}
 summary(model1)
 ```
 
@@ -382,19 +382,19 @@ To interpret these results: a one unit increase in ideology corresponds with a -
 
 Perhaps we want to explore the relationship between opinions about fossil fuels and ideology. The class data set includes a question asking respondents what percentage of Oklahoma's electricity should come from fossil fuels. It is reasonable to posit that more conservative individuals will want a higher percentage of the state's electricity to come from fossil fuels. For this test, we include other independent variables: age, income, and education. We establish a hypothesis that the more conservative a respondent is, the more electricity they want to come from fossil fuels, all other variables held constant. The null hypothesis is that there is no difference in preferred percentage of electricity coming from fossil fuels by ideology. First we look at our variables:
 
-```{r mlr5, echo=TRUE}
+```{r 8_mlr5, echo=TRUE}
 str(ds$okelec_foss)
 ```
 
 Notice that R reads the fossil fuels variable as a factor. We change this to a numeric variable. We coerce it and create a new variable:
 
-```{r mlr6, echo=TRUE}
+```{r 8_mlr6, echo=TRUE}
 ds$foss <- as.numeric(ds$okelec_foss)
 ```
 
 Now let's look at all the variables. First we create a subset of the data and remove missing observations, then use the _describe()_ function:
 
-```{r mlr7, echo=TRUE}
+```{r 8_mlr7, echo=TRUE}
 ds.sub <- filter(ds) %>% 
   dplyr::select("income", "education", "ideol", "foss", "age") %>%
   na.omit()
@@ -407,7 +407,7 @@ describe(ds.sub$age)
 
 Now construct the model:
 
-```{r mlr8, echo=TRUE}
+```{r 8_mlr8, echo=TRUE}
 model <- lm(foss ~ income + education + age + ideol, data = ds.sub)
 ```
 
@@ -415,7 +415,7 @@ Note the different syntax in constructing this model. Instead of writing _datase
 
 Now examine the model:
 
-```{r mlr9, echo=TRUE}
+```{r 8_mlr9, echo=TRUE}
 summary(model)
 ```
 
@@ -427,7 +427,7 @@ Next we need to visualize the model. Visualizing multiple linear regression is n
 
 The best way to visualize multiple linear regression is to create a visualization for each independent variable while holding the other independent variables constant. Doing this allows us to see how each relationship between the DV and IV looks. Constructing each graph in _ggplot2_ is essentially the same as for bivariate linear regression.
 
-```{r mlr10, echo=TRUE}
+```{r 8_mlr10, echo=TRUE}
 id <-ggplot(model, aes(ideol,foss)) + # Ideology visualization
   geom_smooth(aes(ideol,foss), method = lm)
 age <- ggplot(model, aes(age,foss)) + # Age visualization
@@ -448,7 +448,7 @@ Regression analysis is performed not only to explain relationships, but also to 
 
 To start predicting, we need to identify what values we want to assign to our independent variables. Perhaps you wanted to know the preferred percentage of energy coming from fossil fuels for an individual with a bachelor's degree, an income of 45000, 40 years old, and a moderate (3) ideology. First we need to know the beta coefficients for each variable:
 
-```{r predict, echo=TRUE}
+```{r 8_predict, echo=TRUE}
 coef(model)
 ```
 
@@ -462,13 +462,13 @@ $$\hat{y} = \beta_{intercept} + \beta_{income} + \beta_{educ} + \beta_{age} + \b
 
 __Note:__ For a bachelor's degree, the value of the education variable is 6. 
 
-```{r predict2, echo=TRUE}
+```{r 8_predict2, echo=TRUE}
 (5.83 + (.000014 * (45000)) + (-.19 * (6)) + (.19 * (40)) + (3.07 * (3)))
 ```
 
 Based on the calculation, a predicted result is 22% of the state's electricity should come from fossil fuels. There is a more precise way to do this calculation, as is often the case. Using the _predict()_ function, we can tell R to return predicted values based on specifications of variable values. 
 
-```{r predict3, echo=TRUE}
+```{r 8_predict3, echo=TRUE}
 predict(model, newdata = data.frame(ideol = 3, income = 45000, education = 6, age = 40))
 ```
 
@@ -476,13 +476,13 @@ __Note:__ The original estimate is a little off due to rounding.
 
 The _predict()_ function can return multiple values at a time. If we use the _seq()_ argument, we can tell R to predict values for a sequence of values:
 
-```{r predict4, echo=TRUE}
+```{r 8_predict4, echo=TRUE}
 predict(model, newdata = data.frame(ideol = seq(1:7), income = 45000, education = 5, age = 45))
 ```
 
 We've specified values for income, education, and age variables that are not the means. However, it is often appropriate to predict values when all other variables are held constant at their means. We can use the _predict()_ function for this too!
 
-```{r predict5, echo=TRUE}
+```{r 8_predict5, echo=TRUE}
 p <- predict(model, newdata = data.frame(ideol = seq(1:7), income = mean(ds.sub$income, na.rm = T),
                                          education = mean(ds.sub$education, na.rm = T), 
                                          age=mean(ds.sub$age, na.rm = T)), se.fit = T)
@@ -496,7 +496,7 @@ Recall that the earlier hypothesis stated that the more conservative a responden
 __Note__:Until now, we have used *geom_smooth()* to create regression lines. However, the superior method of creating regression lines is to generate predictions outside of ggplot and use *geom_line()* to plot the line and *geom_ribbom()* to plot the confidence intervals. This is because *geom_smooth()* does not let you set the specific DV values. However, the _predict()_ function tells R to predict values of the IV based on specific values of the DV. To create a good regression line and confidence interval using the _predict()_ function, instruct R to hold all DVs at their means except ideology. Sequence ideology from 1 to 7, and include _se.fit=TRUE_, then assign the fitted values to an object:
 
 
-```{r mlr11, echo=TRUE}
+```{r 8_mlr11, echo=TRUE}
 id.p <- predict(model, newdata = data.frame(ideol = seq(1,7,1), age = mean(ds.sub$age), 
                                             income = mean(ds.sub$income), 
                                             education = mean(ds.sub$education)), se.fit = T)
@@ -505,21 +505,21 @@ value <- id.p$fit
 
 The code above generated predicted values for a regression, or fit, line, and it generated standard error values. Recall that confidence intervals are calculated using t-scores (or z-scores, depending on the distribution) and standard errors. When working with the Student's t distribution, we default to 95% confidence intervals, which is derived from a t-score of 1.96. Therefore to find the upper and lower bounds of the condfidence interval, take the predicted value and add or substract 1.96 times the standard error. 
 
-```{r mlr11.5, echo=TRUE}
+```{r 8_mlr11.5, echo=TRUE}
 upper <- value + 1.96 * id.p$se.fit
 lower <- value - 1.96 * id.p$se.fit
 ```
 
 Next put all three vectors into a data frame and include an ideology sequencing from 1 to 7:
 
-```{r mlr11.75, echo=TRUE}
+```{r 8_mlr11.75, echo=TRUE}
 id.df <- data.frame(ideol = 1:7, value, upper, lower)
 ```
 
 
 Build the visualization:
 
-```{r mlr12, echo=TRUE}
+```{r 8_mlr12, echo=TRUE}
 ggplot(id.df, aes(ideol, value)) +
   geom_line(size=1.5, color = "dodgerblue2") +
   geom_ribbon(ymax = upper, ymin = lower, alpha = .5, fill = "dodgerblue2") +
