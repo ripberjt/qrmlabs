@@ -15,6 +15,8 @@ library(memisc)
 library(stargazer)
 library(gridExtra)
 library(interplot)
+library(dplyr)
+library(reshape2)
 options(scipen = 999)
 ds <- read.csv("https://github.com/ripberjt/qrmlabs/raw/master/Class%20Data%20Set%20Factored.csv")
 ```
@@ -27,6 +29,8 @@ This lab focuses on ways in which we use and understand categorical independent 
 4. stargazer
 5. gridExtra
 6. interplot
+7. dplyr
+8. reshape2
 
 ## Part I: Dummy Variables
 
@@ -40,8 +44,12 @@ Where _B_gend_ is a binary indicator of gender, 0 for female and 1 for male. Thi
 Pull the data, omit missing variables, and look at the gender variable we are going to use:
 
 ```{r dum, echo=TRUE}
-ds.sub <- subset(ds, select = c("ideol", "education", "income", "age", "gender", "f.gender", "glbcc_cert", "f.party", "glbcc_risk", "glbwrm_risk_fed_mgmt"))
-ds.sub <- na.omit(ds.sub)
+ds.sub <- filter(ds) %>% dplyr::select("ideol", "education", "income",
+                                       "age", "gender", "f.gender",
+                                       "glbcc_cert", "f.party", "glbcc_risk",
+                                       "glbwrm_risk_fed_mgmt") %>%
+  na.omit()
+
 table(ds.sub$f.gender)
 ```
 

@@ -411,6 +411,7 @@ scores <- c(exam1, exam2)
 upper <- c(exam1up, exam2up)
 lower <- c(exam1low, exam2low)
 examdf <- data.frame(test, scores, upper, lower)
+examdf
 ```
 
 Now, for the visualization. Instead of a bar plot, we will create a graph consisting of a point for the means for each exam, and the confidence intervals. In additional, we will add color and labels. These arguments are available for other data sets and visualizations using _ggplot2_:
