@@ -43,7 +43,7 @@ This lab focuses on ways in which we use and understand categorical independent 
 8. reshape2
 
 =======
->>>>>>> 48330c3da71d9582214f515a996b3a2b435fcf5d
+
 ## Part I: Dummy Variables
 
 We often have situations in the social sciences that require constructing models to include qualitative variables. To facilitate this, we employ dichotomous dummy variables to make the model function via 0s and 1s. In the presence of a category of interest the value is 1 and in the absence the value is 0.
@@ -55,26 +55,25 @@ Where _B_gend_ is a binary indicator of gender, 0 for female and 1 for male. Thi
 
 Pull the data, omit missing variables, and look at the gender variable we are going to use:
 
-<<<<<<< HEAD
+
 ```{r dum, echo=TRUE}
 ds.sub <- filter(ds) %>% dplyr::select("ideol", "education", "income",
                                        "age", "gender", "f.gender",
                                        "glbcc_cert", "f.party", "glbcc_risk",
                                        "glbwrm_risk_fed_mgmt") %>%
   na.omit()
+```
 
-=======
+
+
 ```{r 9_dum, echo=TRUE}
-ds.sub <- subset(ds, select = c("ideol", "education", "income", "age", "gender", "f.gender", "glbcc_cert", "f.party", "glbcc_risk", "glbwrm_risk_fed_mgmt"))
-ds.sub <- na.omit(ds.sub)
->>>>>>> 48330c3da71d9582214f515a996b3a2b435fcf5d
 table(ds.sub$f.gender)
 ```
 
 __Note:__ The factored gender variable lists men as 0 and women as 1. If you look at a table of the non-factored version, it shows the opposite. This is because R reads factored variables in alphabetical order. If we wanted to change the order of the factored variable:
 
 ```{r 9_dum2, echo=TRUE}
-ds.sub$f.gender <- factor(ds.sub$gender, levels = c(0,1), labels=c("Women", "Men"))
+ds.sub$f.gender <- factor(ds.sub$gender, levels = c(0, 1), labels = c("Women", "Men"))
 table(ds.sub$f.gender)
 table(ds.sub$gender)
 ```
@@ -82,20 +81,62 @@ table(ds.sub$gender)
 When working with a binary categorical explanatory variable (like the gender variable), you can use the numeric version of the variable. However, when working with categorical variables with more than two categories, it is often easier to use the factored version of the variable, for reasons we will get into shortly. We will use the factored gender variable in our model:
 
 ```{r 9_dum3, echo=TRUE}
-lm1 <- lm(glbcc_cert ~ ideol + education + income + age + f.gender, data=ds.sub)
+lm1 <- lm(glbcc_cert ~ ideol + education + income + age + f.gender, data = ds.sub)
 summary(lm1)
 ```
 
 Relying on our understanding from previous labs, we know that ideology and education have an effect on someone's certainty of climate change; however, now look at the role that gender plays. We used the factored version of gender in the model, so we need to interpret the results as such. The summary table says "f.genderMen", which means the variable is a dummy variable for men, with the referent category being women. The coefficient is interpreted as: the difference in in dependent variable from the referent category to the dummy category. In this case, the coefficient is statistically significant. To interpret it, we say that men are on average .406 units more convinced of climate change, on a scale of 0 to 10, all else held constant. The rest of the coefficients are interpreted as they have been in the past. But now you likely have a more accurate model, since you are "controlling" for gender. 
 
-Visualizing the model should likely this more clear. If we want to visualize the relationship between ideology and climate change risk in our model __by gender__, we go about it in a similar way to previous visualizations. To separate men and women, you can use _group=DummyVariable_, to separate the two groups. Unfortunately, this does not give a way to distinguish between them. You can also use _color=DummyVariable_ to separate the groups, assign colors, and include a legend. 
+Visualizing the model should likely this more clear. If we want to visualize the relationship between ideology and climate change risk in our model __by gender__, we go about it in a similar way to previous visualizations:
 
-```{r 9_dum4, echo=TRUE}
-ggplot(lm1, aes(x=ideol, y=glbcc_cert, color=f.gender)) +
-  geom_smooth(aes(ideol, glbcc_cert, fill=f.gender), method = "lm", se=FALSE)
+1. Generate fitted values and standard errors via the _predict()_ function.
+2. Calculate the upper and lower bounds of the confidence interval.
+3. Put values into a data frame.
+
+```{r 9_dum4.5, echo=TRUE}
+p.w <- predict(lm1, newdata = data.frame(f.gender = "Women",
+                                          ideol = seq(1,7,1),
+                                          education = mean(ds.sub$education),
+                                          income = mean(ds.sub$income),
+                                          age = mean(ds.sub$age)), se.fit = TRUE)
+p.m <- predict(lm1, newdata = data.frame(f.gender = "Men",
+                                          ideol = seq(1,7,1),
+                                          education = mean(ds.sub$education),
+                                          income = mean(ds.sub$income),
+                                          age = mean(ds.sub$age)), se.fit = TRUE)
+w.cert <- p.w$fit
+m.cert <- p.m$fit
 ```
 
-We turned off the confidence intervals to emphasize that you can think of the effect of dummy variables as a change in the value of the intercept. In this case our dummy variable for men is about 0.41, and you will notice that the line for men looks about that much above the women line. 
+Now confidence intervals:
+
+```{r 9_dum4.75, echo = TRUE}
+w.low <- w.cert - 1.96 * p.w$se.fit
+w.up <- w.cert + 1.96 * p.w$se.fit 
+m.low <- m.cert - 1.96 * p.m$se.fit
+m.up <- m.cert + 1.96 * p.m$se.fit
+cert <- c(m.cert, w.cert)
+upper <- c(m.up, w.up)
+lower <- c(m.low, w.low)
+```
+
+Next you need to put all this information into a data frame. You also need a vector that lists "Men" and "Women" 7 times each:
+
+```{r 9_dem4.8, echo=TRUE}
+gend <- rep(c("Men", "Women"), each = 7)
+cert.df <- data.frame(cert, upper, lower, ideol = 1:7, gend)
+cert.df
+```
+
+To separate men and women, you can use _group=DummyVariable_, to separate the two groups. Unfortunately, this does not give a way to distinguish between them. You can also use _color=DummyVariable_ to separate the groups, assign colors, and include a legend. 
+
+```{r 9_dum4, echo=TRUE}
+ggplot(cert.df, aes(ideol, cert, color = gend)) +
+  geom_line(size = 1) +
+  geom_ribbon(ymin = lower, ymax = upper, alpha = .5)
+```
+
+You can think of the effect of dummy variables as a change in the value of the intercept. In this case our dummy variable for men is about 0.41, and you will notice that the line for men looks about that much above the women line. 
 
 ### Multiple Dummy Variables
 
@@ -110,7 +151,7 @@ table(ds.sub$f.party)
 __Note:__ Democrat is listed first, therefore it is the referent category. Further, as a model there would exist coefficients and dummy variables for each of the political parties sans Democrat. R reads ideology as a factored variable and treats every party option as an independent dummy variable with Democrats as the referent category. Let's create a model based on the model we used earlier, but include the factored party variable as an independent variable. Due to potential multicollinearity issues, let's omit the ideology variable from the model. To make calculations simpler, we're going to use the non-factored version of gender. Since its a binary group, this will not change any of the coefficients:
 
 ```{r 9_dum6, echo=TRUE}
-lm2 <- lm(glbcc_cert ~ f.party  +education + income + age + gender, data=ds.sub)
+lm2 <- lm(glbcc_cert ~ f.party  +education + income + age + gender, data = ds.sub)
 summary(lm2)
 ```
 
@@ -119,7 +160,9 @@ We can see our model suggests that Independents and Republicans are, on average,
 Now we will visualize this model. Dummy variables are similar to performing t-tests, but with statistical controls. First we  predict values based on party affiliation using the _predict()_ function for R to return predicted climate change certainty values based on political party, holding each other variable constant. We assign it to a data frame object named _values_. We also generate standard error values for each of the estimates:
 
 ```{r 9_dum7, echo=TRUE}
-values <- predict(lm2, newdata =  data.frame((f.party=c("Dem", "Ind", "Rep", "Other")), education=mean(ds.sub$education), income = mean(ds.sub$ideol), age=mean(ds.sub$age),
+values <- predict(lm2, newdata =  data.frame((f.party=c("Dem", "Ind", "Rep", "Other")), 
+                                             education=mean(ds.sub$education),
+                                             income = mean(ds.sub$ideol), age=mean(ds.sub$age),
                                    gender = mean(ds.sub$gender)), se.fit = T)
 values
 ```
@@ -150,14 +193,14 @@ cert
 Next we calculate the upper limit of the confidence interval:
 
 ```{r 9_dum10, echo=TRUE}
-upper <- cert + 1.96*values$se.fit
+upper <- cert + 1.96 * values$se.fit
 upper
 ```
 
 Now do the same for the lower limit: 
 
 ```{r 9_dum11, echo=TRUE}
-lower <- cert - 1.96*values$se.fit
+lower <- cert - 1.96 * values$se.fit
 lower
 ```
 
@@ -170,19 +213,19 @@ df <- data.frame(party, cert, upper, lower)
 With the data frame constructed, next build the visualization. Our x-axis are party and the y-axis is climate change certainty. We'll use _geom_point()_ and _geom_errorbar_ to build the point estimates and confidence intervals:
 
 ```{r 9_dum13, echo=TRUE}
-ggplot(df, aes(x=party, y=cert)) +
+ggplot(df, aes(x = party, y = cert)) +
   geom_point() +
-  geom_errorbar(ymin=lower, ymax=upper, width=.1) +
-  ylim(4,8) +
+  geom_errorbar(ymin = lower, ymax = upper, width = 0.1) +
+  ylim(4, 8) +
   ggtitle("Climate Change Certainty by Political Party") +
   ylab("Climate Change Certainty") +
   xlab("Political Party")
 ```
 
-Perhaps you noticed that our model suggests that gender also plays a role. Next we are going to breakdown the relationship by party and gender simultaneous, by creating different predictions for each gender within each party. We create a new model including the factored gender variable:
+Perhaps you noticed that our model suggests that gender also plays a role. Next we are going to breakdown the relationship by party and gender simultaneously, by creating different predictions for each gender within each party. We create a new model including the factored gender variable:
 
 ```{r 9_dum14, echo=TRUE}
-lm3 <- lm(glbcc_cert ~ f.party  +education + income + age + f.gender, data=ds.sub)
+lm3 <- lm(glbcc_cert ~ f.party  + education + income + age + f.gender, data = ds.sub)
 
 ```
 
@@ -191,16 +234,20 @@ The difference between the models is that the factored gender variable is used, 
 First predict values. We do everything the same except this time we indicate a gender and not hold it constant:
 
 ```{r 9_dum15, echo=TRUE}
-men  <- predict(lm3, newdata =  data.frame((f.party=c("Dem", "Ind", "Other", "Rep")), education=mean(ds.sub$education), income = mean(ds.sub$ideol), age=mean(ds.sub$age),
-                                                        f.gender = "Men"), se.fit = T)
-women  <- predict(lm3, newdata =  data.frame((f.party=c("Dem", "Ind", "Other", "Rep")), education=mean(ds.sub$education), income = mean(ds.sub$ideol), age=mean(ds.sub$age),
-                                                      f.gender = "Women"), se.fit = T)
+men  <- predict(lm3, newdata =  data.frame((f.party = c("Dem", "Ind", "Other", "Rep")), 
+                                           education = mean(ds.sub$education),
+                                           income = mean(ds.sub$ideol), age = mean(ds.sub$age),
+                                           f.gender = "Men"), se.fit = T)
+women  <- predict(lm3, newdata =  data.frame((f.party = c("Dem", "Ind", "Other", "Rep")),
+                                             education = mean(ds.sub$education), 
+                                             income = mean(ds.sub$ideol), age = mean(ds.sub$age),
+                                             f.gender = "Women"), se.fit = T)
 ```
 
 Now create the party vector. This time we need R to repeat the order of the parties:
 
 ```{r 9_dum16, echo=TRUE}
-party2 <- rep(c("Dem", "Ind", "Other", "Rep"),2)
+party2 <- rep(c("Dem", "Ind", "Other", "Rep"), 2)
 ```
 
 The climate change certainty values for men and women separately:
@@ -219,10 +266,10 @@ cert2 <- c(m.cert, w.cert)
 Ceate the upper and lower confidence interval limits for men and women, then combine into two vectors:
 
 ```{r 9_dum19, echo=TRUE}
-m.up <- m.cert + 1.96*men$se.fit
-m.low <- m.cert - 1.96*men$se.fit
-w.up <- w.cert + 1.96*women$se.fit
-w.low <- w.cert - 1.96*women$se.fit
+m.up <- m.cert + 1.96 * men$se.fit
+m.low <- m.cert - 1.96 * men$se.fit
+w.up <- w.cert + 1.96 * women$se.fit
+w.low <- w.cert - 1.96 *women$se.fit
 up <- c(m.up, w.up)
 low <- c(m.low, w.low)
 ```
@@ -230,7 +277,7 @@ low <- c(m.low, w.low)
 Create a gender vector. It needs to repeat men and women four times:
 
 ```{r 9_dum20, echo=TRUE}
-gend <- rep(c("Men", "Women"), each=4)
+gend <- rep(c("Men", "Women"), each = 4)
 ```
 
 Assign each vector to a data frame:
@@ -243,7 +290,7 @@ df2
 Build the visualization:
 
 ```{r 9_dum22, echo=TRUE}
-ggplot(df2, aes(x=party2, y=cert2, fill=gend)) +
+ggplot(df2, aes(x = party2, y = cert2, fill = gend)) +
   geom_bar(stat = "identity", position = position_dodge())
 
 ```
@@ -259,7 +306,7 @@ $$y_i=\beta_0 + \beta_1*(ideol) + \beta_2*(gender) + \beta_3*(ideol*gend) + \bet
 where gender is a binary indicator of men (1) or women (0). To specify this model in R:
 
 ```{r 9_int, echo=TRUE}
-lm3 <- lm(glbcc_cert ~ ideol*gender + education + income + age , data=ds.sub)
+lm3 <- lm(glbcc_cert ~ ideol * gender + education + income + age , data = ds.sub)
 summary(lm3)
 ```
 
@@ -268,7 +315,7 @@ __Note:__ The formula includes ideology and gender interaction but does not spec
 Let's review a new model looking at climate change risk instead of certainty. The independent variables, and interaction, remain the same:
 
 ```{r 9_int2, echo=TRUE}
-lm4 <- lm(glbcc_risk ~ ideol*f.gender + education + income + age , data=ds.sub)
+lm4 <- lm(glbcc_risk ~ ideol * f.gender + education + income + age , data = ds.sub)
 summary(lm4)
 ```
 
@@ -277,31 +324,56 @@ As would be expected, ideology, education and income also exert statistically si
 Visualizing an interaction effect when the interaction term is binary is rather simple. There are two possible lines, when z=0 and when z=1, in this case when the gender is female or male. This makes the visualizing process similar to the first visualization, with the dummy variable:
 
 ```{r 9_int3, echo=TRUE}
-ggplot(lm4, aes(x=ideol, y=glbcc_risk, color=f.gender)) +
-  geom_smooth(aes(ideol, glbcc_risk, fill=f.gender), method = "lm")
+p.int.m <- predict(lm4, newdata = data.frame(ideol = seq(1,7,1),
+                                             f.gender = "Men",
+                                             education = mean(ds.sub$education),
+                                             income = mean(ds.sub$income),
+                                             age = mean(ds.sub$age)), se.fit = T)
 
+
+p.int.w <- predict(lm4, newdata = data.frame(ideol = seq(1,7,1),
+                                             f.gender = "Women",
+                                             education = mean(ds.sub$education),
+                                             income = mean(ds.sub$income),
+                                             age = mean(ds.sub$age)), se.fit = T)
+
+int.w.cert <- p.int.w$fit
+int.m.cert <- p.int.m$fit
+
+int.w.low <- int.w.cert - 1.96 * p.int.w$se.fit
+int.w.up <- int.w.cert + 1.96 * p.int.w$se.fit 
+int.m.low <- int.m.cert - 1.96 * p.int.m$se.fit
+int.m.up <- int.m.cert + 1.96 * p.int.m$se.fit
+
+low <- c(int.m.low, int.w.low)
+up <- c(int.m.up, int.w.up)
+int.cert <- c(int.m.cert, int.w.cert)
+gen <- rep(c("Men", "Women"), each = 7)
+
+int.df <- data.frame(ideol = 1:7,
+                     gen, int.cert, low, up)
 ```
 
-Notice how the slopes are different for men and women. The slope is steeper for men, suggesting that there is more of an interaction for men. Let's make some predictions:
+Now the visualization:
 
-First men:
+```{r 9_int3.5, echo=TRUE}
+ggplot(int.df, aes(ideol, int.cert, color = gen)) +
+  geom_line(size = 1) +
+  geom_ribbon(ymin = low, ymax = up, alpha = 0.5)
+```
+
+Notice how the slopes are different for men and women. The slope is steeper for men, suggesting that there is more of an interaction for men.
+
+
+The difference between the first predicted value and the last is called the "first difference." Find the first differences for men and women:
 
 ```{r 9_int4, echo=TRUE}
-men.p <- predict(lm4, newdata = data.frame(ideol=seq(1:7), f.gender="Men", education=mean(ds.sub$education),
-                                           income=mean(ds.sub$income), age=mean(ds.sub$age)), se.fit = T)
-men.p
-
+p.int.m$fit[1] - p.int.m$fit[7]
+p.int.w$fit[1] - p.int.w$fit[7]
 ```
 
-Now women:
 
-```{r 9_int5, echo=TRUE}
-women.p <- predict(lm4, newdata = data.frame(ideol=seq(1:7), f.gender="Women", education=mean(ds.sub$education),
-                                           income=mean(ds.sub$income), age=mean(ds.sub$age)), se.fit = T)
-women.p
-```
-
-The difference between the first predicted value and the last is called the "first difference." We can tell that the first difference is larger for men. They have a higher first value and a higher last value.
+We can tell that the first difference is larger for men. They have a higher first value and a higher last value.
 
 ### Interactions with Two Non-binary Variables
 
@@ -320,7 +392,8 @@ We see that it is an ordinal variable ranging from 0 (not involved) to 10 (very 
 Now we should specify the model, including appropriate controls:
 
 ```{r 9_int8, echo=TRUE}
-lm5 <- lm(glbwrm_risk_fed_mgmt ~ ideol*glbcc_risk + education + gender + income + age, data=ds.sub)
+lm5 <- lm(glbwrm_risk_fed_mgmt ~ ideol * glbcc_risk + education + gender + income 
+          + age, data = ds.sub)
 summary(lm5)
 ```
 
@@ -329,16 +402,20 @@ Right from the start we see that ideology and climate change risk both play sign
 First predict values of y for liberals:
 
 ```{r 9_int9, echo=TRUE}
-lib <- predict(lm5,newdata=data.frame(ideol=(1), gender=mean(ds.sub$gender), education=mean(ds.sub$education),
-                                     income=mean(ds.sub$income), age=mean(ds.sub$age), glbcc_risk=seq(1,10,1)), se.fit = T)
+lib <- predict(lm5,newdata = data.frame(ideol = (1), gender = mean(ds.sub$gender), 
+                                      education = mean(ds.sub$education),
+                                      income = mean(ds.sub$income), age = mean(ds.sub$age),
+                                      glbcc_risk = seq(1, 10, 1)), se.fit = T)
 
 ```
 
 Now conservatives:
 
 ```{r 9_int10, echo=TRUE}
-con <- predict(lm5,newdata=data.frame(ideol=(7), gender=mean(ds.sub$gender), education=mean(ds.sub$education),
-                                     income=mean(ds.sub$income), age=mean(ds.sub$age), glbcc_risk=seq(1,10,1)), se.fit = T)
+con <- predict(lm5,newdata = data.frame(ideol = (7), gender = mean(ds.sub$gender),
+                                      education = mean(ds.sub$education),
+                                      income = mean(ds.sub$income), age = mean(ds.sub$age), 
+                                      glbcc_risk = seq(1, 10, 1)), se.fit = T)
 ```
 
 Now compare, starting with liberals:
@@ -378,32 +455,54 @@ There is a greater first difference for conservatives. This combined with a sign
 Start with an ideology of 1 and then go to 7:
 
 ```{r 9_int15, echo=TRUE}
-id1 <-predict(lm5,newdata=data.frame(ideol=(1), gender=mean(ds.sub$gender), education=mean(ds.sub$education),
-                                     income=mean(ds.sub$income), age=mean(ds.sub$age), glbcc_risk=seq(1,10,1)), se.fit = T)
-id2 <- predict(lm5,newdata=data.frame(ideol=(2), gender=mean(ds.sub$gender), education=mean(ds.sub$education),
-                                     income=mean(ds.sub$income), age=mean(ds.sub$age), glbcc_risk=seq(1,10,1)), se.fit = T)
-id3 <- predict(lm5,newdata=data.frame(ideol=(3), gender=mean(ds.sub$gender), education=mean(ds.sub$education),
-                                     income=mean(ds.sub$income), age=mean(ds.sub$age), glbcc_risk=seq(1,10,1)), se.fit = T)
-id4 <- predict(lm5,newdata=data.frame(ideol=(4), gender=mean(ds.sub$gender), education=mean(ds.sub$education),
-                                     income=mean(ds.sub$income), age=mean(ds.sub$age), glbcc_risk=seq(1,10,1)), se.fit = T)
-id5 <- predict(lm5,newdata=data.frame(ideol=(5), gender=mean(ds.sub$gender), education=mean(ds.sub$education),
-                                     income=mean(ds.sub$income), age=mean(ds.sub$age), glbcc_risk=seq(1,10,1)), se.fit = T)
-id6 <- predict(lm5,newdata=data.frame(ideol=(6), gender=mean(ds.sub$gender), education=mean(ds.sub$education),
-                                     income=mean(ds.sub$income), age=mean(ds.sub$age), glbcc_risk=seq(1,10,1)), se.fit = T)
-id7 <- predict(lm5,newdata=data.frame(ideol=(7), gender=mean(ds.sub$gender), education=mean(ds.sub$education),
-                                     income=mean(ds.sub$income), age=mean(ds.sub$age), glbcc_risk=seq(1,10,1)), se.fit = T)
+id1 <-predict(lm5,newdata = data.frame(ideol = (1), gender = mean(ds.sub$gender),
+                                     education = mean(ds.sub$education),
+                                     income = mean(ds.sub$income), age = mean(ds.sub$age),
+                                     glbcc_risk = seq(1, 10, 1)), se.fit = T)
+
+id2 <- predict(lm5,newdata = data.frame(ideol = (2), gender = mean(ds.sub$gender),
+                                      education = mean(ds.sub$education),
+                                      income = mean(ds.sub$income), age = mean(ds.sub$age),
+                                      glbcc_risk = seq(1, 10, 1)), se.fit = T)
+
+id3 <- predict(lm5,newdata = data.frame(ideol = (3), gender = mean(ds.sub$gender),
+                                      education = mean(ds.sub$education),
+                                      income = mean(ds.sub$income), age = mean(ds.sub$age),
+                                      glbcc_risk = seq(1, 10, 1)), se.fit = T)
+
+id4 <- predict(lm5,newdata = data.frame(ideol = (4), gender = mean(ds.sub$gender),
+                                      education = mean(ds.sub$education),
+                                      income = mean(ds.sub$income), age = mean(ds.sub$age),
+                                      glbcc_risk = seq(1, 10, 1)), se.fit = T)
+
+id5 <- predict(lm5,newdata = data.frame(ideol = (5), gender = mean(ds.sub$gender),
+                                      education = mean(ds.sub$education),
+                                      income = mean(ds.sub$income), age = mean(ds.sub$age),
+                                      glbcc_risk = seq(1, 10, 1)), se.fit = T)
+
+id6 <- predict(lm5,newdata = data.frame(ideol = (6), gender = mean(ds.sub$gender),
+                                      education = mean(ds.sub$education),
+                                      income = mean(ds.sub$income), age = mean(ds.sub$age), 
+                                      glbcc_risk = seq(1, 10, 1)), se.fit = T)
+
+id7 <- predict(lm5,newdata = data.frame(ideol = (7), gender = mean(ds.sub$gender),
+                                      education = mean(ds.sub$education),
+                                      income = mean(ds.sub$income), age = mean(ds.sub$age),
+                                      glbcc_risk = seq(1, 10, 1)), se.fit = T)
 ```
 
-Now put all the predicted values into their own data frames:
+Now put all the predicted values into a data frame, along with a sequencing of 1 to 10 for climate change risk, then melt the data into long-form:
 
 ```{r 9_int16, echo=TRUE}
-p1 <- data.frame(glbcc_risk=1:10, id1)
-p2 <- data.frame(glbcc_risk=1:10, id2)
-p3 <- data.frame(glbcc_risk=1:10, id3)
-p4 <- data.frame(glbcc_risk=1:10, id4)
-p5 <- data.frame(glbcc_risk=1:10, id5)
-p6 <- data.frame(glbcc_risk=1:10, id6)
-p7 <- data.frame(glbcc_risk=1:10, id7)
+fit1 <- id1$fit
+fit2 <- id2$fit
+fit3 <- id3$fit
+fit4 <- id4$fit
+fit5 <- id5$fit
+fit6 <- id6$fit
+fit7 <- id7$fit
+id.df <- data.frame(fit1, fit2, fit3, fit4, fit5, fit6, fit7, glbcc_risk = 1:10) %>% 
+  melt(measure.vars = c("fit1", "fit2", "fit3", "fit4", "fit5", "fit6", "fit7"))
 ```
 
 Next we are going to create a color scale. This will help the visualization because we are visualizing multiple lines. Create a scale with 7 values, one for each ideology score, that goes from blue (liberal) to red (conservative):
@@ -412,25 +511,22 @@ Next we are going to create a color scale. This will help the visualization beca
 col_scale<-colorRampPalette(c("#0200bd50","#FF000050"))(7)
 ```
 
-Now build the visualization. We have been using _geom_smooth()_, but this time we will use _geom_line()_, because we already predicted the values we want to plot. Let's make this a complete visualization, including axis labels, and a title.
+Now build the visualization. Let's make this a complete visualization, including axis labels, and a title.
 
 ```{r 9_int18, echo=TRUE}
-ggplot() +
-  geom_line(data=p1, aes(glbcc_risk, fit), size=2, color= col_scale[1]) +
-  geom_line(data=p2, aes(glbcc_risk, fit), size=2, color= col_scale[2]) +
-  geom_line(data=p3, aes(glbcc_risk, fit), size=2, color= col_scale[3]) +
-  geom_line(data=p4, aes(glbcc_risk, fit), size=2, color= col_scale[4]) +
-  geom_line(data=p5, aes(glbcc_risk, fit), size=2, color= col_scale[5]) +
-  geom_line(data=p6, aes(glbcc_risk, fit), size=2, color= col_scale[6]) +
-  geom_line(data=p7, aes(glbcc_risk, fit), size=2, color= col_scale[7]) +
-  ggtitle("Climate Change Risk and Federal Management by Ideology") +
+ggplot(id.df, aes(glbcc_risk, value, color = variable)) +
+  geom_line(size = 2) +
+  scale_color_manual(values = c(col_scale[1], col_scale[2], col_scale[3],
+                       col_scale[4], col_scale[5], col_scale[6], col_scale[7]),
+                     labels = c("1", "2", "3", "4", "5", "6", "7"),
+                     name = "Ideology") +
+  ggtitle("Federal Climate Change Management by Ideology") +
   xlab("Climate Change Risk") +
-  ylab("Level of Federal Management") +
+  ylab("Preferred Level of Federal Involvement") +
   theme_bw()
-
 ```
 
-Consider everything we've found so far. The positive interaction coefficient, the larger first difference for conservatives, and now this visualization. It is quite clear that the relationship between climate change risk and preferred level of federal climate change management is appears to be stronger for conservatives. The slopes of the lines become steeper as the ideology score increases. This was not what we hypothesized, and therefore we cannot reject the null hypothesis.
+Consider everything we've found so far. The positive interaction coefficient, the larger first difference for conservatives, and now this visualization. It is quite clear that the relationship between climate change risk and preferred level of federal climate change management appears to be stronger for conservatives. The slopes of the lines become steeper as the ideology score increases. This was not what we hypothesized, and therefore we cannot reject the null hypothesis.
 
 ## Part III: Releveling Variables
 
