@@ -40,11 +40,12 @@ options(scipen = 999)
 
 ## Part I: Introduction to the Data
 
-For this lab we will use a data set that contains information on movies from the IMDB website. The initial data set contains almost 60,000 observations, so we subset the data to make it a little smaller:
+For this lab we will use a data set that contains information on movies from the IMDB website. The initial data set contains almost 60,000 observations, so we filter the data to make it a little smaller:
 
 ```{r 11_int, echo=TRUE}
-ds<-subset(ds,year>=1995 & votes>1000 & Short!=1)
-ds<-na.omit(ds)
+ds <- filter(ds, year>=1995 & votes>1000 & Short!=1) %>% select(rating, length, budget,
+                                                                votes, title, year) %>%
+  na.omit()
 ```
 
 Now explore the data. Start with examining the structure of the data set:
@@ -62,7 +63,7 @@ head(ds)
 To make analysis easier, we can name each row by the title of the movie:
 
 ```{r 11_int4, echo=TRUE}
-row.names(ds)<-ds$title
+row.names(ds) <- ds$title
 ```
 
 Now look at the first observations:
@@ -80,9 +81,9 @@ describe(ds)
 We will want to start with a clean up a couple variables. First, we can scale the budget variable by millions of dollars, scale votes by thousands, and factor the year variable:
 
 ```{r 11_int7, echo=TRUE}
-ds$budget_1m<-ds$budget/1000000
-ds$votes_1k<-ds$votes/1000
-ds$f.year<-factor(ds$year)
+ds$budget_1m <- ds$budget/1000000
+ds$votes_1k <- ds$votes/1000
+ds$f.year <- factor(ds$year)
 ```
 
 The next step should be to look at the univariate distributions. Create histograms for the length, budget, user ratings, and votes variables. First you'll need to melt the data:
@@ -97,30 +98,30 @@ ggplot(melt.ds, aes(value)) +
 Now let's look at the bivariate plots for the relationship between length, budget, votes, and rating. This is where we might find potential outliers. Build each visualization and then use _ggplotly()_ to create an interactive interface that will allow you to identify individual observations. 
 
 ```{r 11_int9, echo=TRUE}
-vote <- ggplot(ds, aes(votes_1k, rating, label=title)) +
-  geom_point(color="#0000FF50") +
-  geom_smooth(method="loess", se=FALSE, color="green") +
-  geom_smooth(method="lm", se=FALSE, color="red") +
+vote <- ggplot(ds, aes(votes_1k, rating, label = title)) +
+  geom_point(color = "#0000FF50") +
+  geom_smooth(method = "loess", se = FALSE, color = "green") +
+  geom_smooth(method = "lm", se = FALSE, color = "red") +
   ggtitle("# of Votes and Rating")
 ggplotly(vote)
 
 ```
 
 ```{r 11_int10, echo=TRUE}
-length <- ggplot(ds, aes(length, rating, label=title)) +
-  geom_point(color="#0000FF50") +
-  geom_smooth(method="loess", se=FALSE, color="green") +
-  geom_smooth(method="lm", se=FALSE, color="red") +
+length <- ggplot(ds, aes(length, rating, label = title)) +
+  geom_point(color = "#0000FF50") +
+  geom_smooth(method = "loess", se = FALSE, color = "green") +
+  geom_smooth(method = "lm", se = FALSE, color = "red") +
   ggtitle("Length and Rating")
 ggplotly(length)
 
 ```
 
 ```{r 11_int11, echo=TRUE}
-budget <- ggplot(ds, aes(budget_1m, rating, label=title)) +
-  geom_point(color="#0000FF50") +
-  geom_smooth(method="loess", se=FALSE, color="green") +
-  geom_smooth(method="lm", se=FALSE, color="red") +
+budget <- ggplot(ds, aes(budget_1m, rating, label = title)) +
+  geom_point(color = "#0000FF50") +
+  geom_smooth(method = "loess", se = FALSE, color = "green") +
+  geom_smooth(method = "lm", se = FALSE, color = "red") +
   ggtitle("Budget and Rating")
 ggplotly(budget)
 
@@ -131,14 +132,14 @@ ggplotly(budget)
 The next step is to construct a model:
 
 ```{r 11_int12, echo=TRUE}
-fit1<-lm(rating~length+budget_1m+votes_1k,data=ds)
-stargazer(fit1,type="text",single.row=TRUE)
+fit1 <- lm(rating ~ length + budget_1m + votes_1k, data = ds)
+stargazer(fit1, type = "text", single.row = TRUE)
 ```
 
 Normally we are primarily interested in how this model explains our data. For this section, we are more interested in the observations that are not explained by this model. Let's identify some outliers. First create predicted ratings based on our model:
 
 ```{r 11_out, echo=TRUE}
-ds$predicted_rating<-predict(fit1)
+ds$predicted_rating <- predict(fit1)
 ```
 
 One simple way to find some possible outliers is to use the _outlierTest()_ function:
@@ -183,7 +184,7 @@ df
 We can find the DFBetas easily:
 
 ```{r 11_out7, echo=TRUE}
-dfbs.fit1<-dfbetas(fit1)
+dfbs.fit1 <- dfbetas(fit1)
 head(dfbs.fit1)
 ```
 
@@ -193,7 +194,7 @@ With a large data set, listing every DFBeta value is not efficient. Instead, we 
 windows()
 plot(dfbs.fit1[,"length"])
 abline(h = c(2/sqrt(1261), -2/sqrt(1261)), lty = 2, col = "red")
-identify(dfbs.fit1[,"length"],labels=ds$title)
+identify(dfbs.fit1[,"length"],labels = ds$title)
 
 ```
 
@@ -202,7 +203,7 @@ identify(dfbs.fit1[,"length"],labels=ds$title)
 windows()
 plot(dfbs.fit1[,"budget_1m"])
 abline(h = c(2/sqrt(1261), -2/sqrt(1261)), lty = 2, col = "red")
-identify(dfbs.fit1[,"budget_1m"],labels=ds$title)
+identify(dfbs.fit1[,"budget_1m"],labels = ds$title)
 
 ```
 
@@ -210,7 +211,7 @@ identify(dfbs.fit1[,"budget_1m"],labels=ds$title)
 windows()
 plot(dfbs.fit1[,"votes_1k"])
 abline(h = c(2/sqrt(1261), -2/sqrt(1261)), lty = 2, col = "red")
-identify(dfbs.fit1[,"votes_1k"],labels=ds$title)
+identify(dfbs.fit1[,"votes_1k"],labels = ds$title)
 
 ```
 
@@ -229,13 +230,13 @@ ds.omit <- ds[ !(ds$title %in% c("From Justin to Kelly", "You Got Served", "Were
 Next make a new model with the _ds.omit_ data:
 
 ```{r 11_out13, echo=TRUE}
-fit.omit <- lm(rating~length+budget_1m+votes_1k,data=ds.omit)
+fit.omit <- lm(rating ~ length + budget_1m + votes_1k, data = ds.omit)
 ```
 
 Compare the two models side by side:
 
 ```{r 11_out14, echo=TRUE}
-stargazer(fit1, fit.omit, type="text",single.row=TRUE)
+stargazer(fit1, fit.omit, type = "text", single.row = TRUE)
 ```
 
 Notice the minimal changes. The omitted observations changed 3 of the four coefficients, and increased the adjusted R squared value. 
@@ -243,15 +244,14 @@ Notice the minimal changes. The omitted observations changed 3 of the four coeff
 Another option when dealing with outliers is to use robust regression, which weights the observations based on influence. Make a new model using robust regression using the _rlm()_ function. There are two methods, "M" and "MM", and both should be evaluated to determine which model best represents your needs.
 
 ```{r 11_out15, echo=TRUE}
-fit.m <- rlm(rating~length+budget_1m+votes_1k,data=ds, method = "M")
-fit.mm <- rlm(rating~length+budget_1m+votes_1k,data=ds, method = "MM")
+fit.m <- rlm(rating ~ length + budget_1m + votes_1k, data = ds, method = "M")
+fit.mm <- rlm(rating ~ length + budget_1m + votes_1k, data = ds, method = "MM")
 ```
 
 Compare the four models:
 
 ```{r 11_out16, echo=TRUE}
-stargazer(fit1, fit.omit, fit.m, fit.mm, type="text",single.row=TRUE)
-
+stargazer(fit1, fit.omit, fit.m, fit.mm, type = "text",single.row = TRUE)
 ```
 
 The biggest difference here is the residual standard error for the robust models is quite a bit lower. There are also differences in the coefficients. With outliers, there is not a one-size-fits-all solution. Let your theory contribute to what solution you use. 
@@ -273,20 +273,20 @@ ncvTest(fit1)
 Based on the test and visualization, it is clear there is an issue with heteroscedasticity. There are a couple ways to deal with heteroscedasticity. One method is robust standard errors. Robust standard errors don't change the beta estimates, but rather affect the value of the standard errors, which improve the p-values accuracy. To use robust standard errors for the model:
 
 ```{r 11_het3, echo=TRUE}
-se.fit1<-sqrt(diag(vcov(fit1)))
-vcov.fit1<-vcovHC(fit1,method="white1",type="HC1")
-rse.fit1<-sqrt(diag(vcov.fit1))
+se.fit1 <- fit1 %>% vcov() %>% diag() %>% sqrt()
+vcov.fit1 <- vcovHC(fit1, method = "white1",type = "HC1")
+rse.fit1 <- vcov.fit1 %>% diag() %>% sqrt()
 ```
 
 Now compare the original model to the model using robust standard errors. Use _se=list(se.fit1,rse.fit1)_ for R to use the original standard errors for the first model and robust for the second.
 
 ```{r 11_het4, echo=TRUE}
-stargazer(fit1,fit1,type="text",single.row=TRUE,se=list(se.fit1,rse.fit1))
+stargazer(fit1, fit1, type = "text", single.row = TRUE, se = list(se.fit1, rse.fit1))
 ```
 
 ## Part IV: Revisiting Linearity
 
-Let's revisit addressing the assumption of linearity by constructing the residual plots that we made in the last lab. We need to predict values of _y_ and add that to the data set, add the residuals to the data set, melt the data and select the IVs, and predicted values, then use _ggplot()_ and _facet_wrap()_ to make the plots:
+Let's revisit addressing the assumption of linearity by constructing the residual plots that we made in the last lab. We need to predict values of _y_ and add that to the data set, add the residuals to the data set, melt the data and select the IVs, and predicted values, then use _ggplot()_ and *facet_wrap()* to make the plots:
 
 ```{r 11_lin, echo=TRUE}
 ds$fit1.p <- predict(fit1)
@@ -309,14 +309,13 @@ describe(ds$votes_1k)
 There is skew for all three variables, so let's respecify the model by using log of each variable:
 
 ```{r 11_lin3, echo=TRUE}
-
-fit.log<-lm(rating~log(length) + log(budget_1m) + log(votes_1k),data=ds)
+fit.log <- lm(rating ~ log(length) + log(budget_1m) + log(votes_1k), data = ds)
 ds$fit.log.p <- predict(fit.log)
 ds$fit.log.r <- residuals(fit.log)
 log.melt <- melt(ds, measure.vars = c("length", "budget_1m", "votes_1k", "fit.log.p"))
-ggplot(log.melt, aes(value, fit.log.r, group=variable)) +
-  geom_point(shape=1) +
-  geom_smooth(aes(value, fit.log.r), method = "loess", se=FALSE) +
+ggplot(log.melt, aes(value, fit.log.r, group = variable)) +
+  geom_point(shape = 1) +
+  geom_smooth(aes(value, fit.log.r), method = "loess", se = FALSE) +
   geom_hline(yintercept = 0) +
   facet_wrap(~variable, scales = "free")
 ```
@@ -324,13 +323,13 @@ ggplot(log.melt, aes(value, fit.log.r, group=variable)) +
 This method fixed some problems and created new ones. The votes graphic suggests a more linear relationship, but problems persist. Perhaps a polynomial model is more appropriate. Let's square every IV in the next model:
 
 ```{r 11_lin4, echo=TRUE}
-fit.poly<-lm(rating~poly(length,2)+poly(budget_1m,2)+poly(votes_1k,2),data=ds)
+fit.poly <- lm(rating ~ poly(length, 2) + poly(budget_1m, 2) + poly(votes_1k, 2), data = ds)
 ds$fit.poly.p <- predict(fit.poly)
 ds$fit.poly.r <- residuals(fit.poly)
 poly.melt <- melt(ds, measure.vars = c("length", "budget_1m", "votes_1k", "fit.poly.p"))
-ggplot(poly.melt, aes(value, fit.poly.r, group=variable)) +
-  geom_point(shape=1) +
-  geom_smooth(aes(value, fit.poly.r), method = "loess", se=FALSE) +
+ggplot(poly.melt, aes(value, fit.poly.r, group = variable)) +
+  geom_point(shape = 1) +
+  geom_smooth(aes(value, fit.poly.r), method = "loess", se = FALSE) +
   geom_hline(yintercept = 0) +
   facet_wrap(~variable, scales = "free")
 
@@ -339,7 +338,7 @@ ggplot(poly.melt, aes(value, fit.poly.r, group=variable)) +
 Compare the last three models:
 
 ```{r 11_lin5, echo=TRUE}
-stargazer(fit1, fit.log, fit.poly, single.row = TRUE, type="text")
+stargazer(fit1, fit.log, fit.poly, single.row = TRUE, type = "text")
 ```
 
 The log model has the highest adjusted R squared and residual standard error. 
@@ -350,14 +349,16 @@ Let's look at the normality of the residuals for the models:
 ```{r 11_norm, echo=TRUE}
 ggplot(ds, aes(fit1.r)) +
   geom_density() +
-  stat_function(fun=dnorm, args=list(mean=mean(ds$fit1.r), sd=sd(ds$fit1.r)), color="red") +
+  stat_function(fun = dnorm, args = list(mean = mean(ds$fit1.r), 
+                                         sd = sd(ds$fit1.r)), color = "red") +
   ggtitle("First Linear Model")
 ```
 
 ```{r 11_norm2, echo=TRUE}
 ggplot(ds, aes(fit.log.r)) +
   geom_density() +
-  stat_function(fun=dnorm, args=list(mean=mean(ds$fit.log.r), sd=sd(ds$fit.log.r)), color="red") +
+  stat_function(fun = dnorm, args = list(mean = mean(ds$fit.log.r),
+                                         sd = sd(ds$fit.log.r)), color = "red") +
   ggtitle("Log Linear Model")
 
 ```
@@ -365,7 +366,8 @@ ggplot(ds, aes(fit.log.r)) +
 ```{r 11_norm3, echo=TRUE}
 ggplot(ds, aes(fit.poly.r)) +
   geom_density() +
-  stat_function(fun=dnorm, args=list(mean=mean(ds$fit.poly.r), sd=sd(ds$fit.poly.r)), color="red") +
+  stat_function(fun = dnorm, args = list(mean = mean(ds$fit.poly.r),
+                                         sd = sd(ds$fit.poly.r)), color="red") +
   ggtitle("Polynomial Model")
 
 ```
@@ -375,51 +377,56 @@ The log model has the highest adjusted R squared value, the lowest residual stan
 First create predicted values for movie ratings by holding all IVs constant at their means except one at at time. 
 
 ```{r 11_pred, echo=TRUE}
-p.length<-predict(fit.log,newdata=data.frame(length=89:134,budget_1m=mean(ds$budget_1m),votes_1k=mean(ds$votes_1k)),se.fit=TRUE)
-p.budget<-predict(fit.log,newdata=data.frame(length=mean(ds$length),budget_1m=5:80,votes_1k=mean(ds$votes_1k)),se.fit=TRUE)
-p.votes<-predict(fit.log,newdata=data.frame(length=mean(ds$length),budget_1m=mean(ds$budget_1m),votes_1k=1.645:25.964),se.fit=TRUE)
+p.length <- predict(fit.log, newdata = data.frame(length = 89:134,
+                                                budget_1m = mean(ds$budget_1m),
+                                                votes_1k = mean(ds$votes_1k)), se.fit = TRUE)
+
+p.budget <- predict(fit.log, newdata = data.frame(length = mean(ds$length),
+                                                  budget_1m = 5:80,
+                                                  votes_1k = mean(ds$votes_1k)), se.fit = TRUE)
+
+p.votes <- predict(fit.log, newdata = data.frame(length = mean(ds$length),
+                                                 budget_1m = mean(ds$budget_1m),
+                                                 votes_1k = 1.645:25.964), se.fit=TRUE)
 ```
 
 Start with the visualization for the relationship between length and rating while holding all other IVs constant at their means. We need to calculate the upper and lower bounds of the confidence interval, then add all the vectors together into a data frame.
 
 ```{r 11_pred2, echo=TRUE}
-up.length <- p.length$fit + 1.96*p.length$se.fit
-low.length <- p.length$fit - 1.96*p.length$se.fit
+up.length <- p.length$fit + 1.96 * p.length$se.fit
+low.length <- p.length$fit - 1.96 * p.length$se.fit
 df.length <- data.frame(length=89:134, p.length, up.length, low.length)
-
 ```
 
 Now make the visualization:
 
 ```{r 11_pred3, echo=TRUE}
 ggplot(df.length, aes(length, fit)) +
-  geom_line(data=df.length, aes(length, fit), size=1, color="royalblue") +
-  geom_ribbon(aes(ymin=low.length, ymax=up.length), alpha=.2) +
-  coord_cartesian(ylim=c(4:8), xlim=c(89:134)) +
+  geom_line(data = df.length, aes(length, fit), size = 1, color = "royalblue") +
+  geom_ribbon(aes(ymin = low.length, ymax = up.length), alpha = .2) +
+  coord_cartesian(ylim = c(4:8), xlim = c(89:134)) +
   ggtitle("Movie Length and Rating") +
   xlab("Length") +
   ylab("Rating") +
   theme_bw()
-  
-
 ```
 
 Now do the same for the next two IVs:
 
 ```{r 11_pred4, echo=TRUE}
-up.votes <- p.votes$fit + 1.96*p.votes$se.fit
-low.votes <- p.votes$fit - 1.96*p.votes$se.fit
-df.votes <- data.frame(votes_1k=1.645:25.964, p.votes, up.votes, low.votes)
+up.votes <- p.votes$fit + 1.96 * p.votes$se.fit
+low.votes <- p.votes$fit - 1.96 * p.votes$se.fit
+df.votes <- data.frame(votes_1k = 1.645:25.964, p.votes, up.votes, low.votes)
 
-up.budget <- p.budget$fit + 1.96*p.budget$se.fit
-low.budget <- p.budget$fit - 1.96*p.budget$se.fit
-df.budget <- data.frame(budget_1m=5:80, p.budget, up.budget, low.budget)
+up.budget <- p.budget$fit + 1.96 * p.budget$se.fit
+low.budget <- p.budget$fit - 1.96 * p.budget$se.fit
+df.budget <- data.frame(budget_1m = 5:80, p.budget, up.budget, low.budget)
 ```
 
 ```{r 11_pred5, echo=TRUE}
 ggplot(df.votes, aes(votes_1k, fit)) +
-  geom_line(data=df.votes, aes(votes_1k, fit), size=1, color="royalblue") +
-  geom_ribbon(aes(ymin=low.votes, ymax=up.votes), alpha=.2) +
+  geom_line(data = df.votes, aes(votes_1k, fit), size = 1, color = "royalblue") +
+  geom_ribbon(aes(ymin = low.votes, ymax = up.votes), alpha = .2) +
   ggtitle("IMDB Votes and Rating") +
   xlab("Votes (Thousands)") +
   ylab("Rating") +
@@ -429,8 +436,8 @@ ggplot(df.votes, aes(votes_1k, fit)) +
 
 ```{r 11_pred6, echo=TRUE}
 ggplot(df.budget, aes(budget_1m, fit)) +
-  geom_line(data=df.budget, aes(budget_1m, fit), size=1, color="royalblue") +
-  geom_ribbon(aes(ymin=low.budget, ymax=up.budget), alpha=.2) +
+  geom_line(data = df.budget, aes(budget_1m, fit), size = 1, color = "royalblue") +
+  geom_ribbon(aes(ymin = low.budget, ymax = up.budget), alpha = .2) +
   ggtitle("Movie Budget and Rating") +
   xlab("Budget (Millions)") +
   ylab("Rating") +
