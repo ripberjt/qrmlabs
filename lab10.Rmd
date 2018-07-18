@@ -138,7 +138,7 @@ Now add the regression line and confidence interval. To do this we will:
 First predict. We are going to sequence ideology from 1 to 7 by 0.1 instead of by 1 to produce a smoother line:
 
 ```{r 10_poly6, echo=TRUE}
-p.pol <- predict(poly, newdata = data.frame(ideol = seq(1, 7, .1),
+p.pol <- predict(pol, newdata = data.frame(ideol = seq(1, 7, .1),
                                             education = mean(sub$education), income = mean(sub$income),
                                             age = mean(sub$age), gender = mean(sub$gender)), se.fit = T)
 ```
