@@ -6,6 +6,17 @@ author:
 output: pdf_document
 ---
 
+This lab will cover the basics of bivariate linear regression, introducing via manual calculations and R functions. The following packages are required for this lab: 
+
+1. ggplot2
+2. psych
+3. car
+4. memisc
+5. stargazer
+6. grid
+7. gridExtra
+8. dplyr
+
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ds <- read.csv("https://github.com/ripberjt/qrmlabs/raw/master/Class%20Data%20Set%20Factored.csv")
@@ -19,17 +30,6 @@ library(gridExtra)
 library(dplyr)
 options(scipen = 999)
 ```
-
-This lab will cover the basics of bivariate linear regression, introducing via manual calculations and R functions. The following packages are required for this lab: 
-
-1. ggplot2
-2. psych
-3. car
-4. memisc
-5. stargazer
-6. grid
-7. gridExtra
-8. dplyr
 
 ## Part I: Bivariate Linear Regression by Hand
 

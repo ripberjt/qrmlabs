@@ -6,6 +6,14 @@ author:
 output: pdf_document
 ---
 
+This lab covers the basics of inference for two populations. We go through proportions and cross tabulations; the different types of two sample t-tests; difference in one and two tailed tests; and how to plot means and the differences between means. The following packages are required for this lab: 
+
+1. ggplot2
+2. psych
+3. car
+4. vcd
+5. dpylr
+
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ds <- read.csv("https://github.com/ripberjt/qrmlabs/raw/master/Class%20Data%20Set%20Factored.csv")
@@ -16,14 +24,6 @@ library(vcd)
 library(dplyr)
 options(scipen = 999)
 ```
-
-This lab covers the basics of inference for two populations. We go through proportions and cross tabulations; the different types of two sample t-tests; difference in one and two tailed tests; and how to plot means and the differences between means. The following packages are required for this lab: 
-
-1. ggplot2
-2. psych
-3. car
-4. vcd
-5. dpylr
 
 ## Part I: Proportions
 

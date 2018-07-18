@@ -6,13 +6,13 @@ author:
 output: pdf_document
 ---
 
-This lab serves as a primer to R by introducing the basics. It is advised to follow the lab via the Rmd file within RStudio rather than solely the compiled PDF. This way, students can experiment with code within the "code blocks" provided. __Note:__ References to R code are exclusively italicized. 
+This lab serves as a primer to R by introducing the basics. It is advised to follow the lab via the .rmd file within RStudio rather than solely the compiled PDF. This way, students can experiment with code within the "code blocks" provided. __Note:__ References to R code are exclusively italicized. 
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-# Part I: R, as a Calculator
+## Part I: R, as a Calculator
 
 The first thing to know about R is that it is essentially a large calculator capable of performing arithmetic:
 
@@ -37,7 +37,7 @@ log(100)
 sqrt(49)
 ```
 
-## Order of Operations
+### Order of Operations
 
 R solves equations according to the order of operations, "PEMDAS":
 
@@ -126,7 +126,7 @@ mean(cars$dist, na.rm=TRUE)
 
 __Note:__ Given the mean is exactly the same, it is unlikely there is any missing data in the _dist_ variable.
 
-##  Object Types
+### Object Types
 
 Object types are improtant in R and the type of an object is contingent on the attribute stored by the object. Put simply, an object storing characters (e.g., "blue") has a different type than an object storing a number (e.g., 1). Use of R functions is contingent on the type of objects. For example, functions like _mean()_ work only for objects containing numbers. The R _str()_ function describes the structure of objects and functions.
 
@@ -215,7 +215,6 @@ The _library()_ function lists currently loaded packages.
 library()
 ```
 
-
 As previously demonstrated, occasionally conflicts exist between packages. The _conflicts()_ lists conflicts between loaded packages.
 
 ```{r conflicts, echo=TRUE}
@@ -282,7 +281,7 @@ _ds <- read.csv("Class Data Set Factored.csv", header = TRUE)_
 __Try it!__ Load a data set.
 
 ```{r import, echo=TRUE}
-ds <- read.csv("Class Data Set Factored.csv", header = TRUE)
+ds <- read.csv("https://github.com/ripberjt/qrmlabs/raw/master/Class%20Data%20Set%20Factored.csv", header = TRUE)
 ```
 
 The name of a data set object can be anything. The best practice is to use an acronym, such as _ds_.

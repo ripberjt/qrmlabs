@@ -6,6 +6,19 @@ author:
 output: pdf_document
 ---
 
+This lab covers the basics of logistic regression, part of the broader generalized linear model family. GLMs relate a linear model to a response variable that does not have a normal distribution. Often you will use "logit" regression when working with a dependent variable that has limited responses, like a binary DV or an ordered DV. Logit regression uses Maximum Likelihood Estimation, which aims to identify the probability of obtaining the observed data as a function of the model parameters. The following packages are required for this lab: 
+
+1. ggplot2
+2. psych
+3. car
+4. memisc
+5. stargazer
+6. gridExtra
+7. reshape2
+8. MASS
+9. pscl
+10. DAMisc
+
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 library(ggplot2)
@@ -21,19 +34,6 @@ library(DAMisc)
 options(scipen = 999)
 ds<-read.csv("https://github.com/ripberjt/qrmlabs/raw/master/Class%20Data%20Set%20Factored.csv")
 ```
-
-This lab covers the basics of logistic regression, part of the broader generalized linear model family. GLMs relate a linear model to a response variable that does not have a normal distribution. Often you will use "logit" regression when working with a dependent variable that has limited responses, like a binary DV or an ordered DV. Logit regression uses Maximum Likelihood Estimation, which aims to identify the probability of obtaining the observed data as a function of the model parameters. The following packages are required for this lab: 
-
-1. ggplot2
-2. psych
-3. car
-4. memisc
-5. stargazer
-6. gridExtra
-7. reshape2
-8. MASS
-9. pscl
-10. DAMisc
 
 ## Part I: Logistic Regression with a Binary DV
 

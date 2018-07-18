@@ -6,6 +6,16 @@ author:
 output: pdf_document
 ---
 
+This lab focuses on issues that arise with non-linearity, non-normality, and multicollinearity. We begin with non-linearity. The following packages are required for this lab: 
+
+1. ggplot2
+2. psych
+3. car
+4. memisc
+5. stargazer
+6. gridExtra
+7. reshape2
+
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 library(ggplot2)
@@ -18,16 +28,6 @@ library(reshape2)
 options(scipen = 999)
 ds <- read.csv("https://github.com/ripberjt/qrmlabs/raw/master/Class%20Data%20Set%20Factored.csv")
 ```
-
-This lab focuses on issues that arise with non-linearity, non-normality, and multicollinearity. We begin with non-linearity. The following packages are required for this lab: 
-
-1. ggplot2
-2. psych
-3. car
-4. memisc
-5. stargazer
-6. gridExtra
-7. reshape2
 
 ## Part I: Non-linearity
 

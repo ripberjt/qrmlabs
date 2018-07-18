@@ -6,6 +6,21 @@ author:
 output: pdf_document
 ---
 
+So far we have covered many different techniques of statistical analysis. This lab will cover the basics of statistical simulations. As a foundation for this, we will be using the various functions associated with the Zelig Project. Zelig provides a method of simulating outcomes based on certain parameters, but it also provides a different way of constructing almost any model in R. The following packages are required for this lab: 
+
+1. ggplot2
+2. psych
+3. car
+4. memisc
+5. stargazer
+6. gridExtra
+7. reshape2
+8. MASS
+9. pscl
+10. DAMisc
+11. zeligverse
+12. dplyr
+
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 library(ggplot2)
@@ -23,21 +38,6 @@ library(dplyr)
 options(scipen = 999)
 ds<-read.csv("https://github.com/ripberjt/qrmlabs/raw/master/Class%20Data%20Set%20Factored.csv")
 ```
-
-So far we have covered many different techniques of statistical analysis. This lab will cover the basics of statistical simulations. As a foundation for this, we will be using the various functions associated with the Zelig Project. Zelig provides a method of simulating outcomes based on certain parameters, but it also provides a different way of constructing almost any model in R. The following packages are required for this lab: 
-
-1. ggplot2
-2. psych
-3. car
-4. memisc
-5. stargazer
-6. gridExtra
-7. reshape2
-8. MASS
-9. pscl
-10. DAMisc
-11. zeligverse
-12. dplyr
 
 ## Part I: The Basics
 

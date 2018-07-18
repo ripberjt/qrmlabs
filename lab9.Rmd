@@ -6,6 +6,15 @@ author:
 output: pdf_document
 ---
 
+This lab focuses on ways in which we use and understand categorical independent variables. So far the independent variables we have worked with have been interval or ordinal data. When working with categorical data, there are different approaches and techniques of interpretation. The following packages are required for this lab: 
+
+1. ggplot2
+2. psych
+3. memisc
+4. stargazer
+5. gridExtra
+6. interplot
+
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 library(ggplot2)
@@ -18,15 +27,6 @@ library(interplot)
 options(scipen = 999)
 ds <- read.csv("https://github.com/ripberjt/qrmlabs/raw/master/Class%20Data%20Set%20Factored.csv")
 ```
-
-This lab focuses on ways in which we use and understand categorical independent variables. So far the independent variables we have worked with have been interval or ordinal data. When working with categorical data, there are different approaches and techniques of interpretation. The following packages are required for this lab: 
-
-1. ggplot2
-2. psych
-3. memisc
-4. stargazer
-5. gridExtra
-6. interplot
 
 ## Part I: Dummy Variables
 

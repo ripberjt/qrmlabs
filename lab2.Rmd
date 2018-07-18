@@ -22,7 +22,6 @@ The installed packages require loading at the beginning of a R session.
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
-#setwd("~/Methods Labs/Lab 2")
 ds <- read.csv("https://github.com/ripberjt/qrmlabs/raw/master/Class%20Data%20Set%20Factored.csv", header = TRUE)
 library(car)
 library(dplyr)
