@@ -1,14 +1,11 @@
 ---
 title: "Lab One: Introduction and Basics"
-author:
-- Alex Davis
-- Cody Adams
 output: pdf_document
 ---
 
-This lab serves as a primer to R by introducing the basics. It is advised to follow the lab via the .rmd file within RStudio rather than solely the compiled PDF. This way, students can experiment with code within the "code blocks" provided. __Note:__ References to R code are exclusively italicized. 
+This lab serves as a primer to R by introducing the basics. It is advised to follow the lab via the .rmd file within RStudio rather than solely the compiled PDF. This way, students can experiment with code within the "code blocks" provided. __Note:__ R code and objects in the text is displayed in a `fixed-width` font. 
 
-```{r 1_setup, include=FALSE}
+```{r 1_setup, include = FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
@@ -16,22 +13,22 @@ knitr::opts_chunk$set(echo = TRUE)
 
 The first thing to know about R is that it is essentially a large calculator capable of performing arithmetic:
 
-```{r 1_calc, echo=TRUE}
-1+1
+```{r 1_calc, echo = TRUE}
+1 + 1
 
-8*8
+8 * 8
 
-2^8 # exponent
+2 ^ 8 # exponent
 
-(5+2)^4
+(5 + 2) ^ 4
 
-5+2^4
+5 + 2 ^ 4
 
 ```
 
 R also supports elementary and algebraic functions such as log and square root.
 
-```{r 1_functions, echo=TRUE}
+```{r 1_functions, echo = TRUE}
 log(100)
 
 sqrt(49)
@@ -48,41 +45,40 @@ R solves equations according to the order of operations, "PEMDAS":
 5. Addition
 6. Subtraction
 
-The following video provides a refresher on the order of operations: 
-https://www.youtube.com/watch?v=94yAmf7GyHw
+Watch this video for a refresher on the order of operations: https://www.youtube.com/watch?v=94yAmf7GyHw
  
 __Try this!__ Using R, solve:
-(4+6)^2/(3-2)+8
+$$\frac{(4 + 6)^2}{\sqrt{(9 - 2)}}$$
 
-```{r 1_solve, echo=FALSE}
+```{r 1_solve, echo = FALSE}
 
 ```
 
 ## Part II: Objects
 
-R is an "object oriented" programming language. Put simply, R uses objects to store attributes. Objects can be used to store attributes. Objects are created by assigning an attibute to them via the <- operation. You can always view the attribute of an object by typing the object name.
+R is an "object oriented" programming language. Put simply, R uses objects to store attributes. Objects can be used to store attributes. Objects are created by assigning an attibute to them via the `<-` operation. You can always view the attribute of an object by typing the object name.
 
-```{r 1_object 1, echo=TRUE}
+```{r 1_object 1, echo = TRUE}
 object1 <- 10 + 10 
 object1
 ```
 
 __Try this!__ Objects can be named almost anything!
 
-```{r 1_object 2, echo=TRUE}
+```{r 1_object 2, echo = TRUE}
 
 
 ```
 
-R includes various functions for managing created objects. The ls() function lists all existing objects.
+R includes various functions for managing created objects. The `ls()` function lists all existing objects.
 
-```{r 1_list, echo=TRUE}
+```{r 1_list, echo = TRUE}
 ls()
 ```
 
 The rm() function removes existing objects.
 
-```{r 1_remove, echo=TRUE}
+```{r 1_remove, echo = TRUE}
 rm(object1)
 ```
 
@@ -98,9 +94,9 @@ There is no strict convention for naming objects; however, there are best practi
 __Important:__ Object names are case sensitive.
     - object.One and Object.One refer to two separate objects.
 
-```{r 1_newobject, echo=TRUE}
-object.One <- 10+10
-Object.One <- 5+5
+```{r 1_newobject, echo = TRUE}
+object.One <- 10 + 10
+Object.One <- 5 + 5
 
 object.One
 Object.One
@@ -108,41 +104,41 @@ Object.One
 
 ## Part III: Functions
 
-In addition to elementary and algebraic functions, R also include functions to simplify statistical analysis. For example, the _mean()_ functione exists to calculate mean. __Note:__ Sometimes _na.rm=TRUE_ is necessary within the paranetheses to instruct R to ignore missing data. 
+In addition to elementary and algebraic functions, R also include functions to simplify statistical analysis. For example, the `mean()` functione exists to calculate mean. __Note:__ Sometimes `na.rm = TRUE` is necessary within the paranetheses to instruct R to ignore missing data. 
 
-```{r 1_mean, echo=TRUE}
+```{r 1_mean, echo = TRUE}
 mean(cars$dist)
 ```
 
-R includes the _cars_ data set, consisting of various information about cars. This data set is provided to help demonstrate and/or experiment with R functions.
+R includes the `cars` data set, consisting of various information about cars. This data set is provided to help demonstrate and/or experiment with R functions.
 
-A note about syntax: the dollar sign, $, is used to indicate the variable of interest relative to a data set. This is important in the case of multiple data sets that contain variables of the same name. In the previous code, R calculated the mean using the _dist_ variable within the _cars_ data set by specifying _cars\$dist_
+A note about syntax: the dollar sign, `$`, is used to indicate the variable of interest relative to a data set. This is important in the case of multiple data sets that contain variables of the same name. In the previous code, R calculated the mean using the `dist` variable within the `cars` data set by specifying `cars\$dist`
 
-To ignore missing data when calculating the mean of _dist_, include the _na.rm=TRUE_ argument within the paranetheses as follows.
+To ignore missing data when calculating the mean of `dist`, include the `na.rm = TRUE` argument within the paranetheses as follows.
 
-```{r 1_mean2, echo=TRUE}
-mean(cars$dist, na.rm=TRUE)
+```{r 1_mean2, echo = TRUE}
+mean(cars$dist, na.rm = TRUE)
 ```
 
-__Note:__ Given the mean is exactly the same, it is unlikely there is any missing data in the _dist_ variable.
+__Note:__ Given the mean is exactly the same, it is unlikely there is any missing data in the `dist` variable.
 
 ### Object Types
 
-Object types are improtant in R and the type of an object is contingent on the attribute stored by the object. Put simply, an object storing characters (e.g., "blue") has a different type than an object storing a number (e.g., 1). Use of R functions is contingent on the type of objects. For example, functions like _mean()_ work only for objects containing numbers. The R _str()_ function describes the structure of objects and functions.
+Object types are improtant in R and the type of an object is contingent on the attribute stored by the object. Put simply, an object storing characters (e.g., "blue") has a different type than an object storing a number (e.g., 1). Use of R functions is contingent on the type of objects. For example, functions like `mean()` work only for objects containing numbers. The R `str()` function describes the structure of objects and functions.
 
-```{r 1_structure, echo=TRUE}
+```{r 1_structure, echo = TRUE}
 str(mean)
 str(object.One)
 str(cars)
 str(cars$dist)
 ```
 
-The _str()_ function described _mean_ as a function, _object.One_ as a numeric object, the _cars_ data is a data frame, etc. 
+The `str()` function described `mean` as a function, `object.One` as a numeric object, the `cars` data is a data frame, etc. 
 
-Previously, objects were introduced as a method of storing single attributes, either a specified value or the result of arithmetic. In addition, objects can contain a collection of data via a vector or list. In mathematics and physics, a vector is defined as a quantity of both direction and magnitude. In R, vectors are defined a collection of data of the same type. The _c()_ function creates a vector.
+Previously, objects were introduced as a method of storing single attributes, either a specified value or the result of arithmetic. In addition, objects can contain a collection of data via a vector or list. In mathematics and physics, a vector is defined as a quantity of both direction and magnitude. In R, vectors are defined a collection of data of the same type. The `c()` function creates a vector.
 
-```{r, vector, echo=TRUE}
-vectorObject <- c(1,2,3)
+```{r, vector, echo = TRUE}
+vectorObject <- c(1, 2, 3)
 vectorObject
 str(vectorObject)
 ```
@@ -163,27 +159,27 @@ Packages expand R to include additional functions important to statistical analy
 
 ### Installing Packages
 
-Installing packages in R is performed via _install.packages("package\_name")_, whereby the name of the desired package must be within quotation marks.
+Installing packages in R is performed via `install.packages("packagename")`, whereby the name of the desired package must be within quotation marks.
 
-__Note:__ Occasionally a package may require dependencies for installation. The dependencies can be automatically installed along with the package by including the _dependencies=TRUE_ argument within the _install.packages()_ function.
+__Note:__ Occasionally a package may require dependencies for installation. The dependencies can be automatically installed along with the package by including the `dependencies = TRUE` argument within the `install.packages()` function.
 
 __Try this!__ In R, install: In your own code chunk, include the following (without the numbers):
 
-1. _car_
-2. _psych_
-3. _memisc_
-4. _Rcpp_
+1. `car`
+2. `psych`
+3. `memisc`
+4. `Rcpp`
 
-```{r 1_install packages, echo=FALSE, eval=FALSE}
+```{r 1_install packages, echo = FALSE, eval = FALSE}
 
 ```
 
 ### Loading Packages
 
-Installed packages must be loaded to use their functions within R. Packages are loaded via _library(package\_name)_, whereby the name of the desired package must be within parantheses.
-__Note:__ Unlike the _install.packages()_ function, the _library()_ function does not use quotation marks around the package name. 
+Installed packages must be loaded to use their functions within R. Packages are loaded via `library(packagename)`.
+__Note:__ Unlike the `install.packages()` function, the `library()` function does not use quotation marks around the package name. 
 
-```{r 1_library packages, echo=FALSE}
+```{r 1_library packages, echo = FALSE}
 library(car)
 library(psych)
 library(memisc) 
@@ -192,54 +188,54 @@ library(rmarkdown)
 library(knitr)
 ```
 
-__Note:__ The _memisc_ package contains object/package conflicts with the _car_ package for the _recode_ object. A conflict occurs when two packages contain objects (e.g., functions) of the same name. A conflict will not prevent loading packages; however, use of a specific package's object requires an explicit call to the desired parent package. For example, to use the _recode()_ function from _car_, the _car::recode(variable)_ statement will explicitly call _recode()_ from the _car_ package. Vice versa, _memisc::recode()_ will explicitly call _recode()_ from the _memisc_ package.
+__Note:__ The `memisc` package contains object/package conflicts with the `car` package for the `recode` object. A conflict occurs when two packages contain objects (e.g., functions) of the same name. A conflict will not prevent loading packages; however, use of a specific package's object requires an explicit call to the desired parent package. For example, to use the `recode()` function from `car`, the `car::recode(variable)` statement will explicitly call `recode()` from the `car` package. Vice versa, `memisc::recode()` will explicitly call `recode()` from the `memisc` package.
 
 ### Updating Packages
 
-Most packages are regularly updated. The  _old.packages()_ function compares installed packages to their latest versions online.
+Most packages are regularly updated. The  `old.packages()` function compares installed packages to their latest versions online.
 
-```{r 1_old, echo=TRUE}
-
-```
-
-The _update.packages()_ function updates out of date packages. 
-__Note:__ Updating packages requires consent. The _ask=FALSE_ argument will skip the additional consent step to save time.
-
-```{r 1_update, echo=TRUE}
+```{r 1_old, echo = TRUE}
 
 ```
 
-The _library()_ function lists currently loaded packages.
+The `update.packages()` function updates out of date packages. 
+__Note:__ Updating packages requires consent. The `ask = FALSE` argument will skip the additional consent step to save time.
 
-```{r 1_library, echo=TRUE}
+```{r 1_update, echo = TRUE}
+
+```
+
+The `library()` function lists currently loaded packages.
+
+```{r 1_library, echo = TRUE}
 library()
 ```
 
-As previously demonstrated, occasionally conflicts exist between packages. The _conflicts()_ lists conflicts between loaded packages.
+As previously demonstrated, occasionally conflicts exist between packages. The `conflicts()` lists conflicts between loaded packages.
 
-```{r 1_conflicts, echo=TRUE}
+```{r 1_conflicts, echo = TRUE}
 conflicts()
 ```
 
-The _detach()_ function detaches packages and is an alternative method to resolve conflicts. Supplying _unload=TRUE_ argument within the _detach()_ function will unload the package. For example, to resolve the _recode()_ function conflict between _car_ and _memisc_, the memisc package can be detached and unloaded as follows: _detach(package:memisc, unload=TRUE)_.
+The `detach()` function detaches packages and is an alternative method to resolve conflicts. Supplying `unload = TRUE` argument within the `detach()` function will unload the package. For example, to resolve the `recode()` function conflict between `car` and `memisc`, the memisc package can be detached and unloaded as follows: `detach(package:memisc, unload = TRUE)`.
 
-```{r 1_detach, echo=TRUE}
+```{r 1_detach, echo = TRUE}
 
 ```
 
 ## Part V: R Help
 
-R includes a help function to assist with functions, accessible by including a _?_ prior to the function name.
+R includes a help function to assist with functions, accessible by including a `?` prior to the function name.
 
-```{r 1_help, echo=TRUE}
+```{r 1_help, echo = TRUE}
 ? mean
 ```
 
 __Note:__ The help documentation will display in the bottom right quadrant of RStudio. Alternatively, typing the function name into the help search bar will yield a similar result. 
 
-To search all of R documentation for help about a function, use _??_.
+To search all of R documentation for help about a function, use `??`.
 
-```{r 1_search, echo=TRUE}
+```{r 1_search, echo = TRUE}
 ?? mean
 ```
 
@@ -249,7 +245,7 @@ __Note:__ Google is a valuable tool for finding help. Large communities like Sta
 
 The working directory is the location where files accessed and saved within a R session. Normally, the working directory is set at the beginning of every R file. The working directory should be set and the class data set at the beginning of each lab.
 
-There are two methods of setting the working directory. First, the _setwd()_ function can be used with the directory path. For example, _setwd("C:/Directory\_to\_folder/")_. __Note:__ Forward slashes are used in place of backward slashes for directory paths.
+There are two methods of setting the working directory. First, the `setwd()` function can be used with the directory path. For example, `setwd("C:/Directory\_to\_folder/")`. __Note:__ Forward slashes are used in place of backward slashes for directory paths.
 
 Second, within RStudio, the "Session" tab will set the working directory. The following steps provide guidance to the "Session" tab functionality: 
 
@@ -258,9 +254,9 @@ Second, within RStudio, the "Session" tab will set the working directory. The fo
 3. Select "Choose Directory."
 4. Select the working directory.
 
-The _getwd()_ function returns the set working directory.
+The `getwd()` function returns the set working directory.
 
-```{r 1_directory, echo=TRUE}
+```{r 1_directory, echo = TRUE}
 getwd()
 ```
 
@@ -272,54 +268,54 @@ Data sets are commonly saved with the comma separated value file extension (e.g.
 
 __Note:__ Be careful when accessing CSV files within Excel. Excel removes leading zeroes from values, which may impact the integrity of your data if you save the file after viewing in Excel.
 
-Loading a data set from a CSV file into R requires loading the data set with a function, and saving the contents of that data set to an object. For example, _data\_set\_name <- read.csv("file\_name.csv", header=TRUE)_. The _header=TRUE_ argument specifies that the "first row" of the CSV file contains the variable names for that data set's columns. If the CSV file does not contain the variable names in the first row, you can change _TRUE_ to _FALSE_.
+Loading a data set from a CSV file into R requires loading the data set with a function, and saving the contents of that data set to an object. For example, `data\_set\_name <- read.csv("file\_name.csv", header = TRUE)`. The `header = TRUE` argument specifies that the "first row" of the CSV file contains the variable names for that data set's columns. If the CSV file does not contain the variable names in the first row, you can change `TRUE` to `FALSE`.
 
 For labs, the following code should look like this:
 
-_ds <- read.csv("Class Data Set Factored.csv", header = TRUE)_
+`ds <- read.csv("Class Data Set Factored.csv", header = TRUE)`
 
 __Try it!__ Load a data set.
 
-```{r 1_import, echo=TRUE}
+```{r 1_import, echo = TRUE}
 ds <- read.csv("https://github.com/ripberjt/qrmlabs/raw/master/Class%20Data%20Set%20Factored.csv", header = TRUE)
 ```
 
-The name of a data set object can be anything. The best practice is to use an acronym, such as _ds_.
+The name of a data set object can be anything. The best practice is to use an acronym, such as `ds`.
 
 ## Part VIII: Connecting to Your Data
 
-Imported data can be accessed various ways. First, variables can be directly accessed by attaching the data set via the _attach()_ function. For example, _attach(ds)_.
+Imported data can be accessed various ways. First, variables can be directly accessed by attaching the data set via the `attach()` function. For example, `attach(ds)`.
 
-Attached data can be detached via a similar function, _detact()_. For example, _detach(ds)_.
+Attached data can be detached via a similar function, `detact()`. For example, `detach(ds)`.
 
-However, the _attch()_ function is not the recommended method. Instead, variables can be accessed by joining the data set object name and the variable name via the dollar sign, _$_. For example, _ds$variable_
+However, the `attch()` function is not the recommended method. Instead, variables can be accessed by joining the data set object name and the variable name via the dollar sign, `$`. For example, `ds$variable`
 
-The following exemplifies this method using the _dist_ variable within the _car_ package, within the _mean()_ function.
+The following exemplifies this method using the `dist` variable within the `car` package, within the `mean()` function.
 
-```{r 1_var, echo=TRUE}
+```{r 1_var, echo = TRUE}
 mean(cars$dist, na.rm = TRUE)
 ```
 
-Using the class data set stored in the _ds_ object, there exists an _age_ variable. The _mean()_ function can provide the mean age of this data set.
+Using the class data set stored in the `ds` object, there exists an `age` variable. The `mean()` function can provide the mean age of this data set.
 
-```{r 1_age, echo=TRUE}
+```{r 1_age, echo = TRUE}
 mean(ds$age, na.rm = TRUE)
 ```
 
-Additionally, there is a variable _income_ within _ds_. __Try it!__ Find the mean of the _income_ variable:
+Additionally, there is a variable `income` within `ds`. __Try it!__ Find the mean of the `income` variable:
 
-```{r 1_income, echo=TRUE}
+```{r 1_income, echo = TRUE}
 
 ```
 
-__Note:__ The _na.rm=TRUE_ argument is required within the _mean()_ function to avoid a NA result.
+__Note:__ The `na.rm = TRUE` argument is required within the `mean()` function to avoid a NA result.
 
 ## Part IX: Exporting a CSV
 
-Saving a CSV data set can be performed via the _write.csv()_ function by specifying the object to save and the file name to write. For example, _write.csv(data\_set\_name, file = "filename.csv")_.
+Saving a CSV data set can be performed via the `write.csv()` function by specifying the object to save and the file name to write. For example, `write.csv(data\_set\_name, file = "filename.csv")`.
 
-To demonstrate, the _ds_ data set is saved as newds.csv within the working directory. 
+To demonstrate, the `ds` data set is saved as `newds.csv` within the working directory. 
 
-```{r 1_export, echo=TRUE}
+```{r 1_export, echo = TRUE}
 write.csv(ds, file = "newds.csv")
 ```

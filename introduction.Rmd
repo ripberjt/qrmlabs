@@ -1,8 +1,5 @@
 ---
 title: "Lab One: Introduction and Basics"
-author:
-- Alex Davis
-- Cody Adams
 output: pdf_document
 ---
 
@@ -55,4 +52,4 @@ Statistical analysis in R is possible via a plethora of publicly available packa
 25. Rmarkdown
 26. knitr
 
-For convenience, executing the _setup.R_ script or knitting this document within RStudio, installs these packages if they are not already installed.
+For convenience, executing the `setup.R` script or knitting this document within RStudio, installs these packages if they are not already installed.
