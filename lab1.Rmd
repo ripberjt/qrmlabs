@@ -3,7 +3,7 @@ title: "Lab One: Introduction and Basics"
 output: pdf_document
 ---
 
-This lab serves as a primer to R by introducing the basics. It is advised to follow the lab via the .rmd file within RStudio rather than solely the compiled PDF. This way, students can experiment with code within the "code blocks" provided. __Note:__ R code and objects in the text is displayed in a `fixed-width` font. 
+This lab serves as a primer to R by introducing the basics. It is advised to follow the lab via the .rmd file within RStudio rather than solely the compiled PDF. This way, students can experiment with code in the "code blocks" provided. __Note:__ In text R code is displayed in a `fixed-width` font. 
 
 ```{r 1_setup, include = FALSE}
 knitr::opts_chunk$set(echo = TRUE)
@@ -48,7 +48,7 @@ R solves equations according to the order of operations, "PEMDAS":
 Watch this video for a refresher on the order of operations: https://www.youtube.com/watch?v=94yAmf7GyHw
  
 __Try this!__ Using R, solve:
-$$\frac{(4 + 6)^2}{\sqrt{(9 - 2)}}$$
+(5 + 1) ^ 4 / (9 - 2) ^ 3
 
 ```{r 1_solve, echo = FALSE}
 
@@ -56,14 +56,14 @@ $$\frac{(4 + 6)^2}{\sqrt{(9 - 2)}}$$
 
 ## Part II: Objects
 
-R is an "object oriented" programming language. Put simply, R uses objects to store attributes. Objects can be used to store attributes. Objects are created by assigning an attibute to them via the `<-` operation. You can always view the attribute of an object by typing the object name.
+R is an "object oriented" programming language. Put simply, R uses objects to store attributes. Objects are created by assigning an attibute to them via the `<-` operation. You can always view the attribute of an object by typing the object name.
 
 ```{r 1_object 1, echo = TRUE}
 object1 <- 10 + 10 
 object1
 ```
 
-__Try this!__ Objects can be named almost anything!
+__Try this!__ Create a new object below; you can name it almost anything!
 
 ```{r 1_object 2, echo = TRUE}
 
@@ -76,7 +76,7 @@ R includes various functions for managing created objects. The `ls()` function l
 ls()
 ```
 
-The rm() function removes existing objects.
+The `rm()` function removes existing objects.
 
 ```{r 1_remove, echo = TRUE}
 rm(object1)
@@ -84,12 +84,15 @@ rm(object1)
 
 There is no strict convention for naming objects; however, there are best practices:
 
-1. Avoid spaces, use _underscores_, periods, or CamelCase (or camelCase) for long object names.
-    - e.g., This_is_a_long_name This.Is.A.Long.Name, thisIsALongName
-2. Avoid names of existing functions or reserved R objects.
-3. Be descriptive but keep it short (less than 10 characters).
-4. Avoid special characters.
+1. Avoid spaces, use _underscores_, periods, or CamelCase (or camelCase) for long object names
+    - e.g., This_is_a_long_name, This.Is.A.Long.Name, thisIsALongName
+2. Avoid names of existing functions or reserved R objects
+        - e.g., `mean` or `sum` 
+3. Be descriptive but keep it short (less than 10 characters)
+4. Avoid special characters
     - e.g., ? $ % ^ &
+5. Numbers are fine, but names cannot begin with numbers.
+    - e.g., `object1` is ok, but `1object` is not
 
 __Important:__ Object names are case sensitive.
     - object.One and Object.One refer to two separate objects.
@@ -104,13 +107,13 @@ Object.One
 
 ## Part III: Functions
 
-In addition to elementary and algebraic functions, R also include functions to simplify statistical analysis. For example, the `mean()` functione exists to calculate mean. __Note:__ Sometimes `na.rm = TRUE` is necessary within the paranetheses to instruct R to ignore missing data. 
+In addition to elementary and algebraic functions, R includes functions that simplify statistical analysis. For example, the `mean()` function calculates the mean. __Note:__ Sometimes `na.rm = TRUE` is necessary within the paranetheses to instruct R to ignore missing data. 
 
 ```{r 1_mean, echo = TRUE}
 mean(cars$dist)
 ```
 
-R includes the `cars` data set, consisting of various information about cars. This data set is provided to help demonstrate and/or experiment with R functions.
+R comes with a vairety of "built in" data sets, such as the `cars` data set, which contains some information about about cars. This data set is used below to demonstrate and/or experiment with R functions.
 
 A note about syntax: the dollar sign, `$`, is used to indicate the variable of interest relative to a data set. This is important in the case of multiple data sets that contain variables of the same name. In the previous code, R calculated the mean using the `dist` variable within the `cars` data set by specifying `cars\$dist`
 
@@ -120,11 +123,11 @@ To ignore missing data when calculating the mean of `dist`, include the `na.rm =
 mean(cars$dist, na.rm = TRUE)
 ```
 
-__Note:__ Given the mean is exactly the same, it is unlikely there is any missing data in the `dist` variable.
+__Note:__ The mean is exactly the same because there is no missing data in the `dist` variable.
 
 ### Object Types
 
-Object types are improtant in R and the type of an object is contingent on the attribute stored by the object. Put simply, an object storing characters (e.g., "blue") has a different type than an object storing a number (e.g., 1). Use of R functions is contingent on the type of objects. For example, functions like `mean()` work only for objects containing numbers. The R `str()` function describes the structure of objects and functions.
+Object types are improtant in R and the type of an object is contingent on the attribute stored by the object. For example, an object storing characters (e.g., "blue") has a different type than an object storing a number (e.g., 1). Use of R functions is contingent on the type of objects. For example, functions like `mean()` work only for objects containing numbers. The R `str()` function describes the structure of objects and functions.
 
 ```{r 1_structure, echo = TRUE}
 str(mean)
@@ -155,7 +158,7 @@ __Note:__ The structure of the list object consists of a character, a number, an
 
 ## Part IV: Packages
 
-Packages expand R to include additional functions important to statistical analysis. The default R functions may not be inadequate or complicated to conducting certain analysis.
+Packages expand R to include additional functions important to statistical analysis.
 
 ### Installing Packages
 
@@ -163,7 +166,7 @@ Installing packages in R is performed via `install.packages("packagename")`, whe
 
 __Note:__ Occasionally a package may require dependencies for installation. The dependencies can be automatically installed along with the package by including the `dependencies = TRUE` argument within the `install.packages()` function.
 
-__Try this!__ In R, install: In your own code chunk, include the following (without the numbers):
+__Try this!__ Use this code to install the following packages:
 
 1. `car`
 2. `psych`
@@ -176,8 +179,8 @@ __Try this!__ In R, install: In your own code chunk, include the following (with
 
 ### Loading Packages
 
-Installed packages must be loaded to use their functions within R. Packages are loaded via `library(packagename)`.
-__Note:__ Unlike the `install.packages()` function, the `library()` function does not use quotation marks around the package name. 
+After installation, packages must be loaded to use their functions within R. Packages are loaded via `library(packagename)`.
+__Note:__ Unlike the `install.packages()` function, the `library()` function does not require quotation marks around the package name. 
 
 ```{r 1_library packages, echo = FALSE}
 library(car)
@@ -260,62 +263,36 @@ The `getwd()` function returns the set working directory.
 getwd()
 ```
 
-## Part VII: Importing Your Data
+<!-- ## Part VII: Importing Your Data -->
 
-Data sets should be downloaded from the GitHub repository, http://www.need_url.com. __Note:__ The data set should be saved within the working directory.
+<!-- Data sets should be downloaded from the GitHub repository, http://www.need_url.com. __Note:__ The data set should be saved within the working directory. -->
 
-Data sets are commonly saved with the comma separated value file extension (e.g., .csv). CSV files stores data similar to the Excel spreadsheet data structure, and therefore can be viewed easily within Excel. 
+<!-- Data sets are commonly saved with the comma separated value file extension (e.g., .csv). CSV files stores data similar to the Excel spreadsheet data structure, and therefore can be viewed easily within Excel.  -->
 
-__Note:__ Be careful when accessing CSV files within Excel. Excel removes leading zeroes from values, which may impact the integrity of your data if you save the file after viewing in Excel.
+<!-- __Note:__ Be careful when accessing CSV files within Excel. Excel removes leading zeroes from values, which may impact the integrity of your data if you save the file after viewing in Excel. -->
 
-Loading a data set from a CSV file into R requires loading the data set with a function, and saving the contents of that data set to an object. For example, `data\_set\_name <- read.csv("file\_name.csv", header = TRUE)`. The `header = TRUE` argument specifies that the "first row" of the CSV file contains the variable names for that data set's columns. If the CSV file does not contain the variable names in the first row, you can change `TRUE` to `FALSE`.
+<!-- Loading a data set from a CSV file into R requires loading the data set with a function, and saving the contents of that data set to an object. For example, `data\_set\_name <- read.csv("file\_name.csv", header = TRUE)`. The `header = TRUE` argument specifies that the "first row" of the CSV file contains the variable names for that data set's columns. If the CSV file does not contain the variable names in the first row, you can change `TRUE` to `FALSE`. -->
 
-For labs, the following code should look like this:
+<!-- For labs, the following code should look like this: -->
 
-`ds <- read.csv("Class Data Set Factored.csv", header = TRUE)`
+<!-- `ds <- read.csv("Class Data Set Factored.csv", header = TRUE)` -->
 
-__Try it!__ Load a data set.
+<!-- __Try it!__ Load a data set. -->
 
-```{r 1_import, echo = TRUE}
-ds <- read.csv("https://github.com/ripberjt/qrmlabs/raw/master/Class%20Data%20Set%20Factored.csv", header = TRUE)
-```
+<!-- ```{r 1_import, echo = TRUE} -->
+<!-- ds <- read.csv("https://github.com/ripberjt/qrmlabs/raw/master/Class%20Data%20Set%20Factored.csv", header = TRUE) -->
+<!-- ``` -->
 
-The name of a data set object can be anything. The best practice is to use an acronym, such as `ds`.
+<!-- ## Part VIII: Exploring to Your Data -->
 
-## Part VIII: Connecting to Your Data
 
-Imported data can be accessed various ways. First, variables can be directly accessed by attaching the data set via the `attach()` function. For example, `attach(ds)`.
 
-Attached data can be detached via a similar function, `detact()`. For example, `detach(ds)`.
+<!-- ## Part IX: Exporting a CSV -->
 
-However, the `attch()` function is not the recommended method. Instead, variables can be accessed by joining the data set object name and the variable name via the dollar sign, `$`. For example, `ds$variable`
+<!-- Saving a CSV data set can be performed via the `write.csv()` function by specifying the object to save and the file name to write. For example, `write.csv(data\_set\_name, file = "filename.csv")`. -->
 
-The following exemplifies this method using the `dist` variable within the `car` package, within the `mean()` function.
+<!-- To demonstrate, the `ds` data set is saved as `newds.csv` within the working directory. -->
 
-```{r 1_var, echo = TRUE}
-mean(cars$dist, na.rm = TRUE)
-```
-
-Using the class data set stored in the `ds` object, there exists an `age` variable. The `mean()` function can provide the mean age of this data set.
-
-```{r 1_age, echo = TRUE}
-mean(ds$age, na.rm = TRUE)
-```
-
-Additionally, there is a variable `income` within `ds`. __Try it!__ Find the mean of the `income` variable:
-
-```{r 1_income, echo = TRUE}
-
-```
-
-__Note:__ The `na.rm = TRUE` argument is required within the `mean()` function to avoid a NA result.
-
-## Part IX: Exporting a CSV
-
-Saving a CSV data set can be performed via the `write.csv()` function by specifying the object to save and the file name to write. For example, `write.csv(data\_set\_name, file = "filename.csv")`.
-
-To demonstrate, the `ds` data set is saved as `newds.csv` within the working directory. 
-
-```{r 1_export, echo = TRUE}
-write.csv(ds, file = "newds.csv")
-```
+<!-- ```{r 1_export, echo = TRUE} -->
+<!-- write.csv(ds, file = "newds.csv") -->
+<!-- ``` -->
