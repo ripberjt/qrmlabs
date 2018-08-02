@@ -4,22 +4,9 @@ output: pdf_document
 ---
 
 # Preface
-This book is a companion to __Quantitative Research Methods for Political Science, Public Policy and Public Administration (With Applications in R): 3rd Edition__, an open-source text book that is available here (\url{https://hdl.handle.net/11244/52244}). It grew from our experiences teaching introductory and intermediate quantitative methods classes for graduate students in Political Science and Public Policy at the University of Oklahoma. We teach these courses using a lab format that pairs seminars on theory and statistics with lab exercises that focus on applications in R. We use the text book to motivate seminars and this book to guide lab exercises. The book is written in `R Markdown` and `bookdown`. While a "complete" copy of the book is available, we suggest that students and instructors use the "raw" `.Rmd` files for lab exercises. These materials ara available in our `GitHub` repository (\url{https://github.com/ripberjt/qrmlabs}). 
+This book is a companion to _Quantitative Research Methods for Political Science, Public Policy and Public Administration (With Applications in R): 3rd Edition_, an open-source text book that is available here: \url{https://hdl.handle.net/11244/52244}. It grew from our experiences teaching introductory and intermediate quantitative methods classes for graduate students in Political Science and Public Policy at the University of Oklahoma. We teach these courses using a lab format that pairs seminars on theory and statistics with lab exercises that focus on applications in R. We use the text book to motivate seminars and this book to guide lab exercises. The book is written in `R Markdown` and `bookdown`. While a "complete" copy of the book is available, we suggest that students and instructors use the "raw" `.Rmd` files for lab exercises. These materials ara available in our `GitHub` repository (\url{https://github.com/ripberjt/qrmlabs}). 
 
 Currently, the labs use survey data from the Meso-Scale Integrated Socio-geographic Network (M-SISNet) to explain concepts and methods. The M-SISNet is a quarterly survey of approximately 1,500 households in Oklahoma that is conducted with support of the National Science Foundation (Grant No. IIA-1301789). One wave of M-SISNet data is available in our `GitHub` repository. Readers can learn more about the project and download the remaining waves here: \url{http://crcm.ou.edu/epscordata/}. We welecome students and instructors to explore and use these data, but we also encourage instructures to modify the book by incorporating data that is more relevent to the course they are teaching. 
 
-By intent, this book represents an open-ended group project that changes over time as new ideas and new instructors become involved in teaching graduate methods in the University of Oklahoma Political Science Department. Early ideas and materials came from Hank Jenkins-Smith who began teaching this course (in R) nearly a decade ago. Matthew Nowlin, Tyler Hughes, and Aaron Fister were instrumental in developing the labs for those courses. Joseph Ripberger begain teaching the course a few years ago...
-
-
-
-
-
-
-
-\noindent Hank Jenkins-Smith\\
-Joseph Ripberger\\
-Gary Copeland\\
-Matthew Nowlin\\
-Tyler Hughes\\
-Aaron Fister\\
-Wesley Wehde\\
+# Acknowledgments
+By intent, this book represents an open-ended group project that changes over time as new ideas and new instructors become involved in teaching graduate methods in the University of Oklahoma Political Science Department. Early ideas and materials came from Hank Jenkins-Smith who began teaching these courses (in R) nearly a decade ago. Graduate assistants Matthew Nowlin, Tyler Hughes, Aaron Fister were responsible for developing the labs for Hank's courses. Joseph Ripberger began teaching these courses a few years ago. Wesley Wehde was responsible for updating the labs for his courses. After many years of informal development, Alexander Davis and Cody Adams took the labs and turned them in to this book. We thank everyone, espscially our students, for helping us write and continue to improve this book.
