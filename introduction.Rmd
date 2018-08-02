@@ -20,7 +20,7 @@ for (pkg in packages) {
 
 # Introduction
 
-The following labs append the open source textbook, ___Quantitative Research Methods for Political Science, Public Policy and Public Administration (With Applications in R): 3rd Edition___, available for download via: https://shareok.org/handle/11244/52244. The labs are primarily the work of Alex Davis (Alexander.w.davis-1@ou.edu) and Cody Adams (codyadams@ou.edu).
+The following labs append the open source textbook, ___Quantitative Research Methods for Political Science, Public Policy and Public Administration (With Applications in R): 3rd Edition___, available for download via: https://shareok.org/handle/11244/52244.
 
 # Requirements
 
