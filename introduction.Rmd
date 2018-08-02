@@ -1,5 +1,5 @@
 ---
-title: "Lab One: Introduction and Basics"
+title: "Introduction"
 output: pdf_document
 ---
 
