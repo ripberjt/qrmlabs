@@ -26,7 +26,7 @@ library(tidyverse)
 
 ## Part I: Histograms and Density
 
-Recall that histograms are used to visualize continuous data. Histograms are not used to visualize categorical data. Instead, a bar plot is advised for categorical data. The geom_hist()` function creates histograms in R using ggplot visualizations. The following is an example of creating a histogram of the `age` variable within the `ds` data set.
+Recall that histograms are used to visualize continuous data. Histograms are not used to visualize categorical data. Instead, a bar plot is advised for categorical data. The `geom_hist()` function creates histograms in R using ggplot visualizations. The following is an example of creating a histogram of the `age` variable within the `ds` data set.
 
 ```{r 3_hist1, echo=TRUE}
 ggplot(ds, aes(age)) +
