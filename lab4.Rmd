@@ -13,8 +13,7 @@ This lab introduces the tools for the foundation of inference by examining the n
 2. psych
 3. sm
 4. HistData
-5. ggplot2
-6. dplyr
+5. tidyverse
 
 ```{r 4_setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
@@ -23,8 +22,7 @@ library(car)
 library(psych)
 library(sm)
 library(HistData)
-library(ggplot2)
-library(dplyr)
+library(tidyverse)
 options(scipen=999)
 ```
 
@@ -32,7 +30,7 @@ options(scipen=999)
 
 Lab three introduced the basics of normal distributions. Much of the statistical work done is built on the condition of data that follows a normal distribution. Inspecting data for normality is done via numerous methods.
 
-Recall the _rnorm()_ function to generate random values that follow a normal distribution given specified parameters. The following _random_ object will consist of 1000 random values given $\mu$ = 50 and $\sigma$ = 5:
+Recall the `rnorm()` function to generate random values that follow a normal distribution given specified parameters. The following `random` object will consist of 1000 random values given $\mu$ = 50 and $\sigma$ = 5:
 
 ```{r 4_norm1, echo=TRUE}
 random <- rnorm(1000, mean = 50, sd = 5)
@@ -42,10 +40,11 @@ Visualizing data is an important first step to inspecting data for normality. Th
 
 ```{r 4_qq, echo=TRUE}
 ggplot(as.data.frame(random), aes(sample = random)) +
-  stat_qq()
+  stat_qq() +
+  stat_qq_line()
 ```
 
-The QQ plot of the _random_ object demonstrates the data closely follows a normal distribution. This is expected given the _random_ object was created via the _rnorm()_ function. __Note:__ Visualizing data for normality is an informal approach to inspecting for normality. Various empirical methods exist to test whether data follows a normal distribution, the most popular of which are:
+The QQ plot of the `random` object demonstrates the data closely follows a normal distribution. This is expected given the `random` object was created via the `rnorm()` function. __Note:__ Visualizing data for normality is an informal approach to inspecting for normality. Various empirical methods exist to test whether data follows a normal distribution, the most popular of which are:
 
 1. Shapiro-Wilk test
 2. Anderson-Darling test
@@ -56,28 +55,28 @@ The Shapiro-Wilk test is the most popular method, as the test has been demonstra
 
 ### Shapiro-Wilk Test
 
-The _shapiro.test()_ function in R employs the Shapiro-Wilk test on data to test whether the data are normally distributed. Use of the Shapiro-Wilk test is contingent on univariate and continuous data. The hypotheses for the Shapiro-Wilk test are:
+The `shapiro.test()` function in R employs the Shapiro-Wilk test on data to test whether the data are normally distributed. Use of the Shapiro-Wilk test is contingent on univariate and continuous data. The hypotheses for the Shapiro-Wilk test are:
 
 $H_0$: The data are normally distributed  
 $H_1$: The data are not normally distributed
 
-__Note:__ The Shapiro-Wilk test for normality is a statistical test that provides a p-value of the test statistic, _W_. This lab will focus on the p-value approach for statistical tests, using an $\alpha$ value of 0.05 as the desired significance level.
+__Note:__ The Shapiro-Wilk test for normality is a statistical test that provides a p-value of the test statistic, `W`. This lab will focus on the p-value approach for statistical tests, using an $\alpha$ value of 0.05 as the desired significance level.
 
 ```{r 4_sw test, echo=TRUE}
 shapiro.test(random)
 ```
 
-The Shapiro-Wilk test p-value is greater than $\alpha$ = 0.05, therefore failing to reject $H_0$ concluding the data are normally distributed. Again, this is expected given the _random_ object was created via the _rnorm()_ function.
+The Shapiro-Wilk test p-value is greater than $\alpha$ = 0.05, therefore failing to reject $H_0$ concluding the data are normally distributed. Again, this is expected given the `random` object was created via the `rnorm()` function.
 
 ### Testing Normality 
 
-R provides data pertaining to Yellowstone National Park's Old Faithful geyser in the _faithful_ object. Old Faithful eruptions are recorded as duration, in minutes, between events. First, the _describe()_ function provides valuable information for the _eruptions_ variable in the _faithful_ object.
+R provides data pertaining to Yellowstone National Park's Old Faithful geyser in the `faithful` object. Old Faithful eruptions are recorded as duration, in minutes, between events. First, the `describe()` function provides valuable information for the `eruptions` variable in the `faithful` object.
 
 ```{r 4_faith, echo=TRUE}
 describe(faithful$eruptions)
 ```
 
-Comparing the _eruptions_ data to a normal distribution, given $\mu$ and $\sigma$ from the _eruptions_ data, is available via the *geom_density()* and *stat_function()* functions.
+Comparing the `eruptions` data to a normal distribution, given $\mu$ and $\sigma$ from the `eruptions` data, is available via the *geom_density()* and *stat_function()* functions.
 
 ```{r 4_faith2, echo=TRUE}
 ggplot(faithful, aes(eruptions)) +
@@ -86,37 +85,39 @@ ggplot(faithful, aes(eruptions)) +
                                          sd = sd(faithful$eruptions)), color = "blue")
 ```
 
-The black line represents the _eruptions_ data, and the blue line represents the normal distribution given the $\mu$ and $\sigma$ values of _eruptions_. __Note:__ The _eruptions_ data appears bimodal, and does not fit the normal distribution model given the parameters calculated via the _eruptions_ data. 
+The black line represents the `eruptions` data, and the blue line represents the normal distribution given the $\mu$ and $\sigma$ values of `eruptions`. __Note:__ The `eruptions` data appears bimodal, and does not fit the normal distribution model given the parameters calculated via the `eruptions` data. 
 
-The _eruptions_ data is further examined using QQ plots via the _qqPlot()_ function:
+The `eruptions` data is further examined using QQ plots via the `qqPlot()` function:
 
 ```{r 4_faith4, echo=TRUE}
 ggplot(faithful, aes(sample = eruptions)) +
-  stat_qq()
+  stat_qq() +
+  stat_qq_line()
 ```
 
-Most of the points in the QQ plot fall outside the region defined by the dashed lines, further suggesting the _eruptions_ data is likely not normally distributed. Lastly, a Shapiro-Wilk test can confirm whether the _eruptions_ data is normally distributed:
+Most of the points in the QQ plot fall outside the region defined by the dashed lines, further suggesting the `eruptions` data is likely not normally distributed. Lastly, a Shapiro-Wilk test can confirm whether the `eruptions` data is normally distributed:
 
 ```{r 4_faith3, echo=TRUE}
 shapiro.test(faithful$eruptions)
 ```
 
-The Shapiro-Wilk test p-value is less than $\alpha$ = 0.05, leading to reject $H_0$: data are normally distributed. In conclusion, the _eruptions_ data is not normally distributed. __Note:__ The visual plots are likely enough to confirm the _eruptions_ data are not normally distributed.
+The Shapiro-Wilk test p-value is less than $\alpha$ = 0.05, leading to reject $H_0$: data are normally distributed. In conclusion, the `eruptions` data is not normally distributed. __Note:__ The visual plots are likely enough to confirm the `eruptions` data are not normally distributed.
 
-The _MacdonellDF_ variable within the _HistData_ package consists of finger length data. Again, visualizing the data for normality is performed via various methods. A box plot is generated for the _MacdonellDF_ data:
+The `MacdonellDF` variable within the `HistData` package consists of finger length data. Again, visualizing the data for normality is performed via various methods. A box plot is generated for the `MacdonellDF` data:
 
 ```{r 4_f, echo=TRUE}
 ggplot(MacdonellDF, aes(x = "", y = finger)) +
   geom_boxplot()
 ```
 
-The box plot appears balanced, indicating normality. Generating a density plot should show the distribution of _MacdonellDF_ variable as similar to the projected normal distribution given the $\mu$ and $\sigma$ parameters of the _MacdonellDF_ variable.
+The box plot appears balanced, indicating normality. Generating a density plot should show the distribution of `MacdonellDF` variable as similar to the projected normal distribution given the $\mu$ and $\sigma$ parameters of the `MacdonellDF` variable.
 
 ```{r 4_f2, echo=TRUE}
 ggplot(MacdonellDF, aes(finger)) +
   geom_density() +
   stat_function(fun = "dnorm", args = list(mean = mean(MacdonellDF$finger), 
-                                                       sd = sd(MacdonellDF$finger)), color = "red", size = 1.5,
+                                                       sd = sd(MacdonellDF$finger)),
+                color = "red", size = 1.5,
                 alpha = .3)
 ```
 
@@ -124,7 +125,8 @@ Additionally, a QQ plot:
 
 ```{r 4_f3, echo=TRUE}
 ggplot(MacdonellDF, aes(sample = finger)) +
-  stat_qq()
+  stat_qq() +
+  stat_qq_line()
 ```
 
 The visualizations all suggest the data is normally distributed; however, a Shapiro-Wilk test is still useful to test for normality.
@@ -148,7 +150,7 @@ R does not provide a single purpose function to calculate the standard error. As
 sd(ds$age, na.rm = T)/sqrt(length(ds$age) - sum(is.na(ds$age)))
 ```
 
-Alternatively, the _describe()_ function includes the standard error statistic for a given variable, as follows:
+Alternatively, the `describe()` function includes the standard error statistic for a given variable, as follows:
 
 ```{r 4_se2, echo=TRUE}
 describe(ds$age)
@@ -175,7 +177,7 @@ $$CI=\bar{x} \pm z*SE$$
 
 Put simply, the confidence interval is the sample mean plus/minus the product of the z-score and standard error. 
 
-Using the _age_ variable within the _ds_ data set, the a 95% confidence interval is calculated as follows: 
+Using the `age` variable within the `ds` data set, the a 95% confidence interval is calculated as follows: 
 
 First calculate the mean:
 
@@ -186,7 +188,7 @@ mean(ds$age, na.rm = T)
 Second, find the standard error:
 
 ```{r 4_ci2, echo=TRUE}
-describe(ds$age)$se ## this is a way to pull the standard error out without having to look at everything else
+describe(ds$age)$se # this is a way to pull the standard error out without having to look at everything else
 ```
 
 Given a 95% confidence interval, the z-score is 1.96. The upper bound of the confidence interval is calculated as follows:
@@ -201,26 +203,26 @@ The lower bound of the confidence interval is calculated as follows:
 60.38 - 1.96 * 0.28
 ```
 
-With 95% confidence, the population mean of _age_ is between 59.83 and 60.93 (rounded).
+With 95% confidence, the population mean of `age` is between 59.83 and 60.93 (rounded).
 
 Increasing confidence will increase the interval of the confidence interval. For example, the z-score associated to 99% is 2.58, so the confidence interval for 99% is calculated as follows:
 
 ```{r 4_ci5, echo=TRUE}
-se <- describe(ds$age)$se
+age.se <- describe(ds$age)$se
 ```
 
-__Note:__ The standard error of the _age_ variable was stored as to the _se_ object via specifying only to return the standard error from the _describe()_ function. Using the _se_ object simplifies the confidence interval calculation as exemplified:
+__Note:__ The standard error of the `age` variable was stored as to the `age.se` object via specifying only to return the standard error from the `describe()` function. Using the `se` object simplifies the confidence interval calculation as exemplified:
 
 ```{r 4_ci6, echo=TRUE}
-mean(ds$age, na.rm = T) + 2.58 * se
-mean(ds$age, na.rm = T) - 2.58 * se
+mean(ds$age, na.rm = T) + 2.58 * age.se
+mean(ds$age, na.rm = T) - 2.58 * age.se
 ```
 
-With 99% confidence, the population mean of _age_ is between 59.64 and 61.09. This interval is larger than the interval calculated for 95% confidence.
+With 99% confidence, the population mean of `age` is between 59.64 and 61.09. This interval is larger than the interval calculated for 95% confidence.
 
-Alternatively, the _t.test()_ function in R provides the 95% confidence interval for a given variable.
+Alternatively, the `t.test()` function in R provides the 95% confidence interval for a given variable.
 
-```{r 4_ci7, echo=TRUE}
+```{r 4`ci7, echo=TRUE}
 t.test(ds$age)
 ```
 
@@ -229,15 +231,15 @@ The results of _t.test()_ is similar to the manual calculations performed previo
 - $H_0: \bar{x} = \mu$
 - $H_1: \bar{x} \neq \mu$
 
-Note the returned p-value of the previous _t.test()_ performed is less than $\alpha$ = 0.05; therefore, the null hypothesis is rejected. That is, given the sample data, with 95% confidence the $\mu$ is not zero.
+Note the returned p-value of the previous `t.test()` performed is less than $\alpha$ = 0.05; therefore, the null hypothesis is rejected. That is, given the sample data, with 95% confidence the $\mu$ is not zero.
 
-To explain a different way, using the same variable, but with a defined $\mu$ of 50, the _t.test()_ function can test whether $\mu$ is 50.
+To explain a different way, using the same variable, but with a defined $\mu$ of 50, the `t.test()` function can test whether $\mu$ is 50.
 
 ```{r 4_ci8, echo=TRUE}
 t.test(ds$age, mu = 50)
 ```
 
-The same result occurs: the null hypothesis is rejected. Once again, the _t.test()_ function is employed to test whether $\mu$ = 60:
+The same result occurs: the null hypothesis is rejected. Once again, the `t.test()` function is employed to test whether $\mu$ = 60:
 
 ```{r 4_ci9, echo=TRUE}
 t.test(ds$age, mu = 60)
