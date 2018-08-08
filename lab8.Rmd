@@ -8,23 +8,21 @@ output: pdf_document
 
 This lab covers the basics of multivariate linear regression. We begin by reviewing linear algebra to perform ordinary least squares (OLS) regression in matrix form. Then we cover an introduction to multiple linear regression and visualizations with R. The following packages are required for this lab: 
 
-1. ggplot2
+1. tidyverse
 2. psych
 3. car
 4. memisc
 5. stargazer
 6. gridExtra
-7. dplyr
 
 ```{r 8_setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
-library(ggplot2)
+library(tidyverse)
 library(psych)
 library(car)
 library(memisc)
 library(stargazer)
 library(gridExtra)
-library(dplyr)
 options(scipen = 999)
 ds <- read.csv("https://github.com/ripberjt/qrmlabs/raw/master/Class%20Data%20Set%20Factored.csv")
 ```
@@ -147,7 +145,7 @@ In ordinary algebra, 1 is the identity element, whereby any number multiplied by
 
 $$ 5 \times 1 = 5$$
 
-Similarly, there exists an identity element in matrix algebra, denoted by the symbol _I_. The identity matrix is a square matrix with a 1 in the same pattern, regardless of size:
+Similarly, there exists an identity element in matrix algebra, denoted by the symbol `I`. The identity matrix is a square matrix with a 1 in the same pattern, regardless of size:
 
 $$I_{1\times1}=\begin{bmatrix} 1 \end{bmatrix}, I_{2\times2}=\begin{bmatrix}1 & 0 \\ 0 & 1\end{bmatrix}, I_{3\times3} = \begin{bmatrix} 1 & 0 & 0 \\ 0 & 1 & 0 \\ 0 & 0 & 1 \end{bmatrix}$$
 
@@ -160,14 +158,14 @@ AI
 A
 ```
 
-Lastly, the reciprocal of A is known as the inverse matrix, denoted as $A^{-1}$. In ordinary algebra, the product of a number and its reciprocal is 1. In matrix algebra, the product of a matrix and its inverse is the identity matrix. $AA^{-1}=A^{-1}A=I$ __Note:__ Inverse matrices only exist for square matrices, and not all square matrices possess inverses. The inverse of a matrix can be found via the _solve()_ function as follows:
+Lastly, the reciprocal of A is known as the inverse matrix, denoted as $A^{-1}$. In ordinary algebra, the product of a number and its reciprocal is 1. In matrix algebra, the product of a matrix and its inverse is the identity matrix. $AA^{-1}=A^{-1}A=I$ __Note:__ Inverse matrices only exist for square matrices, and not all square matrices possess inverses. The inverse of a matrix can be found via the `solve()` function as follows:
 
 ```{r 8_mat6, echo=TRUE}
 A.inv <- solve(AxAprime)
 A.inv
 ```
 
-The following R example demonstrates _I_ as the product of $AA^{-1}$:
+The following R example demonstrates `I` as the product of $AA^{-1}$:
 
 ```{r 8_mat7, echo=TRUE}
 Aident <- A.inv %*%  A
@@ -188,7 +186,7 @@ $$\hat{\beta}=\frac{cov(x,y)}{var(x)}$$
 
 In this lab we demonstrate how to use matrix algebra to calculate the least-squared estimates. For bivariate linear regression, the above formulas and matrix algebra will produce the same result; however, for multivariate linear regression the underlying methods that develop the above formulas become computationally complex such that matrix algebra is the preferred method to calculate the coefficients. 
 
-Using bivariate regression we explored hypotheses related to how preference for renewable energy is a function of ideology. Sometimes the dependent variable (_y_) is not easily explainable via a single independent variable (_x_), but rather multiple independent variables ($x_0, x_1, ..., x_n$). We can modify the bivariate regression model to append the additional variables of interest, as follows:
+Using bivariate regression we explored hypotheses related to how preference for renewable energy is a function of ideology. Sometimes the dependent variable (`y`) is not easily explainable via a single independent variable (`x`), but rather multiple independent variables ($x_0, x_1, ..., x_n$). We can modify the bivariate regression model to append the additional variables of interest, as follows:
 
  __Note:__ The $\alpha$ intercept coefficient is replaced with $\beta_0$.
 
@@ -216,7 +214,7 @@ $$2 = \beta_0 + \beta_1 * 4$$
 
 $$4 = \beta_0 + \beta_1 * 5$$
 
-Given we are working with two variables, _x_ and _y_, our _n_ is 1, so we are working with the bivariate linear regression model. Now, we can use ordinary algebra to solve for $\beta_0$ and $\beta_1$. To do so, we will solve for one variable, then solve for the other. Given our system consists of 5 linear equations, the ordinary algebra approach is not practical.
+Given we are working with two variables, `x` and `y`, our `n` is 1, so we are working with the bivariate linear regression model. Now, we can use ordinary algebra to solve for $\beta_0$ and $\beta_1$. To do so, we will solve for one variable, then solve for the other. Given our system consists of 5 linear equations, the ordinary algebra approach is not practical.
 
 This is where matrix algebra is useful. The general regression model can be expressed in the following matrix form, where we capitalize variables to represent matrices:
 
@@ -244,7 +242,7 @@ X <- matrix(c(1, 1, 1, 1, 1, 1, 2, 3, 4, 5), 5, 2)
 X
 ```
 
-Now we need to find X' with the _t()_ function:
+Now we need to find X' with the `t()` function:
 
 ```{r 8_ols2, echo=TRUE}
 Xprime <- t(X)
@@ -294,13 +292,13 @@ alpha
 bhat
 ```
 
-__Note:__ In the previous code block, _alpha_ is $\beta_0$ and _bhat_ is $\beta_1$.
+__Note:__ In the previous code block, `alpha` is $\beta_0$ and `bhat` is $\beta_1$.
 
 With the coefficients calculated, our estimated linear regression model is:
 
 $$\hat{y}=-0.10+0.70x$$
 
-Let's check our work using the _lm()_ function:
+Let's check our work using the `lm()` function:
 
 ```{r 8_ols10, echo=TRUE}
 ols <- lm(Y ~ 0 + X)
@@ -340,7 +338,7 @@ Bhat <- (solve((t(X) %*% X))) %*% (t(X) %*% Y)
 Bhat
 ```
 
-Again, we check our work using the _lm()_ function:
+Again, we check our work using the `lm()` function:
 
 ```{r 8_ols13, echo=TRUE}
 ols <- lm(Y ~ 0 + X)
@@ -349,10 +347,12 @@ ols
 
 ## Part II: Multiple Regression in R
 
-The R syntax for multiple linear regression is similar to what we used for bivariate regression: add the independent variables to the _lm()_ function. Construct a model that looks at climate change certainty as the dependent variable with age and ideology as the independent variables:
+The R syntax for multiple linear regression is similar to what we used for bivariate regression: add the independent variables to the `lm()` function. Construct a model that looks at climate change certainty as the dependent variable with age and ideology as the independent variables:
 
 ```{r 8_mlr, echo=TRUE}
-sub.ds <- filter(ds) %>% dplyr::select("glbcc_cert", "ideol", "age") %>% na.omit()
+sub.ds <- ds %>%
+  dplyr::select("glbcc_cert", "ideol", "age") %>%
+  na.omit()
 model1 <- lm(sub.ds$glbcc_cert ~ sub.ds$ideol + sub.ds$age)
 ```
 
@@ -392,17 +392,15 @@ Notice that R reads the fossil fuels variable as a factor. We change this to a n
 ds$foss <- as.numeric(ds$okelec_foss)
 ```
 
-Now let's look at all the variables. First we create a subset of the data and remove missing observations, then use the _describe()_ function:
+Now let's look at all the variables. First we create a subset of the data and remove missing observations, then use the `skim()` function:
 
 ```{r 8_mlr7, echo=TRUE}
-ds.sub <- filter(ds) %>% 
+ds.sub <- ds %>% 
   dplyr::select("income", "education", "ideol", "foss", "age") %>%
   na.omit()
 
-describe(ds.sub$foss)
-describe(ds.sub$income)
-table(ds.sub$education)
-describe(ds.sub$age)
+ds.sub %>%
+  skim()
 ```
 
 Now construct the model:
@@ -411,7 +409,7 @@ Now construct the model:
 model <- lm(foss ~ income + education + age + ideol, data = ds.sub)
 ```
 
-Note the different syntax in constructing this model. Instead of writing _dataset$variable_ every time, you can write the variable names, and at the end of the model include _data=dataset_. 
+Note the different syntax in constructing this model. Instead of writing `dataset$variable` every time, you can write the variable names, and at the end of the model include `data=dataset`. 
 
 Now examine the model:
 
@@ -425,21 +423,18 @@ Next we need to visualize the model. Visualizing multiple linear regression is n
 
 ### Visualizing Multivariate Linear Regression
 
-The best way to visualize multiple linear regression is to create a visualization for each independent variable while holding the other independent variables constant. Doing this allows us to see how each relationship between the DV and IV looks. Constructing each graph in _ggplot2_ is essentially the same as for bivariate linear regression.
+The best way to visualize multiple linear regression is to create a visualization for each independent variable while holding the other independent variables constant. Doing this allows us to see how each relationship between the DV and IV looks. Constructing a quick and dirty visualization for each IV in `ggplot2` is simiular to the methods used for bivariate linear regression. We will go into greater detail in the next section when we cover predictions with OLS, but making a quick visualization is rather simple. The `augment()` function from the `broom` package is very useful for this. The function transforms the data created from an OLS model into a tidyverse data frame format. Use `augment()`, then melt the data into long form, and create a `ggplot2` visualization for each IV by using `facet_wrap()`.
 
 ```{r 8_mlr10, echo=TRUE}
-id <-ggplot(model, aes(ideol,foss)) + # Ideology visualization
-  geom_smooth(aes(ideol,foss), method = lm)
-age <- ggplot(model, aes(age,foss)) + # Age visualization
-  geom_smooth(aes(age,foss), method = lm)
-educ <- ggplot(model, aes(education,foss)) + # Education visualization
-  geom_smooth(aes(education,foss), method = lm)
-inc <- ggplot(model, aes(income,foss)) + # Income visualization
-  geom_smooth(aes(income,foss), method = lm)
-grid.arrange(id,age,educ,inc)
+model %>%
+  augment() %>%
+  melt(measure.vars = c("ideol", "age", "education", "income"), variable.name = c("IV")) %>%
+  ggplot(., aes(value, foss)) +
+  geom_smooth(method = "lm") +
+  facet_wrap(~IV, scales = "free_x")
 ```
 
-Now we can see the general relationship between each independent variable and the dependent variable. The *geom_smooth()_*function defaults to showing 95% confidence intervals. You can disable the confidence intervals with the _se=FALSE_ argument, but that is not recommended. Notice the very large confidence interval in the income visualization, especially at the higher income levels. This happens because there are fewer observations with very high incomes. A smaller sample size leads to a larger standard error, and in turn larger confidence intervals. 
+Now we can see the general relationship between each independent variable and the dependent variable. The `geom_smooth()` function defaults to showing 95% confidence intervals. You can disable the confidence intervals with the `se=FALSE` argument, but that is not recommended. Notice the very large confidence interval in the income visualization, especially at the higher income levels. This happens because there are fewer observations with very high incomes. A smaller sample size leads to a larger standard error, and in turn larger confidence intervals. 
 
 
 ## Part IV: Predicting with OLS Regression
@@ -466,63 +461,49 @@ __Note:__ For a bachelor's degree, the value of the education variable is 6.
 (5.83 + (.000014 * (45000)) + (-.19 * (6)) + (.19 * (40)) + (3.07 * (3)))
 ```
 
-Based on the calculation, a predicted result is 22% of the state's electricity should come from fossil fuels. There is a more precise way to do this calculation, as is often the case. Using the _predict()_ function, we can tell R to return predicted values based on specifications of variable values. 
+Based on the calculation, a predicted result is 22% of the state's electricity should come from fossil fuels. There is a more precise way to do this calculation, as is often the case. Using the `augment()` function from the `broom` package, we can tell R to return predicted values based on specifications of variable values. 
 
 ```{r 8_predict3, echo=TRUE}
-predict(model, newdata = data.frame(ideol = 3, income = 45000, education = 6, age = 40))
+model %>%
+  augment(newdata = data.frame(ideol = 3, income = 45000, education = 6, age = 40))
 ```
 
-__Note:__ The original estimate is a little off due to rounding.
+__Note:__ The original estimate is a little off due to rounding. Using `augment()` returns a data frame in tidy format. The .fitted value is the predicted value of interest. You can use the `predict()` function in a similar way, but doing so returns information in vector, not data frame, format. 
 
-The _predict()_ function can return multiple values at a time. If we use the _seq()_ argument, we can tell R to predict values for a sequence of values:
+The `augment()` function can return multiple values at a time. We can tell R to predict values for a sequence of values, like the range of ideology values. Sequencing one variable while holding the others constant is very common in OLS analysis. The method we will most often use will be holding all other IVs constant at their means. 
 
 ```{r 8_predict4, echo=TRUE}
-predict(model, newdata = data.frame(ideol = seq(1:7), income = 45000, education = 5, age = 45))
+model %>%
+  augment(newdata = data.frame(ideol = 1:7, income = mean(ds.sub$income),
+                               education = mean(ds.sub$education),
+                               age = mean(ds.sub$age)))
 ```
 
-We've specified values for income, education, and age variables that are not the means. However, it is often appropriate to predict values when all other variables are held constant at their means. We can use the _predict()_ function for this too!
-
-```{r 8_predict5, echo=TRUE}
-p <- predict(model, newdata = data.frame(ideol = seq(1:7), income = mean(ds.sub$income, na.rm = T),
-                                         education = mean(ds.sub$education, na.rm = T), 
-                                         age=mean(ds.sub$age, na.rm = T)), se.fit = T)
-p
-```
 
 
 
 Recall that the earlier hypothesis stated that the more conservative a respondent, the more electricity they will prefer comes from fossil fuels. We can safely reject the null hypothesis, given the clear relationship and overall evidence that there is a positive relationship. To conlcude, let's build a solid, paper-worthy visualization of the relationship between ideology and opinions on fossil fuels from our model.
 
-__Note__:Until now, we have used *geom_smooth()* to create regression lines. However, the superior method of creating regression lines is to generate predictions outside of ggplot and use *geom_line()* to plot the line and *geom_ribbom()* to plot the confidence intervals. This is because *geom_smooth()* does not let you set the specific DV values. However, the _predict()_ function tells R to predict values of the IV based on specific values of the DV. To create a good regression line and confidence interval using the _predict()_ function, instruct R to hold all DVs at their means except ideology. Sequence ideology from 1 to 7, and include _se.fit=TRUE_, then assign the fitted values to an object:
+__Note__:Until now, we have used `geom_smooth()` to create regression lines. However, the superior method of creating regression lines is to generate predictions outside of ggplot and use `geom_line()` to plot the line and `geom_ribbom()` to plot the confidence intervals. This is because `geom_smooth()` does not let you set the specific IV values. However, the `augment()` (or `predict()`!) function tells R to predict values of the DV based on specific values of the IV. To create a good regression line and confidence interval using the `augment()` function, instruct R to hold all DVs at their means except ideology. Sequence ideology from 1 to 7, and include `se.fit=TRUE`, then assign the fitted values to an object:
 
+The next step is to calculate the confidence interval. This is rather simple! Using the `augment()` function in tandem with the `mutate()` function, we can create a tidy data frame that provides us with all the information needed to construct a visualization with a confidence interval. Assign the data frame to an object called `fit.df`.
 
-```{r 8_mlr11, echo=TRUE}
-id.p <- predict(model, newdata = data.frame(ideol = seq(1,7,1), age = mean(ds.sub$age), 
-                                            income = mean(ds.sub$income), 
-                                            education = mean(ds.sub$education)), se.fit = T)
-value <- id.p$fit
+```{r 9_predict5, echo=TRUE}
+model %>%
+  augment(newdata = data.frame(ideol = 1:7, income = mean(ds.sub$income),
+                               education = mean(ds.sub$education),
+                               age = mean(ds.sub$age))) %>%
+  mutate(upper = .fitted + 1.96 * .se.fit,
+         lower = .fitted - 1.96 * .se.fit) -> fit.df
+fit.df
 ```
 
-The code above generated predicted values for a regression, or fit, line, and it generated standard error values. Recall that confidence intervals are calculated using t-scores (or z-scores, depending on the distribution) and standard errors. When working with the Student's t distribution, we default to 95% confidence intervals, which is derived from a t-score of 1.96. Therefore to find the upper and lower bounds of the condfidence interval, take the predicted value and add or substract 1.96 times the standard error. 
-
-```{r 8_mlr11.5, echo=TRUE}
-upper <- value + 1.96 * id.p$se.fit
-lower <- value - 1.96 * id.p$se.fit
-```
-
-Next put all three vectors into a data frame and include an ideology sequencing from 1 to 7:
-
-```{r 8_mlr11.75, echo=TRUE}
-id.df <- data.frame(ideol = 1:7, value, upper, lower)
-```
-
-
-Build the visualization:
+Now build the visualization:
 
 ```{r 8_mlr12, echo=TRUE}
-ggplot(id.df, aes(ideol, value)) +
+ggplot(fit.df, aes(ideol, .fitted)) +
   geom_line(size=1.5, color = "dodgerblue2") +
-  geom_ribbon(ymax = upper, ymin = lower, alpha = .5, fill = "dodgerblue2") +
+  geom_ribbon(aes(ymax = upper, ymin = lower), alpha = .5, fill = "dodgerblue2") +
   ggtitle("Fossil Fuel Energy by Ideology") +
   ylab("% of State's Electricity Should Come From Fossil Fuels") +
   xlab("Ideology") +
