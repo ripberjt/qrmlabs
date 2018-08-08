@@ -8,60 +8,67 @@ output: pdf_document
 
 This lab covers the basics of inference for two populations. We go through proportions and cross tabulations; the different types of two sample t-tests; difference in one and two tailed tests; and how to plot means and the differences between means. The following packages are required for this lab: 
 
-1. ggplot2
+1. tidyverse
 2. psych
 3. car
 4. vcd
-5. dpylr
+5. reshape2
+6. skimr
+
 
 ```{r 5_setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ds <- read.csv("https://github.com/ripberjt/qrmlabs/raw/master/Class%20Data%20Set%20Factored.csv")
-library(ggplot2)
+library(tidyverse)
 library(psych)
 library(car)
 library(vcd)
-library(dplyr)
+library(reshape2)
+library(skimr)
 options(scipen = 999)
 ```
 
 ## Part I: Proportions
 
-To start with proportions, We will use the _glbcc_ variable from the class dataset that contains respondents' opinions on global climate change. Specifically, it asks if they believe that greenhouse gases cause global temperatures to increase. We start with describing the data. A zero indicates "no" and 1 indicates "yes."
+To start with proportions, We will use the `glbcc` variable from the class dataset that contains respondents' opinions on global climate change. Specifically, it asks if they believe that greenhouse gases cause global temperatures to increase. We start with describing the data. A zero indicates "no" and 1 indicates "yes."
 
 ```{r 5_prop, echo=TRUE}
-t.gcc <- table(ds$glbcc)
-t.gcc
+ds %>%
+  count(glbcc)
 ```
 
-Now we can describe the population proportions. To do this we use the _prop.table()_ function. 
+Now we can describe the population proportions.
 
 ```{r 5_prop2, echo=TRUE}
-table(ds$glbcc) %>% prop.table()
+ds %>%
+  count(glbcc) %>%
+  mutate(prop = n / sum(n))
 ```
 
-The _prop.table()_ function describes the proportions of the population that believe humans cause climate change. Let's visualize the proportions. 
+The above table describes the proportions of the population that believe humans cause climate change. Let's visualize the proportions. 
 
-Data frames are required for ggplot visualizations, which can be constructed from the tables using the _data.frame()_ and _c()_ functions. The following is an example method of creating a data frame manually with values from the previous tables.
+Data frames are required for ggplot visualizations. Sometimes you have to construct the data frame manually, using the `data.frame()` function and creating vectors inside it with `c()`. However, when working with tidyverse functions, there are often shortcuts. Below we are able to visualize the proportion table by simply piping it directly to `ggplot2` and putting a `.` in place of the data set.
 
 ```{r 5_prop3, echo=TRUE}
-df <- data.frame(answer = c("0","1"), glbcc = c("0.4287", "0.5713"))
-ggplot(df, aes(x=answer, y=glbcc)) +
-  geom_bar(stat = "identity") 
+ds %>%
+  count(glbcc) %>%
+  mutate(prop = n / sum(n)) %>%
+  ggplot(., aes(glbcc, prop)) +
+  geom_bar(stat = "identity")
 ```
 
-As we learned in the last lab, there are uncertainties associated to point estimates. We can include confidence intervals to get a range of values for which we are confident (at some level) the value actually falls between. To calculate confidence intervals we need to find the standard error of the proportionn and assign it to an object that we will name _se_.
+As we learned in the last lab, there are uncertainties associated to point estimates. We can include confidence intervals to get a range of values for which we are confident (at some level) the value actually falls between. To calculate confidence intervals we need to find the standard error of the proportionn and assign it to an object that we will name `se.gcc`.
 
 ```{r 5_prop4, echo=TRUE}
-se <-sqrt((0.5713 * (1 - 0.5713)/2547)) 
-se
+se.gcc <-sqrt((0.5713 * (1 - 0.5713)/2547)) 
+se.gcc
 ```
 
-Alternatively, we can use the _describe()_ function to avoid rounding errors:
+Alternatively, we can use the `describe()` function to avoid rounding errors:
 
 ```{r 5_prop5, echo=TRUE}
-se <- describe(ds$glbcc)$se
-se
+se.gcc <- describe(ds$glbcc)$se
+se.gcc
 ```
 
 With the standard error object, we can calculate the confidence intervals. Here we will calculate the following: the upper bounds and lower bounds for the yes and no confidence intervals.
@@ -70,106 +77,93 @@ $$CI=\hat{p} \pm z\frac{s}{\sqrt{n}},$$
 
 Where $\hat{p}$ is the sample proportion. Recall that 95% confidence corresponds to a 1.96 z-score.
 
-The proportion table provides the values we will use:
+The proportion table from earlier provides the values we will use:
 
 ```{r 5_prop6, echo=TRUE}
-p.t.gcc
+ds %>%
+  count(glbcc) %>%
+  mutate(prop = n / sum(n))
 ```
 
-We assign these values to a _no_ and _yes_ object:
+First store the standard error as an object:
 
 ```{r 5_prop7, echo=TRUE}
-no <- 0.4287
-yes <- 0.5713
+se.gcc <- se.gcc <- describe(ds$glbcc)$se
 ```
 
-Next we will calculate the confidence intervals:
+Recall that the `mutate()` verb can be used to create multiple variables at once. With this in mind, we can easily create a data frame that contains the measurements of interest, the standard error, and the lower and upper bounds of the confidence interval. For a 95% confidence interval, you take the proportion, plus or minus 1.96 mulipltied by the standard error. Inside the `mutate()` function create three new variables: the standard error, lower, and upper:
 
-```{r 5_prop8, echo=TRUE}
-no.up <- no + 1.96 * se
-no.low <- no - 1.96 * se
-yes.up <- yes + 1.96 * se
-yes.low <- yes - 1.96 * se
-
+```{r 5_prop7, echo=TRUE}
+new.ds <- ds %>%
+  count(glbcc) %>%
+  mutate(prop = n / sum(n),
+         se.gcc = se.gcc,
+         lower = prop - 1.96 * se.gcc,
+         upper = prop + 1.96 * se.gcc)
+new.ds
 ```
 
-For simplicity in creating a data frame, we can use the previously created objects. 
 
-```{r 5_prop9, echo=TRUE}
-df <- data.frame(answer = c("0", "1"), glbcc = c(no, yes), 
-                 lower = c(no.low, yes.low),
-                 upper = c(no.up, yes.up))
-```
-
-With the new data frame we can create a visualization that includes the confidence intervals. The code is similar to the previous _ggplot_ code used, but now with the addition of the _geom\_errorbar()_ function. The _geom\_errorbar()_ function requires arguments to use the lower and upper bound values for the confidence intervals:
+With the new data frame we can create a visualization that includes the confidence intervals. The code is similar to the previous `ggplot2` code used, but now with the addition of the `geom_errorbar()` function. The `geom_errorbar()` function requires arguments to use the lower and upper bound values for the confidence intervals:
 
 ```{r 5_prop10, echo=TRUE}
-ggplot(df, aes(x = answer, y = glbcc)) +
+ggplot(new.ds, aes(x = glbcc, y = prop)) +
   geom_bar(stat = "identity") +
   geom_errorbar(aes(ymin = lower, ymax = upper))
 ```
 
 ### Two Populations
 
-Research is often interested in differences between distinct populations. Using the _glbcc_ variable, we will review responses differentiated by gender. 
+Research is often interested in differences between distinct populations. Using the `glbcc` variable, we will review responses differentiated by gender, using the `group_by()` function. 
 
 ```{r 5_2prop, echo=TRUE}
-t.gcc.gend <- table(ds$glbcc, ds$f.gender)
-t.gcc.gend
-t.gcc.gend.p <- prop.table(t.gcc.gend)
+ds %>%
+  group_by(f.gender) %>%
+  count(glbcc) %>%
+  drop_na() %>%
+  mutate(prop = n / sum(n)) 
 ```
 
-Respondent opinions on climate change can be examined on the difference of gender. This requires extracting the second row from the data set to create a table: 
+
+To visually examine which gender has, on average, higher belief that greenshouse gases cause climate change, plotting the two mean levels of belief for the genders is a good place to start. To create a visualization, the mean level of `glbcc` needs to be found for each gender. In this case, the proportion of each gender believing in climate change is the same as the "mean" amount of men or women believing in climate change. The following code returns a new data frame that is just like the previous one, but filters the data to include only responses indicate a belief that greenhouse gases cause climage change. 
 
 ```{r 5_2prop2, echo=TRUE}
-yes.table <- t.gcc.gend.p[2,]
-yes.table
+ds %>%
+  group_by(f.gender) %>%
+  count(glbcc) %>%
+  drop_na() %>%
+  mutate(prop = n / sum(n)) %>%
+  filter(glbcc == 1)
 ```
 
-To visually examine which gender has, on average, higher belief that greenshouse gases cause climate change, plotting the two mean levels of belief for the genders is a good place to start. To create a visualization, the mean level of _glbcc_ needs to be found for each gender. We will use the _filter()_ function to simplify the calculations:
+Similarly to earlier in the lab, confidence intervals can also be calculated by finding the standard error. In this case, we need to find the standard error for men and women separately. We will use the _filter()_ function to simplify the calculations:
 
 ```{r 5_2prop3, echo=TRUE}
 male <- filter(ds, gender==1)
 female <- filter(ds, gender==0)
+m.se <- describe(male$glbcc)$se
+f.se <- describe(male$glbcc)$se
 ```
 
-Assign the mean levels of support to objects titled _men2_ and _women2_.
+Now that we have the standard errors for men and women, we can return to the previous data frame we constucted and add a column for the standard error. This is done using the tidyverse verb `add_column()`. Assign the new data frame to a new object, then print the data frame:
 
 ```{r 5_2prop4, echo=TRUE}
-men2 <- mean(male$glbcc)
-women2 <- mean(female$glbcc)
+df2 <- ds %>%
+  group_by(f.gender) %>%
+  count(glbcc) %>%
+  drop_na() %>%
+  mutate(prop = n / sum(n)) %>%
+  filter(glbcc == 1) %>%
+  add_column(se = c(m.se, w.se))
 ```
 
-Now the _describe()_ function is used for the standard errors per gender:
-
-```{r 5_2prop5, echo=TRUE}
-men.se <- describe(male$glbcc)$se
-women.se <- describe(female$glbcc)$se
-```
-
-The upper and lower bounds for the gender confidence intervals:
-
-```{r 5_2prop6, echo=TRUE}
-men.up <- men2 + 1.96*men.se
-men.low <- men2 - 1.96*men.se
-women.up <- women2 + 1.96*women.se
-women.low <- women2 - 1.96*women.se
-```
-
-The confidence intervals used to create a data frame for the visualization:
-
-```{r 5_2prop7, echo=TRUE}
-df2 <- data.frame(gender = c("Men", "Women"), glbcc = c(men2,women2), 
-                 lower = c(men.low,women.low),
-                 upper = c(men.up, women.up))
-```
-
-Now the _ggplot_ visualization is constructed:
+Now construct the visualization. Like the previous visualization, use `geom_errorbar()` to construct the confidence intervals. However, this time you will need to calculate them inside the `geom_errorbar()` function itself!
 
 ```{r 5_2prop8, echo=TRUE}
-ggplot(df2, aes(x=gender, y=glbcc)) +
-  geom_bar(stat="identity") +
-  geom_errorbar(aes(ymin=lower, ymax=upper))
+ggplot(df2, aes(f.gender, prop)) +
+  geom_bar(stat = "identity") +
+  geom_errorbar(aes(ymin = prop - 1.96 * se,
+                ymax = prop + 1.96 * se))
 ```
 
 Suppose we wondered whether women believe humans cause climate change more than men: this visualization provides only a partial answer. By the "eye test," the visualization appears to show that women have a higher value than men, and furthermore the confidence intervals do not overlap; however, the eye test alone is insufficient. An empirical test is required.
@@ -178,7 +172,7 @@ To start, we formulate the following hypotheses:
 $H_0$: there is no difference between genders  
 $H_1$: there is a difference between genders  
 
-We can use a two sample t-test to test these hypotheses. Using the different data sets created earlier for genders and the _glbcc_ variable we will find the 95% confidence interval, p-value, and point estimate.
+We can use a two sample t-test to test these hypotheses. Using the different data sets created earlier for genders and the `glbcc` variable we will find the 95% confidence interval, p-value, and point estimate.
 
 ```{r 5_2prop9, echo=TRUE}
 t.test(male$glbcc, female$glbcc)
@@ -191,7 +185,7 @@ The t-test yields a p-value < $\alpha$ = 0.05, thereby the null hypothesis is re
 
 Another way to examine the difference of gender and beliefs about climate change is cross tabulation. Cross tabulations describe relationships between two variables. The basic building block of cross tabulations are tables, a skill acquired in previous labs.
 
-For this section, we will use the _glbcc\_risk_ variable, that measures the level of risk respondents associate with climate change (on a scale of zero to ten). The range associated to this scale is simplified to zero to five using the _recode()_ function:
+For this section, we will use the `glbcc_risk` variable, that measures the level of risk respondents associate with climate change (on a scale of zero to ten). The range associated to this scale is simplified to zero to five using the `recode()` function:
 
 
 ```{r 5_ct1, echo=TRUE}
@@ -212,7 +206,7 @@ The _prop.table()_ function describes the relationship by proportions. We conver
 gcc.table %>% prop.table(margin = 2) * 100
 ```
 
-There appears to be a difference in genders; however, as these differences are within a sample we cannot infer there is a difference in the population without an empirical test. We will use the Chi-Square test to empirically test whether there is a statistically significant difference in genders. The _chisq.test()_ function performs the Chi-Square test given a table:
+There appears to be a difference in genders; however, as these differences are within a sample we cannot infer there is a difference in the population without an empirical test. We will use the Chi-Square test to empirically test whether there is a statistically significant difference in genders. The _chisq.test()_ function performs the Chi-Square test given on a table:
 
 ```{r 5_ct4, echo=TRUE}
 chisq.test(gcc.table)
@@ -272,13 +266,17 @@ Let's examine if there is a difference between the risk associated with climate 
 
 ```{r 5_ind, echo=TRUE}
 ds$f.part <- car::recode(ds$f.party.2, "'Dem'='Dem'; 'Rep'='Rep'; else=NA")
-table(ds$f.part)
+ds %>%
+  count(f.part) %>%
+  drop_na()
 ```
 
-First we will compare variances for Democrats and Republicans on their risk perception of climate change. First we compare the standard deviations and standard errors:
+We need to compare variances for Democrats and Republicans on their risk perception of climate change. First use `skim()` to take a look at some summary statistics by political party.
 
 ```{r 5_ind2, echo=TRUE}
-by(ds$glbcc_risk, ds$f.part, describe)
+ds %>%
+  group_by(f.part) %>%
+  skim(glbcc_risk) 
 ```
 
 The Levene test is used to test if the difference in variances is statistically significant. Similar to previously discussed hypotheses, the Levene tests the following hypotheses:
@@ -301,7 +299,7 @@ t.test(ds$glbcc_risk ~ ds$f.part, var.equal = FALSE) # var.equal=FALSE is defaul
 
 Given the p-value < $\alpha$ = 0.05, we reject the null hypothesis such that there is a statistically significant difference in perceived risk of climate change between democrats and republicans.
 
-The previous test is an example of a two-tailed test, which lacks directionality (greater than, less than). In contrast, a one-tailed t-test tests hypotheses that include direction. To perform a one-tailed t-test, we include the command alt="greater" inside the _t.test()_ function:
+The previous test is an example of a two-tailed test, which lacks directionality (greater than, less than). In contrast, a one-tailed t-test tests hypotheses that include direction. To perform a one-tailed t-test, we include the command alt="greater" inside the `t.test()` function:
 
 ```{r 5_ind5, echo=TRUE}
 t.test(ds$glbcc_risk ~ ds$f.part, alt="greater")
@@ -309,23 +307,23 @@ t.test(ds$glbcc_risk ~ ds$f.part, alt="greater")
 
 ### Other Independent Sample Tests
 
-Not all research leads to testing two populations. For example, consider whether a difference exists in perceived risk of climate change among Democrats, Republicans, and independents. Further, if there are statistically significant differences, how could ideologies be ranked? Unfortunately, performing pairwise t-tests on the possible combinations is inadequate, due to the "family-wise error rate" associated to the p-value. The _pairwise.t.test()_ function employs the family-wise correction method (by default, Holm-Bonferroni method) to correct the p-value.
+Not all research leads to testing two populations. For example, consider whether a difference exists in perceived risk of climate change among Democrats, Republicans, and independents. Further, if there are statistically significant differences, how could ideologies be ranked? Unfortunately, performing pairwise t-tests on the possible combinations is inadequate, due to the "family-wise error rate" associated to the p-value. The `pairwise.t.test()` function employs the family-wise correction method (by default, Holm-Bonferroni method) to correct the p-value.
 
 Like traditional independent sample tests involving two samples, the variances must be unequal:
 
 ```{r 5_hsd, echo=TRUE}
-leveneTest(ds$glbcc_risk~ds$f.party.2)
+leveneTest(ds$glbcc_risk ~ ds$f.party.2)
 ```
 
-Given that the p-value < $\alpha$ = 0.05, we reject the null hypothesis such that there is a difference in variances. The _pairwise.t.test()_ function can perform the pairwise test, using the _f.party_2_ variable that was factored for Democrats, Republicans, and independents:
+Given that the p-value < $\alpha$ = 0.05, we reject the null hypothesis such that there is a difference in variances. The `pairwise.t.test()` function can perform the pairwise test, using the _f.party_2_ variable that was factored for Democrats, Republicans, and independents:
 
 ```{r 5_pairwise, echo=TRUE}
 pairwise.t.test(ds$glbcc_risk, ds$f.party.2, pool.sd=FALSE)
 ```
 
-The output of the _pairwise.t.test()_ function is read as a table, whereby each value is associated to the pairwise comparison.
+The output of the `pairwise.t.test()` function is read as a table, whereby each value is associated to the pairwise comparison.
 
-An alternative, multiple comparisons test, is the Tukey Honest Significance Difference test ("Tukey's test"), that is commonly used with Analysis of Variance (ANOVA). In short, Tukey's test is used to find means that are significantly difference between multiple samples. Tukey's test requires using the _aov()_ function to perform ANOVA, as follows:
+An alternative, multiple comparisons test, is the Tukey Honest Significance Difference test ("Tukey's test"), that is commonly used with Analysis of Variance (ANOVA). In short, Tukey's test is used to find means that are significantly difference between multiple samples. Tukey's test requires using the `aov()` function to perform ANOVA, as follows:
 
 ```{r 5_hsd2, echo=TRUE}
 aov(ds$glbcc_risk ~ ds$f.party.2) %>% TukeyHSD()
@@ -347,7 +345,7 @@ exam.ds <- data.frame(Student, Exam1, Exam2)
 exam.ds
 ```
 
-The _exam.ds_ data frame consists of three vectors: the student, exam one, and exam two.
+The `exam.ds` data frame consists of three vectors: the student, exam one, and exam two.
 
 First check the variance between the two groups:
 
@@ -365,7 +363,7 @@ Next, we define our hypotheses for the paired test:
 t.test(exam.ds$Exam1, exam.ds$Exam2, paired = TRUE, var.equal = TRUE)
 ```
 
-Given the p-value < $\alpha$ = 0.05, the null hypothesis is rejected such that there is a statistically significant difference in means. Next, to determine directionality, the _alt="greater"_ argument is included in the _t.test()_ function. Additionally, the hypotheses are modified as follows:
+Given the p-value < $\alpha$ = 0.05, the null hypothesis is rejected such that there is a statistically significant difference in means. Next, to determine directionality, the `alt="greater"` argument is included in the `t.test()` function. Additionally, the hypotheses are modified as follows:
 $H_0$: there is no difference between exams one and two for students  
 $H_1$: exams one performance is greater than exam two performance for students
 
@@ -377,7 +375,7 @@ Given the p-value < $\alpha$ = 0.05, the null hypothesis is rejected.
 
 ## Part V: Visualizing Differences in Means
 
-Visualization of data is essential to interpreting and communicating difference in means. To demonstrate, we will use _ggplot2_ to visualize the difference in exam scores used with the paired t-tests.
+Visualization of data is essential to interpreting and communicating difference in means. To demonstrate, we will use `ggplot2` to visualize the difference in exam scores used with the paired t-tests.
 
 First, we consider the difference of means with confidence intervals. We start by calculating the means for each exam:
 
@@ -414,7 +412,7 @@ examdf <- data.frame(test, scores, upper, lower)
 examdf
 ```
 
-Now, for the visualization. Instead of a bar plot, we will create a graph consisting of a point for the means for each exam, and the confidence intervals. In additional, we will add color and labels. These arguments are available for other data sets and visualizations using _ggplot2_:
+Now, for the visualization. Instead of a bar plot, we will create a graph consisting of a point for the means for each exam, and the confidence intervals. In additional, we will add color and labels. These arguments are available for other data sets and visualizations using `ggplot2`:
 
 ```{r 5_vis5, echo = TRUE}
 ggplot(examdf, aes(x = test, y = scores)) +
@@ -430,7 +428,7 @@ Following the basic steps above will help you make attractive visualizations for
 
 Suppose the teacher wanted a visualization that plots each students' test scores between the two exams for easy comparison. A grouped bar plot is a simple approach to accomplish this.
 
-This requires a different type of data frame. So far the data has been "wide" data, but we need "long" data. The _melt()_ function found in the _dplyr_ package converts data from wide to long format. Include "Exam1" and "Exam2" as the measured variables. 
+This requires a different type of data frame. So far the data has been "wide" data, but we need "long" data. The `melt()` function found in the `dplyr` package converts data from wide to long format. Include "Exam1" and "Exam2" as the measured variables. 
 
 ```{r 5_vis6, echo=TRUE}
 exam.m <- melt(exam.ds, measure.vars = c("Exam1", "Exam2"))
@@ -442,7 +440,7 @@ The new data frame pairs the exams with the students and the respective score. T
 exam.m
 ```
 
-The grouped bar plot is constructed similar to a bar plot, except that the visualization is based on the exam and uses the _position.dodge()_ function to place bars near each other and the _fill=Exam_ argument to specify what the groups 
+The grouped bar plot is constructed similar to a bar plot, except that the visualization is based on the exam and uses the `position.dodge()` function to place bars near each other and the `fill=Exam` argument to specify what the groups 
 
 ```{r 5_vis8, echo=TRUE}
 ggplot(exam.m, aes(x=Student, y=value, fill=variable)) +
