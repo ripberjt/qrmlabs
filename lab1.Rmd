@@ -269,12 +269,12 @@ R can read many different file types, including text files, Excel files, Google 
 
 `ds <- read.csv("Class Data Set Factored.csv", header = TRUE)`
 
-This relatively simple line of code saves the data set in `Class Data Set Factored.csv` to an object called ds (short for data set). The `header = TRUE` argument tells R that the first row in the data set provides column (or variable) names. __Note:__ This code assumes that `Class Data Set Factored.csv` is in the working directory. To check, use `list.files()`. If the file containing the data set is not in the working directory, provide the complete file path in the `read.csv` function, like this:
+This line of code saves the data set in `Class Data Set Factored.csv` to an object called ds (short for data set). The `header = TRUE` argument tells R that the first row in the data set provides column (or variable) names. __Note:__ This code assumes that `Class Data Set Factored.csv` is in the working directory. To check, use `list.files()`. If the file containing the data set is not in the working directory, provide the complete file path in the `read.csv` function, like this:
 
 `ds <- read.csv("/Users/me/Datasets/Class Data Set Factored.csv", header = TRUE)`
 
 __Try it!__ Load a data set.
 
 ```{r 1_import, echo = TRUE}
-ds <- read.csv("https://github.com/ripberjt/qrmlabs/raw/master/Class%20Data%20Set%20Factored.csv", header = TRUE)
+
 ```
