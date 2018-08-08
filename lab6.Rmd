@@ -22,8 +22,6 @@ library(tidyverse)
 library(psych)
 library(car)
 library(vcd)
-library(grid)
-library(gridExtra)
 options(scipen = 999)
 ```
 
