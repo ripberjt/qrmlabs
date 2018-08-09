@@ -13,7 +13,7 @@ This lab covers the basics of multivariate linear regression. We begin by review
 3. car
 4. memisc
 5. stargazer
-6. gridExtra
+6. broom
 
 ```{r 8_setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
@@ -22,7 +22,7 @@ library(psych)
 library(car)
 library(memisc)
 library(stargazer)
-library(gridExtra)
+library(broom)
 options(scipen = 999)
 ds <- read.csv("https://github.com/ripberjt/qrmlabs/raw/master/Class%20Data%20Set%20Factored.csv")
 ```
