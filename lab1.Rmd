@@ -95,7 +95,7 @@ There is no strict convention for naming objects; however, there are best practi
     - e.g., `object1` is ok, but `1object` is not
 
 __Important:__ Object names are case sensitive.
-    - object.One and Object.One refer to two separate objects.
+    - e.g., `object.One` and `Object.One` refer to two separate objects
 
 ```{r 1_newobject, echo = TRUE}
 object.One <- 10 + 10
@@ -263,36 +263,18 @@ The `getwd()` function returns the set working directory.
 getwd()
 ```
 
-<!-- ## Part VII: Importing Your Data -->
+## Part VII: Importing Your Data
 
-<!-- Data sets should be downloaded from the GitHub repository, http://www.need_url.com. __Note:__ The data set should be saved within the working directory. -->
+R can read many different file types, including text files, Excel files, Google Sheet files, SPSS files, and Stata files. It can even read data sets directly from websites. The file type determines the function that is necessary import a data set. For example CSV files use the function `read.csv` to import a dataset. Here is an example that uses this function:
 
-<!-- Data sets are commonly saved with the comma separated value file extension (e.g., .csv). CSV files stores data similar to the Excel spreadsheet data structure, and therefore can be viewed easily within Excel.  -->
+`ds <- read.csv("Class Data Set Factored.csv", header = TRUE)`
 
-<!-- __Note:__ Be careful when accessing CSV files within Excel. Excel removes leading zeroes from values, which may impact the integrity of your data if you save the file after viewing in Excel. -->
+This line of code saves the data set in `Class Data Set Factored.csv` to an object called ds (short for data set). The `header = TRUE` argument tells R that the first row in the data set provides column (or variable) names. __Note:__ This code assumes that `Class Data Set Factored.csv` is in the working directory. To check, use `list.files()`. If the file containing the data set is not in the working directory, provide the complete file path in the `read.csv` function, like this:
 
-<!-- Loading a data set from a CSV file into R requires loading the data set with a function, and saving the contents of that data set to an object. For example, `data\_set\_name <- read.csv("file\_name.csv", header = TRUE)`. The `header = TRUE` argument specifies that the "first row" of the CSV file contains the variable names for that data set's columns. If the CSV file does not contain the variable names in the first row, you can change `TRUE` to `FALSE`. -->
+`ds <- read.csv("/Users/me/Datasets/Class Data Set Factored.csv", header = TRUE)`
 
-<!-- For labs, the following code should look like this: -->
+__Try it!__ Load a data set.
 
-<!-- `ds <- read.csv("Class Data Set Factored.csv", header = TRUE)` -->
+```{r 1_import, echo = TRUE}
 
-<!-- __Try it!__ Load a data set. -->
-
-<!-- ```{r 1_import, echo = TRUE} -->
-<!-- ds <- read.csv("https://github.com/ripberjt/qrmlabs/raw/master/Class%20Data%20Set%20Factored.csv", header = TRUE) -->
-<!-- ``` -->
-
-<!-- ## Part VIII: Exploring to Your Data -->
-
-
-
-<!-- ## Part IX: Exporting a CSV -->
-
-<!-- Saving a CSV data set can be performed via the `write.csv()` function by specifying the object to save and the file name to write. For example, `write.csv(data\_set\_name, file = "filename.csv")`. -->
-
-<!-- To demonstrate, the `ds` data set is saved as `newds.csv` within the working directory. -->
-
-<!-- ```{r 1_export, echo = TRUE} -->
-<!-- write.csv(ds, file = "newds.csv") -->
-<!-- ``` -->
+```
