@@ -8,33 +8,31 @@ output: pdf_document
 
 So far we have covered many different techniques of statistical analysis. This lab will cover the basics of statistical simulations. As a foundation for this, we will be using the various functions associated with the Zelig Project. Zelig provides a method of simulating outcomes based on certain parameters, but it also provides a different way of constructing almost any model in R. The following packages are required for this lab: 
 
-1. ggplot2
+1. tidyverse
 2. psych
 3. car
 4. memisc
 5. stargazer
-6. gridExtra
-7. reshape2
-8. MASS
-9. pscl
-10. DAMisc
-11. zeligverse
-12. dplyr
+6. reshape2
+7. MASS
+8. pscl
+9. DAMisc
+10. zeligverse
+
 
 ```{r 13_setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
-library(ggplot2)
+library(tidyverse)
 library(psych)
 library(car)
 library(memisc)
 library(stargazer)
-library(gridExtra)
 library(reshape2)
 library(MASS)
 library(pscl)
 library(DAMisc)
 library(zeligverse)
-library(dplyr)
+
 options(scipen = 999)
 ds<-read.csv("https://github.com/ripberjt/qrmlabs/raw/master/Class%20Data%20Set%20Factored.csv")
 ```
@@ -43,29 +41,29 @@ ds<-read.csv("https://github.com/ripberjt/qrmlabs/raw/master/Class%20Data%20Set%
 
 The basics of Zelig can be broken down into four steps:
 
-1. _zelig()_ function to estimate parameters.
-2. _setx()_ to set values.
-3. _sim()_ to simulate the quantities of interest.
-4. _plot()_ to visualize the simulation results. 
+1. `zelig()` function to estimate parameters.
+2. `setx()` to set values.
+3. `sim()` to simulate the quantities of interest.
+4. `plot()` to visualize the simulation results. 
 
 As the lab progresses, we will amend the steps, but these are almost always a good place to start.
 
 First create a subset of data and remove missing observations.
 
 ```{r 13_zel, echo=TRUE}
-ds.sub <- filter(ds) %>%
+ds.sub <- ds %>%
   dplyr::select("footage", "income", "education", "age") %>%
   na.omit()
 ```
 
-Use OLS regression to look at the relationship between square footage of a home (DV) and the IVs income, age, and education. First we use _zelig()_ to specify the model, indicate _model="ls"_. For the income variable use logged income. As we've shown many times throughout the labs, the income variable has a skew. 
+Use OLS regression to look at the relationship between square footage of a home (DV) and the IVs income, age, and education. First we use `zelig()` to specify the model, indicate `model="ls"`. For the income variable use logged income. As we've shown many times throughout the labs, the income variable has a skew. 
 
 ```{r 13_zel2, echo=TRUE}
 ds.sub$log.inc <- log(ds.sub$income)
 ols1 <- zelig(footage ~ log.inc + age + education, data = ds.sub, model = "ls", cite = FALSE)
 ```
 
-Just like any other model, we look at the results using the usual methods. Let's start with _summary()_:
+Just like any other model, we look at the results using the usual methods. Let's start with `summary()`:
 
 ```{r 13_zel3, echo=TRUE}
 summary(ols1)
@@ -76,7 +74,7 @@ As we could have guessed, increased income corresponds with increased square foo
 ```{r 13_zel4, echo=TRUE}
 table(ds.sub$education)
 ```
-According to the code book, a 2 indicates a High School education, and 6 indicates a Bachelor's degree. We can set the x value of education to both 2 and 6, and then have Zelig run Monte Carlo simulations, creating quantities of interest that we can compare. Use _setx()_ and _setx1()_ to set the two x values:
+According to the code book, a 2 indicates a High School education, and 6 indicates a Bachelor's degree. We can set the x value of education to both 2 and 6, and then have Zelig run Monte Carlo simulations, creating quantities of interest that we can compare. Use `setx()` and `setx1()` to set the two x values:
 
 ```{r 13_zel5, echo=TRUE}
 ols1.ed <- setx(ols1, education = 2)
@@ -84,14 +82,14 @@ ols1.ed <- setx1(ols1.ed, education = 6)
 ols1.ed
 ```
 
-The next step is to use the _sim()_ function. This will use Monte Carlo simulations to generate quantiles of interest at each of the specified levels. In the past we might have predicted a Y value based on a model, but this will allow us to see mean, standard deviation, and more, based on 1000 simulations at each level of x. 
+The next step is to use the `sim()` function. This will use Monte Carlo simulations to generate quantiles of interest at each of the specified levels. In the past we might have predicted a Y value based on a model, but this will allow us to see mean, standard deviation, and more, based on 1000 simulations at each level of x. 
 
 ```{r 13_zel6, echo=TRUE}
 ols.sim <- sim(ols1.ed)
 summary(ols.sim)
 ```
 
-Next we use _plot()_ to visualize the various QIs. I recommend clicking the "Show in New Window" button in the top right corner of the space below. __Note:__ This is not visible via the knit PDF.
+Next we use `plot()` to visualize the various QIs. I recommend clicking the "Show in New Window" button in the top right corner of the space below. __Note:__ This is not visible via the knit PDF.
 
 ```{r 13_zel7, echo=TRUE, error=TRUE}
 plot(ols.sim)
@@ -107,7 +105,7 @@ plot(ols2.ed)
 
 ### Plotting Predictions with Zelig
 
-Zelig is useful in another way: plotting predictions. By adding only two more steps to the process, R can return a data frame of information in the tidyverse format that we plot with _ggplot2_. Let's plot predicted values of Y, square footage of home, by each education level. We've got the simulated values, so use *zelig_qi_to_df()* to transform the data into a data frame, and use *qi_slimmer()* to slim the values and generate confidence intervals for each point:
+Zelig is useful in another way: plotting predictions. By adding only two more steps to the process, R can return a data frame of information in the tidyverse format that we plot with `ggplot2`. Let's plot predicted values of Y, square footage of home, by each education level. We've got the simulated values, so use `zelig_qi_to_df()` to transform the data into a data frame, and use `qi_slimmer()` to slim the values and generate confidence intervals for each point:
 
 ```{r 13_zel9, echo=TRUE}
 ols.ed.df <- zelig_qi_to_df(ols2.ed) %>%
@@ -120,7 +118,7 @@ Take a look at the new data:
 ols.ed.df
 ```
 
-Logged income and age are held at their means, education is sequenced from 1 to 8, and there are three other groups of values. *Qi_ci_min* is the lower limit, *qi_ci_median* is the estimate, and *qi_ci_max* is the upper limit. Let's plot them. Make sure to use _factor(education)_ to treat each level separately. 
+Logged income and age are held at their means, education is sequenced from 1 to 8, and there are three other groups of values. `Qi_ci_min` is the lower limit, `qi_ci_median` is the estimate, and `qi_ci_max` is the upper limit. Let's plot them. Make sure to use `factor(education)` to treat each level separately. 
 
 ```{r 13_zel11, echo=TRUE}
 ggplot(ols.ed.df, aes(factor(education), qi_ci_median)) +
@@ -139,13 +137,13 @@ ds$trump <- car::recode(ds$vote_cand, "0 = 1;1 = 0;else = NA;NA = NA")
 Subset the data and remove missing observations:
 
 ```{r 13_zel13, echo=TRUE}
-ds.sub <- filter(ds) %>% select("footage", "trump", "gender",
+ds.sub <- ds %>% dplyr::select("footage", "trump", "gender",
                                 "ideol", "income", "education", "race", "age") %>%
-  na.omit()
-ds.sub$log.inc <- log(ds.sub$income)
+  na.omit() %>%
+  mutate(log.inc = log(income))
 ```
 
-Build a model that includes gender, ideology, logged income, education, and race. To indicate a logit model, include _model="logit"_:
+Build a model that includes gender, ideology, logged income, education, and race. To indicate a logit model, include `model="logit"`:
 
 ```{r 13_zel14, echo=TRUE}
 z.log <- zelig(trump ~ gender + ideol + log.inc + education + race, data = ds.sub, model="logit", cite=FALSE)
@@ -166,15 +164,14 @@ Now take a look at the data frame:
 log.out
 ```
 
-Next make the visualization. To show that there are different ways to visualize this information, include _coord_flip()_ in the code:
+Next make the visualization. 
 
 ```{r 13_zel17, echo=TRUE}
 ggplot(log.out, aes(factor(education), qi_ci_median))+
   geom_errorbar(aes(ymin = qi_ci_min, ymax = qi_ci_max), width = .2) +
   geom_point(size = 2) +
   ylab("Predicted Probability of Trump Vote") +
-  xlab("Education Level") +
-  coord_flip()
+  xlab("Education Level")
 ```
 
 ### Ordered Logit 
@@ -196,7 +193,8 @@ ds$s.energy <- with(ds, enrgy_steps_lghts + enrgy_steps_heat + enrgy_steps_ac +
 Subset the data and remove missing observations:
 
 ```{r 13_ord2, echo=TRUE}
-ds.sub3 <- filter(ds) %>% dplyr::select("s.energy", "ideol", "age", "glbcc_risk") %>%
+ds.sub3 <- ds %>%
+  dplyr::select("s.energy", "ideol", "age", "glbcc_risk") %>%
   na.omit()
 ```
 
@@ -206,7 +204,7 @@ Create a factored version of the index:
 ds.sub3$f.energy <- factor(ds.sub3$s.energy)
 ```
 
-Build the model using _model="ologit"_:
+Build the model using `model="ologit"`:
 
 ```{r 13_ord4, echo=TRUE}
 logit1 <- zelig(f.energy ~ ideol + age + glbcc_risk, data=ds.sub3,
@@ -221,10 +219,10 @@ summary(logit1)
 
 We're primarily interested in the relationship between climate change risk and energy-saving activities. Normally the next step would be to sequence climate change risk from one to ten and generate predicted probabilities, but we already did that in the last lab. This time, let's use Zelig to generate predicted values. These next steps might get a little messy, so here they are:
 
-1. Use _setx()_ and _sim()_ to simulate values for each level of climate change risk. Then use _get_qi()_ to extract the predicted values. We have to do this for each level separately.
+1. Use `setx()` and `sim()` to simulate values for each level of climate change risk. Then use `get_qi()` to extract the predicted values. We have to do this for each level separately.
 2. Put all the predicted values into a data frame:
-3. Use _melt()_ to melt the data frame into long form:
-4. Use ggplot2 and *facet_wrap()* to create bar plots of the predicted values.
+3. Use `melt()` to melt the data frame into long form:
+4. Use ggplot2 and `facet_wrap()` to create bar plots of the predicted values.
 
 We can do steps one and two together in one line of code by piping:
 
@@ -266,7 +264,7 @@ pv.m <- melt(pv.df, measure.vars = c("pv.0", "pv.1", "pv.2","pv.3","pv.4","pv.5"
                                      "pv.6","pv.7","pv.8","pv.9","pv.10"))
 ```
 
-Plot the predicted values. Remember, these are the predicted values that Zelig found by doing 1000 simulations at each level, not just one predicted value. Use _geom_bar()_ to bar plots:
+Plot the predicted values. Remember, these are the predicted values that Zelig found by doing 1000 simulations at each level, not just one predicted value. Use `geom_bar()` to bar plots:
 
 ```{r 13_ord9, echo=TRUE}
 ggplot(pv.m, aes(value)) +
@@ -312,7 +310,7 @@ ggplot(inc.out, aes(factor(log.inc), qi_ci_median)) +
 
 ## Part III: Zelig with non-Zelig Models:
 
-There are some models that can be specified outside of Zelig but that you can use the Zelig functions on. The complete list can be found on the Zelig website, but we can demonstrate with the _lm()_ function. Here's a classic model from our labs:
+There are some models that can be specified outside of Zelig but that you can use the Zelig functions on. The complete list can be found on the Zelig website, but we can demonstrate with the `lm()` function. Here's a classic model from our labs:
 
 ```{r 13_ex5, echo=TRUE}
 ds$log.inc <- log(ds$income)
@@ -320,7 +318,7 @@ lm1 <- lm(glbcc_risk ~ glbcc_cert + log.inc + education + gender + ideol, data=d
 summary(lm1)
 ```
 
-We pass this model along to _setx()_ and go from there. Let's sequence ideology from 1 to 7:
+We pass this model along to `setx()` and go from there. Let's sequence ideology from 1 to 7:
 
 ```{r 13_ex6, echo=TRUE}
 lm1.out <- setx(lm1, ideol=1:7) %>%
@@ -353,7 +351,7 @@ lm2 <- lm(vote_cand_spt ~ ideol + education + log.inc + age + gender + f.party.2
 summary(lm2)
 ```
 
-Within the _zetx()_ function we can sequence ideology from 1 to 7 and sequence the three party options, Democrats, Independents, and Republicans. Then use _sim()_. Doing so will perform 1000 simulations for each level of ideology and each party, so 1000 for Democrats with an ideology score of 1, 1000 for Democrats with an ideology score of 2, and so on. 
+Within the `setx()` function we can sequence ideology from 1 to 7 and sequence the three party options, Democrats, Independents, and Republicans. Then use `sim()`. Doing so will perform 1000 simulations for each level of ideology and each party, so 1000 for Democrats with an ideology score of 1, 1000 for Democrats with an ideology score of 2, and so on. 
 
 ```{r 13_ex10, echo=TRUE}
 lm2.out <- setx(lm2, ideol=1:7, f.party.2=c("Dem", "Ind", "Rep")) %>%

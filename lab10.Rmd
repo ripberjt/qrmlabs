@@ -8,24 +8,23 @@ output: pdf_document
 
 This lab focuses on issues that arise with non-linearity, non-normality, and multicollinearity. We begin with non-linearity. The following packages are required for this lab: 
 
-1. ggplot2
+1. tidyverse
 2. psych
 3. car
 4. memisc
 5. stargazer
-6. gridExtra
-7. reshape2
-8. dplyr
+6. reshape2
+7. skimr
+
 ```{r 10_setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
-library(ggplot2)
+library(tidyverse)
 library(psych)
 library(car)
 library(memisc)
 library(stargazer)
-library(gridExtra)
 library(reshape2)
-library(dplyr)
+library(skimr)
 options(scipen = 999)
 ds <- read.csv("https://github.com/ripberjt/qrmlabs/raw/master/Class%20Data%20Set%20Factored.csv")
 ```
@@ -37,10 +36,12 @@ ds <- read.csv("https://github.com/ripberjt/qrmlabs/raw/master/Class%20Data%20Se
 A critical assumption of OLS is that the relationship between variables are linear in their functional form, therefore it is imperative to inspect whether a model consist of non-linear relationships between variables of interest. As the book describes, regression diagnostics is largely an art. To demonstrate, suppose you want to examine the relationship between ideology and candidate support in the 2016 presidential election. The survey associated to the class data set asked respondents to indicate on a scale of 1 to 5 the level of support they have for the candidate they voted for in the 2016 presidential election. We will start by exploring data in preparation for a linear regression model:
 
 ```{r 10_poly, echo=TRUE}
-sub <- filter(ds) %>% dplyr::select("vote_cand_spt", "ideol","education",
+sub <- filter(ds) %>%
+  dplyr::select("vote_cand_spt", "ideol","education",
                                     "income", "age", "gender", "f.gender",
                                     "glbcc_cert", "f.party", "glbcc_risk",
-                                    "cncrn_econ") %>% na.omit()
+                                    "cncrn_econ") %>%
+  na.omit()
 ```
 
 Now examine the candidate support variable:
@@ -66,31 +67,33 @@ summary(model)
 
 Based on the p-values for the model variables, the ideology variable does not appear to help us understand what candidate the responded supported; however, we should examine the linearity of the variables. One way to do this is to plot the residuals by the values of the independent variables. Residual relationships should constitute a straight line with the residuals spread around a line at zero. To build this visualization we need to:
 
-1. Create variables in the data set for the residuals and fitted (predicted) values.
+1. Use `augment()` to predict values and create a data frame containing fitted values and residuals
 2. Melt the data into long form, sorted by independent variables.
-3. Visualize the  relationship between the residuals and IVs simultaneously using *facet_wrap()*.
+3. Visualize the  relationship between the residuals and IVs simultaneously using `facet_wrap()`.
 
-First the residuals and fitted values:
+First the residuals and fitted values. Use `head()` to look at the first five observations in the data frame:
 
 ```{r 10_lin2, echo=TRUE}
-sub$mod.fit <- predict(model)
-sub$mod.res <- residuals(model)
+model %>%
+  augment() -> m.df
+head(m.df)
 ```
 
 Now we need to melt the data into rows with unique id-variable combinations.
 
 ```{r 10_lin3, echo=TRUE}
-sub.melt <- melt(sub, measure.vars = c("ideol", "education", "income", "age",
-                                       "gender", "mod.fit"))
-head(sub.melt)
+m.df %>%
+melt(measure.vars = c("ideol", "education", "income", "age",
+                                       "gender", ".fitted")) -> m.df
+head(m.df)
 ```
 
-The next step is to plot the residuals by the values of the independent variables. We're going to use _geom_smooth()_ to create a loess line that approximates the spread of our data, and we will use _geom_hline()_ to plot a horizontal line at 0. Then we will use _facet_wrap()_ to tell create different plots for each independent variable of the model:
+The next step is to plot the residuals by the values of the independent variables. We're going to use `geom_smooth()` to create a loess line that approximates the spread of our data, and we will use `geom_hline()` to plot a horizontal line at 0. Then we will use `facet_wrap()` to tell create different plots for each independent variable of the model:
 
-```{r 10_lin4, echo=TRUE}
-ggplot(sub.melt, aes(value, mod.res, group = variable)) +
+```{r 10_lin4, echo=TRUE, warning=FALSE}
+ggplot(m.df, aes(value, .std.resid)) +
   geom_point(shape = 1) +
-  geom_smooth(aes(value, mod.res), method = "loess") +
+  geom_smooth(aes(value, .std.resid), method = "loess") +
   geom_hline(yintercept = 0) +
   facet_wrap(~variable, scales = "free_x")
 ```
@@ -99,14 +102,14 @@ We can see there are some potential non-linear relationships, for instance: the 
 
 For example, when thinking about how ideology might influence candidate support, this could be an instance when a quadratic model might be appropriate. Think about it: it doesn't make any sense to theorize that the more conservative an individual, the more enthusiastic they were for the candidate they voted for, regardless of the candidate, but it **does** make sense to theorize that the more ideologically extreme an individual is (very liberal or very conservative) the more they supported the candidate they voted for. Perhaps the moderates voting in the 2016 election felt left our or alienated by the polarized political environment, and therefore could have had support for the candidate they voted for. 
 
-With this in mind, let's build a new model to include ideology as a squared term. __Note:__ The syntax to use a polynomial is: _poly(var,# of powers)_. The _poly_ function creates an independent variable for each of the powers as required to create orthogonal power terms. Let's construct the model:
+With this in mind, let's build a new model to include ideology as a squared term. __Note:__ The syntax to use a polynomial is: `poly(var,# of powers)`. The `poly` function creates an independent variable for each of the powers as required to create orthogonal power terms. Let's construct the model:
 
 ```{r 10_poly4, echo=TRUE}
 pol <- lm(vote_cand_spt ~ poly(ideol,2) + education + income + age + gender, data = sub)
 summary(pol)
 ```
 
-We see that our squared ideology term is statistically significant, but the coefficient may not provide us an intuitive interpretation. Before visualizing the model, it may be helpful to compare the new model to the previous, via the _anova()_ function, to compare fit to the data:
+We see that our squared ideology term is statistically significant, but the coefficient may not provide us an intuitive interpretation. Before visualizing the model, it may be helpful to compare the new model to the previous, via the `anova()` function, to compare fit to the data:
 
 ```{r 10_comp, echo=TRUE}
 anova(model, pol)
@@ -130,38 +133,35 @@ ggplot(sub, aes(ideol, vote_cand_spt)) +
 
 Now add the regression line and confidence interval. To do this we will:
 
-1. Create predicted values and standard error values of candidate support using the _predict()_ function, while holding all other values constant at their mean.
-2. Generate upper and lower limits of the confidence interval.
-3. Add the vectors to a data frame.
-4. Visualize.
+1. Create predicted values and standard error values of candidate support using the `augment()` function, while holding all other values constant at their mean.
+2. Generate upper and lower limits of the confidence interval using `mutate()`
+3. Visualize.
 
 First predict. We are going to sequence ideology from 1 to 7 by 0.1 instead of by 1 to produce a smoother line:
 
 ```{r 10_poly6, echo=TRUE}
-p.pol <- predict(pol, newdata = data.frame(ideol = seq(1, 7, .1),
-                                            education = mean(sub$education), income = mean(sub$income),
-                                            age = mean(sub$age), gender = mean(sub$gender)), se.fit = T)
+pol %>%
+  augment(newdata = data.frame(ideol = seq(1,7,.1),
+                               education = mean(sub$education),
+                               income = mean(sub$income),
+                               age = mean(sub$age),
+                               gender= mean(sub$gender))) -> pol.df
 ```
 
 Now create the upper and lower limits of the confidence interval:
 
 ```{r 10_poly7, echo=TRUE}
-up.pol <- p.pol$fit + 1.96 * p.pol$se.fit
-low.pol <- p.pol$fit - 1.96 * p.pol$se.fit
+pol.df %>%
+  mutate(upper = .fitted + 1.96 * .se.fit,
+         lower = .fitted - 1.96 * .se.fit) -> pol.df
 ```
 
-Add the vectors to a data frame:
-
-```{r 10_poly8, echo=TRUE}
-df.pol <- data.frame(ideol=seq(1, 7, .1), p.pol, up.pol, low.pol)
-```
-
-The next step is to visualize. Use _geom_line()_ to create the line, and _geom_ribbon()_ to create the confidence interval. For practice, let's label the axes and add a title. 
+The next step is to visualize. Use `geom_line()` to create the line, and `geom_ribbon()` to create the confidence interval. For practice, let's label the axes and add a title. 
 
 ```{r 10_poly9, echo=TRUE}
-ggplot(df.pol, aes(ideol, fit)) +
-  geom_line(data = df.pol, aes(ideol, fit), size = 1, color = "dodgerblue") +
-  geom_ribbon(aes(ymin = low.pol, ymax = up.pol), alpha = .2) +
+ggplot(pol.df, aes(ideol, .fitted)) +
+  geom_line(size = 1, color = "dodgerblue") +
+  geom_ribbon(aes(ymin = lower, ymax = upper), fill = "dodgerblue", alpha = .5) +
   coord_cartesian(ylim = c(2:5), xlim = c(1:7)) +
   xlab("Ideology") +
   ylab("Support for Candidate") +
@@ -181,13 +181,14 @@ summary(lm1)
 
 Now plot the residuals by the independent variables:
 
-```{r 10_cube2, echo=TRUE}
-sub$lm1.fit <- predict(lm1)
-sub$lm1.res <- residuals(lm1)
-lm1.melt <- melt(sub, measure.vars = c("ideol", "education", "age", "gender", "lm1.fit"))
-ggplot(lm1.melt, aes(value, lm1.res, group = variable)) +
+```{r 10_cube2, echo=TRUE, warning=FALSE}
+lm1 %>%
+  augment() %>%
+  melt(measure.vars = c("ideol", "education", "age",
+                        "gender", ".fitted")) %>%
+ggplot(., aes(value, .std.resid)) +
   geom_point(shape = 1) +
-  geom_smooth(aes(value, lm1.res), method = "loess") +
+  geom_smooth(aes(value, .std.resid), method = "loess") +
   geom_hline(yintercept = 0) +
   facet_wrap(~variable, scales = "free_x")
 ```
@@ -213,20 +214,20 @@ anova(lm1, cubed)
 
 The ANOVA test tells us that our cubed model is a better fit. This is likely due to the square term, which is statistically significant. Nonetheless, let's visualize this so you have experience seeing cubed lines. 
 
-Follow the same steps as last time, predicting values, calculating the confidence interval, and plotting using _geom_line()_ and _geom_ribbon()_. 
+Follow the same steps as last time, predicting values, calculating the confidence interval, and plotting using `geom_line()` and `geom_ribbon()`. 
 
 ```{r 10_cube6, echo=TRUE}
-p.cubed <- predict(cubed, newdata = data.frame(ideol = seq(1, 7, .1),
-                                             education = mean(sub$education), income = mean(sub$income),
-                                             age = mean(sub$age),
-                                             gender = mean(sub$gender)), se.fit = T)
-up.cubed <- p.cubed$fit + 1.96 * p.cubed$se.fit
-low.cubed <- p.cubed$fit - 1.96 * p.cubed$se.fit
-df.cubed <- data.frame(ideol = seq(1, 7, .1), p.cubed, up.cubed, low.cubed)
-#windows()
-ggplot(df.cubed, aes(ideol, fit)) +
-  geom_line(data = df.cubed, aes(ideol, fit), size = 1, color = "dodgerblue") +
-  geom_ribbon(aes(ymin = low.cubed, ymax = up.cubed), alpha = .2) +
+cubed %>%
+  augment(newdata = data.frame(ideol = seq(1,7,.1),
+                               education = mean(sub$education),
+                               age = mean(sub$age),
+                               gender= mean(sub$gender))) %>%
+  mutate(upper = .fitted + 1.96 * .se.fit,
+         lower = .fitted - 1.96 * .se.fit) -> cube.df
+
+ggplot(cube.df, aes(ideol, .fitted)) +
+  geom_line(size = 1, color = "dodgerblue") +
+  geom_ribbon(aes(ymin = lower, ymax = upper), fill = "dodgerblue", alpha = .5) +
   coord_cartesian(ylim = c(1:10), xlim = c(1:7)) +
   xlab("Ideology") +
   ylab("Climate Change Risk") +
@@ -254,7 +255,7 @@ table(ds$v.trump)
 Now pull the variables into a new data set and remove missing observations:
 
 ```{r 10_non3, echo=TRUE}
-new.ds <- filter(ds) %>% dplyr::select("income", "gender", "ideol",
+new.ds <- ds %>% dplyr::select("income", "gender", "ideol",
                                        "v.trump", "education") %>%
   na.omit()
 ```
@@ -270,17 +271,14 @@ psych::describe(new.ds$ideol)
 Look at the density distributions:
 
 ```{r 10_non5, echo=TRUE}
-inc <- ggplot(new.ds, aes(income)) +
-  geom_density(adjust = 2)
-educ <- ggplot(new.ds, aes(education)) +
-  geom_density(adjust = 2)
-id <- ggplot(new.ds, aes(ideol)) +
-  geom_density(adjust = 2)
-grid.arrange(inc, educ, id, nrow = 1, ncol = 3)
-
+new.ds %>%
+  melt(measure.vars = c("income", "education", "ideol")) %>%
+  ggplot(., aes(value)) +
+  geom_density(adjust = 2) +
+  facet_wrap(~ variable, scales = "free")
 ```
 
-It is clear that the income variable has a large positive. Education and ideology are slightly skewed. One way to fix a skewed variable is to transform it, often by a log. Let's try that:
+It is clear that the income variable has a large positive skew. Education and ideology are slightly skewed. One way to fix a skewed variable is to transform it, often by a log. Let's try that:
 
 ```{r 10_non6, echo=TRUE}
 new.ds$log.inc <- log(new.ds$income)
@@ -332,7 +330,9 @@ Recall that the Shapiro-Wilk test tests against the null hypothesis that data ar
 Multicollinearity occurs when one independent variable of a model can be predicted with a high degree of accuracy by another independent variable. Even though perfect multicollinearity is very rare, checking for multicollinearity is an important exercise. The first way to explore potential multicollinearity is to check the collinearity between independent variables:
 
 ```{r 10_mc, echo=TRUE}
-data.frame(new.ds$ideol, new.ds$log.inc, new.ds$education) %>% cor()
+new.ds %>%
+  dplyr::select(ideol, log.inc, education) %>%
+  cor()
 ```
 
 There does not appear to be extremely highly-correlated variables. We should find the variance inflation factor, which measures the increase in variance of the other coefficients due to the inclusion of a particular variable:
@@ -346,7 +346,8 @@ Generally speaking, you do not want to have a value greater than 5. This model d
 Now let's use an example that combines everything we've gone over so far. Let's examine the relationship between square footage of the respondent's home and income, age, and education. Start by selecting the data and removing missing observations:
 
 ```{r 10_ex, echo=TRUE}
-d <- filter(ds) %>% dplyr::select("footage", "income", "age", "education") %>% 
+d <- ds %>%
+  dplyr::select("footage", "income", "age", "education") %>% 
   na.omit()
 
 ```
@@ -354,9 +355,8 @@ d <- filter(ds) %>% dplyr::select("footage", "income", "age", "education") %>%
 First examine the independent variables:
 
 ```{r 10_ex2, echo=TRUE}
-psych::describe(d$age)
-psych::describe(d$education)
-psych::describe(d$income)
+d %>%
+  skim(age, education, income)
 ```
 
 Like earlier, we should do a log-transformation of income:
@@ -375,7 +375,9 @@ summary(mod)
 Check for multicollinearity:
 
 ```{r 10_ex5, echo=TRUE}
-data.frame(d$age,d$education,d$log.inc) %>% cor()
+d %>%
+  dplyr::select(age, education, log.inc) %>%
+  cor()
 ```
 
 ```{r 10_ex6, echo=TRUE}
@@ -387,12 +389,12 @@ Taking all this into account, there does not appear to be a problem with multico
 Now let's examine the linearity of the variables. Recall the plot we made earlier that plots the independent variables by the residuals. Let's do that again:
 
 ```{r 10_ex7, echo=TRUE}
-d$mod.fit <- predict(mod)
-d$mod.res <- residuals(mod)
-d.melt <- melt(d, measure.vars = c("education", "age", "mod.fit", "log.inc"))
-ggplot(d.melt, aes(value, mod.res,group = variable)) +
+mod %>%
+  augment() %>%
+  melt(measure.vars = c("education", "age", "log.inc", ".fitted")) %>%
+  ggplot(., aes(value, .std.resid)) +
   geom_point(shape = 1) +
-  geom_smooth(aes(value, mod.res), method = "loess", color = "red")+
+  geom_smooth(method = loess, color = "red") +
   geom_hline(yintercept = 0) +
   facet_wrap(~variable, scales = "free_x")
 ```
@@ -422,7 +424,7 @@ Let's take a look at the results of the model again:
 summary(mod)
 ```
 
-To interpret this model, we would say that a one unit increase in age corresponds with a 9.633 unit increase in square footage of home. Looking at education, we would say that a one unit increase in *log income* corresponds with a 536.9 unit increase in home square footage. Practically speaking though, how large is the difference between the age increase and the log income increase? We can see it is almost a 530 square foot difference, but when thinking about the overall distribution of the square footage variable, is that a lot? 
+To interpret this model, we would say that a one unit increase in age corresponds with a 9.633 unit increase in square footage of home. Looking at education, we would say that a one unit increase in `log income` corresponds with a 536.9 unit increase in home square footage. Practically speaking though, how large is the difference between the age increase and the log income increase? We can see it is almost a 530 square foot difference, but when thinking about the overall distribution of the square footage variable, is that a lot? 
 
 ## Part IV: Standardizing Coefficients
 
@@ -432,7 +434,7 @@ If you want to compare coefficients of different scales, you need to standardize
 2. Standardize the independent variables.
 3. Standardize all the variables.
 
-Standardizing a variable makes it scaled in standard deviations. This allows us to compare across variables that were originally scaled in different units. Let's use the previously developed model, but this time we will standardize the dependent variable only. Use the _scale()_ function on the footage variable to standardize it:
+Standardizing a variable makes it scaled in standard deviations. This allows us to compare across variables that were originally scaled in different units. Let's use the previously developed model, but this time we will standardize the dependent variable only. Use the `scale()` function on the footage variable to standardize it:
 
 ```{r 10_stan, echo=TRUE}
 d$z.footage <- scale(d$footage)
