@@ -23,16 +23,14 @@ This lab helps us understand how to diagnose and address potential problems in O
 
 ```{r 11_setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
-library(ggplot2)
+library(tidyverse)
 library(psych)
 library(car)
 library(memisc)
 library(stargazer)
-library(gridExtra)
 library(reshape2)
 library(stargazer)
 library(MASS)
-library(sandwich)
 library(plotly)
 ds <- read.csv("https://github.com/ripberjt/qrmlabs/raw/master/imdb_2014.csv")
 options(scipen = 999)
@@ -43,7 +41,7 @@ options(scipen = 999)
 For this lab we will use a data set that contains information on movies from the IMDB website. The initial data set contains almost 60,000 observations, so we filter the data to make it a little smaller:
 
 ```{r 11_int, echo=TRUE}
-ds <- filter(ds, year>=1995 & votes>1000 & Short!=1) %>% select(rating, length, budget,
+ds <- filter(ds, year>=1995 & votes>1000 & Short!=1) %>% dplyr::select(rating, length, budget,
                                                                 votes, title, year) %>%
   na.omit()
 ```
@@ -81,9 +79,10 @@ describe(ds)
 We will want to start with a clean up a couple variables. First, we can scale the budget variable by millions of dollars, scale votes by thousands, and factor the year variable:
 
 ```{r 11_int7, echo=TRUE}
-ds$budget_1m <- ds$budget/1000000
-ds$votes_1k <- ds$votes/1000
-ds$f.year <- factor(ds$year)
+ds %>%
+  mutate(budget_1m = budget/1000000,
+         votes_1k = votes/1000,
+         f.year = factor(year)) -> ds
 ```
 
 The next step should be to look at the univariate distributions. Create histograms for the length, budget, user ratings, and votes variables. First you'll need to melt the data:
@@ -286,17 +285,18 @@ stargazer(fit1, fit1, type = "text", single.row = TRUE, se = list(se.fit1, rse.f
 
 ## Part IV: Revisiting Linearity
 
-Let's revisit addressing the assumption of linearity by constructing the residual plots that we made in the last lab. We need to predict values of _y_ and add that to the data set, add the residuals to the data set, melt the data and select the IVs, and predicted values, then use _ggplot()_ and *facet_wrap()* to make the plots:
+Let's revisit addressing the assumption of linearity by constructing the residual plots that we made in the last lab. Recall that these are made by using `augment()` to predict values and calculate residuals, melt the data into long form and identify the independent variables and fitted values are your measure variables, then pipe it all into `ggplot2` and use `facet_wrap()` to create a visualization for each variable. 
 
 ```{r 11_lin, echo=TRUE}
-ds$fit1.p <- predict(fit1)
-ds$fit1.r <- residuals(fit1)
-ds.melt <- melt(ds, measure.vars = c("length", "budget_1m", "votes_1k", "fit1.p"))
-ggplot(ds.melt, aes(value, fit1.r, group=variable)) +
+fit1 %>%
+  augment() %>%
+  melt(measure.vars = c("length", "budget_1m", "votes_1k", ".fitted")) %>%
+  ggplot(., aes(value, .std.resid)) +
   geom_point(shape=1) +
-  geom_smooth(aes(value, fit1.r), method = "loess", se=FALSE) +
+  geom_smooth(method = loess) +
   geom_hline(yintercept = 0) +
   facet_wrap(~variable, scales = "free")
+
 ```
 
 There appears to be a linearity problem. The budget graphics appears to be the most linear, and the others suggest non-linear relationships. Let's examine some more information about the variables:
@@ -306,16 +306,17 @@ describe(ds$length)
 describe(ds$budget_1m)
 describe(ds$votes_1k)
 ```
-There is skew for all three variables, so let's respecify the model by using log of each variable:
+
+There is skew for all three variables, so let's respecify the model by using the log of each variable, then create the same visualization as before:
 
 ```{r 11_lin3, echo=TRUE}
 fit.log <- lm(rating ~ log(length) + log(budget_1m) + log(votes_1k), data = ds)
-ds$fit.log.p <- predict(fit.log)
-ds$fit.log.r <- residuals(fit.log)
-log.melt <- melt(ds, measure.vars = c("length", "budget_1m", "votes_1k", "fit.log.p"))
-ggplot(log.melt, aes(value, fit.log.r, group = variable)) +
+fit.log %>%
+  augment() %>% 
+  melt(measure.vars = c("log.length.", "log.budget_1m.", "log.votes_1k.", ".fitted")) %>%
+ggplot(., aes(value, .std.resid)) +
   geom_point(shape = 1) +
-  geom_smooth(aes(value, fit.log.r), method = "loess", se = FALSE) +
+  geom_smooth(aes(value, .std.resid), method = "loess") +
   geom_hline(yintercept = 0) +
   facet_wrap(~variable, scales = "free")
 ```
@@ -324,15 +325,17 @@ This method fixed some problems and created new ones. The votes graphic suggests
 
 ```{r 11_lin4, echo=TRUE}
 fit.poly <- lm(rating ~ poly(length, 2) + poly(budget_1m, 2) + poly(votes_1k, 2), data = ds)
-ds$fit.poly.p <- predict(fit.poly)
-ds$fit.poly.r <- residuals(fit.poly)
 poly.melt <- melt(ds, measure.vars = c("length", "budget_1m", "votes_1k", "fit.poly.p"))
-ggplot(poly.melt, aes(value, fit.poly.r, group = variable)) +
+fit.poly %>%
+  augment() %>% 
+  melt(measure.vars = c("poly.length..2.", "poly.budget_1m..2.",
+                        "poly.votes_1k..2.",
+                        ".fitted")) %>%
+  ggplot(., aes(value, .std.resid)) +
   geom_point(shape = 1) +
-  geom_smooth(aes(value, fit.poly.r), method = "loess", se = FALSE) +
+  geom_smooth(method = "loess") +
   geom_hline(yintercept = 0) +
   facet_wrap(~variable, scales = "free")
-
 ```
 
 Compare the last three models:
@@ -341,13 +344,16 @@ Compare the last three models:
 stargazer(fit1, fit.log, fit.poly, single.row = TRUE, type = "text")
 ```
 
-The log model has the highest adjusted R squared and residual standard error. 
+The log model has the highest adjusted R squared and lowest residual standard error. 
 
 ### Normality 
 Let's look at the normality of the residuals for the models:
 
 ```{r 11_norm, echo=TRUE}
-ggplot(ds, aes(fit1.r)) +
+ds %>%
+  mutate(fit1.r = residuals(fit1)) ->ds
+
+ggplot(ds,aes(fit1.r)) +
   geom_density() +
   stat_function(fun = dnorm, args = list(mean = mean(ds$fit1.r), 
                                          sd = sd(ds$fit1.r)), color = "red") +
@@ -355,19 +361,24 @@ ggplot(ds, aes(fit1.r)) +
 ```
 
 ```{r 11_norm2, echo=TRUE}
-ggplot(ds, aes(fit.log.r)) +
+ds %>%
+  mutate(log.r = residuals(fit.log)) -> ds
+ggplot(ds, aes(log.r)) +
   geom_density() +
-  stat_function(fun = dnorm, args = list(mean = mean(ds$fit.log.r),
-                                         sd = sd(ds$fit.log.r)), color = "red") +
+  stat_function(fun = dnorm, args = list(mean = mean(ds$log.r),
+                                         sd = sd(ds$log.r)), color = "red") +
   ggtitle("Log Linear Model")
 
 ```
 
 ```{r 11_norm3, echo=TRUE}
-ggplot(ds, aes(fit.poly.r)) +
+ds %>%
+  mutate(poly.r = residuals(fit.poly)) -> ds
+
+ggplot(ds, aes(poly.r)) +
   geom_density() +
-  stat_function(fun = dnorm, args = list(mean = mean(ds$fit.poly.r),
-                                         sd = sd(ds$fit.poly.r)), color="red") +
+  stat_function(fun = dnorm, args = list(mean = mean(ds$poly.r),
+                                         sd = sd(ds$poly.r)), color="red") +
   ggtitle("Polynomial Model")
 
 ```
@@ -411,7 +422,7 @@ ggplot(df.length, aes(length, fit)) +
   theme_bw()
 ```
 
-Now do the same for the next two IVs:
+Now do the same for thse next two IVs:
 
 ```{r 11_pred4, echo=TRUE}
 up.votes <- p.votes$fit + 1.96 * p.votes$se.fit
