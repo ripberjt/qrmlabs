@@ -15,11 +15,11 @@ This lab discusses the basics of visualizing data, probability, the normal distr
 
 ```{r 3_setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
-ds <- read_csv("https://github.com/ripberjt/qrmlabs/raw/master/Class%20Data%20Set%20Factored.csv")
 library(sfsmisc)
 library(psych)
 library(car)
 library(tidyverse)
+ds <- read_csv("https://github.com/ripberjt/qrmlabs/raw/master/Class%20Data%20Set%20Factored.csv")
 ```
 
 ## Part I: Histograms and Density

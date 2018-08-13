@@ -262,7 +262,7 @@ ds %>%
   filter(gender == 0, age == 42)
 ```
 
-Similar to `filter()`, you can use the `select()` function to create a new data set that includes a few variables of interest. Follow it up by using `na.omit()` to remove missing observations:
+Similar to `filter()`, you can use the `select()` function from the `dplyr()` package to create a new data set that includes a few variables of interest. __Note__: `select` is a very common verb in R, and therefore is often masked by other packages. If you encounter an error when using `select()`, include `dplyr::` before calling the function, so that R knows which version of `select()` to use. Follow it up by using `na.omit()` to remove missing observations:
 
 ```{r tidy3, echo=TRUE}
 ds.sub <- ds %>%

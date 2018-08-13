@@ -18,13 +18,13 @@ This lab covers the basics of inference for two populations. We go through propo
 
 ```{r 5_setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
-ds <- read.csv("https://github.com/ripberjt/qrmlabs/raw/master/Class%20Data%20Set%20Factored.csv")
 library(tidyverse)
 library(psych)
 library(car)
 library(vcd)
 library(reshape2)
 library(skimr)
+ds <- read_csv("https://github.com/ripberjt/qrmlabs/raw/master/Class%20Data%20Set%20Factored.csv")
 options(scipen = 999)
 ```
 
@@ -136,7 +136,7 @@ ds %>%
   filter(glbcc == 1)
 ```
 
-Similarly to earlier in the lab, confidence intervals can also be calculated by finding the standard error. In this case, we need to find the standard error for men and women separately. We will use the _filter()_ function to simplify the calculations:
+Similarly to earlier in the lab, confidence intervals can also be calculated by finding the standard error. In this case, we need to find the standard error for men and women separately. We will use the `filter()` function to simplify the calculations:
 
 ```{r 5_2prop3, echo=TRUE}
 male <- filter(ds, gender==1)
@@ -193,32 +193,32 @@ ds$r.gccrsk <- car::recode(ds$glbcc_risk, "0:1=1; 2:3=2; 4:6=3; 7:8:=4; 9:10=5")
 table(ds$r.gccrsk)
 ```
 
-Next the variable is separated by gender using the _table()_ function. The dependent variable, _r.gccrsk_, is specified followed by the independent variable, _f.gender_:
+Next the variable is separated by gender using the `table()` function. The dependent variable, `r.gccrsk`, is specified followed by the independent variable, `f.gender`:
 
 ```{r 5_ct2, echo=TRUE}
 gcc.table <- table(ds$r.gccrsk, ds$f.gender)
 gcc.table
 ```
 
-The _prop.table()_ function describes the relationship by proportions. We convert the proportion to percentage of each response level by gender by including _margin=2_.
+The `prop.table()` function describes the relationship by proportions. We convert the proportion to percentage of each response level by gender by including `margin=2`.
 
 ```{r 5_ct3, echo=TRUE}
 gcc.table %>% prop.table(margin = 2) * 100
 ```
 
-There appears to be a difference in genders; however, as these differences are within a sample we cannot infer there is a difference in the population without an empirical test. We will use the Chi-Square test to empirically test whether there is a statistically significant difference in genders. The _chisq.test()_ function performs the Chi-Square test given on a table:
+There appears to be a difference in genders; however, as these differences are within a sample we cannot infer there is a difference in the population without an empirical test. We will use the Chi-Square test to empirically test whether there is a statistically significant difference in genders. The `chisq.test()` function performs the Chi-Square test given on a table:
 
 ```{r 5_ct4, echo=TRUE}
 chisq.test(gcc.table)
 ```
 
-__Note:__ The _summary()_ function will provide additional information about this table, independent of a Chi-Square test.
+__Note:__ The `summary()` function will provide additional information about this table, independent of a Chi-Square test.
 
 ```{r 5_ct5, echo=TRUE}
 summary(gcc.table)
 ```
 
-Given the Chi-Square test p-value < $\alpha$ = 0.05, the null hypothesis is rejected such that there is a statistically significant difference between gender and perceived risk of climate change. Substantive difference is as important as statistical significance, and a variety of methods exist to test the strength of relationships. For the Chi-Square test, finding Cramer's Vs is the appropriate method. The _assocstats()_ function will return a variety of coefficients and numbers, including Cramer's V.
+Given the Chi-Square test p-value < $\alpha$ = 0.05, the null hypothesis is rejected such that there is a statistically significant difference between gender and perceived risk of climate change. Substantive difference is as important as statistical significance, and a variety of methods exist to test the strength of relationships. For the Chi-Square test, finding Cramer's Vs is the appropriate method. The `assocstats()` function will return a variety of coefficients and numbers, including Cramer's V.
 
 
 ```{r 5_ct6, echo=TRUE}
@@ -315,7 +315,7 @@ Like traditional independent sample tests involving two samples, the variances m
 leveneTest(ds$glbcc_risk ~ ds$f.party.2)
 ```
 
-Given that the p-value < $\alpha$ = 0.05, we reject the null hypothesis such that there is a difference in variances. The `pairwise.t.test()` function can perform the pairwise test, using the _f.party_2_ variable that was factored for Democrats, Republicans, and independents:
+Given that the p-value < $\alpha$ = 0.05, we reject the null hypothesis such that there is a difference in variances. The `pairwise.t.test()` function can perform the pairwise test, using the `f.party_2` variable that was factored for Democrats, Republicans, and independents:
 
 ```{r 5_pairwise, echo=TRUE}
 pairwise.t.test(ds$glbcc_risk, ds$f.party.2, pool.sd=FALSE)

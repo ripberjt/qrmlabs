@@ -17,12 +17,12 @@ This lab introduces the tools for the foundation of inference by examining the n
 
 ```{r 4_setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
-ds <- read.csv("https://github.com/ripberjt/qrmlabs/raw/master/Class%20Data%20Set%20Factored.csv")
 library(car)
 library(psych)
 library(sm)
 library(HistData)
 library(tidyverse)
+ds <- read_csv("https://github.com/ripberjt/qrmlabs/raw/master/Class%20Data%20Set%20Factored.csv")
 options(scipen=999)
 ```
 

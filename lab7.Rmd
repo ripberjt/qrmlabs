@@ -13,16 +13,18 @@ This lab will cover the basics of bivariate linear regression, introducing via m
 3. car
 4. memisc
 5. stargazer
+6. reshape2
 
 
 ```{r 7_setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
-ds <- read.csv("https://github.com/ripberjt/qrmlabs/raw/master/Class%20Data%20Set%20Factored.csv")
 library(tidyverse)
 library(psych)
 library(car)
 library(memisc)
 library(stargazer)
+library(reshape2)
+ds <- read_csv("https://github.com/ripberjt/qrmlabs/raw/master/Class%20Data%20Set%20Factored.csv")
 options(scipen = 999)
 ```
 
@@ -282,7 +284,9 @@ str(sub.ds$okelec_renew)
 The variable appears to be a factor, which needs to be coerced as a numeric type. Recall the `as.numeric()` function:
 
 ```{r 7_7br3, echo=TRUE}
-sub.ds$renew <- as.numeric(sub.ds$okelec_renew)
+sub.ds %>%
+  mutate(renew = as.numeric(okelec_renew)) %>%
+  drop_na() -> sub.ds
 ```
 
 Reassess the structure to ensure it is numeric:

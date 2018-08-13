@@ -15,11 +15,11 @@ Research is not always interested in the contrast of two variables, but oftentim
 
 ```{r 6_setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
-ds <- read.csv("https://github.com/ripberjt/qrmlabs/raw/master/Class%20Data%20Set%20Factored.csv")
 library(tidyverse)
 library(psych)
 library(car)
 library(vcd)
+ds <- read_csv("https://github.com/ripberjt/qrmlabs/raw/master/Class%20Data%20Set%20Factored.csv")
 options(scipen = 999)
 ```
 
@@ -154,7 +154,7 @@ First we will create a subset from the class data set `ds` for the variables of 
 
 ```{r 6_cor5, echo=TRUE}
 ds.sub <- ds %>%
-  select("glbcc_risk", "ideol", "f.gender", "f.party.2") %>%
+  dplyr::select("glbcc_risk", "ideol", "f.gender", "f.party.2") %>%
   na.omit()
 ```
 
@@ -240,7 +240,7 @@ Suppose you are interested in correlations across multiple variables. The `cor()
 
 ```{r 6_cor.group, echo=TRUE}
 ds %>% 
-  select(glbcc_risk, ideol, income, age) %>%
+  dplyr::select(glbcc_risk, ideol, income, age) %>%
   drop_na() %>%
   cor()
 ```
@@ -265,7 +265,7 @@ ggplot(ds.sub, aes(x = ideol, y = glbcc_risk)) +
   geom_point(shape = 1)
 ```
 
-Notice how this doesn't really make sense? This is because there are thousands of observations being placed on a discrete set of values. To get a better idea of the relationship, we can tell R to jitter the points. This provides a better picture of the relationship. This time use the `geom_jitter` function instead of the `geom_point` function:
+Notice how this doesn't really make sense? This is because there are thousands of observations being placed on a discrete set of values. To get a better idea of the relationship, we can tell R to jitter the points. "Jittering" provides a tiny bit of white noise and variance to the values, so that we can see where there is high overlap of observations. This provides a better picture of the relationship. This time use the `geom_jitter` function instead of the `geom_point` function:
 
 ```{r 6_vis2, echo=TRUE}
 ggplot(ds.sub, aes(x = ideol, y = glbcc_risk)) +
@@ -276,7 +276,7 @@ Notice the apparent negative correlation. Verify this by checking the correlatio
 
 ```{r 6_vis3, echo=TRUE}
 ds %>%
-  select(ideol, glbcc_risk) %>%
+  dplyr::select(ideol, glbcc_risk) %>%
   cor(use = "complete.obs")
 ```
 
@@ -321,7 +321,7 @@ To create a visualization that compares the two parties and the relationship bet
 ```{r 6_2vis, echo=TRUE}
 ds %>%
   filter(f.party.2 == "Dem" | f.party.2 == "Rep") %>%
-  select(ideol, glbcc_risk, f.party.2) %>%
+  dplyr::select(ideol, glbcc_risk, f.party.2) %>%
   na.omit() %>%
   ggplot(., aes(ideol, glbcc_risk)) +
   geom_jitter(shape = 1) +
@@ -335,7 +335,9 @@ ds %>%
 We cap this lab off with creating one last visualization. First create a new subset of our data exclusive of all missing observations. Include variables for climate change risk and age. 
 
 ```{r 6_2vis, echo=TRUE}
-sub.ds <- filter(ds) %>% select("glbcc_risk", "age") %>% na.omit()
+sub.ds <- filter(ds) %>%
+  dplyr::select("glbcc_risk", "age") %>%
+  na.omit()
 ```
 
 First we look at our age variable.
