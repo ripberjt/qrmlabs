@@ -9,17 +9,15 @@ always_allow_html: yes
 
 This lab helps us understand how to diagnose and address potential problems in OLS regression. In the last lab, we addressed OLS assumptions of normality of residuals, linearity, and multicollinearity. This lab addresses outliers and heteroscedasticity and also provides a refresher on exploring and visualizing your data. The following packages are required for this lab: 
 
-1. ggplot2
+1. tidyverse
 2. psych
 3. car
 4. memisc
 5. stargazer
-6. gridExtra
-7. reshape2
-8. stargazer
-9. MASS
-10. sandwich
-11. plotly
+6. reshape2
+7. stargazer
+8. MASS
+9. plotly
 
 ```{r 11_setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)

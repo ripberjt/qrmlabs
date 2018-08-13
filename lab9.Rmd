@@ -12,11 +12,10 @@ This lab focuses on ways in which we use and understand categorical independent 
 2. psych
 3. memisc
 4. stargazer
-5. gridExtra
-6. interplot
-7. car
-8. reshape2
-9. broom
+5. interplot
+6. car
+7. reshape2
+8. broom
 
 ```{r 9_setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
@@ -25,7 +24,6 @@ library(psych)
 library(car)
 library(memisc)
 library(stargazer)
-library(gridExtra)
 library(interplot)
 library(reshape2)
 library(broom)

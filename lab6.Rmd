@@ -12,8 +12,6 @@ Research is not always interested in the contrast of two variables, but oftentim
 2. psych
 3. car
 4. vcd
-5. grid
-6. gridExtra
 
 ```{r 6_setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)

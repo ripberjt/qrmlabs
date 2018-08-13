@@ -16,8 +16,7 @@ This lab covers the basics of logistic regression, part of the broader generaliz
 6. reshape2
 7. MASS
 8. pscl
-9. DAMisc
-10. broom
+9. broom
 
 ```{r 12_setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
@@ -29,9 +28,7 @@ library(stargazer)
 library(reshape2)
 library(MASS)
 library(pscl)
-library(DAMisc)
 library(broom)
-library(dplyr)
 options(scipen = 999)
 ds<-read.csv("https://github.com/ripberjt/qrmlabs/raw/master/Class%20Data%20Set%20Factored.csv")
 ```
