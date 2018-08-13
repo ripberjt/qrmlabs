@@ -20,7 +20,7 @@ __Reminder:__ Lab one introduced how to install packages via `install.packages()
 
 The installed packages require loading at the beginning of a R session.
 
-```{r 2_setup, include=FALSE}
+```{r 2_setup, include=FALSE, warning=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 library(car)
 library(reshape2)
@@ -28,7 +28,7 @@ library(descr)
 library(psych)
 library(tidyverse)
 library(skimr)
-ds <- read.csv("https://github.com/ripberjt/qrmlabs/raw/master/Class%20Data%20Set%20Factored.csv", header = TRUE)
+ds <- read_csv("https://github.com/ripberjt/qrmlabs/raw/master/Class%20Data%20Set%20Factored.csv")
 ```
 
 ## Part I: Factoring

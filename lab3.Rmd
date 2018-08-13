@@ -10,16 +10,14 @@ This lab discusses the basics of visualizing data, probability, the normal distr
 
 1. sfsmisc
 2. psych
-3. sm
-4. car
-5. tidyverse
+3. car
+4. tidyverse
 
 ```{r 3_setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
-ds <- read.csv("https://github.com/ripberjt/qrmlabs/raw/master/Class%20Data%20Set%20Factored.csv")
+ds <- read_csv("https://github.com/ripberjt/qrmlabs/raw/master/Class%20Data%20Set%20Factored.csv")
 library(sfsmisc)
 library(psych)
-library(sm)
 library(car)
 library(tidyverse)
 ```
@@ -279,16 +277,19 @@ The distance between quartiles is relatively even; however, note the difference 
 
 Standardizing, or scaling, data provides conveniences in discussing data. For instance, discussing how many standard deviations a particular value occurs from the mean is more meaningful than purely the distance. Scaling data in terms of z-scores provides the number of standard deviations a value is from the mean.
 
-The following example employs the `scale()` function to calculate z-score for each data point and assigns them to a newly created `z.age` variable in the `ds` data set.
+The following example employs the `scale()` function to calculate z-score for each data point and assigns them to a newly created `z.age` variable in the `ds` data set. To do this, use the `mutate()` verb, which is a tidyverse function that creates new variables or modifies existing variables: 
 
 ```{r 3_z, echo=TRUE}
-ds$z.age <- scale(ds$age)
+ds %>%
+  mutate(z.age = scale(age)) -> ds
 ```
 
-Using a subset approach, the following example finds the z-score associated to women younger than 19 years old.
+Using a filter approach, the following example finds the z-score associated to women younger than 19 years old. First filter the data with the preferred stipulations, then use the `select()` verb from the `dplyr()` package (part of the tidyverse!) to view the results. All of this is connected using the pipe function, %>%.
 
 ```{r 3_z2, echo=TRUE}
-ds[which(ds$f.gender=='Women' & ds$age < 19), c("f.gender", "age", "z.age")]
+ds %>% 
+  filter(f.gender == "Women" & age < 19) %>%
+  dplyr::select(f.gender, age, z.age)
 ```
 
 The result shows that, within the `ds` data set, there is one respondent that identified as a woman under 19 years old. The z-score for this respondent is -2.98, which is interpreted as this respondent's age is 2.98 standard deviations below the mean.
