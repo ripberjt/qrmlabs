@@ -94,7 +94,7 @@ ggplot(melt.ds, aes(value)) +
   facet_wrap(~variable, scale="free")
 ```
 
-Now let's look at the bivariate plots for the relationship between length, budget, votes, and rating. This is where we might find potential outliers. Build each visualization and then use _ggplotly()_ to create an interactive interface that will allow you to identify individual observations. 
+Now let's look at the bivariate plots for the relationship between length, budget, votes, and rating. This is where we might find potential outliers. Build each visualization and then use `ggplotly()` to create an interactive interface that will allow you to identify individual observations. 
 
 ```{r 11_int9, echo=TRUE}
 vote <- ggplot(ds, aes(votes_1k, rating, label = title)) +
@@ -141,7 +141,7 @@ Normally we are primarily interested in how this model explains our data. For th
 ds$predicted_rating <- predict(fit1)
 ```
 
-One simple way to find some possible outliers is to use the _outlierTest()_ function:
+One simple way to find some possible outliers is to use the `outlierTest()` function:
 
 ```{r 11_out2, echo=TRUE}
 outlierTest(fit1)
@@ -173,7 +173,7 @@ ds["Matrix, The",c("rating", "predicted_rating")]
 
 These movies are flagged outliers for a different reason than the movies we found earlier. These two movies are rated high, but their predicted ratings are even higher (above the maximum possible value of 10).
 
-Another way to examine outliers is to look at the DFBetas. DFBetas measure the influence of case *i* on the *j* estimated coefficients. Put another way, measuring DFBetas asks how many standard errors a particular beta changes when case *i* is removed. The rule of thumb is if the absolute value of a DFBETA is greater than 2 divided by the square root of n, there could be cause for concern. Let's calculate that value:
+Another way to examine outliers is to look at the DFBetas. DFBetas measure the influence of case `i` on the `j` estimated coefficients. Put another way, measuring DFBetas asks how many standard errors a particular beta changes when case `i` is removed. The rule of thumb is if the absolute value of a DFBETA is greater than 2 divided by the square root of n, there could be cause for concern. Let's calculate that value:
 
 ```{r 11_out6, echo=TRUE}
 df <- 2/sqrt(1261)
@@ -187,7 +187,7 @@ dfbs.fit1 <- dfbetas(fit1)
 head(dfbs.fit1)
 ```
 
-With a large data set, listing every DFBeta value is not efficient. Instead, we should plot the DFBetas with lines at the calculated value. We will use the _identify()_ function to mark specific observations. Each of the coefficients will have its own plot. __Note:__ The _windows()_ (or _quartz()_) function does not knit with RMarkdown; however, the function is used to build the plot on the screen as you follow along within the RMD document. 
+With a large data set, listing every DFBeta value is not efficient. Instead, we should plot the DFBetas with lines at the calculated value. We will use the `identify()` function to mark specific observations. Each of the coefficients will have its own plot. __Note:__ The `windows()` (or `quartz()`) function does not knit with RMarkdown; however, the function is used to build the plot on the screen as you follow along within the RMD document. 
 
 ```{r 11_out8, echo=TRUE, error=TRUE}
 windows()
@@ -226,7 +226,7 @@ Omit these using the following operator. Essentially this tells R not to include
 ds.omit <- ds[ !(ds$title %in% c("From Justin to Kelly", "You Got Served", "Werewolf", "Glitter")),]
 ```
 
-Next make a new model with the _ds.omit_ data:
+Next make a new model with the `ds.omit` data:
 
 ```{r 11_out13, echo=TRUE}
 fit.omit <- lm(rating ~ length + budget_1m + votes_1k, data = ds.omit)
@@ -240,7 +240,7 @@ stargazer(fit1, fit.omit, type = "text", single.row = TRUE)
 
 Notice the minimal changes. The omitted observations changed 3 of the four coefficients, and increased the adjusted R squared value. 
 
-Another option when dealing with outliers is to use robust regression, which weights the observations based on influence. Make a new model using robust regression using the _rlm()_ function. There are two methods, "M" and "MM", and both should be evaluated to determine which model best represents your needs.
+Another option when dealing with outliers is to use robust regression, which weights the observations based on influence. Make a new model using robust regression using the `rlm()` function. There are two methods, "M" and "MM", and both should be evaluated to determine which model best represents your needs.
 
 ```{r 11_out15, echo=TRUE}
 fit.m <- rlm(rating ~ length + budget_1m + votes_1k, data = ds, method = "M")
@@ -277,7 +277,7 @@ vcov.fit1 <- vcovHC(fit1, method = "white1",type = "HC1")
 rse.fit1 <- vcov.fit1 %>% diag() %>% sqrt()
 ```
 
-Now compare the original model to the model using robust standard errors. Use _se=list(se.fit1,rse.fit1)_ for R to use the original standard errors for the first model and robust for the second.
+Now compare the original model to the model using robust standard errors. Use `se=list(se.fit1,rse.fit1)` for R to use the original standard errors for the first model and robust for the second.
 
 ```{r 11_het4, echo=TRUE}
 stargazer(fit1, fit1, type = "text", single.row = TRUE, se = list(se.fit1, rse.fit1))
@@ -325,7 +325,6 @@ This method fixed some problems and created new ones. The votes graphic suggests
 
 ```{r 11_lin4, echo=TRUE}
 fit.poly <- lm(rating ~ poly(length, 2) + poly(budget_1m, 2) + poly(votes_1k, 2), data = ds)
-poly.melt <- melt(ds, measure.vars = c("length", "budget_1m", "votes_1k", "fit.poly.p"))
 fit.poly %>%
   augment() %>% 
   melt(measure.vars = c("poly.length..2.", "poly.budget_1m..2.",
@@ -385,36 +384,40 @@ ggplot(ds, aes(poly.r)) +
 
 The log model has the highest adjusted R squared value, the lowest residual standard error, and its residuals appear to approximate the normal distribution better than the other two models. Let's use it to make predictions and create visualizations. 
 
-First create predicted values for movie ratings by holding all IVs constant at their means except one at at time. 
+First create predicted values for movie ratings by holding all IVs constant at their means except one at at time, using the `augment()` function. Then use `mutate()` to calculate the upper and lower bounds of the confidence interval. Create separate data frames for length, budget, and votes.
 
 ```{r 11_pred, echo=TRUE}
-p.length <- predict(fit.log, newdata = data.frame(length = 89:134,
-                                                budget_1m = mean(ds$budget_1m),
-                                                votes_1k = mean(ds$votes_1k)), se.fit = TRUE)
+df.length <- fit.log %>%
+  augment(newdata = data.frame(length = 89:134,
+                               budget_1m = mean(ds$budget_1m),
+                               votes_1k = mean(ds$votes_1k))) %>%
+  mutate(upper = .fitted + 1.96 * .se.fit,
+         lower = .fitted - 1.96 * .se.fit)
 
-p.budget <- predict(fit.log, newdata = data.frame(length = mean(ds$length),
-                                                  budget_1m = 5:80,
-                                                  votes_1k = mean(ds$votes_1k)), se.fit = TRUE)
+df.budget <- fit.log %>% 
+  augment(newdata = data.frame(length = mean(ds$length),
+                               budget_1m = 5:80,
+                               votes_1k = mean(ds$votes_1k))) %>%
+  mutate(upper = .fitted + 1.96 * .se.fit,
+         lower = .fitted - 1.96 * .se.fit)
 
-p.votes <- predict(fit.log, newdata = data.frame(length = mean(ds$length),
-                                                 budget_1m = mean(ds$budget_1m),
-                                                 votes_1k = 1.645:25.964), se.fit=TRUE)
+df.votes <- fit.log %>% 
+  augment(newdata = data.frame(length = mean(ds$length),
+                                        budget_1m = mean(ds$budget_1m),
+                                        votes_1k = 1.645:25.964)) %>%
+  mutate(upper = .fitted + 1.96 * .se.fit,
+         lower = .fitted - 1.96 * .se.fit)
 ```
 
-Start with the visualization for the relationship between length and rating while holding all other IVs constant at their means. We need to calculate the upper and lower bounds of the confidence interval, then add all the vectors together into a data frame.
 
-```{r 11_pred2, echo=TRUE}
-up.length <- p.length$fit + 1.96 * p.length$se.fit
-low.length <- p.length$fit - 1.96 * p.length$se.fit
-df.length <- data.frame(length=89:134, p.length, up.length, low.length)
-```
 
-Now make the visualization:
+
+Now make the visualization for each data frame~
 
 ```{r 11_pred3, echo=TRUE}
-ggplot(df.length, aes(length, fit)) +
-  geom_line(data = df.length, aes(length, fit), size = 1, color = "royalblue") +
-  geom_ribbon(aes(ymin = low.length, ymax = up.length), alpha = .2) +
+ggplot(df.length, aes(length, .fitted)) +
+  geom_line(size = 1, color = "royalblue") +
+  geom_ribbon(aes(ymin = lower, ymax = upper), alpha = .2) +
   coord_cartesian(ylim = c(4:8), xlim = c(89:134)) +
   ggtitle("Movie Length and Rating") +
   xlab("Length") +
@@ -424,20 +427,11 @@ ggplot(df.length, aes(length, fit)) +
 
 Now do the same for thse next two IVs:
 
-```{r 11_pred4, echo=TRUE}
-up.votes <- p.votes$fit + 1.96 * p.votes$se.fit
-low.votes <- p.votes$fit - 1.96 * p.votes$se.fit
-df.votes <- data.frame(votes_1k = 1.645:25.964, p.votes, up.votes, low.votes)
-
-up.budget <- p.budget$fit + 1.96 * p.budget$se.fit
-low.budget <- p.budget$fit - 1.96 * p.budget$se.fit
-df.budget <- data.frame(budget_1m = 5:80, p.budget, up.budget, low.budget)
-```
 
 ```{r 11_pred5, echo=TRUE}
-ggplot(df.votes, aes(votes_1k, fit)) +
-  geom_line(data = df.votes, aes(votes_1k, fit), size = 1, color = "royalblue") +
-  geom_ribbon(aes(ymin = low.votes, ymax = up.votes), alpha = .2) +
+ggplot(df.votes, aes(votes_1k, .fitted)) +
+  geom_line(size = 1, color = "royalblue") +
+  geom_ribbon(aes(ymin = lower, ymax = upper), alpha = .2) +
   ggtitle("IMDB Votes and Rating") +
   xlab("Votes (Thousands)") +
   ylab("Rating") +
@@ -446,9 +440,9 @@ ggplot(df.votes, aes(votes_1k, fit)) +
 ```
 
 ```{r 11_pred6, echo=TRUE}
-ggplot(df.budget, aes(budget_1m, fit)) +
-  geom_line(data = df.budget, aes(budget_1m, fit), size = 1, color = "royalblue") +
-  geom_ribbon(aes(ymin = low.budget, ymax = up.budget), alpha = .2) +
+ggplot(df.budget, aes(budget_1m, .fitted)) +
+  geom_line(size = 1, color = "royalblue") +
+  geom_ribbon(aes(ymin = lower, ymax = upper), alpha = .2) +
   ggtitle("Movie Budget and Rating") +
   xlab("Budget (Millions)") +
   ylab("Rating") +
