@@ -11,13 +11,10 @@ So far we have covered many different techniques of statistical analysis. This l
 1. tidyverse
 2. psych
 3. car
-4. memisc
-5. stargazer
-6. reshape2
-7. MASS
-8. pscl
-9. DAMisc
-10. zeligverse
+4. stargazer
+5. reshape2
+6. MASS
+7. zeligverse
 
 
 ```{r 13_setup, include=FALSE}
@@ -25,14 +22,10 @@ knitr::opts_chunk$set(echo = TRUE)
 library(tidyverse)
 library(psych)
 library(car)
-library(memisc)
 library(stargazer)
 library(reshape2)
 library(MASS)
-library(pscl)
-library(DAMisc)
 library(zeligverse)
-
 options(scipen = 999)
 ds<-read.csv("https://github.com/ripberjt/qrmlabs/raw/master/Class%20Data%20Set%20Factored.csv")
 ```
