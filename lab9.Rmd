@@ -10,25 +10,23 @@ This lab focuses on ways in which we use and understand categorical independent 
 
 1. tidyverse
 2. psych
-3. memisc
-4. stargazer
-5. interplot
-6. car
-7. reshape2
-8. broom
+3. stargazer
+4. interplot
+5. car
+6. reshape2
+7. broom
 
-```{r 9_setup, include=FALSE}
+```{r 9_setup, include=FALSE, message=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 library(tidyverse)
 library(psych)
 library(car)
-library(memisc)
 library(stargazer)
 library(interplot)
 library(reshape2)
 library(broom)
 options(scipen = 999)
-ds <- read.csv("https://github.com/ripberjt/qrmlabs/raw/master/Class%20Data%20Set%20Factored.csv")
+ds <- read_csv("https://github.com/ripberjt/qrmlabs/raw/master/Class%20Data%20Set%20Factored.csv")
 ```
 
 
@@ -63,8 +61,8 @@ __Note:__ The factored gender variable lists men as 0 and women as 1. If you loo
 
 ```{r 9_dum2, echo=TRUE}
 ds.sub$f.gender <- factor(ds.sub$gender, levels = c(0, 1), labels = c("Women", "Men"))
-table(ds.sub$f.gender)
-table(ds.sub$gender)
+ds.sub %>%
+  count(f.gender, gender)
 ```
 
 When working with a binary categorical explanatory variable (like the gender variable), you can use the numeric version of the variable. However, when working with categorical variables with more than two categories, it is often easier to use the factored version of the variable, for reasons we will get into shortly. We will use the factored gender variable in our model:
@@ -363,7 +361,7 @@ con$.fitted[10] - con$.fitted[1]
 There is a greater first difference for conservatives. This combined with a significant interaction coefficient that is positive, we can start to see that perhaps the slopes of the lines are steeper for conservatives. Let's build a visualization that includes a prediction line for every ideology level. To do so we need to:
 
 1. Generate predictions for every ideology score.
-2. Put those predictions in data frames.
+2. Put those predictions in a data frame.
 3. Visualize each individual line on a single plot.
 
 It might look like a lot of code, but the process is rather simple!
@@ -408,7 +406,7 @@ lm6 %>%
                                glbcc_risk = seq(1, 10, 1))) -> id7
 ```
 
-Now put all the data frames into one data frame. The `full_join()` function only merges two data sets at a time, so we are going to join them step-by-step. Recall that when piping one function to the next, a `.` can be used to stand in for the previous data frame, there we can build one data frame like this:
+Now put all the data frames into one data frame. The `full_join()` function only merges two data sets at a time, so we are going to join them step-by-step. Recall that when piping one function to the next, a `.` can be used to stand in for the previous data frame, therefore we can build one data frame like this:
 
 ```{r 9_int16, echo=TRUE}
 full_join(id1, id2) %>%
