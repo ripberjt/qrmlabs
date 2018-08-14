@@ -16,7 +16,7 @@ This lab will cover the basics of bivariate linear regression, introducing via m
 6. reshape2
 
 
-```{r 7_setup, include=FALSE}
+```{r 7_setup, include=FALSE, message=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 library(tidyverse)
 library(psych)
