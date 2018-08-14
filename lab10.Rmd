@@ -11,22 +11,20 @@ This lab focuses on issues that arise with non-linearity, non-normality, and mul
 1. tidyverse
 2. psych
 3. car
-4. memisc
-5. stargazer
-6. reshape2
-7. skimr
+4. stargazer
+5. reshape2
+6. skimr
 
-```{r 10_setup, include=FALSE}
+```{r 10_setup, include=FALSE, message=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 library(tidyverse)
 library(psych)
 library(car)
-library(memisc)
 library(stargazer)
 library(reshape2)
 library(skimr)
 options(scipen = 999)
-ds <- read.csv("https://github.com/ripberjt/qrmlabs/raw/master/Class%20Data%20Set%20Factored.csv")
+ds <- read_csv("https://github.com/ripberjt/qrmlabs/raw/master/Class%20Data%20Set%20Factored.csv")
 ```
 
 ## Part I: Non-linearity
@@ -36,7 +34,7 @@ ds <- read.csv("https://github.com/ripberjt/qrmlabs/raw/master/Class%20Data%20Se
 A critical assumption of OLS is that the relationship between variables are linear in their functional form, therefore it is imperative to inspect whether a model consist of non-linear relationships between variables of interest. As the book describes, regression diagnostics is largely an art. To demonstrate, suppose you want to examine the relationship between ideology and candidate support in the 2016 presidential election. The survey associated to the class data set asked respondents to indicate on a scale of 1 to 5 the level of support they have for the candidate they voted for in the 2016 presidential election. We will start by exploring data in preparation for a linear regression model:
 
 ```{r 10_poly, echo=TRUE}
-sub <- filter(ds) %>%
+sub <- ds %>%
   dplyr::select("vote_cand_spt", "ideol","education",
                                     "income", "age", "gender", "f.gender",
                                     "glbcc_cert", "f.party", "glbcc_risk",
@@ -88,7 +86,7 @@ melt(measure.vars = c("ideol", "education", "income", "age",
 head(m.df)
 ```
 
-The next step is to plot the residuals by the values of the independent variables. We're going to use `geom_smooth()` to create a loess line that approximates the spread of our data, and we will use `geom_hline()` to plot a horizontal line at 0. Then we will use `facet_wrap()` to tell create different plots for each independent variable of the model:
+The next step is to plot the residuals by the values of the independent variables. We're going to use `geom_smooth()` to create a loess line that approximates the spread of our data, and we will use `geom_hline()` to plot a horizontal line at 0. Then we will use `facet_wrap()` to tell R to create different plots for each independent variable of the model:
 
 ```{r 10_lin4, echo=TRUE, warning=FALSE}
 ggplot(m.df, aes(value, .std.resid)) +
@@ -118,7 +116,7 @@ anova(model, pol)
 The significant p-value for the second line implies the second model is a better fit. We can also compare the adjusted $R^2$ values:
 
 ```{r 10_comp2, echo=TRUE}
-mtable(model, pol)
+stargazer(model, pol, single.row = TRUE, type = "text")
 ```
 
 The coefficients for the individual variables in the quadratic model are statistically significant, suggesting they help us understand our dependent variable. Let's move onto the visualization. Since ideology is our variable of interest, we will visualize the relationship between ideology and candidate support while holding the other variables constant at their means.
@@ -127,8 +125,7 @@ Start by looking at a scatter plot. To assist we need to jitter the data because
 
 ```{r 10_poly5, echo=TRUE}
 ggplot(sub, aes(ideol, vote_cand_spt)) +
-  geom_jitter(aes(ideol, vote_cand_spt)) +
-  geom_point(aes(ideol, vote_cand_spt))
+  geom_jitter(shape = 1) 
 ```
 
 Now add the regression line and confidence interval. To do this we will:
@@ -170,7 +167,7 @@ ggplot(pol.df, aes(ideol, .fitted)) +
   
 ```
 
-This visualization seems to support our theory that the relationship between ideology and candidate support is quadratic, that more ideologically extreme individuals have more support for the candidate they voted for than moderates. 
+This visualization shows the relationship specified in our theory: that the relationship between ideology and candidate support is quadratic, that more ideologically extreme individuals have more support for the candidate they voted for than moderates. 
 
 Let's use an example where a cubed exponent would be appropriate. A very common model we've used has been exploring the relationship between ideology and climate change risk. Perhaps the relationship between the two is not best described linearly. Let's first make a model we've looked at many times before:
 
@@ -203,7 +200,7 @@ summary(cubed)
 Now compare the two models:
 
 ```{r 10_cube4, echo=TRUE}
-mtable(lm1, cubed)
+stargazer(lm1, cubed, single.row = TRUE, type = "text")
 ```
 
 It actually looks like the cube term does not describe the data very well. The adjusted R squared appears to marginally increase in the cubed model, but that does not tell us much. Let's use ANOVA:
