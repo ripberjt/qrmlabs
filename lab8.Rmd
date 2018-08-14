@@ -11,20 +11,20 @@ This lab covers the basics of multivariate linear regression. We begin by review
 1. tidyverse
 2. psych
 3. car
-4. memisc
-5. stargazer
+4. stargazer
+5. reshape2
 6. broom
 
-```{r 8_setup, include=FALSE}
+```{r 8_setup, include=FALSE, message=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 library(tidyverse)
 library(psych)
 library(car)
-library(memisc)
 library(stargazer)
+library(reshape2)
 library(broom)
 options(scipen = 999)
-ds <- read.csv("https://github.com/ripberjt/qrmlabs/raw/master/Class%20Data%20Set%20Factored.csv")
+ds <- read_csv("https://github.com/ripberjt/qrmlabs/raw/master/Class%20Data%20Set%20Factored.csv")
 ```
 
 ## Part I: Calculating Least-Squared Estimates
@@ -43,7 +43,7 @@ In this lab we use matrix algebra to calculate the least-squared estimates. This
 
 ### Matrix Algebra
 
-For multivariate regression analysis, the formulas for calculating coefficients are more easily found using matrix algebra. In this section we cover the basics of matrix algebra relevant to calculating the coefficients for an estimated linear regression model. A matrix is a rectangular array of numbers organized in rows and columns and each number within a matrix is an element. A matrix is defined as consisting of _m_ rows and _n_ columns. __Note:__ If m = n, the matrix is referred to as a square matrix.
+For multivariate regression analysis, the formulas for calculating coefficients are more easily found using matrix algebra. In this section we cover the basics of matrix algebra relevant to calculating the coefficients for an estimated linear regression model. A matrix is a rectangular array of numbers organized in rows and columns and each number within a matrix is an element. A matrix is defined as consisting of `m` rows and `n` columns. __Note:__ If m = n, the matrix is referred to as a square matrix.
 
 The following is a general form of a matrix:
 
@@ -70,14 +70,14 @@ $$A = \begin{bmatrix}
 
 __Note:__ The product of a matrix and its transpose is a square matrix.
 
-The _matrix()_ function in R will create a matrix object consisting of provided values in a defined number of rows and columns. The above matrix, _A_, is created as follows:
+The `matrix()` function in R will create a matrix object consisting of provided values in a defined number of rows and columns. The above matrix, `A`, is created as follows:
 
 ```{r 8_mat, echo=TRUE}
 A <- matrix(c(1, 2, 4, 5, 7, 6), 2, 3)
 A
 ```
 
-Further, the _t()_ function will transpose a given matrix:
+Further, the `t()` function will transpose a given matrix:
 
 
 ```{r 8_mat2, echo=TRUE}
@@ -104,7 +104,7 @@ $$A = \begin{bmatrix}
     43 & 110
 \end{bmatrix}$$
 
-Similarly, the product of matrices can be calculated in R using the %\*% operator:
+Similarly, the product of matrices can be calculated in R using the %*% operator:
 
 ```{r 8_mat3, echo=TRUE}
 AxAprime <- A %*% Aprime
@@ -367,7 +367,7 @@ Before interpreting these results, we need to review partial effects. Chapter 12
 ```{r 8_mlr3, echo=TRUE}
 model2 <- lm(sub.ds$glbcc_cert ~ sub.ds$ideol)
 model3 <- lm(sub.ds$glbcc_cert ~ sub.ds$age)
-mtable(model2, model3)
+stargazer(model2, model3, single.row = TRUE, type = "text")
 ```
 
 Notice the ideology coefficient in the bivariate model is larger than the ideology coefficient in the multivariate regression model. The same is also true for the age variable. This is because the bivariate model reports the total effects of X on Y, but the multivariate regression model reports the effects of X on Y when "controlling" for the other independent variables. Look at the multivariate regression model again:
