@@ -139,7 +139,7 @@ The `dnorm()` returns the height of the probability distribution function as 0.0
 
 For continuous data, the probability of a single value is small (near zero), so instead the approach should be to find the probability a value occurs within a specified range. The probability associated to a value occurring within a specified range is equal to the area of the probability distribution function between the two points. In calculus this is defined as finding the integral of the probability distribution function.
 
-$$\int_{-\x_1}^x_2 f_X(t)\,dx$$
+$$\int_{-\x_1}^{x_2}{f_X(t)\,dx}$$
 
 The above formula is the cumulative distribution function for two points, $x_1$ and $x_2$. In this case, $x_1$ is defined as the lower bound and $x_2$ is defined as the upper bound.
 
