@@ -11,26 +11,24 @@ This lab covers the basics of logistic regression, part of the broader generaliz
 1. tidyverse
 2. psych
 3. car
-4. memisc
 5. stargazer
 6. reshape2
 7. MASS
 8. pscl
 9. broom
 
-```{r 12_setup, include=FALSE}
+```{r 12_setup, include=FALSE,message=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 library(tidyverse)
 library(psych)
 library(car)
-library(memisc)
 library(stargazer)
 library(reshape2)
 library(MASS)
 library(pscl)
 library(broom)
 options(scipen = 999)
-ds<-read.csv("https://github.com/ripberjt/qrmlabs/raw/master/Class%20Data%20Set%20Factored.csv")
+ds<-read_csv("https://github.com/ripberjt/qrmlabs/raw/master/Class%20Data%20Set%20Factored.csv")
 ```
 
 ## Part I: Logistic Regression with a Binary DV
