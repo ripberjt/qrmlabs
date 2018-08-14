@@ -12,25 +12,23 @@ This lab helps us understand how to diagnose and address potential problems in O
 1. tidyverse
 2. psych
 3. car
-4. memisc
 5. stargazer
 6. reshape2
 7. stargazer
 8. MASS
 9. plotly
 
-```{r 11_setup, include=FALSE}
+```{r 11_setup, include=FALSE, message=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 library(tidyverse)
 library(psych)
 library(car)
-library(memisc)
 library(stargazer)
 library(reshape2)
 library(stargazer)
 library(MASS)
 library(plotly)
-ds <- read.csv("https://github.com/ripberjt/qrmlabs/raw/master/imdb_2014.csv")
+ds <- read_csv("https://github.com/ripberjt/qrmlabs/raw/master/imdb_2014.csv")
 options(scipen = 999)
 ```
 
