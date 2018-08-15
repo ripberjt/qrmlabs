@@ -332,22 +332,23 @@ First subset the data:
 
 ```{r 13_ex8, echo=TRUE}
 d <- filter(ds) %>%
-  select("ideol", "education", "vote_cand_spt", "income", "age", "gender", "f.party.2") %>%
-  na.omit() 
-d$log.inc <- log(d$income)
+  dplyr::select("ideol", "education", "vote_cand_spt", "income", "age", "gender", "f.party.2") %>%
+  na.omit() %>%
+  mutate(log.inc = log(income),
+         f.part = as.factor(f.party.2))
 ```
 
 Build the model:
 
 ```{r 13_ex9, echo=TRUE}
-lm2 <- lm(vote_cand_spt ~ ideol + education + log.inc + age + gender + f.party.2, data=d)
+lm2 <- lm(vote_cand_spt ~ ideol + education + log.inc + age + gender + f.part, data=d)
 summary(lm2)
 ```
 
 Within the `setx()` function we can sequence ideology from 1 to 7 and sequence the three party options, Democrats, Independents, and Republicans. Then use `sim()`. Doing so will perform 1000 simulations for each level of ideology and each party, so 1000 for Democrats with an ideology score of 1, 1000 for Democrats with an ideology score of 2, and so on. 
 
 ```{r 13_ex10, echo=TRUE}
-lm2.out <- setx(lm2, ideol=1:7, f.party.2=c("Dem", "Ind", "Rep")) %>%
+lm2.out <- setx(lm2, ideol=1:7, f.part=c("Dem", "Ind", "Rep")) %>%
   sim()
 ```
 
@@ -362,12 +363,12 @@ lm2.out <- zelig_qi_to_df(lm2.out) %>%
 Next plot the results of the simulations:
 
 ```{r 13_ex12, echo=TRUE}
-ggplot(lm2.out, aes(factor(ideol), qi_ci_median, color = f.party.2)) +
+ggplot(lm2.out, aes(factor(ideol), qi_ci_median, color = f.part)) +
   geom_errorbar(aes(ymin = qi_ci_min, ymax = qi_ci_max), width = .2) +
   geom_point(size = 2) +
   scale_color_manual(values = c("blue", "purple", "red"),
                      name = c("Party")) +
-  facet_wrap( ~ f.party.2, scales = "fixed") +
+  facet_wrap( ~ f.part, scales = "fixed") +
   ggtitle("Candidate Support by Party and Ideology") +
   xlab("Ideology") +
   ylab("Candidate Support") +

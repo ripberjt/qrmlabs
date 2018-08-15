@@ -461,10 +461,10 @@ ds$f.party2 <- factor(ds$party, levels = c(2,1,3,4), labels = c("Rep", "Dem", "I
 table(ds$f.party2)
 ```
 
-This is one way to go about it. This way has its merits, such as wanting to re-order every level of the variable, not just the referent group. But there is another way, one that changes the referent group one. Using the `relevel()` function, and indicating the referent group with the `ref=` argument. Let's do so, and make Republicans the referent group:
+This is one way to go about it. This way has its merits, such as wanting to re-order every level of the variable, not just the referent group. But there is another way, one that changes the referent group one. Using the `relevel()` function, and indicating the referent group with the `ref=` argument. Let's do so, and make Republicans the referent group. Make sure R reads the `f.party` variable as a factor!
 
 ```{r 9_rel4, echo=TRUE}
-ds$f.party3 <- relevel(ds$f.party, ref = "Rep")
+ds$f.party3 <- relevel(as.factor(ds$f.party), ref = "Rep")
 table(ds$f.party3)
 ```
 
@@ -475,7 +475,7 @@ Our exploration of interactions plotted estimated Y values as X varies as a func
 To create an interaction plot for our earlier model we need to specify the two variables in the interaction. The first variable we specify is the variable of interest, the one for which we want estimated coefficients. The second is the other variable in the interaction.
 
 ```{r 9_ip, echo=TRUE}
-interplot(lm5, var1="glbcc_risk", var2 = "ideol")
+interplot(lm6, var1="glbcc_risk", var2 = "ideol")
 ```
 
 This plot graphs the estimated coefficient of climate change risk by ideology score. The estimated effect of climate change risk on federal climate change management appears stronger for more conservative individuals. 
@@ -483,7 +483,7 @@ This plot graphs the estimated coefficient of climate change risk by ideology sc
 Instead of plotting individual estimates, we could plot a line that also visualizes the relationship. To do this we would specify `hist=T`, which plots a histogram on the bottom and a line for the estimated coefficients. Let's add titles on this plot as well:
 
 ```{r 9_ip2, echo=TRUE}
-interplot(m=lm5, var1="glbcc_risk", var2="ideol", hist=T) +
+interplot(m=lm6, var1="glbcc_risk", var2="ideol", hist=T) +
   ggtitle("Estimated Coefficient of Climate Change Risk by Ideology") +
   theme_bw() +
   xlab("Ideology: Liberal to Conservative") +

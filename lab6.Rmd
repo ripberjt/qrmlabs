@@ -250,7 +250,10 @@ This resulting matrix provides the correlation coefficients for two variables at
 Additionally, recalling that each correlation coefficient itself is a random value, a test is required for inference. The `corr.test()` provided by the `psych` package is an alternative to the `cor.test()` function previously used. The `corr.test()` function supports examining variable pairs simultaneously within a given data set. Use the `print()` function with the `short=FALSE` argument to view the complete test with confidence intervals and p-values.
 
 ```{r 6_cor.group3, echo=TRUE}
-corr.test(group, use = "complete.obs") %>%
+ds %>% 
+  dplyr::select(glbcc_risk, ideol, income, age) %>%
+  drop_na() %>%
+  corr.test %>%
   print(short = FALSE)
 ```
 
@@ -318,7 +321,7 @@ The correlation coefficient is slightly more negative for Democrats.
 
 To create a visualization that compares the two parties and the relationship between climate change risk and ideology, a few simple lines of code can get the job done. First filter the data to include Democrats and Republicans, select the variables of interest, drop NAs, pipe it all into `ggplot2`, then use `facet_wrap()` to create two visualizations, one for each party:
 
-```{r 6_2vis, echo=TRUE}
+```{r 6_2vis.5, echo=TRUE}
 ds %>%
   filter(f.party.2 == "Dem" | f.party.2 == "Rep") %>%
   dplyr::select(ideol, glbcc_risk, f.party.2) %>%

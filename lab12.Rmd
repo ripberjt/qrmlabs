@@ -16,6 +16,7 @@ This lab covers the basics of logistic regression, part of the broader generaliz
 7. MASS
 8. pscl
 9. broom
+10.DAMisc
 
 ```{r 12_setup, include=FALSE,message=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
@@ -27,6 +28,7 @@ library(reshape2)
 library(MASS)
 library(pscl)
 library(broom)
+library(DAMisc)
 options(scipen = 999)
 ds<-read_csv("https://github.com/ripberjt/qrmlabs/raw/master/Class%20Data%20Set%20Factored.csv")
 ```
@@ -233,15 +235,15 @@ ind.data <- with(ds.sub2, data.frame(gender = mean(gender),
 Now we can calculate predicted probabilities of voting for Trump for each party and ideology score, holding all other IVs constant, as well as upper and lower bounds of the confidence intervals:
 
 ```{r 12_log26, echo=TRUE}
-rep.prob <- augment(logit3, newdata = rep.data, type.predict = "response",
+rep.prob <- augment(logit3, newdata = rep.data, type.predict = "response") %>%
                     mutate(upper = .fitted + 1.96 * .se.fit,
-                           lower = .fitted - 1.96 * .se.fit))
-dem.prob <-  augment(logit3, newdata = dem.data, type.predict = "response",
+                           lower = .fitted - 1.96 * .se.fit)
+dem.prob <-  augment(logit3, newdata = dem.data, type.predict = "response") %>%
                      mutate(upper = .fitted + 1.96 * .se.fit,
-                           lower = .fitted - 1.96 * .se.fit))
-ind.prob <-  augment(logit3, newdata = ind.data, type.predict = "response",
+                           lower = .fitted - 1.96 * .se.fit)
+ind.prob <-  augment(logit3, newdata = ind.data, type.predict = "response") %>%
                      mutate(upper = .fitted + 1.96 * .se.fit,
-                           lower = .fitted - 1.96 * .se.fit))
+                           lower = .fitted - 1.96 * .se.fit)
 ```
 
 
@@ -258,7 +260,7 @@ Start by building the visualization. This will be similar to the last visualizat
 ```{r 12_log33, echo=TRUE}
 ggplot(party.df, aes(ideol, .fitted, color = f.party.2)) +
   geom_point(size = 1.5) +
-  geom_errorbar(aes(ymin = low, ymax = up), width = .2) +
+  geom_errorbar(aes(ymin = lower, ymax = upper), width = .2) +
   scale_color_manual(values = c("blue", "purple", "red")) +
   ggtitle("Probability of Voting for Trump by Party") +
   scale_x_continuous(breaks=c(1:7),

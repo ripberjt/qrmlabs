@@ -17,6 +17,8 @@ This lab helps us understand how to diagnose and address potential problems in O
 7. stargazer
 8. MASS
 9. plotly
+10. sandwich
+11. broom
 
 ```{r 11_setup, include=FALSE, message=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
@@ -28,6 +30,8 @@ library(reshape2)
 library(stargazer)
 library(MASS)
 library(plotly)
+library(sandwich)
+library(broom)
 ds <- read_csv("https://github.com/ripberjt/qrmlabs/raw/master/imdb_2014.csv")
 options(scipen = 999)
 ```

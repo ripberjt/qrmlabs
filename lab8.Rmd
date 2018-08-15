@@ -14,6 +14,7 @@ This lab covers the basics of multivariable linear regression. We begin by revie
 4. stargazer
 5. reshape2
 6. broom
+7. skimr
 
 ```{r 8_setup, include=FALSE, message=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
@@ -23,6 +24,7 @@ library(car)
 library(stargazer)
 library(reshape2)
 library(broom)
+library(skimr)
 options(scipen = 999)
 ds <- read_csv("https://github.com/ripberjt/qrmlabs/raw/master/Class%20Data%20Set%20Factored.csv")
 ```
