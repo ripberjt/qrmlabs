@@ -41,6 +41,7 @@ Recall from lab ten that we attempted to use OLS regression to explore the relat
 ds$trump <- car::recode(ds$vote_cand, "0 = 1;1 = 0;else = NA;NA = NA")
 ds$f.trump <- factor(ds$trump, levels = c(0, 1), labels = c("Clinton", "Trump"))
 table(ds$f.trump)
+ds$f.party.2 <- factor(ds$f.party.2)
 ```
 
 Next, select a subset of the data and remove missing observations:
@@ -202,14 +203,14 @@ Now let's go over logit regression with groups. Let's continue looking into the 
 ```{r 12_log23, echo=TRUE}
 ds.sub2 <- ds %>% dplyr::select("f.trump", "gender", "ideol", "income",
                                         "education", "race", "f.party.2") %>%
-  na.omit() %>%
-  mutate(f.part = factor(f.party.2))
+  drop_na() #%>%
+  #mutate(f.part = factor(f.party.2))
 ```
 
 Notice that we used the factored party variable that only includes Democrats, Independents, and Republicans. Let's build the model:
 
 ```{r 12_log24, echo=TRUE}
-logit3 <- glm(f.trump ~ ideol + gender + education + income + race + f.part,
+logit3 <- glm(f.trump ~ ideol + gender + education + income + race + f.party.2,
               family = binomial(link = logit), data = ds.sub2, x = TRUE)
 summary(logit3)
 ```
@@ -220,17 +221,17 @@ With Democrats as the reference group, Independents and Republicans have an incr
 rep.data <- with(ds.sub2, data.frame(gender = mean(gender), 
                                 education = mean(education), race = mean(race),
                                 income = mean(income), ideol = (1:7),
-                                f.part = c("Rep")))
+                                f.party.2 = c("Rep")))
 
 dem.data <- with(ds.sub2, data.frame(gender = mean(gender), 
                                      education = mean(education), race = mean(race),
                                      income = mean(income), ideol = (1:7),
-                                     f.part = c("Dem")))
+                                     f.party.2 = c("Dem")))
 
 ind.data <- with(ds.sub2, data.frame(gender = mean(gender), 
                                      education = mean(education), race = mean(race), 
                                      income = mean(income), ideol = (1:7),
-                                     f.part = c("Ind")))
+                                     f.party.2 = c("Ind")))
 ```
 
 Now we can calculate predicted probabilities of voting for Trump for each party and ideology score, holding all other IVs constant, as well as upper and lower bounds of the confidence intervals:
@@ -248,18 +249,17 @@ ind.prob <-  augment(logit3, newdata = ind.data, type.predict = "response") %>%
 ```
 
 
-Now we combine everything into one data frame using `full_join()`. Recall that `full_join()` only joins two data frames at a time, so you first need to combine two data frames, then pipe that frame into another `full_join()` function:
+Now we combine everything into one data frame using `rbind()`.
 
 ```{r 12_log32, echo=TRUE, warning=FALSE}
-full_join(dem.prob, ind.prob) %>%
-  full_join(rep.prob) -> party.df
-party.df
+
+df.party <- rbind(dem.prob, ind.prob, rep.prob)
 ```
 
 Start by building the visualization. This will be similar to the last visualization, but we plot predicted probabilities for each ideology score in each party, so 21 points in all. We have everything we need to make a great visualization. We plot the points and error bars just like we did last time, but we assign colors by political party, and specify blue for Democrats, purple for Independents, and red for Republicans:
 
 ```{r 12_log33, echo=TRUE}
-ggplot(party.df, aes(ideol, .fitted, color = as.factor(f.part))) +
+ggplot(df.party, aes(ideol, .fitted, color = f.party.2)) +
   geom_point(size = 1.5) +
   geom_errorbar(aes(ymin = lower, ymax = upper), width = .2) +
   scale_color_manual(values = c("blue", "purple", "red")) +
