@@ -25,6 +25,7 @@ library(stargazer)
 library(interplot)
 library(reshape2)
 library(broom)
+library(interplot)
 options(scipen = 999)
 ds <- read_csv("https://github.com/ripberjt/qrmlabs/raw/master/Class%20Data%20Set%20Factored.csv")
 ```
