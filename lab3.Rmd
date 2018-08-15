@@ -277,11 +277,11 @@ The distance between quartiles is relatively even; however, note the difference 
 
 Standardizing, or scaling, data provides conveniences in discussing data. For instance, discussing how many standard deviations a particular value occurs from the mean is more meaningful than purely the distance. Scaling data in terms of z-scores provides the number of standard deviations a value is from the mean.
 
-The following example employs the `scale()` function to calculate z-score for each data point and assigns them to a newly created `z.age` variable in the `ds` data set. To do this, use the `mutate()` function, which is a tidyverse function that creates new variables or modifies existing variables: 
+The following example employs the `scale()` function to calculate z-score for each data point and assigns them to a newly created `z.age` variable in the `ds` data set. To do this, use the `mutate()` function, which is a tidyverse function that creates new variables or modifies existing variables. The `scale()` function is enclosed by the `c()` function to ensure the result is a 1 dimensional vector: 
 
 ```{r 3_z, echo=TRUE}
 ds <- ds %>%
-  mutate(z.age = scale(age))
+  mutate(z.age = c(scale(age)))
 ```
 
 Using a filter approach, the following example finds the z-score associated to women younger than 19 years old. First filter the data with the preferred stipulations, then use the `select()` verb from the `dplyr()` package (part of the tidyverse!) to view the results. All of this is connected using the pipe function, %>%.
