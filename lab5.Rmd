@@ -142,7 +142,7 @@ Similarly to earlier in the lab, confidence intervals can also be calculated by 
 male <- filter(ds, gender==1)
 female <- filter(ds, gender==0)
 m.se <- describe(male$glbcc)$se
-f.se <- describe(male$glbcc)$se
+f.se <- describe(female$glbcc)$se
 ```
 
 Now that we have the standard errors for men and women, we can return to the previous data frame we constucted and add a column for the standard error. This is done using the tidyverse verb `add_column()`. Assign the new data frame to a new object, then print the data frame:
@@ -154,7 +154,7 @@ df2 <- ds %>%
   drop_na() %>%
   mutate(prop = n / sum(n)) %>%
   filter(glbcc == 1) %>%
-  add_column(se = c(m.se, w.se))
+  add_column(se = c(m.se, f.se))
 ```
 
 Now construct the visualization. Like the previous visualization, use `geom_errorbar()` to construct the confidence intervals. However, this time you will need to calculate them inside the `geom_errorbar()` function itself!
@@ -176,7 +176,6 @@ We can use a two sample t-test to test these hypotheses. Using the different dat
 
 ```{r 5_2prop9, echo=TRUE}
 t.test(male$glbcc, female$glbcc)
-women2 - men2
 ```
 
 The t-test yields a p-value < $\alpha$ = 0.05, thereby the null hypothesis is rejected to conclude there is a statistical significance in responses by gender. Further, the point estimate calculated as 0.074 informs us 7% more women than men believe humans cause climate change. __Note:__ The confidence interval tells us that, with 95% confidence, the difference between women and men is between 3% and 11%. Judgment is required to determine whether gender difference is substantive.
