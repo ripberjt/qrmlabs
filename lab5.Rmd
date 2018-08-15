@@ -93,7 +93,7 @@ se.gcc <- se.gcc <- describe(ds$glbcc)$se
 
 Recall that the `mutate()` verb can be used to create multiple variables at once. With this in mind, we can easily create a data frame that contains the measurements of interest, the standard error, and the lower and upper bounds of the confidence interval. For a 95% confidence interval, you take the proportion, plus or minus 1.96 mulipltied by the standard error. Inside the `mutate()` function create three new variables: the standard error, lower, and upper:
 
-```{r 5_prop7, echo=TRUE}
+```{r 5_prop71, echo=TRUE}
 new.ds <- ds %>%
   count(glbcc) %>%
   mutate(prop = n / sum(n),

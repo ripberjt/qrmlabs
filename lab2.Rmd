@@ -10,11 +10,10 @@ This lab discusses the basics of exploring, describing, and visualizing data. Th
 
 1. car
 2. reshape2
-3. modeest
-4. descr
-5. psych
-6. tidyverse
-7. skimr
+3. descr
+4. psych
+5. tidyverse
+6. skimr
 
 __Reminder:__ Lab one introduced how to install packages via `install.packages()` function. __Note:__ These packages should already be installed from the class initialization script.
 
