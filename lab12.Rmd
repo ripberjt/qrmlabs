@@ -202,13 +202,14 @@ Now let's go over logit regression with groups. Let's continue looking into the 
 ```{r 12_log23, echo=TRUE}
 ds.sub2 <- ds %>% dplyr::select("f.trump", "gender", "ideol", "income",
                                         "education", "race", "f.party.2") %>%
-  na.omit()
+  na.omit() %>%
+  mutate(f.part = factor(f.party.2))
 ```
 
 Notice that we used the factored party variable that only includes Democrats, Independents, and Republicans. Let's build the model:
 
 ```{r 12_log24, echo=TRUE}
-logit3 <- glm(f.trump ~ ideol + gender + education + income + race + f.party.2,
+logit3 <- glm(f.trump ~ ideol + gender + education + income + race + f.part,
               family = binomial(link = logit), data = ds.sub2, x = TRUE)
 summary(logit3)
 ```
@@ -219,17 +220,17 @@ With Democrats as the reference group, Independents and Republicans have an incr
 rep.data <- with(ds.sub2, data.frame(gender = mean(gender), 
                                 education = mean(education), race = mean(race),
                                 income = mean(income), ideol = (1:7),
-                                f.party.2 = c("Rep")))
+                                f.part = c("Rep")))
 
 dem.data <- with(ds.sub2, data.frame(gender = mean(gender), 
                                      education = mean(education), race = mean(race),
                                      income = mean(income), ideol = (1:7),
-                                     f.party.2 = c("Dem")))
+                                     f.part = c("Dem")))
 
 ind.data <- with(ds.sub2, data.frame(gender = mean(gender), 
                                      education = mean(education), race = mean(race), 
                                      income = mean(income), ideol = (1:7),
-                                     f.party.2 = c("Ind")))
+                                     f.part = c("Ind")))
 ```
 
 Now we can calculate predicted probabilities of voting for Trump for each party and ideology score, holding all other IVs constant, as well as upper and lower bounds of the confidence intervals:
@@ -258,7 +259,7 @@ party.df
 Start by building the visualization. This will be similar to the last visualization, but we plot predicted probabilities for each ideology score in each party, so 21 points in all. We have everything we need to make a great visualization. We plot the points and error bars just like we did last time, but we assign colors by political party, and specify blue for Democrats, purple for Independents, and red for Republicans:
 
 ```{r 12_log33, echo=TRUE}
-ggplot(party.df, aes(ideol, .fitted, color = f.party.2)) +
+ggplot(party.df, aes(ideol, .fitted, color = as.factor(f.part))) +
   geom_point(size = 1.5) +
   geom_errorbar(aes(ymin = lower, ymax = upper), width = .2) +
   scale_color_manual(values = c("blue", "purple", "red")) +
