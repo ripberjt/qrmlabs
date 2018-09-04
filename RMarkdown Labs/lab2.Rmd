@@ -376,16 +376,15 @@ This provides loads of useful incormation, including summary statistics and a hi
 
 There are a variety of operators that can be used when working with your data. These Boolean operators assist with building data subsets in R:
 
-1. < less than
-2. <= less than or equal to
-3. >  greater than
-4. >= greater than or equal to
-5. == exactly equal to
-6. != not equal to 
-7. ! not (example: !x - pronounced "not x" )
-8. | Or (example: x | y - pronounced "x OR y") 
-9. & And (example: x & y - pronounced "x AND y") 
-
+1. $<$ less than
+2. $<=$ less than or equal to
+3. $>$ greater than
+4. $>=$ greater than or equal to
+5. $==$ exactly equal to
+6. $!=$ not equal to 
+7. $!$ not (example: !x - pronounced "not x" )
+8. $|$ or (example: x | y - pronounced "x OR y") 
+9. & and (example: x & y - pronounced "x AND y") 
 
 ## Part IV: Working with Nominal Data
 
