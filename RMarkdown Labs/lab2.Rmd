@@ -1,8 +1,5 @@
 ---
 title: 'Lab Two: Describing and Visualizing Data'
-author:
- - Alex Davis
- - Cody Adams
 output: pdf_document
 ---
 
