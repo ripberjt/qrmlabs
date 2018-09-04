@@ -361,7 +361,7 @@ In the previous section we used `summarize()` to get breakdowns of ceratin varia
 
 This provides loads of useful incormation, including summary statistics and a histogram showing the rough distribution of the data. As demonstrated in teh previous section, you can combine different tidyverse functions together in order to maximize efficiency. For example, combining `group_by()` and `skim()` provide breakdowns of all the variables by gender:
 
-```{r tidy14, echo=TRUE}
+```{r tidy14, echo = TRUE}
 # ds.sub %>%
 #   group_by(gender) %>%
 #   skim()
