@@ -351,13 +351,6 @@ d <- ds %>%
 
 ```
 
-First examine the independent variables:
-
-```{r 10_ex2, echo=TRUE}
-d %>%
-  skim(age, education, income)
-```
-
 Like earlier, we should do a log-transformation of income:
 
 ```{r 10_ex3, echo=TRUE}
