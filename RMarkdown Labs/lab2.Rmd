@@ -280,14 +280,14 @@ ds.sub %>%
 
 The `slice()` function selects a set amount of observations from the data. Using `slice()` selects a particular set of observations. Use `slice()` to select the first 10 observations from the data:
 
-```{r tidy5, echo=TRUE}
+```{r 1tidy5, echo=TRUE}
 ds.new <- ds.sub %>%
   slice(1:10)
 ```
 
 The `mutate()` verb allows you to either change an existing variable or create a new one. For example, we can create a new variable that returns income in increments of 1000s:
 
-```{r tidy5, echo=TRUE}
+```{r 2tidy5, echo=TRUE}
 ds.new %>%
   mutate(inc_100 = income / 1000)
 ```

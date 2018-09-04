@@ -1,10 +1,4 @@
----
-title: 'Lab Twelve: Logistic Regression'
-author:
- - Alex Davis
- - Cody Adams
-output: pdf_document
----
+# Logistic Regression
 
 This lab covers the basics of logistic regression, part of the broader generalized linear model family. GLMs relate a linear model to a response variable that does not have a normal distribution. Often you will use "logit" regression when working with a dependent variable that has limited responses, like a binary DV or an ordered DV. Logit regression uses Maximum Likelihood Estimation, which aims to identify the probability of obtaining the observed data as a function of the model parameters. The following packages are required for this lab: 
 
@@ -16,24 +10,13 @@ This lab covers the basics of logistic regression, part of the broader generaliz
 7. MASS
 8. pscl
 9. broom
-10.DAMisc
+10. DAMisc
 
 ```{r 12_setup, include=FALSE,message=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-library(tidyverse)
-library(psych)
-library(car)
-library(stargazer)
-library(reshape2)
-library(MASS)
-library(pscl)
-library(broom)
-library(DAMisc)
-options(scipen = 999)
 ds<-read_csv("https://github.com/ripberjt/qrmlabs/raw/master/Class%20Data%20Set%20Factored.csv")
 ```
 
-## Part I: Logistic Regression with a Binary DV
+## Logistic Regression with a Binary DV
 
 Recall from lab ten that we attempted to use OLS regression to explore the relationship between a number of independent variables and a vote for Trump. While using OLS provided useful information, some would consider logistic regression more appropriate in that instance. This is because of the binary DV (voted for Trump or did not) that does not follow the normal distribution. Let's construct a logit regression model that explores how certain IVs predict a vote for Trump. First we need to recode and factor the candidate variable to make it binary and exclude candidates other than Trump and Clinton, where a vote for Trump is 1 and Clinton is 0. We start by factoring the variable:
 
@@ -272,7 +255,7 @@ ggplot(df.party, aes(ideol, .fitted, color = f.party.2)) +
   theme_bw()
 ```
 
-## Part II: Ordered Logit and Creating an Index
+## Ordered Logit and Creating an Index
 
 Logit regression can be used in more than just situations with a binary DV. Ordered logit analysis is done in a similar way, but with an ordered DV. Instead of simply assessing the probability of one outcome, ordered logit analysis gives us the probability of moving from one level of an ordered categorical variable to the next. We're going to use ordered logit analysis to also learn how to create an index and work with one as your dependent variable. 
 

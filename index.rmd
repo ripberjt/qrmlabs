@@ -1,0 +1,84 @@
+--- 
+title: "Lab Guide to Quantitative Research Methods in Political Science, Public Policy & Public Administration."
+author:
+- Alex Davis
+- Cody Adams
+site: bookdown::bookdown_site
+output: bookdown::gitbook #bookdown::pdf_book
+book_filename: "labbook"
+always_allow_html: yes
+language:
+  ui:
+    chapter_name: "Chapter "
+delete_merged_file: true
+---
+
+# Preface
+
+This book is a companion to _Quantitative Research Methods for Political Science, Public Policy and Public Administration (With Applications in R): 3rd Edition_, an open-source text book that is available here: \url{https://hdl.handle.net/11244/52244}. It grew from our experiences teaching introductory and intermediate quantitative methods classes for graduate students in Political Science and Public Policy at the University of Oklahoma. We teach these courses using aformat that pairs seminars on theory and statistics withexercises that focus on applications in `R`. We use the text book to motivate seminars and this book to guide exercises. The book is written in `R Markdown` and `bookdown`. While a "complete" copy of the book is available, we suggest that students and instructors use the "raw" `.Rmd` files forexercises. These materials ara available in our `GitHub` repository (\url{https://github.com/ripberjt/qrmlabs}). 
+
+Currently, the labs use survey data from the Meso-Scale Integrated Socio-geographic Network (M-SISNet) to explain concepts and methods. The M-SISNet is a quarterly survey of approximately 1,500 households in Oklahoma that is conducted with support of the National Science Foundation (Grant No. IIA-1301789). One wave of M-SISNet data is available in our `GitHub` repository. Readers can learn more about the project and download the remaining waves here: \url{http://crcm.ou.edu/epscordata/}. We welcome students and instructors to explore and use these data, but we also encourage instructors to modify the book by incorporating data that is more relevant to the course they are teaching. 
+
+## Acknowledgments
+By intent, this book represents an open-ended group project that changes over time as new ideas and new instructors become involved in teaching graduate methods in the University of Oklahoma Political Science Department. Early ideas and materials came from Hank Jenkins-Smith who began teaching these courses (in R) in 2010. Graduate assistants Matthew Nowlin, Tyler Hughes, Aaron Fister were responsible for developing the labs for Hank's courses. Joseph Ripberger began teaching these courses in 2015. Wesley Wehde was responsible for updating the labs for his courses. After many years of informal development, Alexander Davis and Cody Adams took the labs and turned them in to this book. We thank everyone, especially our students, for helping us write and continue to improve this book.
+
+## Requirements
+
+Each chapter is written in R Markdown, allowing readers to follow along and interact with examples via their favorite integrated development environment, "IDE," (e.g., RStudio), or to knit as a PDF. For more information on R Markdown, visit: https://rmarkdown.rstudio.com/.
+
+Statistical analysis in R is possible via a plethora of publicly available packages. These chapters introduce various functions from select packages to expand upon the base functions of R, and therefore the following packages are required:
+
+1. car
+2. reshape2
+3. descr
+4. tidyverse
+5. skimr
+6. memisc
+7. stargazer
+8. MASS
+9. pscl
+10. broom
+11. zeligverse
+12. plotly
+13. vcd
+14. HistData
+15. sfsmisc
+16. interplot
+17. sandwich
+18. DAMisc
+
+For convenience, executing the _setup.R_ script or knitting this document within RStudio, installs these packages if they are not already installed.
+
+```{r preface, echo=FALSE, include=FALSE}
+
+packages <- c("DAMisc", "car", "reshape2", "descr", "psych", "tidyverse", "skimr", "memisc", "stargazer", "MASS", "pscl", "broom", "zeligverse", "plotly", "vcd", "HistData", "sfsmisc", "interplot", "sandwich")
+
+for (pkg in packages) {
+	if (pkg %in% rownames(installed.packages()) == FALSE) {
+		install.packages(pkg, type="binary")
+	}
+}
+
+library(car)
+library(reshape2)
+library(descr)
+library(psych)
+library(tidyverse)
+library(skimr)
+library(memisc)
+library(stargazer)
+library(MASS)
+library(pscl)
+library(broom)
+library(sandwich)
+library(zeligverse)
+library(plotly)
+library(vcd)
+library(HistData)
+library(sfsmisc)
+library(interplot)
+library(DAMisc)
+
+ds <- read.csv("https://github.com/ripberjt/qrmlabs/raw/master/Class%20Data%20Set%20Factored.csv", header = TRUE)
+options(scipen=999)
+```
