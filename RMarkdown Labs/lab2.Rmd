@@ -1,9 +1,9 @@
 ---
-title: 'Lab Two: Describing and Visualizing Data'
+title: 'Lab Two: Formatting, Describing, and Visualizing Data'
 output: pdf_document
 ---
 
-This lab discusses the basics of exploring, describing, and visualizing data. The following packages are required for this lab: 
+This lab discusses the basics of formatting, describing, and visualizing data. The following packages are required for this lab: 
 
 1. car
 2. reshape2
@@ -12,7 +12,7 @@ This lab discusses the basics of exploring, describing, and visualizing data. Th
 5. tidyverse
 6. skimr
 
-__Reminder:__ Lab one introduced how to install packages via `install.packages()` function. __Note:__ These packages should already be installed from the class initialization script.
+__Reminder:__ Lab One introduced how to install packages via `install.packages()` function. __Note:__ These packages should already be installed from the class initialization script.
 
 The installed packages require loading at the beginning of a R session.
 
@@ -30,7 +30,7 @@ ds <- read_csv("https://github.com/ripberjt/qrmlabs/raw/master/Class%20Data%20Se
 
 ## Part I: Factoring
 
-The previous lab introduced several types of objects in R. For the purpose of this lab, objects are classified in two broad groups: factors and numeric.
+The previous lab introduced several types of objects in R. For the purpose of this lab, objects are classified in two broad groups: factors and numerics.
 
 Factors are nominal data that a label is applied to.
  - e.g., race, gender, party identification, etc. 
@@ -87,7 +87,7 @@ table(ds$f.gender)
 While this factored variable is split into two categories, it is not apparent which numbers represent male and female. Labels should be assigned to the numbers to clarify the relationship between the numbers and their meaning. When factoring a variable, R requires the number of levels within the variable and the corresponding labels. In the `f.gender` variable there are two levels, 0 and 1, that require woman and men labels.
 
 ```{r 2_fac3, echo = TRUE}
-ds$f.gender <- factor(ds$gender, levels = c(0,1), 
+ds$f.gender <- factor(ds$gender, levels = c(0, 1), 
                       labels = c("Women", "Men"))
 table(ds$f.gender)
 ```
@@ -97,7 +97,7 @@ The vector function, `c()`, instructs R the levels and labels of the variable.
 The `f.party` variable should also be factored, where 1 = Dem, 2 = Rep, 3 = Ind, and 4 = Other, then create a table of the variable.
 
 ```{r 2_fac4, echo = TRUE}
-ds$f.party <- factor(ds$party, levels = c(1,2,3,4), 
+ds$f.party <- factor(ds$party, levels = c(1, 2, 3, 4), 
                      labels = c("Dem", "Rep", "Ind", "Other"))
 table(ds$f.party)
 ```
@@ -139,13 +139,13 @@ str(ds$n.party)
 
 ## Part II: Recoding
 
-In R, the `recode()` function recodes values within a variable. There are several broad purposes to recode a variable, including:
+In R, the `recode()` function recodes values within a variable. There many reasons to recode a variable, including:
 
 1. To correct or change incorrect data.
 2. To restructure data, making it easier for calculations.
 3. To emphasize some intended effect.
 
-For example, a recode is necessary to look at age groups instead of exact ages. If everyone in the survey reported their exact age (e.g., 54, 23, etc.) and age groups is necessary (e.g., 18-25, 26-35, etc.) the `recode()` function is useful.
+For example, a recode is necessary to look at age groups instead of exact ages. If everyone in the survey reported their exact age (e.g., 54, 23, etc.) and age groups are necessary (e.g., 18-25, 26-35, etc.), the `recode()` function is useful.
 
 To perform a recode, follow this basic syntax: `recoded.variable <- recode(old.variable, "recode commands")`
 
@@ -251,16 +251,16 @@ five <- rbind(one, two, three)
 
 ### The Tidyverse
 
-The tidyverse is a collection of packages and functions for exploring and visualizing data in R. Developed by Hadley Wickham, the tidyverse packages provide a succint and consistent method of data exploration and visualization. There are plenty of different methods of working with your data, but this class will employ the tidyverse, as it is considered to be intuitive and rather simple. 
+The `tidyverse` is a collection of packages and functions for exploring and visualizing data in R. Developed by Hadley Wickham, the `tidyverse` packages provide a succint and consistent method of data exploration and visualization. There are plenty of different methods of working with your data, but this class will employ the `tidyverse`, as it is considered to be intuitive and rather simple. 
 
-Let's begin with learning how to filter your data. Filtering allows you to create a subset of your data that meets specific criteria. For example, you could filter your data to examine only men, or only Republicans, etc. To filter data, use the `filter()` verb from the `dplyr` package. The tidyverse functions are best optimized by using the pipe operator, `%>%`, to pipe functions together. The pipe operator takes whatever is before it and sends it on to the next function. For example:
+Let's begin with learning how to filter your data. Filtering allows you to create a subset of your data that meets specific criteria. For example, you could filter your data to examine only men, or only Republicans, etc. To filter data, use the `filter()` verb from the `dplyr` package. The `tidyverse` functions are best optimized by using the pipe operator, `%>%`, to pipe functions together. The pipe operator takes whatever is before it and sends it on to the next function. For example:
 
 ```{r tidy, echo = TRUE}
 ds.men <- ds %>%
   filter(gender == 1)
 ```
 
-The code chunk above creates a subset of the data that only includes men. The syntax can be read as "First take the data set, then filter it to include men only". We also assigned it to a new object, `ds.men`.  The filter verb can include multiple specifications. You also do not have to always assign your filtered data to a new object. For example, suppose you wanted to examine women who are age 42. You can do so like this:
+The code chunk above creates a subset of the data that only includes men. The syntax can be read as "First take the data set, then filter it to include men only." We also assigned it to a new object, `ds.men`.  The filter verb can include multiple specifications. You also do not have to always assign your filtered data to a new object. For example, suppose you wanted to examine women who are age 42. You can do so like this:
 
 ```{r tidy2, echo = TRUE}
 ds %>%
