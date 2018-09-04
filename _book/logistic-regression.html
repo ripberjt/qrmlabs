@@ -1,0 +1,784 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Lab Guide to Quantitative Research Methods in Political Science, Public Policy &amp; Public Administration.</title>
+  <meta name="description" content="Lab Guide to Quantitative Research Methods in Political Science, Public Policy &amp; Public Administration.">
+  <meta name="generator" content="bookdown 0.7 and GitBook 2.6.7">
+
+  <meta property="og:title" content="Lab Guide to Quantitative Research Methods in Political Science, Public Policy &amp; Public Administration." />
+  <meta property="og:type" content="book" />
+  
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Lab Guide to Quantitative Research Methods in Political Science, Public Policy &amp; Public Administration." />
+  
+  
+  
+
+<meta name="author" content="Alex Davis">
+<meta name="author" content="Cody Adams">
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="diagnosing-and-addressing-problems-in-linear-regression.html">
+<link rel="next" href="statistical-simulations.html">
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+<script src="libs/htmlwidgets-1.2/htmlwidgets.js"></script>
+<script src="libs/plotly-binding-4.8.0/plotly.js"></script>
+<script src="libs/typedarray-0.1/typedarray.min.js"></script>
+<link href="libs/crosstalk-1.0.0/css/crosstalk.css" rel="stylesheet" />
+<script src="libs/crosstalk-1.0.0/js/crosstalk.min.js"></script>
+<link href="libs/plotly-htmlwidgets-css-1.39.2/plotly-htmlwidgets.css" rel="stylesheet" />
+<script src="libs/plotly-main-1.39.2/plotly-latest.min.js"></script>
+
+
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Preface</a><ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#acknowledgments"><i class="fa fa-check"></i><b>1.1</b> Acknowledgments</a></li>
+<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#requirements"><i class="fa fa-check"></i><b>1.2</b> Requirements</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="introduction-and-basics.html"><a href="introduction-and-basics.html"><i class="fa fa-check"></i><b>2</b> Introduction and Basics</a><ul>
+<li class="chapter" data-level="2.1" data-path="introduction-and-basics.html"><a href="introduction-and-basics.html#r-as-a-calculator"><i class="fa fa-check"></i><b>2.1</b> R, as a Calculator</a><ul>
+<li class="chapter" data-level="2.1.1" data-path="introduction-and-basics.html"><a href="introduction-and-basics.html#order-of-operations"><i class="fa fa-check"></i><b>2.1.1</b> Order of Operations</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="introduction-and-basics.html"><a href="introduction-and-basics.html#objects"><i class="fa fa-check"></i><b>2.2</b> Objects</a></li>
+<li class="chapter" data-level="2.3" data-path="introduction-and-basics.html"><a href="introduction-and-basics.html#functions"><i class="fa fa-check"></i><b>2.3</b> Functions</a><ul>
+<li class="chapter" data-level="2.3.1" data-path="introduction-and-basics.html"><a href="introduction-and-basics.html#object-types"><i class="fa fa-check"></i><b>2.3.1</b> Object Types</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="introduction-and-basics.html"><a href="introduction-and-basics.html#packages"><i class="fa fa-check"></i><b>2.4</b> Packages</a><ul>
+<li class="chapter" data-level="2.4.1" data-path="introduction-and-basics.html"><a href="introduction-and-basics.html#installing-packages"><i class="fa fa-check"></i><b>2.4.1</b> Installing Packages</a></li>
+<li class="chapter" data-level="2.4.2" data-path="introduction-and-basics.html"><a href="introduction-and-basics.html#loading-packages"><i class="fa fa-check"></i><b>2.4.2</b> Loading Packages</a></li>
+<li class="chapter" data-level="2.4.3" data-path="introduction-and-basics.html"><a href="introduction-and-basics.html#updating-packages"><i class="fa fa-check"></i><b>2.4.3</b> Updating Packages</a></li>
+</ul></li>
+<li class="chapter" data-level="2.5" data-path="introduction-and-basics.html"><a href="introduction-and-basics.html#r-help"><i class="fa fa-check"></i><b>2.5</b> R Help</a></li>
+<li class="chapter" data-level="2.6" data-path="introduction-and-basics.html"><a href="introduction-and-basics.html#setting-a-working-directory"><i class="fa fa-check"></i><b>2.6</b> Setting a Working Directory</a></li>
+<li class="chapter" data-level="2.7" data-path="introduction-and-basics.html"><a href="introduction-and-basics.html#importing-your-data"><i class="fa fa-check"></i><b>2.7</b> Importing Your Data</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="describing-and-visualizing-data.html"><a href="describing-and-visualizing-data.html"><i class="fa fa-check"></i><b>3</b> Describing and Visualizing Data’</a><ul>
+<li class="chapter" data-level="3.1" data-path="describing-and-visualizing-data.html"><a href="describing-and-visualizing-data.html#factoring"><i class="fa fa-check"></i><b>3.1</b> Factoring</a><ul>
+<li class="chapter" data-level="3.1.1" data-path="describing-and-visualizing-data.html"><a href="describing-and-visualizing-data.html#coerce-factoring"><i class="fa fa-check"></i><b>3.1.1</b> Coerce Factoring</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="describing-and-visualizing-data.html"><a href="describing-and-visualizing-data.html#recoding"><i class="fa fa-check"></i><b>3.2</b> Recoding</a><ul>
+<li class="chapter" data-level="3.2.1" data-path="describing-and-visualizing-data.html"><a href="describing-and-visualizing-data.html#factoring-and-recoding"><i class="fa fa-check"></i><b>3.2.1</b> Factoring and Recoding</a></li>
+<li class="chapter" data-level="3.2.2" data-path="describing-and-visualizing-data.html"><a href="describing-and-visualizing-data.html#creating-a-dummy-variable"><i class="fa fa-check"></i><b>3.2.2</b> Creating a Dummy Variable</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="describing-and-visualizing-data.html"><a href="describing-and-visualizing-data.html#building-and-sorting-your-data"><i class="fa fa-check"></i><b>3.3</b> Building and Sorting Your Data</a><ul>
+<li class="chapter" data-level="3.3.1" data-path="describing-and-visualizing-data.html"><a href="describing-and-visualizing-data.html#the-tidyverse"><i class="fa fa-check"></i><b>3.3.1</b> The Tidyverse</a></li>
+<li class="chapter" data-level="3.3.2" data-path="describing-and-visualizing-data.html"><a href="describing-and-visualizing-data.html#other-methods-of-exploring-your-data"><i class="fa fa-check"></i><b>3.3.2</b> Other Methods of Exploring Your Data</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="describing-and-visualizing-data.html"><a href="describing-and-visualizing-data.html#working-with-nominal-data"><i class="fa fa-check"></i><b>3.4</b> Working with Nominal Data</a><ul>
+<li class="chapter" data-level="3.4.1" data-path="describing-and-visualizing-data.html"><a href="describing-and-visualizing-data.html#finding-the-mode"><i class="fa fa-check"></i><b>3.4.1</b> Finding the Mode</a></li>
+<li class="chapter" data-level="3.4.2" data-path="describing-and-visualizing-data.html"><a href="describing-and-visualizing-data.html#visualizing-nominal-data"><i class="fa fa-check"></i><b>3.4.2</b> Visualizing Nominal Data</a></li>
+</ul></li>
+<li class="chapter" data-level="3.5" data-path="describing-and-visualizing-data.html"><a href="describing-and-visualizing-data.html#working-with-ordinal-data"><i class="fa fa-check"></i><b>3.5</b> Working with Ordinal Data</a></li>
+<li class="chapter" data-level="3.6" data-path="describing-and-visualizing-data.html"><a href="describing-and-visualizing-data.html#working-with-interval-data"><i class="fa fa-check"></i><b>3.6</b> Working with Interval Data</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="visualizing-data-probability-the-normal-distribution-and-z-scores.html"><a href="visualizing-data-probability-the-normal-distribution-and-z-scores.html"><i class="fa fa-check"></i><b>4</b> Visualizing Data, Probability, the Normal Distribution, and Z Scores</a><ul>
+<li class="chapter" data-level="4.1" data-path="visualizing-data-probability-the-normal-distribution-and-z-scores.html"><a href="visualizing-data-probability-the-normal-distribution-and-z-scores.html#histograms-and-density"><i class="fa fa-check"></i><b>4.1</b> Histograms and Density</a><ul>
+<li class="chapter" data-level="4.1.1" data-path="visualizing-data-probability-the-normal-distribution-and-z-scores.html"><a href="visualizing-data-probability-the-normal-distribution-and-z-scores.html#normal-distribution-and-histograms"><i class="fa fa-check"></i><b>4.1.1</b> Normal Distribution and Histograms</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="visualizing-data-probability-the-normal-distribution-and-z-scores.html"><a href="visualizing-data-probability-the-normal-distribution-and-z-scores.html#probability-and-distributions"><i class="fa fa-check"></i><b>4.2</b> Probability and Distributions</a></li>
+<li class="chapter" data-level="4.3" data-path="visualizing-data-probability-the-normal-distribution-and-z-scores.html"><a href="visualizing-data-probability-the-normal-distribution-and-z-scores.html#visualizing-normality"><i class="fa fa-check"></i><b>4.3</b> Visualizing Normality</a></li>
+<li class="chapter" data-level="4.4" data-path="visualizing-data-probability-the-normal-distribution-and-z-scores.html"><a href="visualizing-data-probability-the-normal-distribution-and-z-scores.html#z-scores"><i class="fa fa-check"></i><b>4.4</b> Z-Scores</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="foundations-for-inference.html"><a href="foundations-for-inference.html"><i class="fa fa-check"></i><b>5</b> Foundations for Inference</a><ul>
+<li class="chapter" data-level="5.1" data-path="foundations-for-inference.html"><a href="foundations-for-inference.html#testing-for-normality"><i class="fa fa-check"></i><b>5.1</b> Testing for Normality</a><ul>
+<li class="chapter" data-level="5.1.1" data-path="foundations-for-inference.html"><a href="foundations-for-inference.html#shapiro-wilk-test"><i class="fa fa-check"></i><b>5.1.1</b> Shapiro-Wilk Test</a></li>
+<li class="chapter" data-level="5.1.2" data-path="foundations-for-inference.html"><a href="foundations-for-inference.html#testing-normality"><i class="fa fa-check"></i><b>5.1.2</b> Testing Normality</a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="foundations-for-inference.html"><a href="foundations-for-inference.html#standard-errors"><i class="fa fa-check"></i><b>5.2</b> Standard Errors</a></li>
+<li class="chapter" data-level="5.3" data-path="foundations-for-inference.html"><a href="foundations-for-inference.html#confidence-intervals"><i class="fa fa-check"></i><b>5.3</b> Confidence Intervals</a></li>
+<li class="chapter" data-level="5.4" data-path="foundations-for-inference.html"><a href="foundations-for-inference.html#more-on-single-sample-t-tests"><i class="fa fa-check"></i><b>5.4</b> More on Single Sample T-tests</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="inference-for-two-populations.html"><a href="inference-for-two-populations.html"><i class="fa fa-check"></i><b>6</b> Inference for Two Populations</a><ul>
+<li class="chapter" data-level="6.1" data-path="inference-for-two-populations.html"><a href="inference-for-two-populations.html#proportions"><i class="fa fa-check"></i><b>6.1</b> Proportions</a><ul>
+<li class="chapter" data-level="6.1.1" data-path="inference-for-two-populations.html"><a href="inference-for-two-populations.html#two-populations"><i class="fa fa-check"></i><b>6.1.1</b> Two Populations</a></li>
+</ul></li>
+<li class="chapter" data-level="6.2" data-path="inference-for-two-populations.html"><a href="inference-for-two-populations.html#cross-tabulations"><i class="fa fa-check"></i><b>6.2</b> Cross Tabulations</a><ul>
+<li class="chapter" data-level="6.2.1" data-path="inference-for-two-populations.html"><a href="inference-for-two-populations.html#other-coefficients"><i class="fa fa-check"></i><b>6.2.1</b> Other Coefficients</a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="inference-for-two-populations.html"><a href="inference-for-two-populations.html#independent-t-tests"><i class="fa fa-check"></i><b>6.3</b> Independent t-tests</a><ul>
+<li class="chapter" data-level="6.3.1" data-path="inference-for-two-populations.html"><a href="inference-for-two-populations.html#other-independent-sample-tests"><i class="fa fa-check"></i><b>6.3.1</b> Other Independent Sample Tests</a></li>
+</ul></li>
+<li class="chapter" data-level="6.4" data-path="inference-for-two-populations.html"><a href="inference-for-two-populations.html#paired-t-test"><i class="fa fa-check"></i><b>6.4</b> Paired t-test</a></li>
+<li class="chapter" data-level="6.5" data-path="inference-for-two-populations.html"><a href="inference-for-two-populations.html#visualizing-differences-in-means"><i class="fa fa-check"></i><b>6.5</b> Visualizing Differences in Means</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="covariance-and-correlation.html"><a href="covariance-and-correlation.html"><i class="fa fa-check"></i><b>7</b> Covariance and Correlation</a><ul>
+<li class="chapter" data-level="7.1" data-path="covariance-and-correlation.html"><a href="covariance-and-correlation.html#covariance"><i class="fa fa-check"></i><b>7.1</b> Covariance</a><ul>
+<li class="chapter" data-level="7.1.1" data-path="covariance-and-correlation.html"><a href="covariance-and-correlation.html#covariance-by-hand"><i class="fa fa-check"></i><b>7.1.1</b> Covariance by Hand</a></li>
+<li class="chapter" data-level="7.1.2" data-path="covariance-and-correlation.html"><a href="covariance-and-correlation.html#covariance-in-r"><i class="fa fa-check"></i><b>7.1.2</b> Covariance in R</a></li>
+<li class="chapter" data-level="7.1.3" data-path="covariance-and-correlation.html"><a href="covariance-and-correlation.html#covariance-in-class-data-set"><i class="fa fa-check"></i><b>7.1.3</b> Covariance in Class Data Set</a></li>
+</ul></li>
+<li class="chapter" data-level="7.2" data-path="covariance-and-correlation.html"><a href="covariance-and-correlation.html#correlation"><i class="fa fa-check"></i><b>7.2</b> Correlation</a><ul>
+<li class="chapter" data-level="7.2.1" data-path="covariance-and-correlation.html"><a href="covariance-and-correlation.html#correlation-by-hand"><i class="fa fa-check"></i><b>7.2.1</b> Correlation by Hand</a></li>
+<li class="chapter" data-level="7.2.2" data-path="covariance-and-correlation.html"><a href="covariance-and-correlation.html#correlation-tests"><i class="fa fa-check"></i><b>7.2.2</b> Correlation Tests</a></li>
+<li class="chapter" data-level="7.2.3" data-path="covariance-and-correlation.html"><a href="covariance-and-correlation.html#correlation-across-groups"><i class="fa fa-check"></i><b>7.2.3</b> Correlation Across Groups</a></li>
+</ul></li>
+<li class="chapter" data-level="7.3" data-path="covariance-and-correlation.html"><a href="covariance-and-correlation.html#visualizing-correlation"><i class="fa fa-check"></i><b>7.3</b> Visualizing Correlation</a><ul>
+<li class="chapter" data-level="7.3.1" data-path="covariance-and-correlation.html"><a href="covariance-and-correlation.html#another-example-political-party"><i class="fa fa-check"></i><b>7.3.1</b> Another Example: Political Party</a></li>
+<li class="chapter" data-level="7.3.2" data-path="covariance-and-correlation.html"><a href="covariance-and-correlation.html#one-more-visualization"><i class="fa fa-check"></i><b>7.3.2</b> One More Visualization</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="bivariate-linear-regression.html"><a href="bivariate-linear-regression.html"><i class="fa fa-check"></i><b>8</b> Bivariate Linear Regression</a><ul>
+<li class="chapter" data-level="8.1" data-path="bivariate-linear-regression.html"><a href="bivariate-linear-regression.html#bivariate-linear-regression-by-hand"><i class="fa fa-check"></i><b>8.1</b> Bivariate Linear Regression by Hand</a><ul>
+<li class="chapter" data-level="8.1.1" data-path="bivariate-linear-regression.html"><a href="bivariate-linear-regression.html#calculating-goodness-of-fit"><i class="fa fa-check"></i><b>8.1.1</b> Calculating Goodness of Fit</a></li>
+<li class="chapter" data-level="8.1.2" data-path="bivariate-linear-regression.html"><a href="bivariate-linear-regression.html#checking-our-work"><i class="fa fa-check"></i><b>8.1.2</b> Checking Our Work</a></li>
+</ul></li>
+<li class="chapter" data-level="8.2" data-path="bivariate-linear-regression.html"><a href="bivariate-linear-regression.html#bivariate-regression-in-r"><i class="fa fa-check"></i><b>8.2</b> Bivariate Regression in R</a></li>
+<li class="chapter" data-level="8.3" data-path="bivariate-linear-regression.html"><a href="bivariate-linear-regression.html#the-residuals"><i class="fa fa-check"></i><b>8.3</b> The Residuals</a></li>
+<li class="chapter" data-level="8.4" data-path="bivariate-linear-regression.html"><a href="bivariate-linear-regression.html#comparing-models"><i class="fa fa-check"></i><b>8.4</b> Comparing Models</a><ul>
+<li class="chapter" data-level="8.4.1" data-path="bivariate-linear-regression.html"><a href="bivariate-linear-regression.html#visualizing-multiple-models"><i class="fa fa-check"></i><b>8.4.1</b> Visualizing Multiple Models</a></li>
+</ul></li>
+<li class="chapter" data-level="8.5" data-path="bivariate-linear-regression.html"><a href="bivariate-linear-regression.html#hypothesis-testing"><i class="fa fa-check"></i><b>8.5</b> Hypothesis Testing</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="multivariable-linear-regression.html"><a href="multivariable-linear-regression.html"><i class="fa fa-check"></i><b>9</b> Multivariable Linear Regression</a><ul>
+<li class="chapter" data-level="9.1" data-path="multivariable-linear-regression.html"><a href="multivariable-linear-regression.html#part-i-calculating-least-squared-estimates"><i class="fa fa-check"></i><b>9.1</b> Part I: Calculating Least-Squared Estimates</a><ul>
+<li class="chapter" data-level="9.1.1" data-path="multivariable-linear-regression.html"><a href="multivariable-linear-regression.html#matrix-algebra"><i class="fa fa-check"></i><b>9.1.1</b> Matrix Algebra</a></li>
+<li class="chapter" data-level="9.1.2" data-path="multivariable-linear-regression.html"><a href="multivariable-linear-regression.html#representing-system-of-linear-equations-as-matrices"><i class="fa fa-check"></i><b>9.1.2</b> Representing System of Linear Equations as Matrices</a></li>
+<li class="chapter" data-level="9.1.3" data-path="multivariable-linear-regression.html"><a href="multivariable-linear-regression.html#ols-regression-and-matrices"><i class="fa fa-check"></i><b>9.1.3</b> OLS Regression and Matrices</a></li>
+</ul></li>
+<li class="chapter" data-level="9.2" data-path="multivariable-linear-regression.html"><a href="multivariable-linear-regression.html#part-ii-multiple-regression-in-r"><i class="fa fa-check"></i><b>9.2</b> Part II: Multiple Regression in R</a></li>
+<li class="chapter" data-level="9.3" data-path="multivariable-linear-regression.html"><a href="multivariable-linear-regression.html#part-iii-hypothesis-testing-with-multivariable-regression"><i class="fa fa-check"></i><b>9.3</b> Part III: Hypothesis Testing with Multivariable Regression</a><ul>
+<li class="chapter" data-level="9.3.1" data-path="multivariable-linear-regression.html"><a href="multivariable-linear-regression.html#visualizing-multivariable-linear-regression"><i class="fa fa-check"></i><b>9.3.1</b> Visualizing Multivariable Linear Regression</a></li>
+</ul></li>
+<li class="chapter" data-level="9.4" data-path="multivariable-linear-regression.html"><a href="multivariable-linear-regression.html#part-iv-predicting-with-ols-regression"><i class="fa fa-check"></i><b>9.4</b> Part IV: Predicting with OLS Regression</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="categorical-explanatory-variables-dummy-variables-and-interactions.html"><a href="categorical-explanatory-variables-dummy-variables-and-interactions.html"><i class="fa fa-check"></i><b>10</b> Categorical Explanatory Variables, Dummy Variables, and Interactions</a><ul>
+<li class="chapter" data-level="10.1" data-path="categorical-explanatory-variables-dummy-variables-and-interactions.html"><a href="categorical-explanatory-variables-dummy-variables-and-interactions.html#dummy-variables"><i class="fa fa-check"></i><b>10.1</b> Dummy Variables</a><ul>
+<li class="chapter" data-level="10.1.1" data-path="categorical-explanatory-variables-dummy-variables-and-interactions.html"><a href="categorical-explanatory-variables-dummy-variables-and-interactions.html#multiple-dummy-variables"><i class="fa fa-check"></i><b>10.1.1</b> Multiple Dummy Variables</a></li>
+</ul></li>
+<li class="chapter" data-level="10.2" data-path="categorical-explanatory-variables-dummy-variables-and-interactions.html"><a href="categorical-explanatory-variables-dummy-variables-and-interactions.html#interactions"><i class="fa fa-check"></i><b>10.2</b> Interactions</a><ul>
+<li class="chapter" data-level="10.2.1" data-path="categorical-explanatory-variables-dummy-variables-and-interactions.html"><a href="categorical-explanatory-variables-dummy-variables-and-interactions.html#interactions-with-two-non-binary-variables"><i class="fa fa-check"></i><b>10.2.1</b> Interactions with Two Non-binary Variables</a></li>
+</ul></li>
+<li class="chapter" data-level="10.3" data-path="categorical-explanatory-variables-dummy-variables-and-interactions.html"><a href="categorical-explanatory-variables-dummy-variables-and-interactions.html#releveling-variables"><i class="fa fa-check"></i><b>10.3</b> Releveling Variables</a></li>
+<li class="chapter" data-level="10.4" data-path="categorical-explanatory-variables-dummy-variables-and-interactions.html"><a href="categorical-explanatory-variables-dummy-variables-and-interactions.html#interaction-plots"><i class="fa fa-check"></i><b>10.4</b> Interaction Plots</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="non-linearity-non-normality-and-multicollinearity.html"><a href="non-linearity-non-normality-and-multicollinearity.html"><i class="fa fa-check"></i><b>11</b> Non-linearity, Non-normality, and Multicollinearity</a><ul>
+<li class="chapter" data-level="11.1" data-path="non-linearity-non-normality-and-multicollinearity.html"><a href="non-linearity-non-normality-and-multicollinearity.html#non-linearity"><i class="fa fa-check"></i><b>11.1</b> Non-linearity</a><ul>
+<li class="chapter" data-level="11.1.1" data-path="non-linearity-non-normality-and-multicollinearity.html"><a href="non-linearity-non-normality-and-multicollinearity.html#exploring-non-linearity"><i class="fa fa-check"></i><b>11.1.1</b> Exploring Non-linearity</a></li>
+</ul></li>
+<li class="chapter" data-level="11.2" data-path="non-linearity-non-normality-and-multicollinearity.html"><a href="non-linearity-non-normality-and-multicollinearity.html#non-normality"><i class="fa fa-check"></i><b>11.2</b> Non-normality</a></li>
+<li class="chapter" data-level="11.3" data-path="non-linearity-non-normality-and-multicollinearity.html"><a href="non-linearity-non-normality-and-multicollinearity.html#multicollinearity"><i class="fa fa-check"></i><b>11.3</b> Multicollinearity</a></li>
+<li class="chapter" data-level="11.4" data-path="non-linearity-non-normality-and-multicollinearity.html"><a href="non-linearity-non-normality-and-multicollinearity.html#standardizing-coefficients"><i class="fa fa-check"></i><b>11.4</b> Standardizing Coefficients</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="diagnosing-and-addressing-problems-in-linear-regression.html"><a href="diagnosing-and-addressing-problems-in-linear-regression.html"><i class="fa fa-check"></i><b>12</b> Diagnosing and Addressing Problems in Linear Regression</a><ul>
+<li class="chapter" data-level="12.1" data-path="diagnosing-and-addressing-problems-in-linear-regression.html"><a href="diagnosing-and-addressing-problems-in-linear-regression.html#introduction-to-the-data"><i class="fa fa-check"></i><b>12.1</b> Introduction to the Data</a></li>
+<li class="chapter" data-level="12.2" data-path="diagnosing-and-addressing-problems-in-linear-regression.html"><a href="diagnosing-and-addressing-problems-in-linear-regression.html#outliers"><i class="fa fa-check"></i><b>12.2</b> Outliers</a></li>
+<li class="chapter" data-level="12.3" data-path="diagnosing-and-addressing-problems-in-linear-regression.html"><a href="diagnosing-and-addressing-problems-in-linear-regression.html#heteroscedasticity"><i class="fa fa-check"></i><b>12.3</b> Heteroscedasticity</a></li>
+<li class="chapter" data-level="12.4" data-path="diagnosing-and-addressing-problems-in-linear-regression.html"><a href="diagnosing-and-addressing-problems-in-linear-regression.html#revisiting-linearity"><i class="fa fa-check"></i><b>12.4</b> Revisiting Linearity</a><ul>
+<li class="chapter" data-level="12.4.1" data-path="diagnosing-and-addressing-problems-in-linear-regression.html"><a href="diagnosing-and-addressing-problems-in-linear-regression.html#normality"><i class="fa fa-check"></i><b>12.4.1</b> Normality</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="logistic-regression.html"><a href="logistic-regression.html"><i class="fa fa-check"></i><b>13</b> Logistic Regression</a><ul>
+<li class="chapter" data-level="13.1" data-path="logistic-regression.html"><a href="logistic-regression.html#logistic-regression-with-a-binary-dv"><i class="fa fa-check"></i><b>13.1</b> Logistic Regression with a Binary DV</a><ul>
+<li class="chapter" data-level="13.1.1" data-path="logistic-regression.html"><a href="logistic-regression.html#goodness-of-fit-logit-regression"><i class="fa fa-check"></i><b>13.1.1</b> Goodness of Fit, Logit Regression</a></li>
+<li class="chapter" data-level="13.1.2" data-path="logistic-regression.html"><a href="logistic-regression.html#percent-correctly-predicted"><i class="fa fa-check"></i><b>13.1.2</b> Percent Correctly Predicted</a></li>
+<li class="chapter" data-level="13.1.3" data-path="logistic-regression.html"><a href="logistic-regression.html#logit-regression-with-groups"><i class="fa fa-check"></i><b>13.1.3</b> Logit Regression with Groups</a></li>
+</ul></li>
+<li class="chapter" data-level="13.2" data-path="logistic-regression.html"><a href="logistic-regression.html#ordered-logit-and-creating-an-index"><i class="fa fa-check"></i><b>13.2</b> Ordered Logit and Creating an Index</a></li>
+</ul></li>
+<li class="chapter" data-level="14" data-path="statistical-simulations.html"><a href="statistical-simulations.html"><i class="fa fa-check"></i><b>14</b> Statistical Simulations</a><ul>
+<li class="chapter" data-level="14.1" data-path="statistical-simulations.html"><a href="statistical-simulations.html#the-basics"><i class="fa fa-check"></i><b>14.1</b> The Basics</a><ul>
+<li class="chapter" data-level="14.1.1" data-path="statistical-simulations.html"><a href="statistical-simulations.html#plotting-predictions-with-zelig"><i class="fa fa-check"></i><b>14.1.1</b> Plotting Predictions with Zelig</a></li>
+</ul></li>
+<li class="chapter" data-level="14.2" data-path="statistical-simulations.html"><a href="statistical-simulations.html#other-models"><i class="fa fa-check"></i><b>14.2</b> Other Models</a><ul>
+<li class="chapter" data-level="14.2.1" data-path="statistical-simulations.html"><a href="statistical-simulations.html#ordered-logit"><i class="fa fa-check"></i><b>14.2.1</b> Ordered Logit</a></li>
+<li class="chapter" data-level="14.2.2" data-path="statistical-simulations.html"><a href="statistical-simulations.html#another-example"><i class="fa fa-check"></i><b>14.2.2</b> Another Example</a></li>
+</ul></li>
+<li class="chapter" data-level="14.3" data-path="statistical-simulations.html"><a href="statistical-simulations.html#zelig-with-non-zelig-models"><i class="fa fa-check"></i><b>14.3</b> Zelig with non-Zelig Models:</a></li>
+</ul></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Lab Guide to Quantitative Research Methods in Political Science, Public Policy &amp; Public Administration.</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="logistic-regression" class="section level1">
+<h1><span class="header-section-number">13</span> Logistic Regression</h1>
+<p>This lab covers the basics of logistic regression, part of the broader generalized linear model family. GLMs relate a linear model to a response variable that does not have a normal distribution. Often you will use “logit” regression when working with a dependent variable that has limited responses, like a binary DV or an ordered DV. Logit regression uses Maximum Likelihood Estimation, which aims to identify the probability of obtaining the observed data as a function of the model parameters. The following packages are required for this lab:</p>
+<ol style="list-style-type: decimal">
+<li>tidyverse</li>
+<li>psych</li>
+<li>car</li>
+<li>stargazer</li>
+<li>reshape2</li>
+<li>MASS</li>
+<li>pscl</li>
+<li>broom</li>
+<li>DAMisc</li>
+</ol>
+<div id="logistic-regression-with-a-binary-dv" class="section level2">
+<h2><span class="header-section-number">13.1</span> Logistic Regression with a Binary DV</h2>
+<p>Recall from lab ten that we attempted to use OLS regression to explore the relationship between a number of independent variables and a vote for Trump. While using OLS provided useful information, some would consider logistic regression more appropriate in that instance. This is because of the binary DV (voted for Trump or did not) that does not follow the normal distribution. Let’s construct a logit regression model that explores how certain IVs predict a vote for Trump. First we need to recode and factor the candidate variable to make it binary and exclude candidates other than Trump and Clinton, where a vote for Trump is 1 and Clinton is 0. We start by factoring the variable:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ds<span class="op">$</span>trump &lt;-<span class="st"> </span>car<span class="op">::</span><span class="kw">recode</span>(ds<span class="op">$</span>vote_cand, <span class="st">&quot;0 = 1;1 = 0;else = NA;NA = NA&quot;</span>)
+ds<span class="op">$</span>f.trump &lt;-<span class="st"> </span><span class="kw">factor</span>(ds<span class="op">$</span>trump, <span class="dt">levels =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">1</span>), <span class="dt">labels =</span> <span class="kw">c</span>(<span class="st">&quot;Clinton&quot;</span>, <span class="st">&quot;Trump&quot;</span>))
+<span class="kw">table</span>(ds<span class="op">$</span>f.trump)</code></pre></div>
+<pre><code>## 
+## Clinton   Trump 
+##     722    1272</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ds<span class="op">$</span>f.party.<span class="dv">2</span> &lt;-<span class="st"> </span><span class="kw">factor</span>(ds<span class="op">$</span>f.party.<span class="dv">2</span>)</code></pre></div>
+<p>Next, select a subset of the data and remove missing observations:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ds.sub &lt;-<span class="st"> </span>ds <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span>dplyr<span class="op">::</span><span class="kw">select</span>(<span class="st">&quot;f.trump&quot;</span>, <span class="st">&quot;gender&quot;</span>, <span class="st">&quot;ideol&quot;</span>, <span class="st">&quot;income&quot;</span>, <span class="st">&quot;education&quot;</span>, <span class="st">&quot;race&quot;</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">na.omit</span>()</code></pre></div>
+<p>Build the generalized linear model:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">logit1 &lt;-<span class="st"> </span><span class="kw">glm</span>(f.trump <span class="op">~</span><span class="st"> </span>ideol <span class="op">+</span><span class="st"> </span>gender <span class="op">+</span><span class="st"> </span>education <span class="op">+</span><span class="st"> </span>income, <span class="dt">data =</span> ds.sub,
+              <span class="dt">family =</span> <span class="kw">binomial</span>(<span class="dt">link =</span> logit), <span class="dt">x =</span> <span class="ot">TRUE</span>)
+<span class="kw">summary</span>(logit1)</code></pre></div>
+<pre><code>## 
+## Call:
+## glm(formula = f.trump ~ ideol + gender + education + income, 
+##     family = binomial(link = logit), data = ds.sub, x = TRUE)
+## 
+## Deviance Residuals: 
+##     Min       1Q   Median       3Q      Max  
+## -2.9402  -0.3615   0.2564   0.4587   2.8576  
+## 
+## Coefficients:
+##                 Estimate   Std. Error z value             Pr(&gt;|z|)    
+## (Intercept) -4.029590067  0.326208525 -12.353 &lt; 0.0000000000000002 ***
+## ideol        1.246695960  0.056725872  21.978 &lt; 0.0000000000000002 ***
+## gender       0.130433860  0.147900989   0.882                0.378    
+## education   -0.206200640  0.043473125  -4.743            0.0000021 ***
+## income       0.000001201  0.000001315   0.913                0.361    
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## (Dispersion parameter for binomial family taken to be 1)
+## 
+##     Null deviance: 2381.2  on 1816  degrees of freedom
+## Residual deviance: 1288.6  on 1812  degrees of freedom
+## AIC: 1298.6
+## 
+## Number of Fisher Scoring iterations: 5</code></pre>
+<p>The coefficients returned are logged odds, so there really is not much we can get from looking at them alone; however, from looking at the coefficients alone, we can tell that ideology and education both affect the probability of voting for Trump. In order to understand the sense of magnitude, we need to convert these from logged odds to odds, and then to percentages. To convert logged odds to odds, take the exponent of the coefficients using the <em>exp()</em> function:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">logit1 <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">coef</span>() <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">exp</span>()</code></pre></div>
+<pre><code>## (Intercept)       ideol      gender   education      income 
+##  0.01778162  3.47882976  1.13932258  0.81366981  1.00000120</code></pre>
+<p>Odds are difficult to interpret intuitively, but to get a sense of what they’re telling us, remember that odds greater than 1 indicate increased probability, and odds less than one indicate a decrease in probability. The statistically significant coefficients from the model are ideology and education. Based on the odds of each IV, we can tell that an increase in ideology improves the probability of a Trump vote, and an increase in education reduces the probability of a Trump vote. To get a more intuitive understanding, we can convert these to percentages. To do this you subtract the odds from 1. Do this for the ideology and education variables only, because those are the only siginificant ones:</p>
+<p>Ideology:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="dv">1</span> <span class="op">-</span><span class="st"> </span><span class="kw">exp</span>(logit1<span class="op">$</span>coef[<span class="dv">2</span>])</code></pre></div>
+<pre><code>##    ideol 
+## -2.47883</code></pre>
+<p>Education:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="dv">1</span><span class="op">-</span><span class="st"> </span><span class="kw">exp</span>(logit1<span class="op">$</span>coef[<span class="dv">4</span>])</code></pre></div>
+<pre><code>## education 
+## 0.1863302</code></pre>
+<p>This may seem counter-intuitive, but since we subtracted 1 from the odds, a negative percentage is actually an increase in probability. The -2.48 for ideology can be interpreted as a 248% increase in the odds of voting for Trump. The point is that an increasing ideology score (liberal to conservative) drastically increased the probability of a vote for Trump. The .19 for education indicates that an increase in education decreases the odds of voting for Trump by about 19%.</p>
+<p>Notice that even at this point, we are still dealing with some level of abstraction (a 248% increase in odds is hard to understand). Perhaps the best reason to use a logit model is that it allows us to generate predicted probabilities of some outcome. Similar to how we used OLS and the <em>predict()</em> function to describe and predict a relationship, logit regression allows us to obtain a predicted probability that a particular outcome occurs, given a certain set of parameters. In our case, we can generate predicted probabilities of voting for Trump. Let’s find the predicted probabilities of voting for Trump as ideology increases and all other IVs are held constant at their means. We first need to generate some simulated data that sequences ideology from 1 to 7 and holds all other values at their means:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ideol.data &lt;-<span class="st"> </span><span class="kw">with</span>(ds, <span class="kw">data.frame</span>(<span class="dt">education =</span> <span class="kw">mean</span>(education, <span class="dt">na.rm =</span> T),
+                                   <span class="dt">gender =</span> <span class="kw">mean</span>(gender, <span class="dt">na.rm =</span> T),
+                                   <span class="dt">income =</span> <span class="kw">mean</span>(income, <span class="dt">na.rm =</span> T),
+                                   <span class="dt">ideol =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">7</span>))
+ideol.data</code></pre></div>
+<pre><code>##   education    gender   income ideol
+## 1  5.023987 0.4029851 70641.77     1
+## 2  5.023987 0.4029851 70641.77     2
+## 3  5.023987 0.4029851 70641.77     3
+## 4  5.023987 0.4029851 70641.77     4
+## 5  5.023987 0.4029851 70641.77     5
+## 6  5.023987 0.4029851 70641.77     6
+## 7  5.023987 0.4029851 70641.77     7</code></pre>
+<p>Now use the <code>augment()</code> function to calculate predicted probabilities of voting for Trump at the various ideology levels. To do so, include <code>type.predict = &quot;response&quot;</code>. This tells <code>augment()</code> to generate predicted probabilities:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">logit1 <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">augment</span>(<span class="dt">newdata =</span> ideol.data, <span class="dt">predict =</span> <span class="st">&quot;response&quot;</span>) </code></pre></div>
+<pre><code>## # A tibble: 7 x 6
+##   education gender income ideol .fitted .se.fit
+## *     &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt; &lt;int&gt;   &lt;dbl&gt;   &lt;dbl&gt;
+## 1      5.02  0.403 70642.     1 -3.68    0.203 
+## 2      5.02  0.403 70642.     2 -2.43    0.151 
+## 3      5.02  0.403 70642.     3 -1.19    0.105 
+## 4      5.02  0.403 70642.     4  0.0586  0.0742
+## 5      5.02  0.403 70642.     5  1.31    0.0803
+## 6      5.02  0.403 70642.     6  2.55    0.118 
+## 7      5.02  0.403 70642.     7  3.80    0.166</code></pre>
+<p>As we would likely expect, increasing ideology increases the probability of voting for Trump. At an ideology level of 7, there is almost a guarantee of voting for Trump. To get a sense of what this would look like, we can visualize these predicted probabilities rather easily. We need to calculate lower and upper bounds of the confidence interval first, which is done just like with other models. Assign the data frame to an object.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">logit1 <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">augment</span>(<span class="dt">newdata =</span> ideol.data, <span class="dt">type.predict =</span> <span class="st">&quot;response&quot;</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">upper =</span> .fitted <span class="op">+</span><span class="st"> </span><span class="fl">1.96</span> <span class="op">*</span><span class="st"> </span>.se.fit,
+         <span class="dt">lower =</span> .fitted <span class="op">-</span><span class="st"> </span><span class="fl">1.96</span> <span class="op">*</span><span class="st"> </span>.se.fit) -&gt;<span class="st"> </span>log.data</code></pre></div>
+<p>Visualizing the predicted probabilities is similar to how we have visualized in the past. Use <code>geom_point()</code> and <code>geom_errorbar()</code>:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(log.data, <span class="kw">aes</span>(ideol, .fitted)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">size =</span> <span class="fl">1.5</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_errorbar</span>(<span class="kw">aes</span>(<span class="dt">ymin =</span> lower, <span class="dt">ymax =</span> upper), <span class="dt">width =</span> .<span class="dv">2</span>)</code></pre></div>
+<p><img src="_main_files/figure-html/12_log14-1.png" width="672" /></p>
+<div id="goodness-of-fit-logit-regression" class="section level3">
+<h3><span class="header-section-number">13.1.1</span> Goodness of Fit, Logit Regression</h3>
+<p>Determining model fit when performing logit regression is different than when doing OLS. There are three main methods of exploring model fit, Pseudo-R squared, Log-likelihood, and AIC. The best way to understand logit model fit is by comparison, so let’s create a null model that tries to predict a Trump vote only by the intercept term:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">logit.null &lt;-<span class="st"> </span><span class="kw">glm</span>(f.trump <span class="op">~</span><span class="st"> </span><span class="dv">1</span>, <span class="dt">data =</span> ds.sub, <span class="dt">family =</span> <span class="kw">binomial</span>(<span class="dt">link =</span> logit))
+<span class="kw">summary</span>(logit.null)</code></pre></div>
+<pre><code>## 
+## Call:
+## glm(formula = f.trump ~ 1, family = binomial(link = logit), data = ds.sub)
+## 
+## Deviance Residuals: 
+##     Min       1Q   Median       3Q      Max  
+## -1.4232  -1.4232   0.9501   0.9501   0.9501  
+## 
+## Coefficients:
+##             Estimate Std. Error z value            Pr(&gt;|z|)    
+## (Intercept)  0.56135    0.04878   11.51 &lt;0.0000000000000002 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## (Dispersion parameter for binomial family taken to be 1)
+## 
+##     Null deviance: 2381.2  on 1816  degrees of freedom
+## Residual deviance: 2381.2  on 1816  degrees of freedom
+## AIC: 2383.2
+## 
+## Number of Fisher Scoring iterations: 4</code></pre>
+<p>To test model fit via log-likelihood, we can calculate what is called the deviance statistic, or G squared. G squared tests whether the difference in the log-likelihoods of the null model and the demographic model (our initial model) are statistically distinguishable from zero. If so, our demographic model is a better fit. First let’s the log-likelihoods for each model:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">loglikli.null &lt;-<span class="st"> </span><span class="kw">logLik</span>(logit.null)
+loglikli.demo &lt;-<span class="st"> </span><span class="kw">logLik</span>(logit1)</code></pre></div>
+<p>To fing G squared, you subtract the null log-likelihood from the demographic log-likelihood:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">G &lt;-<span class="st"> </span>loglikli.demo <span class="op">-</span><span class="st"> </span>loglikli.null</code></pre></div>
+<p>To test if the G statistic is significant, you use a Chi-Square test with q degrees of freedom, where q is the difference in the number of IVs in the model. Our demographic model has 4 IVs (ideology, age, education, income) and the null model has 1, so q is 3:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">pchisq</span>(G, <span class="dt">df =</span> <span class="dv">3</span>, <span class="dt">lower.tail =</span> <span class="ot">FALSE</span>)</code></pre></div>
+<pre><code>## &#39;log Lik.&#39; 0.000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000445353 (df=5)</code></pre>
+<p>We can conclude with confidence that the demographic model better explains a vote for Trump than the null model.</p>
+<p>A similar approach can be made to compare nested models, similar to a nested F-test. Using the <code>anova()</code> function and specifying chi-squared, we can test if adding or subtracting a particular variable improves model fit. Let’s include race in a new model and compare it to our first model:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">logit2 &lt;-<span class="st"> </span><span class="kw">glm</span>(f.trump <span class="op">~</span><span class="st"> </span>ideol <span class="op">+</span><span class="st"> </span>gender <span class="op">+</span><span class="st"> </span>education <span class="op">+</span><span class="st"> </span>income <span class="op">+</span><span class="st"> </span>race, <span class="dt">data =</span> ds.sub,
+              <span class="dt">family =</span> <span class="kw">binomial</span>(<span class="dt">link =</span> logit), <span class="dt">x =</span> <span class="ot">TRUE</span>)
+<span class="kw">summary</span>(logit2)</code></pre></div>
+<pre><code>## 
+## Call:
+## glm(formula = f.trump ~ ideol + gender + education + income + 
+##     race, family = binomial(link = logit), data = ds.sub, x = TRUE)
+## 
+## Deviance Residuals: 
+##     Min       1Q   Median       3Q      Max  
+## -2.8492  -0.3708   0.2520   0.4528   2.8359  
+## 
+## Coefficients:
+##                 Estimate   Std. Error z value             Pr(&gt;|z|)    
+## (Intercept) -3.737995285  0.331991444 -11.259 &lt; 0.0000000000000002 ***
+## ideol        1.259534233  0.057318244  21.974 &lt; 0.0000000000000002 ***
+## gender       0.121195088  0.149323750   0.812                0.417    
+## education   -0.200958175  0.043940078  -4.573            0.0000048 ***
+## income       0.000001120  0.000001336   0.838                0.402    
+## race        -0.267085133  0.062456084  -4.276            0.0000190 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## (Dispersion parameter for binomial family taken to be 1)
+## 
+##     Null deviance: 2381.2  on 1816  degrees of freedom
+## Residual deviance: 1270.4  on 1811  degrees of freedom
+## AIC: 1282.4
+## 
+## Number of Fisher Scoring iterations: 5</code></pre>
+<p>Now compare models:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">anova</span>(logit1, logit2, <span class="dt">test =</span> <span class="st">&quot;Chisq&quot;</span>)</code></pre></div>
+<pre><code>## Analysis of Deviance Table
+## 
+## Model 1: f.trump ~ ideol + gender + education + income
+## Model 2: f.trump ~ ideol + gender + education + income + race
+##   Resid. Df Resid. Dev Df Deviance   Pr(&gt;Chi)    
+## 1      1812     1288.7                           
+## 2      1811     1270.3  1   18.296 0.00001891 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+<p>The test indicates that including race improves the model.</p>
+<p>Another way to examine model fit is pseudo-R squared. This is not completely analogous to R squared, because we’re not trying to simply explain the variance in Y. However, pseudo-R squared compares the residual deviance of the null model to that of the actual model and ranges of 0 to 1, with higher values indicating better model fit. Deviance in a logit model is similar to the residual sum of squares in an OLS model. To find pseudo-R squared you take 1 minus the deviance of the actual model divided by the deviance of the null model. Let’s use the new model that includes race:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">psuedoR2 &lt;-<span class="st"> </span><span class="dv">1</span> <span class="op">-</span><span class="st"> </span>(logit2<span class="op">$</span>deviance<span class="op">/</span>logit2<span class="op">$</span>null.deviance)
+psuedoR2</code></pre></div>
+<pre><code>## [1] 0.4665082</code></pre>
+<p>The final method we go over is AIC, or Akaine Information Criteria. AIC is only useful in comparing two models, and like adjusted R squared it penalizes for increased model parameters. Fortunately, AIC is calculated for us when we look at the summary of the model. A smaller AIC value indicates better model fit. Let’s again compare the two actual logit models (not the null model)</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">stargazer</span>(logit1, logit2, <span class="dt">type=</span><span class="st">&quot;text&quot;</span>, <span class="dt">single.row =</span> <span class="ot">TRUE</span>)</code></pre></div>
+<pre><code>## 
+## =====================================================
+##                           Dependent variable:        
+##                   -----------------------------------
+##                                 f.trump              
+##                          (1)               (2)       
+## -----------------------------------------------------
+## ideol             1.247*** (0.057)  1.260*** (0.057) 
+## gender              0.130 (0.148)     0.121 (0.149)  
+## education         -0.206*** (0.043) -0.201*** (0.044)
+## income            0.00000 (0.00000) 0.00000 (0.00000)
+## race                                -0.267*** (0.062)
+## Constant          -4.030*** (0.326) -3.738*** (0.332)
+## -----------------------------------------------------
+## Observations            1,817             1,817      
+## Log Likelihood        -644.325          -635.177     
+## Akaike Inf. Crit.     1,298.650         1,282.354    
+## =====================================================
+## Note:                     *p&lt;0.1; **p&lt;0.05; ***p&lt;0.01</code></pre>
+<p>The AIC values indicate the the model including race is a better fit, which our log-likelihood test also indicated.</p>
+</div>
+<div id="percent-correctly-predicted" class="section level3">
+<h3><span class="header-section-number">13.1.2</span> Percent Correctly Predicted</h3>
+<p>Another way to assess how effective our model is at describing and predicting our data is by looking at the percent correctly predicted. Using the <code>hitmiss()</code> function found in the <code>pscl</code> package, we can look at how well the model predicts the outcomes for when y and 0 and when y equals 1, and we can immediately compare it to how well a null model predicts outcomes. Let’s do this for both the logit model that does not include race and the one that does:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">hitmiss</span>(logit1)</code></pre></div>
+<pre><code>## Classification Threshold = 0.5 
+##        y=0  y=1
+## yhat=0 498  119
+## yhat=1 162 1038
+## Percent Correctly Predicted = 84.53%
+## Percent Correctly Predicted = 75.45%, for y = 0
+## Percent Correctly Predicted = 89.71%  for y = 1
+## Null Model Correctly Predicts 63.68%</code></pre>
+<pre><code>## [1] 84.53495 75.45455 89.71478</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">hitmiss</span>(logit2)</code></pre></div>
+<pre><code>## Classification Threshold = 0.5 
+##        y=0  y=1
+## yhat=0 497   99
+## yhat=1 163 1058
+## Percent Correctly Predicted = 85.58%
+## Percent Correctly Predicted = 75.3%, for y = 0
+## Percent Correctly Predicted = 91.44%  for y = 1
+## Null Model Correctly Predicts 63.68%</code></pre>
+<pre><code>## [1] 85.58063 75.30303 91.44339</code></pre>
+<p>It appears the model with race better predicts outcomes, which our other diagnostics so far have also suggested. One other method is to examine proportional reduction in error, which looks at how a model reduces error in predictions versus a null model. Let’s look at the PRE for the logit model that includes race. To do so, use the <code>pre()</code> function from the <code>DAMisc</code> package:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">pre</span>(logit2)</code></pre></div>
+<pre><code>## mod1:  f.trump ~ ideol + gender + education + income + race 
+## mod2:  f.trump ~ 1 
+## 
+## Analytical Results
+##  PMC =  0.637 
+##  PCP =  0.856 
+##  PRE =  0.603 
+## ePMC =  0.537 
+## ePCP =  0.785 
+## ePRE =  0.535</code></pre>
+<p>The ? function can help you remember what all of the acronyms mean, but for now, know that PMC is the percent correctly predicted by the null model, PCP is percent correct predicted by the actual model, and PRE is proportional reduction in error. As all of our diagnostics have indicated, the actual model is better at predicting a vote for Trump than the null model.</p>
+</div>
+<div id="logit-regression-with-groups" class="section level3">
+<h3><span class="header-section-number">13.1.3</span> Logit Regression with Groups</h3>
+<p>Now let’s go over logit regression with groups. Let’s continue looking into the probability of a vote for Trump, but let’s include political party into the mix. We can use logit regression to find the probability of voting for Trump as ideology varies across political parties. Let’s pull a new subset of the data that removes missing observations and includes the factored party variable:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ds.sub2 &lt;-<span class="st"> </span>ds <span class="op">%&gt;%</span><span class="st"> </span>dplyr<span class="op">::</span><span class="kw">select</span>(<span class="st">&quot;f.trump&quot;</span>, <span class="st">&quot;gender&quot;</span>, <span class="st">&quot;ideol&quot;</span>, <span class="st">&quot;income&quot;</span>,
+                                        <span class="st">&quot;education&quot;</span>, <span class="st">&quot;race&quot;</span>, <span class="st">&quot;f.party.2&quot;</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">drop_na</span>() <span class="co">#%&gt;%</span>
+  <span class="co">#mutate(f.part = factor(f.party.2))</span></code></pre></div>
+<p>Notice that we used the factored party variable that only includes Democrats, Independents, and Republicans. Let’s build the model:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">logit3 &lt;-<span class="st"> </span><span class="kw">glm</span>(f.trump <span class="op">~</span><span class="st"> </span>ideol <span class="op">+</span><span class="st"> </span>gender <span class="op">+</span><span class="st"> </span>education <span class="op">+</span><span class="st"> </span>income <span class="op">+</span><span class="st"> </span>race <span class="op">+</span><span class="st"> </span>f.party.<span class="dv">2</span>,
+              <span class="dt">family =</span> <span class="kw">binomial</span>(<span class="dt">link =</span> logit), <span class="dt">data =</span> ds.sub2, <span class="dt">x =</span> <span class="ot">TRUE</span>)
+<span class="kw">summary</span>(logit3)</code></pre></div>
+<pre><code>## 
+## Call:
+## glm(formula = f.trump ~ ideol + gender + education + income + 
+##     race + f.party.2, family = binomial(link = logit), data = ds.sub2, 
+##     x = TRUE)
+## 
+## Deviance Residuals: 
+##     Min       1Q   Median       3Q      Max  
+## -3.0531  -0.2845   0.1689   0.3204   2.9330  
+## 
+## Coefficients:
+##                  Estimate   Std. Error z value             Pr(&gt;|z|)    
+## (Intercept)  -3.118886176  0.370541003  -8.417 &lt; 0.0000000000000002 ***
+## ideol         0.901913313  0.063659790  14.168 &lt; 0.0000000000000002 ***
+## gender        0.094554608  0.173273089   0.546             0.585274    
+## education    -0.272118671  0.050596914  -5.378     0.00000007524784 ***
+## income        0.000000066  0.000001596   0.041             0.967020    
+## race         -0.261920110  0.077118302  -3.396             0.000683 ***
+## f.party.2Ind  1.465607702  0.214207780   6.842     0.00000000000781 ***
+## f.party.2Rep  2.982488437  0.202712936  14.713 &lt; 0.0000000000000002 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## (Dispersion parameter for binomial family taken to be 1)
+## 
+##     Null deviance: 2325.2  on 1769  degrees of freedom
+## Residual deviance:  977.9  on 1762  degrees of freedom
+## AIC: 993.9
+## 
+## Number of Fisher Scoring iterations: 6</code></pre>
+<p>With Democrats as the reference group, Independents and Republicans have an increased probability of voting for Trump, which makes sense for Oklahoma voters. Next we generate predicted probabilities. First create data frames for each party:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">rep.data &lt;-<span class="st"> </span><span class="kw">with</span>(ds.sub2, <span class="kw">data.frame</span>(<span class="dt">gender =</span> <span class="kw">mean</span>(gender), 
+                                <span class="dt">education =</span> <span class="kw">mean</span>(education), <span class="dt">race =</span> <span class="kw">mean</span>(race),
+                                <span class="dt">income =</span> <span class="kw">mean</span>(income), <span class="dt">ideol =</span> (<span class="dv">1</span><span class="op">:</span><span class="dv">7</span>),
+                                <span class="dt">f.party.2 =</span> <span class="kw">c</span>(<span class="st">&quot;Rep&quot;</span>)))
+
+dem.data &lt;-<span class="st"> </span><span class="kw">with</span>(ds.sub2, <span class="kw">data.frame</span>(<span class="dt">gender =</span> <span class="kw">mean</span>(gender), 
+                                     <span class="dt">education =</span> <span class="kw">mean</span>(education), <span class="dt">race =</span> <span class="kw">mean</span>(race),
+                                     <span class="dt">income =</span> <span class="kw">mean</span>(income), <span class="dt">ideol =</span> (<span class="dv">1</span><span class="op">:</span><span class="dv">7</span>),
+                                     <span class="dt">f.party.2 =</span> <span class="kw">c</span>(<span class="st">&quot;Dem&quot;</span>)))
+
+ind.data &lt;-<span class="st"> </span><span class="kw">with</span>(ds.sub2, <span class="kw">data.frame</span>(<span class="dt">gender =</span> <span class="kw">mean</span>(gender), 
+                                     <span class="dt">education =</span> <span class="kw">mean</span>(education), <span class="dt">race =</span> <span class="kw">mean</span>(race), 
+                                     <span class="dt">income =</span> <span class="kw">mean</span>(income), <span class="dt">ideol =</span> (<span class="dv">1</span><span class="op">:</span><span class="dv">7</span>),
+                                     <span class="dt">f.party.2 =</span> <span class="kw">c</span>(<span class="st">&quot;Ind&quot;</span>)))</code></pre></div>
+<p>Now we can calculate predicted probabilities of voting for Trump for each party and ideology score, holding all other IVs constant, as well as upper and lower bounds of the confidence intervals:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">rep.prob &lt;-<span class="st"> </span><span class="kw">augment</span>(logit3, <span class="dt">newdata =</span> rep.data, <span class="dt">type.predict =</span> <span class="st">&quot;response&quot;</span>) <span class="op">%&gt;%</span>
+<span class="st">                    </span><span class="kw">mutate</span>(<span class="dt">upper =</span> .fitted <span class="op">+</span><span class="st"> </span><span class="fl">1.96</span> <span class="op">*</span><span class="st"> </span>.se.fit,
+                           <span class="dt">lower =</span> .fitted <span class="op">-</span><span class="st"> </span><span class="fl">1.96</span> <span class="op">*</span><span class="st"> </span>.se.fit)
+dem.prob &lt;-<span class="st">  </span><span class="kw">augment</span>(logit3, <span class="dt">newdata =</span> dem.data, <span class="dt">type.predict =</span> <span class="st">&quot;response&quot;</span>) <span class="op">%&gt;%</span>
+<span class="st">                     </span><span class="kw">mutate</span>(<span class="dt">upper =</span> .fitted <span class="op">+</span><span class="st"> </span><span class="fl">1.96</span> <span class="op">*</span><span class="st"> </span>.se.fit,
+                           <span class="dt">lower =</span> .fitted <span class="op">-</span><span class="st"> </span><span class="fl">1.96</span> <span class="op">*</span><span class="st"> </span>.se.fit)
+ind.prob &lt;-<span class="st">  </span><span class="kw">augment</span>(logit3, <span class="dt">newdata =</span> ind.data, <span class="dt">type.predict =</span> <span class="st">&quot;response&quot;</span>) <span class="op">%&gt;%</span>
+<span class="st">                     </span><span class="kw">mutate</span>(<span class="dt">upper =</span> .fitted <span class="op">+</span><span class="st"> </span><span class="fl">1.96</span> <span class="op">*</span><span class="st"> </span>.se.fit,
+                           <span class="dt">lower =</span> .fitted <span class="op">-</span><span class="st"> </span><span class="fl">1.96</span> <span class="op">*</span><span class="st"> </span>.se.fit)</code></pre></div>
+<p>Now we combine everything into one data frame using <code>rbind()</code>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df.party &lt;-<span class="st"> </span><span class="kw">rbind</span>(dem.prob, ind.prob, rep.prob)</code></pre></div>
+<p>Start by building the visualization. This will be similar to the last visualization, but we plot predicted probabilities for each ideology score in each party, so 21 points in all. We have everything we need to make a great visualization. We plot the points and error bars just like we did last time, but we assign colors by political party, and specify blue for Democrats, purple for Independents, and red for Republicans:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(df.party, <span class="kw">aes</span>(ideol, .fitted, <span class="dt">color =</span> f.party.<span class="dv">2</span>)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">size =</span> <span class="fl">1.5</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_errorbar</span>(<span class="kw">aes</span>(<span class="dt">ymin =</span> lower, <span class="dt">ymax =</span> upper), <span class="dt">width =</span> .<span class="dv">2</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">scale_color_manual</span>(<span class="dt">values =</span> <span class="kw">c</span>(<span class="st">&quot;blue&quot;</span>, <span class="st">&quot;purple&quot;</span>, <span class="st">&quot;red&quot;</span>)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">ggtitle</span>(<span class="st">&quot;Probability of Voting for Trump by Party&quot;</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">scale_x_continuous</span>(<span class="dt">breaks=</span><span class="kw">c</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">7</span>),
+                     <span class="dt">labels =</span> <span class="kw">c</span>(<span class="st">&quot;Very Liberal&quot;</span>, <span class="st">&quot;2&quot;</span>, <span class="st">&quot;3&quot;</span>, <span class="st">&quot;4&quot;</span>, <span class="st">&quot;5&quot;</span>,
+                                <span class="st">&quot;6&quot;</span>, <span class="st">&quot;Very Conservative&quot;</span>)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;Ideology&quot;</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">ylab</span>(<span class="st">&quot;Probability of Trump Vote&quot;</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">theme_bw</span>()</code></pre></div>
+<p><img src="_main_files/figure-html/12_log33-1.png" width="672" /></p>
+</div>
+</div>
+<div id="ordered-logit-and-creating-an-index" class="section level2">
+<h2><span class="header-section-number">13.2</span> Ordered Logit and Creating an Index</h2>
+<p>Logit regression can be used in more than just situations with a binary DV. Ordered logit analysis is done in a similar way, but with an ordered DV. Instead of simply assessing the probability of one outcome, ordered logit analysis gives us the probability of moving from one level of an ordered categorical variable to the next. We’re going to use ordered logit analysis to also learn how to create an index and work with one as your dependent variable.</p>
+<p>The class data set survey includes responses that indicate whether or not the participant does a number of energy-saving activities at their home, like turning the lights off, installing insulation, unplugging appliances, etc. Perhaps you are interested in how a variety of IVs influence one’s propensity to do these activities. You could use binary logit regression to find the probability of individuals doing one of these particular activities. However, you could use ordered logit regression to include all the activities and use an additive index of them as your dependent variable. Start by creating an index of the energy-saving activities:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">energy &lt;-<span class="st"> </span><span class="kw">with</span>(ds, <span class="kw">cbind</span>(enrgy_steps_lghts, enrgy_steps_heat, enrgy_steps_ac,
+                         enrgy_steps_savappl, enrgy_steps_unplug, enrgy_steps_insul,
+                         enrgy_steps_savdoor, enrgy_steps_bulbs))</code></pre></div>
+<p>Now take a look at the index:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">psych<span class="op">::</span><span class="kw">describe</span>(energy)</code></pre></div>
+<pre><code>##                     vars    n mean   sd median trimmed mad min max range
+## enrgy_steps_lghts      1 2547 0.70 0.46      1    0.75   0   0   1     1
+## enrgy_steps_heat       2 2547 0.60 0.49      1    0.62   0   0   1     1
+## enrgy_steps_ac         3 2547 0.60 0.49      1    0.62   0   0   1     1
+## enrgy_steps_savappl    4 2547 0.12 0.33      0    0.03   0   0   1     1
+## enrgy_steps_unplug     5 2547 0.23 0.42      0    0.16   0   0   1     1
+## enrgy_steps_insul      6 2547 0.07 0.25      0    0.00   0   0   1     1
+## enrgy_steps_savdoor    7 2547 0.07 0.26      0    0.00   0   0   1     1
+## enrgy_steps_bulbs      8 2547 0.55 0.50      1    0.56   0   0   1     1
+##                      skew kurtosis   se
+## enrgy_steps_lghts   -0.88    -1.22 0.01
+## enrgy_steps_heat    -0.40    -1.84 0.01
+## enrgy_steps_ac      -0.41    -1.83 0.01
+## enrgy_steps_savappl  2.32     3.38 0.01
+## enrgy_steps_unplug   1.27    -0.38 0.01
+## enrgy_steps_insul    3.40     9.54 0.01
+## enrgy_steps_savdoor  3.29     8.84 0.01
+## enrgy_steps_bulbs   -0.18    -1.97 0.01</code></pre>
+<p>Add these variables together. This will create an index that scores 1 if an individual does one of the activities, 2 if they do two, and so on and so on:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ds<span class="op">$</span>s.energy &lt;-<span class="st"> </span><span class="kw">with</span>(ds, enrgy_steps_lghts <span class="op">+</span><span class="st"> </span>enrgy_steps_heat <span class="op">+</span><span class="st"> </span>enrgy_steps_ac <span class="op">+</span>
+<span class="st">                      </span>enrgy_steps_savappl <span class="op">+</span><span class="st"> </span>enrgy_steps_unplug <span class="op">+</span><span class="st"> </span>enrgy_steps_insul <span class="op">+</span>
+<span class="st">                      </span>enrgy_steps_savdoor <span class="op">+</span><span class="st"> </span>enrgy_steps_bulbs)</code></pre></div>
+<p>Examine the index:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">psych<span class="op">::</span><span class="kw">describe</span>(ds<span class="op">$</span>s.energy)</code></pre></div>
+<pre><code>##    vars    n mean   sd median trimmed  mad min max range skew kurtosis
+## X1    1 2547 2.94 1.77      3    2.94 1.48   0   8     8 0.08    -0.38
+##      se
+## X1 0.04</code></pre>
+<p>Make a bar plot of the index:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(ds, <span class="kw">aes</span>(s.energy)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_bar</span>()</code></pre></div>
+<p><img src="_main_files/figure-html/12_ind5-1.png" width="672" /></p>
+<p>Start building the model. First select our relevant variables and remove missing observations:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ds.sub3 &lt;-<span class="st"> </span>ds <span class="op">%&gt;%</span><span class="st"> </span>dplyr<span class="op">::</span><span class="kw">select</span>(<span class="st">&quot;s.energy&quot;</span>, <span class="st">&quot;ideol&quot;</span>, <span class="st">&quot;age&quot;</span>, <span class="st">&quot;glbcc_risk&quot;</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">na.omit</span>()</code></pre></div>
+<p>In order to use the energy index as a dependent variable, we treat it as a factor:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ds.sub3<span class="op">$</span>f.energy &lt;-<span class="st"> </span><span class="kw">as.factor</span>(ds.sub3<span class="op">$</span>s.energy)</code></pre></div>
+<p>There are a number of ways to do ordered logit, but for this example we use the <code>polr()</code> function found in the <code>MASS</code> package.:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ord1 &lt;-<span class="st"> </span><span class="kw">polr</span>(f.energy <span class="op">~</span><span class="st"> </span>ideol <span class="op">+</span><span class="st"> </span>age <span class="op">+</span><span class="st"> </span>glbcc_risk, <span class="dt">data =</span> ds.sub3, <span class="dt">Hess =</span> <span class="ot">TRUE</span>)</code></pre></div>
+<p>Use <code>stargazer()</code> to look at the results:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">stargazer</span>(ord1, <span class="dt">type=</span><span class="st">&quot;text&quot;</span>, <span class="dt">style=</span><span class="st">&quot;apsr&quot;</span>, <span class="dt">single.row =</span> T)</code></pre></div>
+<pre><code>## 
+## -------------------------------
+##                    f.energy    
+## -------------------------------
+## ideol           0.049* (0.025) 
+## age             -0.002 (0.002) 
+## glbcc_risk     0.098*** (0.014)
+## N                   2,513      
+## -------------------------------
+## *p &lt; .1; **p &lt; .05; ***p &lt; .01</code></pre>
+<p>The results indicate an increased risk associated with climate change corresponds with an an increase in the odds of doing enery-saving techniques at home. When doing ordered logit, coefficient interpretation is even less intuitive than it is with a binary DV. This makes generating predicted probabilities even more important. We are going to generate predicted probabilities of each level of the DV (0 through 8) as perceived climate change risk increases and the other IVs are held constant at their means. It should make sense that we have to do it this way. We can’t really explain the relationship in any other way with the information we have.</p>
+<p>First we create a data frame to work with:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ord.df &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">ideol =</span> <span class="kw">mean</span>(ds.sub3<span class="op">$</span>ideol),
+                     <span class="dt">age =</span> <span class="kw">mean</span>(ds.sub3<span class="op">$</span>age),
+                     <span class="dt">glbcc_risk =</span> <span class="kw">seq</span>(<span class="dv">0</span>, <span class="dv">10</span>, <span class="dv">1</span>))</code></pre></div>
+<p>Now we use the <code>predict()</code> function to generate predicted probabilities of each level of the DV as we sequence climate change risk from 0 to 10. The <code>augment()</code> function does not work with the <code>polr()</code> function, so that is why we are using <code>predict()</code>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">prob.df &lt;-<span class="st"> </span><span class="kw">cbind</span>(ord.df, <span class="kw">predict</span>(ord1, ord.df, <span class="dt">type =</span> <span class="st">&quot;probs&quot;</span>))
+prob.df</code></pre></div>
+<pre><code>##       ideol      age glbcc_risk          0          1         2         3
+## 1  4.656188 60.37724          0 0.19435827 0.14196855 0.1912928 0.2082757
+## 2  4.656188 60.37724          1 0.17942987 0.13532435 0.1883238 0.2132792
+## 3  4.656188 60.37724          2 0.16541268 0.12853979 0.1845691 0.2174494
+## 4  4.656188 60.37724          3 0.15228730 0.12168852 0.1800926 0.2207161
+## 5  4.656188 60.37724          4 0.14002866 0.11483803 0.1749682 0.2230233
+## 6  4.656188 60.37724          5 0.12860710 0.10804884 0.1692771 0.2243305
+## 7  4.656188 60.37724          6 0.11798933 0.10137399 0.1631054 0.2246146
+## 8  4.656188 60.37724          7 0.10813937 0.09485887 0.1565416 0.2238706
+## 9  4.656188 60.37724          8 0.09901939 0.08854133 0.1496742 0.2221116
+## 10 4.656188 60.37724          9 0.09059043 0.08245186 0.1425895 0.2193687
+## 11 4.656188 60.37724         10 0.08281302 0.07661412 0.1353698 0.2156896
+##            4          5          6           7           8
+## 1  0.1534703 0.07825448 0.02043592 0.007422660 0.004521296
+## 2  0.1629619 0.08507611 0.02244353 0.008175297 0.004985885
+## 3  0.1725244 0.09236696 0.02463709 0.009002686 0.005497949
+## 4  0.1820742 0.10013563 0.02703147 0.009911920 0.006062283
+## 5  0.1915187 0.10838602 0.02964226 0.010910688 0.006684154
+## 6  0.2007578 0.11711639 0.03248565 0.012007320 0.007369344
+## 7  0.2096849 0.12631840 0.03557834 0.013210813 0.008124197
+## 8  0.2181896 0.13597605 0.03893738 0.014530868 0.008955674
+## 9  0.2261594 0.14606476 0.04258003 0.015977912 0.009871402
+## 10 0.2334828 0.15655041 0.04652346 0.017563123 0.010879736
+## 11 0.2400522 0.16738852 0.05078447 0.019298445 0.011989821</code></pre>
+<p>The next step is to melt the data. This will allow us to eventually generate a prediction line for each level of the DV:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">m.df &lt;-<span class="st"> </span><span class="kw">melt</span>(prob.df, <span class="dt">id.vars =</span> <span class="kw">c</span>(<span class="st">&quot;ideol&quot;</span>, <span class="st">&quot;age&quot;</span>, <span class="st">&quot;glbcc_risk&quot;</span>),
+             <span class="dt">variable.name =</span> <span class="st">&quot;Level&quot;</span>, <span class="dt">value.name =</span> <span class="st">&quot;Probability&quot;</span>)</code></pre></div>
+<p>Next we will create the visualization. With an ordered logit model, we can visualize predicted probabilities of observing each separate level of the DV (how many energy saving activities), as perceived climate change risk increases. We use <code>facet_wrap()</code> to create individaul visualizations for each level of the DV, so that the graphic does not get too hard to interpret. We also create a color scale that goes from red to green.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">col_scale&lt;-<span class="kw">colorRampPalette</span>(<span class="kw">c</span>(<span class="st">&quot;#FF0000&quot;</span>,<span class="st">&quot;#228B22&quot;</span>))(<span class="dv">9</span>)
+<span class="kw">ggplot</span>(m.df, <span class="kw">aes</span>(<span class="dt">x =</span> glbcc_risk, <span class="dt">y =</span> Probability, <span class="dt">colour =</span> Level)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_line</span>(<span class="dt">size =</span> <span class="dv">1</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">scale_color_manual</span>(<span class="dt">values =</span> col_scale) <span class="op">+</span>
+<span class="st">  </span><span class="kw">facet_wrap</span>( <span class="op">~</span><span class="st"> </span>Level, <span class="dt">scales =</span> <span class="st">&quot;free&quot;</span>)</code></pre></div>
+<p><img src="_main_files/figure-html/12_ord8-1.png" width="672" /></p>
+<p>Taking a quick look at these visualizations, we can see that for doing 0 to 2 energy saving activities at home, increasing climate change risk largely corresponds with decreasing probability. This makes sense. Once we reach 4 energy saving activities, increasing climate change risk largely corresponds with increased probabilities.</p>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="diagnosing-and-addressing-problems-in-linear-regression.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="statistical-simulations.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"linkedin": false,
+"weibo": false,
+"instapper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "";
+    if (src === "" || src === "true") src = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:" && /^https?:/.test(src))
+      src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

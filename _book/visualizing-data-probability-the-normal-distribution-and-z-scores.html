@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Lab Guide to Quantitative Research Methods in Political Science, Public Policy &amp; Public Administration.</title>
+  <meta name="description" content="Lab Guide to Quantitative Research Methods in Political Science, Public Policy &amp; Public Administration.">
+  <meta name="generator" content="bookdown 0.7 and GitBook 2.6.7">
+
+  <meta property="og:title" content="Lab Guide to Quantitative Research Methods in Political Science, Public Policy &amp; Public Administration." />
+  <meta property="og:type" content="book" />
+  
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Lab Guide to Quantitative Research Methods in Political Science, Public Policy &amp; Public Administration." />
+  
+  
+  
+
+<meta name="author" content="Alex Davis">
+<meta name="author" content="Cody Adams">
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="describing-and-visualizing-data.html">
+<link rel="next" href="foundations-for-inference.html">
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+<script src="libs/htmlwidgets-1.2/htmlwidgets.js"></script>
+<script src="libs/plotly-binding-4.8.0/plotly.js"></script>
+<script src="libs/typedarray-0.1/typedarray.min.js"></script>
+<link href="libs/crosstalk-1.0.0/css/crosstalk.css" rel="stylesheet" />
+<script src="libs/crosstalk-1.0.0/js/crosstalk.min.js"></script>
+<link href="libs/plotly-htmlwidgets-css-1.39.2/plotly-htmlwidgets.css" rel="stylesheet" />
+<script src="libs/plotly-main-1.39.2/plotly-latest.min.js"></script>
+
+
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Preface</a><ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#acknowledgments"><i class="fa fa-check"></i><b>1.1</b> Acknowledgments</a></li>
+<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#requirements"><i class="fa fa-check"></i><b>1.2</b> Requirements</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="introduction-and-basics.html"><a href="introduction-and-basics.html"><i class="fa fa-check"></i><b>2</b> Introduction and Basics</a><ul>
+<li class="chapter" data-level="2.1" data-path="introduction-and-basics.html"><a href="introduction-and-basics.html#r-as-a-calculator"><i class="fa fa-check"></i><b>2.1</b> R, as a Calculator</a><ul>
+<li class="chapter" data-level="2.1.1" data-path="introduction-and-basics.html"><a href="introduction-and-basics.html#order-of-operations"><i class="fa fa-check"></i><b>2.1.1</b> Order of Operations</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="introduction-and-basics.html"><a href="introduction-and-basics.html#objects"><i class="fa fa-check"></i><b>2.2</b> Objects</a></li>
+<li class="chapter" data-level="2.3" data-path="introduction-and-basics.html"><a href="introduction-and-basics.html#functions"><i class="fa fa-check"></i><b>2.3</b> Functions</a><ul>
+<li class="chapter" data-level="2.3.1" data-path="introduction-and-basics.html"><a href="introduction-and-basics.html#object-types"><i class="fa fa-check"></i><b>2.3.1</b> Object Types</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="introduction-and-basics.html"><a href="introduction-and-basics.html#packages"><i class="fa fa-check"></i><b>2.4</b> Packages</a><ul>
+<li class="chapter" data-level="2.4.1" data-path="introduction-and-basics.html"><a href="introduction-and-basics.html#installing-packages"><i class="fa fa-check"></i><b>2.4.1</b> Installing Packages</a></li>
+<li class="chapter" data-level="2.4.2" data-path="introduction-and-basics.html"><a href="introduction-and-basics.html#loading-packages"><i class="fa fa-check"></i><b>2.4.2</b> Loading Packages</a></li>
+<li class="chapter" data-level="2.4.3" data-path="introduction-and-basics.html"><a href="introduction-and-basics.html#updating-packages"><i class="fa fa-check"></i><b>2.4.3</b> Updating Packages</a></li>
+</ul></li>
+<li class="chapter" data-level="2.5" data-path="introduction-and-basics.html"><a href="introduction-and-basics.html#r-help"><i class="fa fa-check"></i><b>2.5</b> R Help</a></li>
+<li class="chapter" data-level="2.6" data-path="introduction-and-basics.html"><a href="introduction-and-basics.html#setting-a-working-directory"><i class="fa fa-check"></i><b>2.6</b> Setting a Working Directory</a></li>
+<li class="chapter" data-level="2.7" data-path="introduction-and-basics.html"><a href="introduction-and-basics.html#importing-your-data"><i class="fa fa-check"></i><b>2.7</b> Importing Your Data</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="describing-and-visualizing-data.html"><a href="describing-and-visualizing-data.html"><i class="fa fa-check"></i><b>3</b> Describing and Visualizing Data’</a><ul>
+<li class="chapter" data-level="3.1" data-path="describing-and-visualizing-data.html"><a href="describing-and-visualizing-data.html#factoring"><i class="fa fa-check"></i><b>3.1</b> Factoring</a><ul>
+<li class="chapter" data-level="3.1.1" data-path="describing-and-visualizing-data.html"><a href="describing-and-visualizing-data.html#coerce-factoring"><i class="fa fa-check"></i><b>3.1.1</b> Coerce Factoring</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="describing-and-visualizing-data.html"><a href="describing-and-visualizing-data.html#recoding"><i class="fa fa-check"></i><b>3.2</b> Recoding</a><ul>
+<li class="chapter" data-level="3.2.1" data-path="describing-and-visualizing-data.html"><a href="describing-and-visualizing-data.html#factoring-and-recoding"><i class="fa fa-check"></i><b>3.2.1</b> Factoring and Recoding</a></li>
+<li class="chapter" data-level="3.2.2" data-path="describing-and-visualizing-data.html"><a href="describing-and-visualizing-data.html#creating-a-dummy-variable"><i class="fa fa-check"></i><b>3.2.2</b> Creating a Dummy Variable</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="describing-and-visualizing-data.html"><a href="describing-and-visualizing-data.html#building-and-sorting-your-data"><i class="fa fa-check"></i><b>3.3</b> Building and Sorting Your Data</a><ul>
+<li class="chapter" data-level="3.3.1" data-path="describing-and-visualizing-data.html"><a href="describing-and-visualizing-data.html#the-tidyverse"><i class="fa fa-check"></i><b>3.3.1</b> The Tidyverse</a></li>
+<li class="chapter" data-level="3.3.2" data-path="describing-and-visualizing-data.html"><a href="describing-and-visualizing-data.html#other-methods-of-exploring-your-data"><i class="fa fa-check"></i><b>3.3.2</b> Other Methods of Exploring Your Data</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="describing-and-visualizing-data.html"><a href="describing-and-visualizing-data.html#working-with-nominal-data"><i class="fa fa-check"></i><b>3.4</b> Working with Nominal Data</a><ul>
+<li class="chapter" data-level="3.4.1" data-path="describing-and-visualizing-data.html"><a href="describing-and-visualizing-data.html#finding-the-mode"><i class="fa fa-check"></i><b>3.4.1</b> Finding the Mode</a></li>
+<li class="chapter" data-level="3.4.2" data-path="describing-and-visualizing-data.html"><a href="describing-and-visualizing-data.html#visualizing-nominal-data"><i class="fa fa-check"></i><b>3.4.2</b> Visualizing Nominal Data</a></li>
+</ul></li>
+<li class="chapter" data-level="3.5" data-path="describing-and-visualizing-data.html"><a href="describing-and-visualizing-data.html#working-with-ordinal-data"><i class="fa fa-check"></i><b>3.5</b> Working with Ordinal Data</a></li>
+<li class="chapter" data-level="3.6" data-path="describing-and-visualizing-data.html"><a href="describing-and-visualizing-data.html#working-with-interval-data"><i class="fa fa-check"></i><b>3.6</b> Working with Interval Data</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="visualizing-data-probability-the-normal-distribution-and-z-scores.html"><a href="visualizing-data-probability-the-normal-distribution-and-z-scores.html"><i class="fa fa-check"></i><b>4</b> Visualizing Data, Probability, the Normal Distribution, and Z Scores</a><ul>
+<li class="chapter" data-level="4.1" data-path="visualizing-data-probability-the-normal-distribution-and-z-scores.html"><a href="visualizing-data-probability-the-normal-distribution-and-z-scores.html#histograms-and-density"><i class="fa fa-check"></i><b>4.1</b> Histograms and Density</a><ul>
+<li class="chapter" data-level="4.1.1" data-path="visualizing-data-probability-the-normal-distribution-and-z-scores.html"><a href="visualizing-data-probability-the-normal-distribution-and-z-scores.html#normal-distribution-and-histograms"><i class="fa fa-check"></i><b>4.1.1</b> Normal Distribution and Histograms</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="visualizing-data-probability-the-normal-distribution-and-z-scores.html"><a href="visualizing-data-probability-the-normal-distribution-and-z-scores.html#probability-and-distributions"><i class="fa fa-check"></i><b>4.2</b> Probability and Distributions</a></li>
+<li class="chapter" data-level="4.3" data-path="visualizing-data-probability-the-normal-distribution-and-z-scores.html"><a href="visualizing-data-probability-the-normal-distribution-and-z-scores.html#visualizing-normality"><i class="fa fa-check"></i><b>4.3</b> Visualizing Normality</a></li>
+<li class="chapter" data-level="4.4" data-path="visualizing-data-probability-the-normal-distribution-and-z-scores.html"><a href="visualizing-data-probability-the-normal-distribution-and-z-scores.html#z-scores"><i class="fa fa-check"></i><b>4.4</b> Z-Scores</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="foundations-for-inference.html"><a href="foundations-for-inference.html"><i class="fa fa-check"></i><b>5</b> Foundations for Inference</a><ul>
+<li class="chapter" data-level="5.1" data-path="foundations-for-inference.html"><a href="foundations-for-inference.html#testing-for-normality"><i class="fa fa-check"></i><b>5.1</b> Testing for Normality</a><ul>
+<li class="chapter" data-level="5.1.1" data-path="foundations-for-inference.html"><a href="foundations-for-inference.html#shapiro-wilk-test"><i class="fa fa-check"></i><b>5.1.1</b> Shapiro-Wilk Test</a></li>
+<li class="chapter" data-level="5.1.2" data-path="foundations-for-inference.html"><a href="foundations-for-inference.html#testing-normality"><i class="fa fa-check"></i><b>5.1.2</b> Testing Normality</a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="foundations-for-inference.html"><a href="foundations-for-inference.html#standard-errors"><i class="fa fa-check"></i><b>5.2</b> Standard Errors</a></li>
+<li class="chapter" data-level="5.3" data-path="foundations-for-inference.html"><a href="foundations-for-inference.html#confidence-intervals"><i class="fa fa-check"></i><b>5.3</b> Confidence Intervals</a></li>
+<li class="chapter" data-level="5.4" data-path="foundations-for-inference.html"><a href="foundations-for-inference.html#more-on-single-sample-t-tests"><i class="fa fa-check"></i><b>5.4</b> More on Single Sample T-tests</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="inference-for-two-populations.html"><a href="inference-for-two-populations.html"><i class="fa fa-check"></i><b>6</b> Inference for Two Populations</a><ul>
+<li class="chapter" data-level="6.1" data-path="inference-for-two-populations.html"><a href="inference-for-two-populations.html#proportions"><i class="fa fa-check"></i><b>6.1</b> Proportions</a><ul>
+<li class="chapter" data-level="6.1.1" data-path="inference-for-two-populations.html"><a href="inference-for-two-populations.html#two-populations"><i class="fa fa-check"></i><b>6.1.1</b> Two Populations</a></li>
+</ul></li>
+<li class="chapter" data-level="6.2" data-path="inference-for-two-populations.html"><a href="inference-for-two-populations.html#cross-tabulations"><i class="fa fa-check"></i><b>6.2</b> Cross Tabulations</a><ul>
+<li class="chapter" data-level="6.2.1" data-path="inference-for-two-populations.html"><a href="inference-for-two-populations.html#other-coefficients"><i class="fa fa-check"></i><b>6.2.1</b> Other Coefficients</a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="inference-for-two-populations.html"><a href="inference-for-two-populations.html#independent-t-tests"><i class="fa fa-check"></i><b>6.3</b> Independent t-tests</a><ul>
+<li class="chapter" data-level="6.3.1" data-path="inference-for-two-populations.html"><a href="inference-for-two-populations.html#other-independent-sample-tests"><i class="fa fa-check"></i><b>6.3.1</b> Other Independent Sample Tests</a></li>
+</ul></li>
+<li class="chapter" data-level="6.4" data-path="inference-for-two-populations.html"><a href="inference-for-two-populations.html#paired-t-test"><i class="fa fa-check"></i><b>6.4</b> Paired t-test</a></li>
+<li class="chapter" data-level="6.5" data-path="inference-for-two-populations.html"><a href="inference-for-two-populations.html#visualizing-differences-in-means"><i class="fa fa-check"></i><b>6.5</b> Visualizing Differences in Means</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="covariance-and-correlation.html"><a href="covariance-and-correlation.html"><i class="fa fa-check"></i><b>7</b> Covariance and Correlation</a><ul>
+<li class="chapter" data-level="7.1" data-path="covariance-and-correlation.html"><a href="covariance-and-correlation.html#covariance"><i class="fa fa-check"></i><b>7.1</b> Covariance</a><ul>
+<li class="chapter" data-level="7.1.1" data-path="covariance-and-correlation.html"><a href="covariance-and-correlation.html#covariance-by-hand"><i class="fa fa-check"></i><b>7.1.1</b> Covariance by Hand</a></li>
+<li class="chapter" data-level="7.1.2" data-path="covariance-and-correlation.html"><a href="covariance-and-correlation.html#covariance-in-r"><i class="fa fa-check"></i><b>7.1.2</b> Covariance in R</a></li>
+<li class="chapter" data-level="7.1.3" data-path="covariance-and-correlation.html"><a href="covariance-and-correlation.html#covariance-in-class-data-set"><i class="fa fa-check"></i><b>7.1.3</b> Covariance in Class Data Set</a></li>
+</ul></li>
+<li class="chapter" data-level="7.2" data-path="covariance-and-correlation.html"><a href="covariance-and-correlation.html#correlation"><i class="fa fa-check"></i><b>7.2</b> Correlation</a><ul>
+<li class="chapter" data-level="7.2.1" data-path="covariance-and-correlation.html"><a href="covariance-and-correlation.html#correlation-by-hand"><i class="fa fa-check"></i><b>7.2.1</b> Correlation by Hand</a></li>
+<li class="chapter" data-level="7.2.2" data-path="covariance-and-correlation.html"><a href="covariance-and-correlation.html#correlation-tests"><i class="fa fa-check"></i><b>7.2.2</b> Correlation Tests</a></li>
+<li class="chapter" data-level="7.2.3" data-path="covariance-and-correlation.html"><a href="covariance-and-correlation.html#correlation-across-groups"><i class="fa fa-check"></i><b>7.2.3</b> Correlation Across Groups</a></li>
+</ul></li>
+<li class="chapter" data-level="7.3" data-path="covariance-and-correlation.html"><a href="covariance-and-correlation.html#visualizing-correlation"><i class="fa fa-check"></i><b>7.3</b> Visualizing Correlation</a><ul>
+<li class="chapter" data-level="7.3.1" data-path="covariance-and-correlation.html"><a href="covariance-and-correlation.html#another-example-political-party"><i class="fa fa-check"></i><b>7.3.1</b> Another Example: Political Party</a></li>
+<li class="chapter" data-level="7.3.2" data-path="covariance-and-correlation.html"><a href="covariance-and-correlation.html#one-more-visualization"><i class="fa fa-check"></i><b>7.3.2</b> One More Visualization</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="bivariate-linear-regression.html"><a href="bivariate-linear-regression.html"><i class="fa fa-check"></i><b>8</b> Bivariate Linear Regression</a><ul>
+<li class="chapter" data-level="8.1" data-path="bivariate-linear-regression.html"><a href="bivariate-linear-regression.html#bivariate-linear-regression-by-hand"><i class="fa fa-check"></i><b>8.1</b> Bivariate Linear Regression by Hand</a><ul>
+<li class="chapter" data-level="8.1.1" data-path="bivariate-linear-regression.html"><a href="bivariate-linear-regression.html#calculating-goodness-of-fit"><i class="fa fa-check"></i><b>8.1.1</b> Calculating Goodness of Fit</a></li>
+<li class="chapter" data-level="8.1.2" data-path="bivariate-linear-regression.html"><a href="bivariate-linear-regression.html#checking-our-work"><i class="fa fa-check"></i><b>8.1.2</b> Checking Our Work</a></li>
+</ul></li>
+<li class="chapter" data-level="8.2" data-path="bivariate-linear-regression.html"><a href="bivariate-linear-regression.html#bivariate-regression-in-r"><i class="fa fa-check"></i><b>8.2</b> Bivariate Regression in R</a></li>
+<li class="chapter" data-level="8.3" data-path="bivariate-linear-regression.html"><a href="bivariate-linear-regression.html#the-residuals"><i class="fa fa-check"></i><b>8.3</b> The Residuals</a></li>
+<li class="chapter" data-level="8.4" data-path="bivariate-linear-regression.html"><a href="bivariate-linear-regression.html#comparing-models"><i class="fa fa-check"></i><b>8.4</b> Comparing Models</a><ul>
+<li class="chapter" data-level="8.4.1" data-path="bivariate-linear-regression.html"><a href="bivariate-linear-regression.html#visualizing-multiple-models"><i class="fa fa-check"></i><b>8.4.1</b> Visualizing Multiple Models</a></li>
+</ul></li>
+<li class="chapter" data-level="8.5" data-path="bivariate-linear-regression.html"><a href="bivariate-linear-regression.html#hypothesis-testing"><i class="fa fa-check"></i><b>8.5</b> Hypothesis Testing</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="multivariable-linear-regression.html"><a href="multivariable-linear-regression.html"><i class="fa fa-check"></i><b>9</b> Multivariable Linear Regression</a><ul>
+<li class="chapter" data-level="9.1" data-path="multivariable-linear-regression.html"><a href="multivariable-linear-regression.html#part-i-calculating-least-squared-estimates"><i class="fa fa-check"></i><b>9.1</b> Part I: Calculating Least-Squared Estimates</a><ul>
+<li class="chapter" data-level="9.1.1" data-path="multivariable-linear-regression.html"><a href="multivariable-linear-regression.html#matrix-algebra"><i class="fa fa-check"></i><b>9.1.1</b> Matrix Algebra</a></li>
+<li class="chapter" data-level="9.1.2" data-path="multivariable-linear-regression.html"><a href="multivariable-linear-regression.html#representing-system-of-linear-equations-as-matrices"><i class="fa fa-check"></i><b>9.1.2</b> Representing System of Linear Equations as Matrices</a></li>
+<li class="chapter" data-level="9.1.3" data-path="multivariable-linear-regression.html"><a href="multivariable-linear-regression.html#ols-regression-and-matrices"><i class="fa fa-check"></i><b>9.1.3</b> OLS Regression and Matrices</a></li>
+</ul></li>
+<li class="chapter" data-level="9.2" data-path="multivariable-linear-regression.html"><a href="multivariable-linear-regression.html#part-ii-multiple-regression-in-r"><i class="fa fa-check"></i><b>9.2</b> Part II: Multiple Regression in R</a></li>
+<li class="chapter" data-level="9.3" data-path="multivariable-linear-regression.html"><a href="multivariable-linear-regression.html#part-iii-hypothesis-testing-with-multivariable-regression"><i class="fa fa-check"></i><b>9.3</b> Part III: Hypothesis Testing with Multivariable Regression</a><ul>
+<li class="chapter" data-level="9.3.1" data-path="multivariable-linear-regression.html"><a href="multivariable-linear-regression.html#visualizing-multivariable-linear-regression"><i class="fa fa-check"></i><b>9.3.1</b> Visualizing Multivariable Linear Regression</a></li>
+</ul></li>
+<li class="chapter" data-level="9.4" data-path="multivariable-linear-regression.html"><a href="multivariable-linear-regression.html#part-iv-predicting-with-ols-regression"><i class="fa fa-check"></i><b>9.4</b> Part IV: Predicting with OLS Regression</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="categorical-explanatory-variables-dummy-variables-and-interactions.html"><a href="categorical-explanatory-variables-dummy-variables-and-interactions.html"><i class="fa fa-check"></i><b>10</b> Categorical Explanatory Variables, Dummy Variables, and Interactions</a><ul>
+<li class="chapter" data-level="10.1" data-path="categorical-explanatory-variables-dummy-variables-and-interactions.html"><a href="categorical-explanatory-variables-dummy-variables-and-interactions.html#dummy-variables"><i class="fa fa-check"></i><b>10.1</b> Dummy Variables</a><ul>
+<li class="chapter" data-level="10.1.1" data-path="categorical-explanatory-variables-dummy-variables-and-interactions.html"><a href="categorical-explanatory-variables-dummy-variables-and-interactions.html#multiple-dummy-variables"><i class="fa fa-check"></i><b>10.1.1</b> Multiple Dummy Variables</a></li>
+</ul></li>
+<li class="chapter" data-level="10.2" data-path="categorical-explanatory-variables-dummy-variables-and-interactions.html"><a href="categorical-explanatory-variables-dummy-variables-and-interactions.html#interactions"><i class="fa fa-check"></i><b>10.2</b> Interactions</a><ul>
+<li class="chapter" data-level="10.2.1" data-path="categorical-explanatory-variables-dummy-variables-and-interactions.html"><a href="categorical-explanatory-variables-dummy-variables-and-interactions.html#interactions-with-two-non-binary-variables"><i class="fa fa-check"></i><b>10.2.1</b> Interactions with Two Non-binary Variables</a></li>
+</ul></li>
+<li class="chapter" data-level="10.3" data-path="categorical-explanatory-variables-dummy-variables-and-interactions.html"><a href="categorical-explanatory-variables-dummy-variables-and-interactions.html#releveling-variables"><i class="fa fa-check"></i><b>10.3</b> Releveling Variables</a></li>
+<li class="chapter" data-level="10.4" data-path="categorical-explanatory-variables-dummy-variables-and-interactions.html"><a href="categorical-explanatory-variables-dummy-variables-and-interactions.html#interaction-plots"><i class="fa fa-check"></i><b>10.4</b> Interaction Plots</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="non-linearity-non-normality-and-multicollinearity.html"><a href="non-linearity-non-normality-and-multicollinearity.html"><i class="fa fa-check"></i><b>11</b> Non-linearity, Non-normality, and Multicollinearity</a><ul>
+<li class="chapter" data-level="11.1" data-path="non-linearity-non-normality-and-multicollinearity.html"><a href="non-linearity-non-normality-and-multicollinearity.html#non-linearity"><i class="fa fa-check"></i><b>11.1</b> Non-linearity</a><ul>
+<li class="chapter" data-level="11.1.1" data-path="non-linearity-non-normality-and-multicollinearity.html"><a href="non-linearity-non-normality-and-multicollinearity.html#exploring-non-linearity"><i class="fa fa-check"></i><b>11.1.1</b> Exploring Non-linearity</a></li>
+</ul></li>
+<li class="chapter" data-level="11.2" data-path="non-linearity-non-normality-and-multicollinearity.html"><a href="non-linearity-non-normality-and-multicollinearity.html#non-normality"><i class="fa fa-check"></i><b>11.2</b> Non-normality</a></li>
+<li class="chapter" data-level="11.3" data-path="non-linearity-non-normality-and-multicollinearity.html"><a href="non-linearity-non-normality-and-multicollinearity.html#multicollinearity"><i class="fa fa-check"></i><b>11.3</b> Multicollinearity</a></li>
+<li class="chapter" data-level="11.4" data-path="non-linearity-non-normality-and-multicollinearity.html"><a href="non-linearity-non-normality-and-multicollinearity.html#standardizing-coefficients"><i class="fa fa-check"></i><b>11.4</b> Standardizing Coefficients</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="diagnosing-and-addressing-problems-in-linear-regression.html"><a href="diagnosing-and-addressing-problems-in-linear-regression.html"><i class="fa fa-check"></i><b>12</b> Diagnosing and Addressing Problems in Linear Regression</a><ul>
+<li class="chapter" data-level="12.1" data-path="diagnosing-and-addressing-problems-in-linear-regression.html"><a href="diagnosing-and-addressing-problems-in-linear-regression.html#introduction-to-the-data"><i class="fa fa-check"></i><b>12.1</b> Introduction to the Data</a></li>
+<li class="chapter" data-level="12.2" data-path="diagnosing-and-addressing-problems-in-linear-regression.html"><a href="diagnosing-and-addressing-problems-in-linear-regression.html#outliers"><i class="fa fa-check"></i><b>12.2</b> Outliers</a></li>
+<li class="chapter" data-level="12.3" data-path="diagnosing-and-addressing-problems-in-linear-regression.html"><a href="diagnosing-and-addressing-problems-in-linear-regression.html#heteroscedasticity"><i class="fa fa-check"></i><b>12.3</b> Heteroscedasticity</a></li>
+<li class="chapter" data-level="12.4" data-path="diagnosing-and-addressing-problems-in-linear-regression.html"><a href="diagnosing-and-addressing-problems-in-linear-regression.html#revisiting-linearity"><i class="fa fa-check"></i><b>12.4</b> Revisiting Linearity</a><ul>
+<li class="chapter" data-level="12.4.1" data-path="diagnosing-and-addressing-problems-in-linear-regression.html"><a href="diagnosing-and-addressing-problems-in-linear-regression.html#normality"><i class="fa fa-check"></i><b>12.4.1</b> Normality</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="logistic-regression.html"><a href="logistic-regression.html"><i class="fa fa-check"></i><b>13</b> Logistic Regression</a><ul>
+<li class="chapter" data-level="13.1" data-path="logistic-regression.html"><a href="logistic-regression.html#logistic-regression-with-a-binary-dv"><i class="fa fa-check"></i><b>13.1</b> Logistic Regression with a Binary DV</a><ul>
+<li class="chapter" data-level="13.1.1" data-path="logistic-regression.html"><a href="logistic-regression.html#goodness-of-fit-logit-regression"><i class="fa fa-check"></i><b>13.1.1</b> Goodness of Fit, Logit Regression</a></li>
+<li class="chapter" data-level="13.1.2" data-path="logistic-regression.html"><a href="logistic-regression.html#percent-correctly-predicted"><i class="fa fa-check"></i><b>13.1.2</b> Percent Correctly Predicted</a></li>
+<li class="chapter" data-level="13.1.3" data-path="logistic-regression.html"><a href="logistic-regression.html#logit-regression-with-groups"><i class="fa fa-check"></i><b>13.1.3</b> Logit Regression with Groups</a></li>
+</ul></li>
+<li class="chapter" data-level="13.2" data-path="logistic-regression.html"><a href="logistic-regression.html#ordered-logit-and-creating-an-index"><i class="fa fa-check"></i><b>13.2</b> Ordered Logit and Creating an Index</a></li>
+</ul></li>
+<li class="chapter" data-level="14" data-path="statistical-simulations.html"><a href="statistical-simulations.html"><i class="fa fa-check"></i><b>14</b> Statistical Simulations</a><ul>
+<li class="chapter" data-level="14.1" data-path="statistical-simulations.html"><a href="statistical-simulations.html#the-basics"><i class="fa fa-check"></i><b>14.1</b> The Basics</a><ul>
+<li class="chapter" data-level="14.1.1" data-path="statistical-simulations.html"><a href="statistical-simulations.html#plotting-predictions-with-zelig"><i class="fa fa-check"></i><b>14.1.1</b> Plotting Predictions with Zelig</a></li>
+</ul></li>
+<li class="chapter" data-level="14.2" data-path="statistical-simulations.html"><a href="statistical-simulations.html#other-models"><i class="fa fa-check"></i><b>14.2</b> Other Models</a><ul>
+<li class="chapter" data-level="14.2.1" data-path="statistical-simulations.html"><a href="statistical-simulations.html#ordered-logit"><i class="fa fa-check"></i><b>14.2.1</b> Ordered Logit</a></li>
+<li class="chapter" data-level="14.2.2" data-path="statistical-simulations.html"><a href="statistical-simulations.html#another-example"><i class="fa fa-check"></i><b>14.2.2</b> Another Example</a></li>
+</ul></li>
+<li class="chapter" data-level="14.3" data-path="statistical-simulations.html"><a href="statistical-simulations.html#zelig-with-non-zelig-models"><i class="fa fa-check"></i><b>14.3</b> Zelig with non-Zelig Models:</a></li>
+</ul></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Lab Guide to Quantitative Research Methods in Political Science, Public Policy &amp; Public Administration.</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="visualizing-data-probability-the-normal-distribution-and-z-scores" class="section level1">
+<h1><span class="header-section-number">4</span> Visualizing Data, Probability, the Normal Distribution, and Z Scores</h1>
+<p>This lab discusses the basics of visualizing data, probability, the normal distribution, and z scores. The following packages are required for this lab:</p>
+<ol style="list-style-type: decimal">
+<li>sfsmisc</li>
+<li>psych</li>
+<li>car</li>
+<li>tidyverse</li>
+</ol>
+<div id="histograms-and-density" class="section level2">
+<h2><span class="header-section-number">4.1</span> Histograms and Density</h2>
+<p>Recall that histograms are used to visualize continuous data. Histograms are not used to visualize categorical data. Instead, a bar plot is advised for categorical data. The <code>geom_hist()</code> function creates histograms in R using ggplot visualizations. The following is an example of creating a histogram of the <code>age</code> variable within the <code>ds</code> data set.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(ds, <span class="kw">aes</span>(age)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_histogram</span>()</code></pre></div>
+<pre><code>## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
+<p><img src="_main_files/figure-html/3_hist1-1.png" width="672" /></p>
+<p>The histogram displays the frequency of <code>age</code> for given bins. Alternatively, the density of <code>age</code> can be shown instead of frequency by making a slight change in the visualization. Use the mapping aesthetic inside the <code>geom_histogram()</code> function and setting x as the age variable and y as <code>..density..</code></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(ds) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_histogram</span>(<span class="kw">aes</span>(<span class="dt">x=</span>age, <span class="dt">y=</span>..density..))</code></pre></div>
+<pre><code>## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
+<p><img src="_main_files/figure-html/3_hist2-1.png" width="672" /></p>
+<p>The shape of the plot is the same for the frequency and density histograms; however, the y-axis measures in different units. The area associated with the largest y-axis value suggest that a higher percentage of respondents are likely to provide an age within the ages on the x-axis.</p>
+<p>Data is organized into ranges, known as bins, to compose the x-axis. The number of bins is a potentially contentious topic; however, a good recommendation is to set the number of bins equal to <span class="math inline">\(\sqrt n\)</span>, where n is the number of observations. To change the number of bins, use <code>bins=n</code> inside the <code>geom_histogram()</code> function. The square root of n for the current data set is a little over 50, so set the bins to be 50.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(ds, <span class="kw">aes</span>(age)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_histogram</span>(<span class="dt">bins=</span><span class="dv">50</span>)</code></pre></div>
+<p><img src="_main_files/figure-html/3_hist3-1.png" width="672" /></p>
+<p>Using various functions along with the histogram function, the visualization is improved with more meaningful information. These functions can help:</p>
+<ol style="list-style-type: decimal">
+<li>xlab(“X-Axis Label”)
+<ul>
+<li>Sets the label for the x-axis</li>
+</ul></li>
+<li>ylab(“Y-Axis label”)
+<ul>
+<li>Sets the label for the y-axis</li>
+</ul></li>
+<li>ggtitle(“Title”)
+<ul>
+<li>Sets the histogram title</li>
+</ul></li>
+<li>coord_cartesian(ylim=c(min:max), xlim=c(min:max))
+<ul>
+<li>Sets the limits of the x and y axes.</li>
+</ul></li>
+</ol>
+<p>The following is an excellent example of a histogram of the <code>age</code> data.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(ds, <span class="kw">aes</span>(age)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_histogram</span>(<span class="dt">bins=</span><span class="dv">50</span>) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;Age&quot;</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">ylab</span>(<span class="st">&quot;Frequency&quot;</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">ggtitle</span>(<span class="st">&quot;Histogram of Age&quot;</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">coord_cartesian</span>(<span class="dt">ylim=</span><span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">175</span>), <span class="dt">xlim=</span><span class="kw">c</span>(<span class="dv">15</span>,<span class="dv">95</span>)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">theme_light</span>() <span class="co"># Sets the theme. There are a lot to choose from.</span></code></pre></div>
+<p><img src="_main_files/figure-html/3_hist5-1.png" width="672" /></p>
+<div id="normal-distribution-and-histograms" class="section level3">
+<h3><span class="header-section-number">4.1.1</span> Normal Distribution and Histograms</h3>
+<p>Data approximated by the normal distribution can define probabilities. Using R, the normal distribution “bell curve” can be projected over a histogram.</p>
+<p>Given an identified mean and standard deviation, and a density histogram, the <code>stat_function()</code> function can project a normal distribution as follows. Specify <code>fun=dnorm</code>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(ds, <span class="kw">aes</span>(age)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_histogram</span>(<span class="kw">aes</span>(<span class="dt">x=</span>age, <span class="dt">y=</span>..density..), <span class="dt">bins=</span><span class="dv">50</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">stat_function</span>(<span class="dt">fun=</span>dnorm, <span class="dt">args =</span> <span class="kw">list</span>(<span class="dt">mean=</span><span class="kw">mean</span>(ds<span class="op">$</span>age), <span class="dt">sd=</span><span class="kw">sd</span>(ds<span class="op">$</span>age)), <span class="dt">color=</span><span class="st">&quot;red&quot;</span>)</code></pre></div>
+<p><img src="_main_files/figure-html/3_norm-1.png" width="672" /></p>
+<p>Comparing the histogram plot to the normal distribution curve generated may prove difficult. The <code>geom_density()</code> function can draw a line using density data for <em>age</em> alongside the projected line of what the normal distribution would appear like given the mean and standard deviation. The two shapes can then be compared visually to interpret whether the <em>age</em> data can be approximated by the normal distribution.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(ds, <span class="kw">aes</span>(age)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_histogram</span>(<span class="kw">aes</span>(<span class="dt">x=</span>age, <span class="dt">y=</span>..density..), <span class="dt">bins=</span><span class="dv">50</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">stat_function</span>(<span class="dt">fun=</span>dnorm, <span class="dt">args =</span> <span class="kw">list</span>(<span class="dt">mean=</span><span class="kw">mean</span>(ds<span class="op">$</span>age), <span class="dt">sd=</span><span class="kw">sd</span>(ds<span class="op">$</span>age)), <span class="dt">color=</span><span class="st">&quot;red&quot;</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_density</span>(<span class="dt">color=</span><span class="st">&quot;blue&quot;</span>)</code></pre></div>
+<p><img src="_main_files/figure-html/3_norm2-1.png" width="672" /></p>
+<p>The culmination of the histogram, curve, and density line is improved via the addition of limits and labels to the x-axis and y-axis, defining a number of bins, and a chart title. Including fill and outline colors for the histogram can also make it more readable:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(ds, <span class="kw">aes</span>(age)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_histogram</span>(<span class="kw">aes</span>(<span class="dt">x=</span>age, <span class="dt">y=</span>..density..), <span class="dt">bins=</span><span class="dv">50</span>, <span class="dt">fill=</span><span class="st">&quot;#d3d3d3&quot;</span>, <span class="dt">color=</span><span class="st">&quot;black&quot;</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">stat_function</span>(<span class="dt">fun=</span>dnorm, <span class="dt">args =</span> <span class="kw">list</span>(<span class="dt">mean=</span><span class="kw">mean</span>(ds<span class="op">$</span>age), <span class="dt">sd=</span><span class="kw">sd</span>(ds<span class="op">$</span>age)), <span class="dt">color=</span><span class="st">&quot;red&quot;</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_density</span>(<span class="dt">color=</span><span class="st">&quot;blue&quot;</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">ggtitle</span>(<span class="st">&quot;Histogram of Age&quot;</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;Age&quot;</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">ylab</span>(<span class="st">&quot;Density&quot;</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">theme_bw</span>() <span class="op">+</span>
+<span class="st">  </span><span class="kw">coord_cartesian</span>(<span class="dt">xlim=</span><span class="kw">c</span>(<span class="dv">15</span>,<span class="dv">95</span>), <span class="dt">ylim=</span><span class="kw">c</span>(<span class="dv">0</span>,<span class="fl">0.04</span>))</code></pre></div>
+<p><img src="_main_files/figure-html/3_norm3-1.png" width="672" /></p>
+</div>
+</div>
+<div id="probability-and-distributions" class="section level2">
+<h2><span class="header-section-number">4.2</span> Probability and Distributions</h2>
+<p>R supports a number of distributions; however, for the purpose of these labs we will focus primarily on the normal and binomial distributions. View the <code>help(Distributions)</code> documentation to explore the distributions supported by R.</p>
+<p>help(Distributions)</p>
+<p>The following R functions are applicable to the normal distribution:</p>
+<ol style="list-style-type: decimal">
+<li><code>dnorm()</code></li>
+<li><code>pnorm()</code></li>
+<li><code>qnorm()</code></li>
+<li><code>rnorm()</code></li>
+</ol>
+<p>The <code>dnorm()</code> function provides the height of a probability distribution function at a given x value: <code>dnorm(x, mean=$\mu$, standard deviation=$\sigma$)</code>. <strong>Note:</strong> The value returned by the <code>dnorm()</code> function is not the probability associated with the occurrence of the x value!</p>
+<p>The default mean and standard deviation for the <code>dnorm()</code> function is 0 and 1, respectively. The following example finds the height of the probability distribution function at <span class="math inline">\(x=2\)</span> with <span class="math inline">\(\mu = 4\)</span> and <span class="math inline">\(\sigma = 1.5\)</span>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">dnorm</span>(<span class="dv">2</span>, <span class="dt">mean =</span> <span class="dv">4</span>, <span class="dt">sd=</span><span class="fl">1.5</span>)</code></pre></div>
+<pre><code>## [1] 0.10934</code></pre>
+<p>The <code>dnorm()</code> function used in conjunction with the <code>age</code> variable from <code>ds</code> data set can find the height of the probability distribution function. In the following example, the <code>dnorm()</code> function will find the height of the probability distribution function for 65. Similar to previous examples, an argument exists to ignore NA and missing values.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">dnorm</span>(<span class="dv">65</span>, <span class="dt">mean=</span><span class="kw">mean</span>(ds<span class="op">$</span>age, <span class="dt">na.rm =</span> T), <span class="dt">sd=</span><span class="kw">sd</span>(ds<span class="op">$</span>age, <span class="dt">na.rm=</span>T))</code></pre></div>
+<pre><code>## [1] 0.02662361</code></pre>
+<p>The <code>dnorm()</code> returns the height of the probability distribution function as 0.027. <strong>Note:</strong> This is a random value and, by itself, is not meaningful. The <code>dnorm()</code> function returns the relative likelihood, which can lead to determining a probability; however, to understand this value further requires an explanation of calculus.</p>
+<p>For continuous data, the probability of a single value is small (near zero), so instead the approach should be to find the probability a value occurs within a specified range. The probability associated to a value occurring within a specified range is equal to the area of the probability distribution function between the two points. In calculus this is defined as finding the integral of the probability distribution function.</p>
+<p><span class="math display">\[\int_{-x_1}^{x_2}{f_X(t)\,dx}\]</span></p>
+<p>The above formula is the cumulative distribution function for two points, <span class="math inline">\(x_1\)</span> and <span class="math inline">\(x_2\)</span>. In this case, <span class="math inline">\(x_1\)</span> is defined as the lower bound and <span class="math inline">\(x_2\)</span> is defined as the upper bound.</p>
+<p>R includes the calculus function <code>integrate.xy()</code> to return the probability.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">integrate.xy</span>(<span class="kw">density</span>(ds<span class="op">$</span>age)<span class="op">$</span>x,<span class="kw">density</span>(ds<span class="op">$</span>age)<span class="op">$</span>y,<span class="dv">65</span>,<span class="dv">66</span>)</code></pre></div>
+<pre><code>## [1] 0.02917993</code></pre>
+<p>The probability associated to an age between 65 and 66 in the <code>age</code> variable is .029 (<span class="math inline">\(\approx\)</span> 3% chance).</p>
+<p>Similarly, the <code>pnorm()</code> function calculates probabilities associated to a given x value. The default for the <code>pnorm()</code> function is the cumulative distribution function with a lower bound of <span class="math inline">\(-\infty\)</span> and an upper bound of x.</p>
+<p>The following example calculates the probability associated to an age value between <span class="math inline">\(-\infty\)</span> and 5, given <span class="math inline">\(\mu = 6\)</span> and <span class="math inline">\(\sigma = 6\)</span>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">pnorm</span>(<span class="dv">5</span>, <span class="dt">mean =</span> <span class="dv">6</span>, <span class="dt">sd =</span> <span class="dv">2</span>)</code></pre></div>
+<pre><code>## [1] 0.3085375</code></pre>
+<p>The <code>pnorm()</code> calculates the probability of observing a value between <span class="math inline">\(-\infty\)</span> and 5 as 0.31. The following example uses the <code>pnorm()</code> function with the <code>ds</code> data set to find the probability that a respondent is 65 or less years old.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">pnorm</span>(<span class="dv">65</span>, <span class="dt">mean=</span><span class="kw">mean</span>(ds<span class="op">$</span>age, <span class="dt">na.rm=</span>T), <span class="dt">sd=</span><span class="kw">sd</span>(ds<span class="op">$</span>age, <span class="dt">na.rm =</span> T))</code></pre></div>
+<pre><code>## [1] 0.6277983</code></pre>
+<p>To calculate the probability associated to an age of 65 or greater, the <code>lower.tail = FALSE</code> argument will look at the upper tail (right side of the probability distribution function). This is equal to the difference between 1 and the lower tail probability previously calculated.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">pnorm</span>(<span class="dv">65</span>, <span class="dt">mean=</span><span class="kw">mean</span>(ds<span class="op">$</span>age, <span class="dt">na.rm =</span> T), <span class="dt">sd=</span><span class="kw">sd</span>(ds<span class="op">$</span>age, <span class="dt">na.rm =</span> T), <span class="dt">lower.tail =</span> <span class="ot">FALSE</span>)</code></pre></div>
+<pre><code>## [1] 0.3722017</code></pre>
+<p>The <code>qnorm()</code> function is the inverse function of the <code>pnorm()</code> function. Given a probability, mean, and standard deviation, the <code>qnorm()</code> function will return an x value from the probability distribution function. The following example finds the upper bound x value of the probability distribution function associated to the probability, or area under the curve, of 0.3 given <span class="math inline">\(\mu = 5\)</span> and <span class="math inline">\(\sigma = 1\)</span>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">qnorm</span>(.<span class="dv">3</span>, <span class="dt">mean=</span><span class="dv">5</span>, <span class="dt">sd=</span><span class="dv">1</span>)</code></pre></div>
+<pre><code>## [1] 4.475599</code></pre>
+<p>The following calculates the upper bound age from the <code>age</code> variable in the <code>ds</code> data set to demonstrate further associated to a 40% probability. That is, the <code>qnorm()</code> function calculates the age that 40% of respondents are equal or less to.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">qnorm</span>(.<span class="dv">4</span>, <span class="dt">mean=</span><span class="kw">mean</span>(ds<span class="op">$</span>age, <span class="dt">na.rm =</span> T), <span class="dt">sd=</span><span class="kw">sd</span>(ds<span class="op">$</span>age, <span class="dt">na.rm =</span> T))</code></pre></div>
+<pre><code>## [1] 56.7677</code></pre>
+<p>Lastly, the <code>rnorm()</code> function will generate random values that follow a normal distribution given a number of points (n), provided <span class="math inline">\(\mu\)</span>, and <span class="math inline">\(\sigma\)</span>. The following example calculates 200 random values given <span class="math inline">\(\mu = 6\)</span> and <span class="math inline">\(\sigma = 2\)</span>. The random values are stored to the <code>rvalues</code> object.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">rvalues &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">200</span>, <span class="dt">mean=</span><span class="dv">6</span>, <span class="dt">sd=</span><span class="dv">2</span>)
+<span class="kw">ggplot</span>() <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_histogram</span>(<span class="kw">aes</span>(rvalues), <span class="dt">bins=</span><span class="dv">14</span>)</code></pre></div>
+<p><img src="_main_files/figure-html/3_rnorm-1.png" width="672" /></p>
+<p><strong>Note:</strong> The discussed functions are relevant to the normal distribution functions provided by R. R includes similar functions for other distributions, with equivalent functionality.</p>
+</div>
+<div id="visualizing-normality" class="section level2">
+<h2><span class="header-section-number">4.3</span> Visualizing Normality</h2>
+<p>Thus far the normal distribution has been discussed without visualization. When graphed, data that follow a normal distribution resemble a bell shaped curve. To demonstrate, the following code employs the <code>rnorm()</code> function to generate 1000 random values with <span class="math inline">\(\mu = 100\)</span> and <span class="math inline">\(\sigma = 20\)</span>, and assigns the values to an object named <code>random</code>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">random &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">1000</span>, <span class="dt">mean =</span> <span class="dv">100</span>, <span class="dt">sd =</span> <span class="dv">20</span>)</code></pre></div>
+<p>Inspecting a density histogram of the <code>random</code> object yields a bell shaped curve.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>() <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_histogram</span>(<span class="kw">aes</span>(random, ..density..), <span class="dt">fill=</span><span class="st">&quot;white&quot;</span>, <span class="dt">color=</span><span class="st">&quot;black&quot;</span>)</code></pre></div>
+<pre><code>## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
+<p><img src="_main_files/figure-html/3_three2-1.png" width="672" /></p>
+<p>Let’s start figuring out how to check if our data is normally distributed. There are many packages than will generate a density curve of your data and a projected normal distribution for comparison, but building all of the visualizations in ggplot provides both an intuitive and informative method of doing so. Start by creating a density plot of the randomly generated data.</p>
+<p>Let’s start figuring out how to check if our data is normally distributed. At the beginning of this lab we should have installed and loaded the package “sm”. We use the <code>sm.density()</code> function to visualize data and to project what should be the normal distribution of the data, given the mean and standard deviation of the data. Let’s start with our randomly generated data. We include the <code>model=&quot;Normal&quot;</code> argument at the end of the function, so that <code>sm.density</code> knows to use the normal distribution.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>() <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_density</span>(<span class="kw">aes</span>(random))</code></pre></div>
+<p><img src="_main_files/figure-html/3_three4-1.png" width="672" /></p>
+<p>Given the <code>random</code> values consists of values generated by the <code>rnorm()</code> function, this distrubtion resembling the normal distribution is unsurprising.</p>
+<p>The following code generates a density line for the <code>age</code> variable from the <code>ds</code> data set and a projected normal distribution given the mean and standaard deviation of the variable. Indicating <code>alpha=.5</code> will make the line slightly transparent.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(ds, <span class="kw">aes</span>(age)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_density</span>(<span class="kw">aes</span>(ds<span class="op">$</span>age)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">stat_function</span>(<span class="dt">fun=</span>dnorm, <span class="dt">args=</span><span class="kw">list</span>(<span class="dt">mean=</span><span class="kw">mean</span>(ds<span class="op">$</span>age), <span class="dt">sd=</span><span class="kw">sd</span>(ds<span class="op">$</span>age)), <span class="dt">color=</span><span class="st">&quot;red&quot;</span>, <span class="dt">size=</span><span class="dv">2</span>, <span class="dt">alpha=</span>.<span class="dv">5</span>)</code></pre></div>
+<p><img src="_main_files/figure-html/3_three5-1.png" width="672" /></p>
+<p>The shape of the density line closely resembles a normal distribution; however, note the slight skew.</p>
+<p>Another method to view whether data follows a normal distribution is to view the QQ plot, available via the <code>qqPlot()</code> function.</p>
+<p>A QQ plot visualizes data based on the quantiles of the provided variable against the quantiles that would exist if the data were normally distributed. Data that follows the normal distribution should be in a line with a set slope. Including <code>stat_qq()</code> generates a QQ plot. The following example generates a QQ plot of the <code>age</code> variable.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(ds, <span class="kw">aes</span>(<span class="dt">sample=</span>age)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">stat_qq</span>()</code></pre></div>
+<p><img src="_main_files/figure-html/3_three6-1.png" width="672" /></p>
+<p>To further inspect the normality, a diagonal line can be generated that will visualize what the slope of the data should be if it were normally distributed. To include such a line, use <code>geom_abline()</code>. The slope and intercept of the line must also be calculated. Doing so requires a small amount of basic linear algebra. Find the first and third quantiles of the <code>age</code> variable and set it to an object named <code>y</code>, then find the theoretical first and third quantiles for normally-distributed data and set it to <code>x</code>. Calculate the slope by taking the diference in <code>y</code> over the difference in <code>x</code> and set that to an object named <code>slope</code>. Then solve for the intercept and it it to an object named <code>intercept</code>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">y     &lt;-<span class="st"> </span><span class="kw">quantile</span>(ds<span class="op">$</span>age, <span class="kw">c</span>(<span class="fl">0.25</span>, <span class="fl">0.75</span>)) <span class="co"># Find the 1st and 3rd quantiles</span>
+x     &lt;-<span class="st"> </span><span class="kw">qnorm</span>( <span class="kw">c</span>(<span class="fl">0.25</span>, <span class="fl">0.75</span>))           <span class="co"># Find the matching normal values on the x-axis</span>
+slope &lt;-<span class="st"> </span><span class="kw">diff</span>(y) <span class="op">/</span><span class="st"> </span><span class="kw">diff</span>(x)               <span class="co"># Compute the line slope</span>
+int   &lt;-<span class="st"> </span>y[<span class="dv">1</span>] <span class="op">-</span><span class="st"> </span>slope <span class="op">*</span><span class="st"> </span>x[<span class="dv">1</span>]             <span class="co"># Compute the line intercept</span>
+
+<span class="kw">ggplot</span>(ds, <span class="kw">aes</span>(<span class="dt">sample =</span> age)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">stat_qq</span>() <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_abline</span>(<span class="dt">intercept =</span> int, <span class="dt">slope =</span> slope, <span class="dt">color =</span> <span class="st">&quot;blue&quot;</span>, <span class="dt">size =</span> <span class="dv">2</span>, <span class="dt">alpha =</span> <span class="fl">0.5</span> )</code></pre></div>
+<p><img src="_main_files/figure-html/3_three7-1.png" width="672" /></p>
+<p>In the graphic above, the solid blue line exhibits where data should fall if it follows a normal distribution, and the blue dash lines represent confidence intervals. The individual circles represent data points from the variable. If the data points is within the intervals, then the data likely follows a normal distribution. The interpretation of this QQ plot yields that the data likely follows a normal distribution, as expected given the data was generated via the <code>rnorm()</code> function.</p>
+<p>The QQ plot confirms the sm.density() plot: the <code>age</code> variable closely follows a normal distribution. Note that some values are outside the confidence interval. These are the points associated to the skew previously observed.</p>
+<p>Another last method to inspect whether data follows a normal distribution is the box plot. Box plots provides quartiles and the median, and returns individual unique values at the edges of our data. The following code generates a box plot of the <code>age</code> variable.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(ds, <span class="kw">aes</span>(<span class="dt">x=</span><span class="st">&quot;&quot;</span>, <span class="dt">y=</span>age)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_boxplot</span>()</code></pre></div>
+<p><img src="_main_files/figure-html/3_three8-1.png" width="672" /></p>
+<p>Note the middle line is the middle quartile, or the median. The distance between the median line and the line below it represents the second quartile. The distance from the bottom of the second quartile line to the very bottom line, or “whisker” is the first quartile. Above the median, the distance between the median line and the next line above it is the third quartile, and the area above that, and below the top whisker, is the fourth quartile. Notice that for the box plot of our randomly generated data, the distance between quartiles is relatively even.</p>
+<p>The distance between quartiles is relatively even; however, note the difference to the previously generated box plot from the <code>rnorm()</code> data.</p>
+</div>
+<div id="z-scores" class="section level2">
+<h2><span class="header-section-number">4.4</span> Z-Scores</h2>
+<p>Standardizing, or scaling, data provides conveniences in discussing data. For instance, discussing how many standard deviations a particular value occurs from the mean is more meaningful than purely the distance. Scaling data in terms of z-scores provides the number of standard deviations a value is from the mean.</p>
+<p>The following example employs the <code>scale()</code> function to calculate z-score for each data point and assigns them to a newly created <code>z.age</code> variable in the <code>ds</code> data set. To do this, use the <code>mutate()</code> function, which is a tidyverse function that creates new variables or modifies existing variables. The <code>scale()</code> function is enclosed by the <code>c()</code> function to ensure the result is a 1 dimensional vector:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ds &lt;-<span class="st"> </span>ds <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">z.age =</span> <span class="kw">c</span>(<span class="kw">scale</span>(age)))</code></pre></div>
+<p>Using a filter approach, the following example finds the z-score associated to women younger than 19 years old. First filter the data with the preferred stipulations, then use the <code>select()</code> verb from the <code>dplyr()</code> package (part of the tidyverse!) to view the results. All of this is connected using the pipe function, %&gt;%.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ds <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">filter</span>(f.gender <span class="op">==</span><span class="st"> &quot;Women&quot;</span> <span class="op">&amp;</span><span class="st"> </span>age <span class="op">&lt;</span><span class="st"> </span><span class="dv">19</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span>dplyr<span class="op">::</span><span class="kw">select</span>(f.gender, age, z.age)</code></pre></div>
+<pre><code>##   f.gender age     z.age
+## 1    Women  18 -2.981749</code></pre>
+<p>The result shows that, within the <code>ds</code> data set, there is one respondent that identified as a woman under 19 years old. The z-score for this respondent is -2.98, which is interpreted as this respondent’s age is 2.98 standard deviations below the mean.</p>
+<p>Given a z-score, the mean age of respondents is assumed as much higher than the 18 year old woman. The difference between the mean age of respondents and the woman is the product of the z-score and standard deviation. The following calculates the standard deviation of the <code>age</code> variable.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">sd</span>(ds<span class="op">$</span>age, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)</code></pre></div>
+<pre><code>## [1] 14.20894</code></pre>
+<p>The <code>sd()</code> function returns the standard deviation of data. The product of the <code>sd()</code> function and calculated z-score, is the difference between the 18 year old woman and mean age of respondents.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="fl">2.981748</span><span class="op">*</span><span class="kw">sd</span>(ds<span class="op">$</span>age, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)</code></pre></div>
+<pre><code>## [1] 42.36748</code></pre>
+<p>The difference between the 18 year old woman and mean age of respondents is <span class="math inline">\(\approx\)</span> 43.38 years.</p>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="describing-and-visualizing-data.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="foundations-for-inference.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"linkedin": false,
+"weibo": false,
+"instapper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "";
+    if (src === "" || src === "true") src = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:" && /^https?:/.test(src))
+      src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

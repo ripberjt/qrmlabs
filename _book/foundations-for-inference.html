@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Lab Guide to Quantitative Research Methods in Political Science, Public Policy &amp; Public Administration.</title>
+  <meta name="description" content="Lab Guide to Quantitative Research Methods in Political Science, Public Policy &amp; Public Administration.">
+  <meta name="generator" content="bookdown 0.7 and GitBook 2.6.7">
+
+  <meta property="og:title" content="Lab Guide to Quantitative Research Methods in Political Science, Public Policy &amp; Public Administration." />
+  <meta property="og:type" content="book" />
+  
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Lab Guide to Quantitative Research Methods in Political Science, Public Policy &amp; Public Administration." />
+  
+  
+  
+
+<meta name="author" content="Alex Davis">
+<meta name="author" content="Cody Adams">
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="visualizing-data-probability-the-normal-distribution-and-z-scores.html">
+<link rel="next" href="inference-for-two-populations.html">
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+<script src="libs/htmlwidgets-1.2/htmlwidgets.js"></script>
+<script src="libs/plotly-binding-4.8.0/plotly.js"></script>
+<script src="libs/typedarray-0.1/typedarray.min.js"></script>
+<link href="libs/crosstalk-1.0.0/css/crosstalk.css" rel="stylesheet" />
+<script src="libs/crosstalk-1.0.0/js/crosstalk.min.js"></script>
+<link href="libs/plotly-htmlwidgets-css-1.39.2/plotly-htmlwidgets.css" rel="stylesheet" />
+<script src="libs/plotly-main-1.39.2/plotly-latest.min.js"></script>
+
+
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Preface</a><ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#acknowledgments"><i class="fa fa-check"></i><b>1.1</b> Acknowledgments</a></li>
+<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#requirements"><i class="fa fa-check"></i><b>1.2</b> Requirements</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="introduction-and-basics.html"><a href="introduction-and-basics.html"><i class="fa fa-check"></i><b>2</b> Introduction and Basics</a><ul>
+<li class="chapter" data-level="2.1" data-path="introduction-and-basics.html"><a href="introduction-and-basics.html#r-as-a-calculator"><i class="fa fa-check"></i><b>2.1</b> R, as a Calculator</a><ul>
+<li class="chapter" data-level="2.1.1" data-path="introduction-and-basics.html"><a href="introduction-and-basics.html#order-of-operations"><i class="fa fa-check"></i><b>2.1.1</b> Order of Operations</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="introduction-and-basics.html"><a href="introduction-and-basics.html#objects"><i class="fa fa-check"></i><b>2.2</b> Objects</a></li>
+<li class="chapter" data-level="2.3" data-path="introduction-and-basics.html"><a href="introduction-and-basics.html#functions"><i class="fa fa-check"></i><b>2.3</b> Functions</a><ul>
+<li class="chapter" data-level="2.3.1" data-path="introduction-and-basics.html"><a href="introduction-and-basics.html#object-types"><i class="fa fa-check"></i><b>2.3.1</b> Object Types</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="introduction-and-basics.html"><a href="introduction-and-basics.html#packages"><i class="fa fa-check"></i><b>2.4</b> Packages</a><ul>
+<li class="chapter" data-level="2.4.1" data-path="introduction-and-basics.html"><a href="introduction-and-basics.html#installing-packages"><i class="fa fa-check"></i><b>2.4.1</b> Installing Packages</a></li>
+<li class="chapter" data-level="2.4.2" data-path="introduction-and-basics.html"><a href="introduction-and-basics.html#loading-packages"><i class="fa fa-check"></i><b>2.4.2</b> Loading Packages</a></li>
+<li class="chapter" data-level="2.4.3" data-path="introduction-and-basics.html"><a href="introduction-and-basics.html#updating-packages"><i class="fa fa-check"></i><b>2.4.3</b> Updating Packages</a></li>
+</ul></li>
+<li class="chapter" data-level="2.5" data-path="introduction-and-basics.html"><a href="introduction-and-basics.html#r-help"><i class="fa fa-check"></i><b>2.5</b> R Help</a></li>
+<li class="chapter" data-level="2.6" data-path="introduction-and-basics.html"><a href="introduction-and-basics.html#setting-a-working-directory"><i class="fa fa-check"></i><b>2.6</b> Setting a Working Directory</a></li>
+<li class="chapter" data-level="2.7" data-path="introduction-and-basics.html"><a href="introduction-and-basics.html#importing-your-data"><i class="fa fa-check"></i><b>2.7</b> Importing Your Data</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="describing-and-visualizing-data.html"><a href="describing-and-visualizing-data.html"><i class="fa fa-check"></i><b>3</b> Describing and Visualizing Data’</a><ul>
+<li class="chapter" data-level="3.1" data-path="describing-and-visualizing-data.html"><a href="describing-and-visualizing-data.html#factoring"><i class="fa fa-check"></i><b>3.1</b> Factoring</a><ul>
+<li class="chapter" data-level="3.1.1" data-path="describing-and-visualizing-data.html"><a href="describing-and-visualizing-data.html#coerce-factoring"><i class="fa fa-check"></i><b>3.1.1</b> Coerce Factoring</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="describing-and-visualizing-data.html"><a href="describing-and-visualizing-data.html#recoding"><i class="fa fa-check"></i><b>3.2</b> Recoding</a><ul>
+<li class="chapter" data-level="3.2.1" data-path="describing-and-visualizing-data.html"><a href="describing-and-visualizing-data.html#factoring-and-recoding"><i class="fa fa-check"></i><b>3.2.1</b> Factoring and Recoding</a></li>
+<li class="chapter" data-level="3.2.2" data-path="describing-and-visualizing-data.html"><a href="describing-and-visualizing-data.html#creating-a-dummy-variable"><i class="fa fa-check"></i><b>3.2.2</b> Creating a Dummy Variable</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="describing-and-visualizing-data.html"><a href="describing-and-visualizing-data.html#building-and-sorting-your-data"><i class="fa fa-check"></i><b>3.3</b> Building and Sorting Your Data</a><ul>
+<li class="chapter" data-level="3.3.1" data-path="describing-and-visualizing-data.html"><a href="describing-and-visualizing-data.html#the-tidyverse"><i class="fa fa-check"></i><b>3.3.1</b> The Tidyverse</a></li>
+<li class="chapter" data-level="3.3.2" data-path="describing-and-visualizing-data.html"><a href="describing-and-visualizing-data.html#other-methods-of-exploring-your-data"><i class="fa fa-check"></i><b>3.3.2</b> Other Methods of Exploring Your Data</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="describing-and-visualizing-data.html"><a href="describing-and-visualizing-data.html#working-with-nominal-data"><i class="fa fa-check"></i><b>3.4</b> Working with Nominal Data</a><ul>
+<li class="chapter" data-level="3.4.1" data-path="describing-and-visualizing-data.html"><a href="describing-and-visualizing-data.html#finding-the-mode"><i class="fa fa-check"></i><b>3.4.1</b> Finding the Mode</a></li>
+<li class="chapter" data-level="3.4.2" data-path="describing-and-visualizing-data.html"><a href="describing-and-visualizing-data.html#visualizing-nominal-data"><i class="fa fa-check"></i><b>3.4.2</b> Visualizing Nominal Data</a></li>
+</ul></li>
+<li class="chapter" data-level="3.5" data-path="describing-and-visualizing-data.html"><a href="describing-and-visualizing-data.html#working-with-ordinal-data"><i class="fa fa-check"></i><b>3.5</b> Working with Ordinal Data</a></li>
+<li class="chapter" data-level="3.6" data-path="describing-and-visualizing-data.html"><a href="describing-and-visualizing-data.html#working-with-interval-data"><i class="fa fa-check"></i><b>3.6</b> Working with Interval Data</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="visualizing-data-probability-the-normal-distribution-and-z-scores.html"><a href="visualizing-data-probability-the-normal-distribution-and-z-scores.html"><i class="fa fa-check"></i><b>4</b> Visualizing Data, Probability, the Normal Distribution, and Z Scores</a><ul>
+<li class="chapter" data-level="4.1" data-path="visualizing-data-probability-the-normal-distribution-and-z-scores.html"><a href="visualizing-data-probability-the-normal-distribution-and-z-scores.html#histograms-and-density"><i class="fa fa-check"></i><b>4.1</b> Histograms and Density</a><ul>
+<li class="chapter" data-level="4.1.1" data-path="visualizing-data-probability-the-normal-distribution-and-z-scores.html"><a href="visualizing-data-probability-the-normal-distribution-and-z-scores.html#normal-distribution-and-histograms"><i class="fa fa-check"></i><b>4.1.1</b> Normal Distribution and Histograms</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="visualizing-data-probability-the-normal-distribution-and-z-scores.html"><a href="visualizing-data-probability-the-normal-distribution-and-z-scores.html#probability-and-distributions"><i class="fa fa-check"></i><b>4.2</b> Probability and Distributions</a></li>
+<li class="chapter" data-level="4.3" data-path="visualizing-data-probability-the-normal-distribution-and-z-scores.html"><a href="visualizing-data-probability-the-normal-distribution-and-z-scores.html#visualizing-normality"><i class="fa fa-check"></i><b>4.3</b> Visualizing Normality</a></li>
+<li class="chapter" data-level="4.4" data-path="visualizing-data-probability-the-normal-distribution-and-z-scores.html"><a href="visualizing-data-probability-the-normal-distribution-and-z-scores.html#z-scores"><i class="fa fa-check"></i><b>4.4</b> Z-Scores</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="foundations-for-inference.html"><a href="foundations-for-inference.html"><i class="fa fa-check"></i><b>5</b> Foundations for Inference</a><ul>
+<li class="chapter" data-level="5.1" data-path="foundations-for-inference.html"><a href="foundations-for-inference.html#testing-for-normality"><i class="fa fa-check"></i><b>5.1</b> Testing for Normality</a><ul>
+<li class="chapter" data-level="5.1.1" data-path="foundations-for-inference.html"><a href="foundations-for-inference.html#shapiro-wilk-test"><i class="fa fa-check"></i><b>5.1.1</b> Shapiro-Wilk Test</a></li>
+<li class="chapter" data-level="5.1.2" data-path="foundations-for-inference.html"><a href="foundations-for-inference.html#testing-normality"><i class="fa fa-check"></i><b>5.1.2</b> Testing Normality</a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="foundations-for-inference.html"><a href="foundations-for-inference.html#standard-errors"><i class="fa fa-check"></i><b>5.2</b> Standard Errors</a></li>
+<li class="chapter" data-level="5.3" data-path="foundations-for-inference.html"><a href="foundations-for-inference.html#confidence-intervals"><i class="fa fa-check"></i><b>5.3</b> Confidence Intervals</a></li>
+<li class="chapter" data-level="5.4" data-path="foundations-for-inference.html"><a href="foundations-for-inference.html#more-on-single-sample-t-tests"><i class="fa fa-check"></i><b>5.4</b> More on Single Sample T-tests</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="inference-for-two-populations.html"><a href="inference-for-two-populations.html"><i class="fa fa-check"></i><b>6</b> Inference for Two Populations</a><ul>
+<li class="chapter" data-level="6.1" data-path="inference-for-two-populations.html"><a href="inference-for-two-populations.html#proportions"><i class="fa fa-check"></i><b>6.1</b> Proportions</a><ul>
+<li class="chapter" data-level="6.1.1" data-path="inference-for-two-populations.html"><a href="inference-for-two-populations.html#two-populations"><i class="fa fa-check"></i><b>6.1.1</b> Two Populations</a></li>
+</ul></li>
+<li class="chapter" data-level="6.2" data-path="inference-for-two-populations.html"><a href="inference-for-two-populations.html#cross-tabulations"><i class="fa fa-check"></i><b>6.2</b> Cross Tabulations</a><ul>
+<li class="chapter" data-level="6.2.1" data-path="inference-for-two-populations.html"><a href="inference-for-two-populations.html#other-coefficients"><i class="fa fa-check"></i><b>6.2.1</b> Other Coefficients</a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="inference-for-two-populations.html"><a href="inference-for-two-populations.html#independent-t-tests"><i class="fa fa-check"></i><b>6.3</b> Independent t-tests</a><ul>
+<li class="chapter" data-level="6.3.1" data-path="inference-for-two-populations.html"><a href="inference-for-two-populations.html#other-independent-sample-tests"><i class="fa fa-check"></i><b>6.3.1</b> Other Independent Sample Tests</a></li>
+</ul></li>
+<li class="chapter" data-level="6.4" data-path="inference-for-two-populations.html"><a href="inference-for-two-populations.html#paired-t-test"><i class="fa fa-check"></i><b>6.4</b> Paired t-test</a></li>
+<li class="chapter" data-level="6.5" data-path="inference-for-two-populations.html"><a href="inference-for-two-populations.html#visualizing-differences-in-means"><i class="fa fa-check"></i><b>6.5</b> Visualizing Differences in Means</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="covariance-and-correlation.html"><a href="covariance-and-correlation.html"><i class="fa fa-check"></i><b>7</b> Covariance and Correlation</a><ul>
+<li class="chapter" data-level="7.1" data-path="covariance-and-correlation.html"><a href="covariance-and-correlation.html#covariance"><i class="fa fa-check"></i><b>7.1</b> Covariance</a><ul>
+<li class="chapter" data-level="7.1.1" data-path="covariance-and-correlation.html"><a href="covariance-and-correlation.html#covariance-by-hand"><i class="fa fa-check"></i><b>7.1.1</b> Covariance by Hand</a></li>
+<li class="chapter" data-level="7.1.2" data-path="covariance-and-correlation.html"><a href="covariance-and-correlation.html#covariance-in-r"><i class="fa fa-check"></i><b>7.1.2</b> Covariance in R</a></li>
+<li class="chapter" data-level="7.1.3" data-path="covariance-and-correlation.html"><a href="covariance-and-correlation.html#covariance-in-class-data-set"><i class="fa fa-check"></i><b>7.1.3</b> Covariance in Class Data Set</a></li>
+</ul></li>
+<li class="chapter" data-level="7.2" data-path="covariance-and-correlation.html"><a href="covariance-and-correlation.html#correlation"><i class="fa fa-check"></i><b>7.2</b> Correlation</a><ul>
+<li class="chapter" data-level="7.2.1" data-path="covariance-and-correlation.html"><a href="covariance-and-correlation.html#correlation-by-hand"><i class="fa fa-check"></i><b>7.2.1</b> Correlation by Hand</a></li>
+<li class="chapter" data-level="7.2.2" data-path="covariance-and-correlation.html"><a href="covariance-and-correlation.html#correlation-tests"><i class="fa fa-check"></i><b>7.2.2</b> Correlation Tests</a></li>
+<li class="chapter" data-level="7.2.3" data-path="covariance-and-correlation.html"><a href="covariance-and-correlation.html#correlation-across-groups"><i class="fa fa-check"></i><b>7.2.3</b> Correlation Across Groups</a></li>
+</ul></li>
+<li class="chapter" data-level="7.3" data-path="covariance-and-correlation.html"><a href="covariance-and-correlation.html#visualizing-correlation"><i class="fa fa-check"></i><b>7.3</b> Visualizing Correlation</a><ul>
+<li class="chapter" data-level="7.3.1" data-path="covariance-and-correlation.html"><a href="covariance-and-correlation.html#another-example-political-party"><i class="fa fa-check"></i><b>7.3.1</b> Another Example: Political Party</a></li>
+<li class="chapter" data-level="7.3.2" data-path="covariance-and-correlation.html"><a href="covariance-and-correlation.html#one-more-visualization"><i class="fa fa-check"></i><b>7.3.2</b> One More Visualization</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="bivariate-linear-regression.html"><a href="bivariate-linear-regression.html"><i class="fa fa-check"></i><b>8</b> Bivariate Linear Regression</a><ul>
+<li class="chapter" data-level="8.1" data-path="bivariate-linear-regression.html"><a href="bivariate-linear-regression.html#bivariate-linear-regression-by-hand"><i class="fa fa-check"></i><b>8.1</b> Bivariate Linear Regression by Hand</a><ul>
+<li class="chapter" data-level="8.1.1" data-path="bivariate-linear-regression.html"><a href="bivariate-linear-regression.html#calculating-goodness-of-fit"><i class="fa fa-check"></i><b>8.1.1</b> Calculating Goodness of Fit</a></li>
+<li class="chapter" data-level="8.1.2" data-path="bivariate-linear-regression.html"><a href="bivariate-linear-regression.html#checking-our-work"><i class="fa fa-check"></i><b>8.1.2</b> Checking Our Work</a></li>
+</ul></li>
+<li class="chapter" data-level="8.2" data-path="bivariate-linear-regression.html"><a href="bivariate-linear-regression.html#bivariate-regression-in-r"><i class="fa fa-check"></i><b>8.2</b> Bivariate Regression in R</a></li>
+<li class="chapter" data-level="8.3" data-path="bivariate-linear-regression.html"><a href="bivariate-linear-regression.html#the-residuals"><i class="fa fa-check"></i><b>8.3</b> The Residuals</a></li>
+<li class="chapter" data-level="8.4" data-path="bivariate-linear-regression.html"><a href="bivariate-linear-regression.html#comparing-models"><i class="fa fa-check"></i><b>8.4</b> Comparing Models</a><ul>
+<li class="chapter" data-level="8.4.1" data-path="bivariate-linear-regression.html"><a href="bivariate-linear-regression.html#visualizing-multiple-models"><i class="fa fa-check"></i><b>8.4.1</b> Visualizing Multiple Models</a></li>
+</ul></li>
+<li class="chapter" data-level="8.5" data-path="bivariate-linear-regression.html"><a href="bivariate-linear-regression.html#hypothesis-testing"><i class="fa fa-check"></i><b>8.5</b> Hypothesis Testing</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="multivariable-linear-regression.html"><a href="multivariable-linear-regression.html"><i class="fa fa-check"></i><b>9</b> Multivariable Linear Regression</a><ul>
+<li class="chapter" data-level="9.1" data-path="multivariable-linear-regression.html"><a href="multivariable-linear-regression.html#part-i-calculating-least-squared-estimates"><i class="fa fa-check"></i><b>9.1</b> Part I: Calculating Least-Squared Estimates</a><ul>
+<li class="chapter" data-level="9.1.1" data-path="multivariable-linear-regression.html"><a href="multivariable-linear-regression.html#matrix-algebra"><i class="fa fa-check"></i><b>9.1.1</b> Matrix Algebra</a></li>
+<li class="chapter" data-level="9.1.2" data-path="multivariable-linear-regression.html"><a href="multivariable-linear-regression.html#representing-system-of-linear-equations-as-matrices"><i class="fa fa-check"></i><b>9.1.2</b> Representing System of Linear Equations as Matrices</a></li>
+<li class="chapter" data-level="9.1.3" data-path="multivariable-linear-regression.html"><a href="multivariable-linear-regression.html#ols-regression-and-matrices"><i class="fa fa-check"></i><b>9.1.3</b> OLS Regression and Matrices</a></li>
+</ul></li>
+<li class="chapter" data-level="9.2" data-path="multivariable-linear-regression.html"><a href="multivariable-linear-regression.html#part-ii-multiple-regression-in-r"><i class="fa fa-check"></i><b>9.2</b> Part II: Multiple Regression in R</a></li>
+<li class="chapter" data-level="9.3" data-path="multivariable-linear-regression.html"><a href="multivariable-linear-regression.html#part-iii-hypothesis-testing-with-multivariable-regression"><i class="fa fa-check"></i><b>9.3</b> Part III: Hypothesis Testing with Multivariable Regression</a><ul>
+<li class="chapter" data-level="9.3.1" data-path="multivariable-linear-regression.html"><a href="multivariable-linear-regression.html#visualizing-multivariable-linear-regression"><i class="fa fa-check"></i><b>9.3.1</b> Visualizing Multivariable Linear Regression</a></li>
+</ul></li>
+<li class="chapter" data-level="9.4" data-path="multivariable-linear-regression.html"><a href="multivariable-linear-regression.html#part-iv-predicting-with-ols-regression"><i class="fa fa-check"></i><b>9.4</b> Part IV: Predicting with OLS Regression</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="categorical-explanatory-variables-dummy-variables-and-interactions.html"><a href="categorical-explanatory-variables-dummy-variables-and-interactions.html"><i class="fa fa-check"></i><b>10</b> Categorical Explanatory Variables, Dummy Variables, and Interactions</a><ul>
+<li class="chapter" data-level="10.1" data-path="categorical-explanatory-variables-dummy-variables-and-interactions.html"><a href="categorical-explanatory-variables-dummy-variables-and-interactions.html#dummy-variables"><i class="fa fa-check"></i><b>10.1</b> Dummy Variables</a><ul>
+<li class="chapter" data-level="10.1.1" data-path="categorical-explanatory-variables-dummy-variables-and-interactions.html"><a href="categorical-explanatory-variables-dummy-variables-and-interactions.html#multiple-dummy-variables"><i class="fa fa-check"></i><b>10.1.1</b> Multiple Dummy Variables</a></li>
+</ul></li>
+<li class="chapter" data-level="10.2" data-path="categorical-explanatory-variables-dummy-variables-and-interactions.html"><a href="categorical-explanatory-variables-dummy-variables-and-interactions.html#interactions"><i class="fa fa-check"></i><b>10.2</b> Interactions</a><ul>
+<li class="chapter" data-level="10.2.1" data-path="categorical-explanatory-variables-dummy-variables-and-interactions.html"><a href="categorical-explanatory-variables-dummy-variables-and-interactions.html#interactions-with-two-non-binary-variables"><i class="fa fa-check"></i><b>10.2.1</b> Interactions with Two Non-binary Variables</a></li>
+</ul></li>
+<li class="chapter" data-level="10.3" data-path="categorical-explanatory-variables-dummy-variables-and-interactions.html"><a href="categorical-explanatory-variables-dummy-variables-and-interactions.html#releveling-variables"><i class="fa fa-check"></i><b>10.3</b> Releveling Variables</a></li>
+<li class="chapter" data-level="10.4" data-path="categorical-explanatory-variables-dummy-variables-and-interactions.html"><a href="categorical-explanatory-variables-dummy-variables-and-interactions.html#interaction-plots"><i class="fa fa-check"></i><b>10.4</b> Interaction Plots</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="non-linearity-non-normality-and-multicollinearity.html"><a href="non-linearity-non-normality-and-multicollinearity.html"><i class="fa fa-check"></i><b>11</b> Non-linearity, Non-normality, and Multicollinearity</a><ul>
+<li class="chapter" data-level="11.1" data-path="non-linearity-non-normality-and-multicollinearity.html"><a href="non-linearity-non-normality-and-multicollinearity.html#non-linearity"><i class="fa fa-check"></i><b>11.1</b> Non-linearity</a><ul>
+<li class="chapter" data-level="11.1.1" data-path="non-linearity-non-normality-and-multicollinearity.html"><a href="non-linearity-non-normality-and-multicollinearity.html#exploring-non-linearity"><i class="fa fa-check"></i><b>11.1.1</b> Exploring Non-linearity</a></li>
+</ul></li>
+<li class="chapter" data-level="11.2" data-path="non-linearity-non-normality-and-multicollinearity.html"><a href="non-linearity-non-normality-and-multicollinearity.html#non-normality"><i class="fa fa-check"></i><b>11.2</b> Non-normality</a></li>
+<li class="chapter" data-level="11.3" data-path="non-linearity-non-normality-and-multicollinearity.html"><a href="non-linearity-non-normality-and-multicollinearity.html#multicollinearity"><i class="fa fa-check"></i><b>11.3</b> Multicollinearity</a></li>
+<li class="chapter" data-level="11.4" data-path="non-linearity-non-normality-and-multicollinearity.html"><a href="non-linearity-non-normality-and-multicollinearity.html#standardizing-coefficients"><i class="fa fa-check"></i><b>11.4</b> Standardizing Coefficients</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="diagnosing-and-addressing-problems-in-linear-regression.html"><a href="diagnosing-and-addressing-problems-in-linear-regression.html"><i class="fa fa-check"></i><b>12</b> Diagnosing and Addressing Problems in Linear Regression</a><ul>
+<li class="chapter" data-level="12.1" data-path="diagnosing-and-addressing-problems-in-linear-regression.html"><a href="diagnosing-and-addressing-problems-in-linear-regression.html#introduction-to-the-data"><i class="fa fa-check"></i><b>12.1</b> Introduction to the Data</a></li>
+<li class="chapter" data-level="12.2" data-path="diagnosing-and-addressing-problems-in-linear-regression.html"><a href="diagnosing-and-addressing-problems-in-linear-regression.html#outliers"><i class="fa fa-check"></i><b>12.2</b> Outliers</a></li>
+<li class="chapter" data-level="12.3" data-path="diagnosing-and-addressing-problems-in-linear-regression.html"><a href="diagnosing-and-addressing-problems-in-linear-regression.html#heteroscedasticity"><i class="fa fa-check"></i><b>12.3</b> Heteroscedasticity</a></li>
+<li class="chapter" data-level="12.4" data-path="diagnosing-and-addressing-problems-in-linear-regression.html"><a href="diagnosing-and-addressing-problems-in-linear-regression.html#revisiting-linearity"><i class="fa fa-check"></i><b>12.4</b> Revisiting Linearity</a><ul>
+<li class="chapter" data-level="12.4.1" data-path="diagnosing-and-addressing-problems-in-linear-regression.html"><a href="diagnosing-and-addressing-problems-in-linear-regression.html#normality"><i class="fa fa-check"></i><b>12.4.1</b> Normality</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="logistic-regression.html"><a href="logistic-regression.html"><i class="fa fa-check"></i><b>13</b> Logistic Regression</a><ul>
+<li class="chapter" data-level="13.1" data-path="logistic-regression.html"><a href="logistic-regression.html#logistic-regression-with-a-binary-dv"><i class="fa fa-check"></i><b>13.1</b> Logistic Regression with a Binary DV</a><ul>
+<li class="chapter" data-level="13.1.1" data-path="logistic-regression.html"><a href="logistic-regression.html#goodness-of-fit-logit-regression"><i class="fa fa-check"></i><b>13.1.1</b> Goodness of Fit, Logit Regression</a></li>
+<li class="chapter" data-level="13.1.2" data-path="logistic-regression.html"><a href="logistic-regression.html#percent-correctly-predicted"><i class="fa fa-check"></i><b>13.1.2</b> Percent Correctly Predicted</a></li>
+<li class="chapter" data-level="13.1.3" data-path="logistic-regression.html"><a href="logistic-regression.html#logit-regression-with-groups"><i class="fa fa-check"></i><b>13.1.3</b> Logit Regression with Groups</a></li>
+</ul></li>
+<li class="chapter" data-level="13.2" data-path="logistic-regression.html"><a href="logistic-regression.html#ordered-logit-and-creating-an-index"><i class="fa fa-check"></i><b>13.2</b> Ordered Logit and Creating an Index</a></li>
+</ul></li>
+<li class="chapter" data-level="14" data-path="statistical-simulations.html"><a href="statistical-simulations.html"><i class="fa fa-check"></i><b>14</b> Statistical Simulations</a><ul>
+<li class="chapter" data-level="14.1" data-path="statistical-simulations.html"><a href="statistical-simulations.html#the-basics"><i class="fa fa-check"></i><b>14.1</b> The Basics</a><ul>
+<li class="chapter" data-level="14.1.1" data-path="statistical-simulations.html"><a href="statistical-simulations.html#plotting-predictions-with-zelig"><i class="fa fa-check"></i><b>14.1.1</b> Plotting Predictions with Zelig</a></li>
+</ul></li>
+<li class="chapter" data-level="14.2" data-path="statistical-simulations.html"><a href="statistical-simulations.html#other-models"><i class="fa fa-check"></i><b>14.2</b> Other Models</a><ul>
+<li class="chapter" data-level="14.2.1" data-path="statistical-simulations.html"><a href="statistical-simulations.html#ordered-logit"><i class="fa fa-check"></i><b>14.2.1</b> Ordered Logit</a></li>
+<li class="chapter" data-level="14.2.2" data-path="statistical-simulations.html"><a href="statistical-simulations.html#another-example"><i class="fa fa-check"></i><b>14.2.2</b> Another Example</a></li>
+</ul></li>
+<li class="chapter" data-level="14.3" data-path="statistical-simulations.html"><a href="statistical-simulations.html#zelig-with-non-zelig-models"><i class="fa fa-check"></i><b>14.3</b> Zelig with non-Zelig Models:</a></li>
+</ul></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Lab Guide to Quantitative Research Methods in Political Science, Public Policy &amp; Public Administration.</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="foundations-for-inference" class="section level1">
+<h1><span class="header-section-number">5</span> Foundations for Inference</h1>
+<p>This lab introduces the tools for the foundation of inference by examining the normal distribution, standard errors, confidence errors, and single sample t-tests. The following packages are required:</p>
+<ol style="list-style-type: decimal">
+<li>car</li>
+<li>psych</li>
+<li>sm</li>
+<li>HistData</li>
+<li>tidyverse</li>
+</ol>
+<div id="testing-for-normality" class="section level2">
+<h2><span class="header-section-number">5.1</span> Testing for Normality</h2>
+<p>Lab three introduced the basics of normal distributions. Much of the statistical work done is built on the condition of data that follows a normal distribution. Inspecting data for normality is done via numerous methods.</p>
+<p>Recall the <code>rnorm()</code> function to generate random values that follow a normal distribution given specified parameters. The following <code>random</code> object will consist of 1000 random values given <span class="math inline">\(\mu\)</span> = 50 and <span class="math inline">\(\sigma\)</span> = 5:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">random &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">1000</span>, <span class="dt">mean =</span> <span class="dv">50</span>, <span class="dt">sd =</span> <span class="dv">5</span>)</code></pre></div>
+<p>Visualizing data is an important first step to inspecting data for normality. The previous lab introduced density plots, box plots, and QQ plots as means of visualizing data and their relationships to a normal distribution. Recall that the QQ plot graphs the quantiles of data against quantiles of a normal distribution, given the <span class="math inline">\(\mu\)</span> and <span class="math inline">\(\sigma\)</span> of the data.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(<span class="kw">as.data.frame</span>(random), <span class="kw">aes</span>(<span class="dt">sample =</span> random)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">stat_qq</span>() <span class="op">+</span>
+<span class="st">  </span><span class="kw">stat_qq_line</span>()</code></pre></div>
+<p><img src="_main_files/figure-html/4_qq-1.png" width="672" /></p>
+<p>The QQ plot of the <code>random</code> object demonstrates the data closely follows a normal distribution. This is expected given the <code>random</code> object was created via the <code>rnorm()</code> function. <strong>Note:</strong> Visualizing data for normality is an informal approach to inspecting for normality. Various empirical methods exist to test whether data follows a normal distribution, the most popular of which are:</p>
+<ol style="list-style-type: decimal">
+<li>Shapiro-Wilk test</li>
+<li>Anderson-Darling test</li>
+<li>Kolmogorov-Smirnov test</li>
+<li>Pearson’s Chi-Squared test</li>
+</ol>
+<p>The Shapiro-Wilk test is the most popular method, as the test has been demonstrate as providing the most power for a given significance.</p>
+<div id="shapiro-wilk-test" class="section level3">
+<h3><span class="header-section-number">5.1.1</span> Shapiro-Wilk Test</h3>
+<p>The <code>shapiro.test()</code> function in R employs the Shapiro-Wilk test on data to test whether the data are normally distributed. Use of the Shapiro-Wilk test is contingent on univariate and continuous data. The hypotheses for the Shapiro-Wilk test are:</p>
+<p><span class="math inline">\(H_0\)</span>: The data are normally distributed<br />
+<span class="math inline">\(H_1\)</span>: The data are not normally distributed</p>
+<p><strong>Note:</strong> The Shapiro-Wilk test for normality is a statistical test that provides a p-value of the test statistic, <code>W</code>. This lab will focus on the p-value approach for statistical tests, using an <span class="math inline">\(\alpha\)</span> value of 0.05 as the desired significance level.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">shapiro.test</span>(random)</code></pre></div>
+<pre><code>## 
+##  Shapiro-Wilk normality test
+## 
+## data:  random
+## W = 0.99824, p-value = 0.3956</code></pre>
+<p>The Shapiro-Wilk test p-value is greater than <span class="math inline">\(\alpha\)</span> = 0.05, therefore failing to reject <span class="math inline">\(H_0\)</span> concluding the data are normally distributed. Again, this is expected given the <code>random</code> object was created via the <code>rnorm()</code> function.</p>
+</div>
+<div id="testing-normality" class="section level3">
+<h3><span class="header-section-number">5.1.2</span> Testing Normality</h3>
+<p>R provides data pertaining to Yellowstone National Park’s Old Faithful geyser in the <code>faithful</code> object. Old Faithful eruptions are recorded as duration, in minutes, between events. First, the <code>describe()</code> function provides valuable information for the <code>eruptions</code> variable in the <code>faithful</code> object.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">describe</span>(faithful<span class="op">$</span>eruptions)</code></pre></div>
+<pre><code>##    vars   n mean   sd median trimmed  mad min max range  skew kurtosis
+## X1    1 272 3.49 1.14      4    3.53 0.95 1.6 5.1   3.5 -0.41    -1.51
+##      se
+## X1 0.07</code></pre>
+<p>Comparing the <code>eruptions</code> data to a normal distribution, given <span class="math inline">\(\mu\)</span> and <span class="math inline">\(\sigma\)</span> from the <code>eruptions</code> data, is available via the <em>geom_density()</em> and <em>stat_function()</em> functions.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(faithful, <span class="kw">aes</span>(eruptions)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_density</span>() <span class="op">+</span>
+<span class="st">  </span><span class="kw">stat_function</span>(<span class="dt">fun =</span> dnorm, <span class="dt">args =</span> <span class="kw">list</span>(<span class="dt">mean =</span> <span class="kw">mean</span>(faithful<span class="op">$</span>eruptions), 
+                                         <span class="dt">sd =</span> <span class="kw">sd</span>(faithful<span class="op">$</span>eruptions)), <span class="dt">color =</span> <span class="st">&quot;blue&quot;</span>)</code></pre></div>
+<p><img src="_main_files/figure-html/4_faith2-1.png" width="672" /></p>
+<p>The black line represents the <code>eruptions</code> data, and the blue line represents the normal distribution given the <span class="math inline">\(\mu\)</span> and <span class="math inline">\(\sigma\)</span> values of <code>eruptions</code>. <strong>Note:</strong> The <code>eruptions</code> data appears bimodal, and does not fit the normal distribution model given the parameters calculated via the <code>eruptions</code> data.</p>
+<p>The <code>eruptions</code> data is further examined using QQ plots via the <code>qqPlot()</code> function:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(faithful, <span class="kw">aes</span>(<span class="dt">sample =</span> eruptions)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">stat_qq</span>() <span class="op">+</span>
+<span class="st">  </span><span class="kw">stat_qq_line</span>()</code></pre></div>
+<p><img src="_main_files/figure-html/4_faith4-1.png" width="672" /></p>
+<p>Most of the points in the QQ plot fall outside the region defined by the dashed lines, further suggesting the <code>eruptions</code> data is likely not normally distributed. Lastly, a Shapiro-Wilk test can confirm whether the <code>eruptions</code> data is normally distributed:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">shapiro.test</span>(faithful<span class="op">$</span>eruptions)</code></pre></div>
+<pre><code>## 
+##  Shapiro-Wilk normality test
+## 
+## data:  faithful$eruptions
+## W = 0.84592, p-value = 0.0000000000000009036</code></pre>
+<p>The Shapiro-Wilk test p-value is less than <span class="math inline">\(\alpha\)</span> = 0.05, leading to reject <span class="math inline">\(H_0\)</span>: data are normally distributed. In conclusion, the <code>eruptions</code> data is not normally distributed. <strong>Note:</strong> The visual plots are likely enough to confirm the <code>eruptions</code> data are not normally distributed.</p>
+<p>The <code>MacdonellDF</code> variable within the <code>HistData</code> package consists of finger length data. Again, visualizing the data for normality is performed via various methods. A box plot is generated for the <code>MacdonellDF</code> data:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(MacdonellDF, <span class="kw">aes</span>(<span class="dt">x =</span> <span class="st">&quot;&quot;</span>, <span class="dt">y =</span> finger)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_boxplot</span>()</code></pre></div>
+<p><img src="_main_files/figure-html/4_f-1.png" width="672" /></p>
+<p>The box plot appears balanced, indicating normality. Generating a density plot should show the distribution of <code>MacdonellDF</code> variable as similar to the projected normal distribution given the <span class="math inline">\(\mu\)</span> and <span class="math inline">\(\sigma\)</span> parameters of the <code>MacdonellDF</code> variable.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(MacdonellDF, <span class="kw">aes</span>(finger)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_density</span>() <span class="op">+</span>
+<span class="st">  </span><span class="kw">stat_function</span>(<span class="dt">fun =</span> <span class="st">&quot;dnorm&quot;</span>, <span class="dt">args =</span> <span class="kw">list</span>(<span class="dt">mean =</span> <span class="kw">mean</span>(MacdonellDF<span class="op">$</span>finger), 
+                                                       <span class="dt">sd =</span> <span class="kw">sd</span>(MacdonellDF<span class="op">$</span>finger)),
+                <span class="dt">color =</span> <span class="st">&quot;red&quot;</span>, <span class="dt">size =</span> <span class="fl">1.5</span>,
+                <span class="dt">alpha =</span> .<span class="dv">3</span>)</code></pre></div>
+<p><img src="_main_files/figure-html/4_f2-1.png" width="672" /></p>
+<p>Additionally, a QQ plot:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(MacdonellDF, <span class="kw">aes</span>(<span class="dt">sample =</span> finger)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">stat_qq</span>() <span class="op">+</span>
+<span class="st">  </span><span class="kw">stat_qq_line</span>()</code></pre></div>
+<p><img src="_main_files/figure-html/4_f3-1.png" width="672" /></p>
+<p>The visualizations all suggest the data is normally distributed; however, a Shapiro-Wilk test is still useful to test for normality.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">shapiro.test</span>(MacdonellDF<span class="op">$</span>finger)</code></pre></div>
+<pre><code>## 
+##  Shapiro-Wilk normality test
+## 
+## data:  MacdonellDF$finger
+## W = 0.99646, p-value = 0.000001666</code></pre>
+<p><strong>Note:</strong> Despite the visualizations suggesting normality, the Shapiro-Wilk test p-value is less than <span class="math inline">\(\alpha\)</span> = 0.05, resulting in rejecting the null hypothesis that the data are normally distributed. A closer examination of the QQ plot yields that most points exist outside the region, though at first glance nothing appears suspect. This merits a conversation on judgment for assessing whether the data could be treated as normally distributed.</p>
+</div>
+</div>
+<div id="standard-errors" class="section level2">
+<h2><span class="header-section-number">5.2</span> Standard Errors</h2>
+<p>Recall that the standard error is the standard deviation of the sample distribution, calculated as the square root of the standard deviation divided by the square root of the sample size.</p>
+<ul>
+<li>Population: <span class="math inline">\(\frac{\sigma}{\sqrt{n}}\)</span></li>
+<li>Sample: <span class="math inline">\(\frac{s}{\sqrt{n}}\)</span></li>
+</ul>
+<p>R does not provide a single purpose function to calculate the standard error. As a result, the following demonstrates the previous formula to calculate the standard error:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">sd</span>(ds<span class="op">$</span>age, <span class="dt">na.rm =</span> T)<span class="op">/</span><span class="kw">sqrt</span>(<span class="kw">length</span>(ds<span class="op">$</span>age) <span class="op">-</span><span class="st"> </span><span class="kw">sum</span>(<span class="kw">is.na</span>(ds<span class="op">$</span>age)))</code></pre></div>
+<pre><code>## [1] 0.2815446</code></pre>
+<p>Alternatively, the <code>describe()</code> function includes the standard error statistic for a given variable, as follows:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">describe</span>(ds<span class="op">$</span>age)</code></pre></div>
+<pre><code>##    vars    n  mean    sd median trimmed   mad min max range  skew kurtosis
+## X1    1 2547 60.37 14.21     62   61.01 13.34  18  99    81 -0.39    -0.24
+##      se
+## X1 0.28</code></pre>
+<p><strong>Note:</strong> The previous two methods return the same result.</p>
+</div>
+<div id="confidence-intervals" class="section level2">
+<h2><span class="header-section-number">5.3</span> Confidence Intervals</h2>
+<p>The standard error is vital to inferential statistics. For example, the standard error is required to calculate confidence intervals. Confidence intervals employ standard error to assist with inferring information from a sample of a larger population, through inclusion of uncertainty.</p>
+<p>Confidence intervals synthesize knowledge of standard error and z-scores. Recall that with the normal distribution, a z-score standardizes standard deviations values are from the mean. To calculate a level of confidence (90%, 95%, 99%), the z-score associated with those levels of confidence is necessary:</p>
+<ul>
+<li>90% confidence = 1.645</li>
+<li>95% confidence = 1.960</li>
+<li>99% confidence = 2.576</li>
+</ul>
+<p>The formula for confidence level is:</p>
+<p><span class="math display">\[CI=\bar{x} \pm z\frac{s}{\sqrt{n}},\]</span> or</p>
+<p><span class="math display">\[CI=\bar{x} \pm z*SE\]</span></p>
+<p>Put simply, the confidence interval is the sample mean plus/minus the product of the z-score and standard error.</p>
+<p>Using the <code>age</code> variable within the <code>ds</code> data set, the a 95% confidence interval is calculated as follows:</p>
+<p>First calculate the mean:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">mean</span>(ds<span class="op">$</span>age, <span class="dt">na.rm =</span> T)</code></pre></div>
+<pre><code>## [1] 60.36749</code></pre>
+<p>Second, find the standard error:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">describe</span>(ds<span class="op">$</span>age)<span class="op">$</span>se <span class="co"># this is a way to pull the standard error out without having to look at everything else</span></code></pre></div>
+<pre><code>## [1] 0.2815446</code></pre>
+<p>Given a 95% confidence interval, the z-score is 1.96. The upper bound of the confidence interval is calculated as follows:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="fl">60.38</span> <span class="op">+</span><span class="st"> </span><span class="fl">1.96</span> <span class="op">*</span><span class="st"> </span><span class="fl">0.28</span></code></pre></div>
+<pre><code>## [1] 60.9288</code></pre>
+<p>The lower bound of the confidence interval is calculated as follows:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="fl">60.38</span> <span class="op">-</span><span class="st"> </span><span class="fl">1.96</span> <span class="op">*</span><span class="st"> </span><span class="fl">0.28</span></code></pre></div>
+<pre><code>## [1] 59.8312</code></pre>
+<p>With 95% confidence, the population mean of <code>age</code> is between 59.83 and 60.93 (rounded).</p>
+<p>Increasing confidence will increase the interval of the confidence interval. For example, the z-score associated to 99% is 2.58, so the confidence interval for 99% is calculated as follows:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">age.se &lt;-<span class="st"> </span><span class="kw">describe</span>(ds<span class="op">$</span>age)<span class="op">$</span>se</code></pre></div>
+<p><strong>Note:</strong> The standard error of the <code>age</code> variable was stored as to the <code>age.se</code> object via specifying only to return the standard error from the <code>describe()</code> function. Using the <code>se</code> object simplifies the confidence interval calculation as exemplified:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">mean</span>(ds<span class="op">$</span>age, <span class="dt">na.rm =</span> T) <span class="op">+</span><span class="st"> </span><span class="fl">2.58</span> <span class="op">*</span><span class="st"> </span>age.se</code></pre></div>
+<pre><code>## [1] 61.09388</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">mean</span>(ds<span class="op">$</span>age, <span class="dt">na.rm =</span> T) <span class="op">-</span><span class="st"> </span><span class="fl">2.58</span> <span class="op">*</span><span class="st"> </span>age.se</code></pre></div>
+<pre><code>## [1] 59.64111</code></pre>
+<p>With 99% confidence, the population mean of <code>age</code> is between 59.64 and 61.09. This interval is larger than the interval calculated for 95% confidence.</p>
+<p>Alternatively, the <code>t.test()</code> function in R provides the 95% confidence interval for a given variable.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">t.test</span>(ds<span class="op">$</span>age)</code></pre></div>
+<pre><code>## 
+##  One Sample t-test
+## 
+## data:  ds$age
+## t = 214.42, df = 2546, p-value &lt; 0.00000000000000022
+## alternative hypothesis: true mean is not equal to 0
+## 95 percent confidence interval:
+##  59.81541 60.91957
+## sample estimates:
+## mean of x 
+##  60.36749</code></pre>
+<p>The results of <em>t.test()</em> is similar to the manual calculations performed previously. By default, the <em>t.test()</em> tests whether <span class="math inline">\(\mu\)</span> for the variable is equal to zero. The hypotheses for the <em>t.test()</em> function are:</p>
+<ul>
+<li><span class="math inline">\(H_0: \bar{x} = \mu\)</span></li>
+<li><span class="math inline">\(H_1: \bar{x} \neq \mu\)</span></li>
+</ul>
+<p>Note the returned p-value of the previous <code>t.test()</code> performed is less than <span class="math inline">\(\alpha\)</span> = 0.05; therefore, the null hypothesis is rejected. That is, given the sample data, with 95% confidence the <span class="math inline">\(\mu\)</span> is not zero.</p>
+<p>To explain a different way, using the same variable, but with a defined <span class="math inline">\(\mu\)</span> of 50, the <code>t.test()</code> function can test whether <span class="math inline">\(\mu\)</span> is 50.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">t.test</span>(ds<span class="op">$</span>age, <span class="dt">mu =</span> <span class="dv">50</span>)</code></pre></div>
+<pre><code>## 
+##  One Sample t-test
+## 
+## data:  ds$age
+## t = 36.824, df = 2546, p-value &lt; 0.00000000000000022
+## alternative hypothesis: true mean is not equal to 50
+## 95 percent confidence interval:
+##  59.81541 60.91957
+## sample estimates:
+## mean of x 
+##  60.36749</code></pre>
+<p>The same result occurs: the null hypothesis is rejected. Once again, the <code>t.test()</code> function is employed to test whether <span class="math inline">\(\mu\)</span> = 60:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">t.test</span>(ds<span class="op">$</span>age, <span class="dt">mu =</span> <span class="dv">60</span>)</code></pre></div>
+<pre><code>## 
+##  One Sample t-test
+## 
+## data:  ds$age
+## t = 1.3053, df = 2546, p-value = 0.1919
+## alternative hypothesis: true mean is not equal to 60
+## 95 percent confidence interval:
+##  59.81541 60.91957
+## sample estimates:
+## mean of x 
+##  60.36749</code></pre>
+<p>The result differs, such that the null hypothesis is not rejected as the p-value is greater than <span class="math inline">\(\alpha\)</span> = 0.05. That is, with 95% confidence, <span class="math inline">\(\mu\)</span> = 60.</p>
+<p><strong>Note:</strong> The p-values can be calculated manually from z-scores to test population means using confidence intervals. This requires:</p>
+<ol style="list-style-type: decimal">
+<li>Calculate <span class="math inline">\(\bar{x}\)</span></li>
+<li>Calculate confidence intervals (as previously shown)</li>
+<li>Calculate the p-value associated with <span class="math inline">\(H_0\)</span></li>
+</ol>
+<p>Objects are employed to simplify the calculation:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">xbar &lt;-<span class="st"> </span><span class="kw">mean</span>(ds<span class="op">$</span>age, <span class="dt">na.rm =</span> T)
+a &lt;-<span class="st"> </span><span class="dv">60</span>
+s &lt;-<span class="st"> </span><span class="kw">sd</span>(ds<span class="op">$</span>age, <span class="dt">na.rm =</span> T)
+n &lt;-<span class="st"> </span><span class="dv">2547</span></code></pre></div>
+<p>The p-value for if the population mean <span class="math inline">\(\neq\)</span> 60:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="dv">2</span> <span class="op">*</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">-</span><span class="st"> </span><span class="kw">pnorm</span>(xbar, <span class="dt">mean =</span> a, <span class="dt">sd =</span> s<span class="op">/</span><span class="kw">sqrt</span>(n)))</code></pre></div>
+<pre><code>## [1] 0.1918016</code></pre>
+<p>The p-value of 0.191 is greater than <span class="math inline">\(\alpha\)</span> = 0.05; therefore, failing to reject <span class="math inline">\(H_0\)</span>: <span class="math inline">\(\mu\)</span> = 60.</p>
+</div>
+<div id="more-on-single-sample-t-tests" class="section level2">
+<h2><span class="header-section-number">5.4</span> More on Single Sample T-tests</h2>
+<p>The previous confidence interval section introduced a preliminary discussion of t-tests. The Student’s t distribution is based on sample estimates, whereas the normal distribution is used when <span class="math inline">\(\sigma\)</span> and <span class="math inline">\(\mu\)</span> are known.</p>
+<p>Performing a t-test requires:</p>
+<ol style="list-style-type: decimal">
+<li>n</li>
+<li>s</li>
+<li><span class="math inline">\(\bar{x}\)</span></li>
+<li>t statistic</li>
+</ol>
+<p>To demonstrate, the following tests whether the population mean is 58 for the given data by defining the above parameters:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">nAge &lt;-<span class="st"> </span><span class="kw">length</span>(ds<span class="op">$</span>age) <span class="op">-</span><span class="st"> </span><span class="kw">sum</span>(<span class="kw">is.na</span>(ds<span class="op">$</span>age))
+sdAge &lt;-<span class="st"> </span><span class="kw">sd</span>(ds<span class="op">$</span>age, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>) <span class="co"># Standard deviation of age</span>
+seAge &lt;-<span class="st"> </span>sdAge<span class="op">/</span>(<span class="kw">sqrt</span>(nAge)) <span class="co"># Standard error of age</span>
+meanAge &lt;-<span class="st"> </span><span class="kw">mean</span>(ds<span class="op">$</span>age, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)</code></pre></div>
+<p>To calculate the t statistic, the population mean is subtracted from the sample mean, and divided by the standard error as follows:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">t_value &lt;-<span class="st"> </span>(meanAge <span class="op">-</span><span class="st"> </span><span class="dv">58</span>)<span class="op">/</span>seAge   
+t_value</code></pre></div>
+<pre><code>## [1] 8.408938</code></pre>
+<p>To calculate the two-sided p value under the t distribution:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="dv">2</span> <span class="op">*</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">-</span><span class="st"> </span><span class="kw">pt</span>(<span class="kw">abs</span>(t_value), <span class="dt">df =</span> nAge <span class="op">-</span><span class="st"> </span><span class="dv">1</span>))</code></pre></div>
+<pre><code>## [1] 0</code></pre>
+<p>The returned p-value is less than <span class="math inline">\(\alpha\)</span> = 0.05, rejecting <span class="math inline">\(H_0\)</span>: <span class="math inline">\(\mu\)</span> = 60. Put another way, <span class="math inline">\(H_1\)</span>:<br />
+<span class="math inline">\(\mu \neq 60\)</span>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">t.test</span>(ds<span class="op">$</span>age, <span class="dt">mu =</span> <span class="dv">58</span>)</code></pre></div>
+<pre><code>## 
+##  One Sample t-test
+## 
+## data:  ds$age
+## t = 8.4089, df = 2546, p-value &lt; 0.00000000000000022
+## alternative hypothesis: true mean is not equal to 58
+## 95 percent confidence interval:
+##  59.81541 60.91957
+## sample estimates:
+## mean of x 
+##  60.36749</code></pre>
+<p>With 95% confidence, <span class="math inline">\(\mu \neq 60\)</span></p>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="visualizing-data-probability-the-normal-distribution-and-z-scores.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="inference-for-two-populations.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"linkedin": false,
+"weibo": false,
+"instapper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "";
+    if (src === "" || src === "true") src = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:" && /^https?:/.test(src))
+      src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

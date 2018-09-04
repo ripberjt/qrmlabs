@@ -1,0 +1,840 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Lab Guide to Quantitative Research Methods in Political Science, Public Policy &amp; Public Administration.</title>
+  <meta name="description" content="Lab Guide to Quantitative Research Methods in Political Science, Public Policy &amp; Public Administration.">
+  <meta name="generator" content="bookdown 0.7 and GitBook 2.6.7">
+
+  <meta property="og:title" content="Lab Guide to Quantitative Research Methods in Political Science, Public Policy &amp; Public Administration." />
+  <meta property="og:type" content="book" />
+  
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Lab Guide to Quantitative Research Methods in Political Science, Public Policy &amp; Public Administration." />
+  
+  
+  
+
+<meta name="author" content="Alex Davis">
+<meta name="author" content="Cody Adams">
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="foundations-for-inference.html">
+<link rel="next" href="covariance-and-correlation.html">
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+<script src="libs/htmlwidgets-1.2/htmlwidgets.js"></script>
+<script src="libs/plotly-binding-4.8.0/plotly.js"></script>
+<script src="libs/typedarray-0.1/typedarray.min.js"></script>
+<link href="libs/crosstalk-1.0.0/css/crosstalk.css" rel="stylesheet" />
+<script src="libs/crosstalk-1.0.0/js/crosstalk.min.js"></script>
+<link href="libs/plotly-htmlwidgets-css-1.39.2/plotly-htmlwidgets.css" rel="stylesheet" />
+<script src="libs/plotly-main-1.39.2/plotly-latest.min.js"></script>
+
+
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Preface</a><ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#acknowledgments"><i class="fa fa-check"></i><b>1.1</b> Acknowledgments</a></li>
+<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#requirements"><i class="fa fa-check"></i><b>1.2</b> Requirements</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="introduction-and-basics.html"><a href="introduction-and-basics.html"><i class="fa fa-check"></i><b>2</b> Introduction and Basics</a><ul>
+<li class="chapter" data-level="2.1" data-path="introduction-and-basics.html"><a href="introduction-and-basics.html#r-as-a-calculator"><i class="fa fa-check"></i><b>2.1</b> R, as a Calculator</a><ul>
+<li class="chapter" data-level="2.1.1" data-path="introduction-and-basics.html"><a href="introduction-and-basics.html#order-of-operations"><i class="fa fa-check"></i><b>2.1.1</b> Order of Operations</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="introduction-and-basics.html"><a href="introduction-and-basics.html#objects"><i class="fa fa-check"></i><b>2.2</b> Objects</a></li>
+<li class="chapter" data-level="2.3" data-path="introduction-and-basics.html"><a href="introduction-and-basics.html#functions"><i class="fa fa-check"></i><b>2.3</b> Functions</a><ul>
+<li class="chapter" data-level="2.3.1" data-path="introduction-and-basics.html"><a href="introduction-and-basics.html#object-types"><i class="fa fa-check"></i><b>2.3.1</b> Object Types</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="introduction-and-basics.html"><a href="introduction-and-basics.html#packages"><i class="fa fa-check"></i><b>2.4</b> Packages</a><ul>
+<li class="chapter" data-level="2.4.1" data-path="introduction-and-basics.html"><a href="introduction-and-basics.html#installing-packages"><i class="fa fa-check"></i><b>2.4.1</b> Installing Packages</a></li>
+<li class="chapter" data-level="2.4.2" data-path="introduction-and-basics.html"><a href="introduction-and-basics.html#loading-packages"><i class="fa fa-check"></i><b>2.4.2</b> Loading Packages</a></li>
+<li class="chapter" data-level="2.4.3" data-path="introduction-and-basics.html"><a href="introduction-and-basics.html#updating-packages"><i class="fa fa-check"></i><b>2.4.3</b> Updating Packages</a></li>
+</ul></li>
+<li class="chapter" data-level="2.5" data-path="introduction-and-basics.html"><a href="introduction-and-basics.html#r-help"><i class="fa fa-check"></i><b>2.5</b> R Help</a></li>
+<li class="chapter" data-level="2.6" data-path="introduction-and-basics.html"><a href="introduction-and-basics.html#setting-a-working-directory"><i class="fa fa-check"></i><b>2.6</b> Setting a Working Directory</a></li>
+<li class="chapter" data-level="2.7" data-path="introduction-and-basics.html"><a href="introduction-and-basics.html#importing-your-data"><i class="fa fa-check"></i><b>2.7</b> Importing Your Data</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="describing-and-visualizing-data.html"><a href="describing-and-visualizing-data.html"><i class="fa fa-check"></i><b>3</b> Describing and Visualizing Data’</a><ul>
+<li class="chapter" data-level="3.1" data-path="describing-and-visualizing-data.html"><a href="describing-and-visualizing-data.html#factoring"><i class="fa fa-check"></i><b>3.1</b> Factoring</a><ul>
+<li class="chapter" data-level="3.1.1" data-path="describing-and-visualizing-data.html"><a href="describing-and-visualizing-data.html#coerce-factoring"><i class="fa fa-check"></i><b>3.1.1</b> Coerce Factoring</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="describing-and-visualizing-data.html"><a href="describing-and-visualizing-data.html#recoding"><i class="fa fa-check"></i><b>3.2</b> Recoding</a><ul>
+<li class="chapter" data-level="3.2.1" data-path="describing-and-visualizing-data.html"><a href="describing-and-visualizing-data.html#factoring-and-recoding"><i class="fa fa-check"></i><b>3.2.1</b> Factoring and Recoding</a></li>
+<li class="chapter" data-level="3.2.2" data-path="describing-and-visualizing-data.html"><a href="describing-and-visualizing-data.html#creating-a-dummy-variable"><i class="fa fa-check"></i><b>3.2.2</b> Creating a Dummy Variable</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="describing-and-visualizing-data.html"><a href="describing-and-visualizing-data.html#building-and-sorting-your-data"><i class="fa fa-check"></i><b>3.3</b> Building and Sorting Your Data</a><ul>
+<li class="chapter" data-level="3.3.1" data-path="describing-and-visualizing-data.html"><a href="describing-and-visualizing-data.html#the-tidyverse"><i class="fa fa-check"></i><b>3.3.1</b> The Tidyverse</a></li>
+<li class="chapter" data-level="3.3.2" data-path="describing-and-visualizing-data.html"><a href="describing-and-visualizing-data.html#other-methods-of-exploring-your-data"><i class="fa fa-check"></i><b>3.3.2</b> Other Methods of Exploring Your Data</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="describing-and-visualizing-data.html"><a href="describing-and-visualizing-data.html#working-with-nominal-data"><i class="fa fa-check"></i><b>3.4</b> Working with Nominal Data</a><ul>
+<li class="chapter" data-level="3.4.1" data-path="describing-and-visualizing-data.html"><a href="describing-and-visualizing-data.html#finding-the-mode"><i class="fa fa-check"></i><b>3.4.1</b> Finding the Mode</a></li>
+<li class="chapter" data-level="3.4.2" data-path="describing-and-visualizing-data.html"><a href="describing-and-visualizing-data.html#visualizing-nominal-data"><i class="fa fa-check"></i><b>3.4.2</b> Visualizing Nominal Data</a></li>
+</ul></li>
+<li class="chapter" data-level="3.5" data-path="describing-and-visualizing-data.html"><a href="describing-and-visualizing-data.html#working-with-ordinal-data"><i class="fa fa-check"></i><b>3.5</b> Working with Ordinal Data</a></li>
+<li class="chapter" data-level="3.6" data-path="describing-and-visualizing-data.html"><a href="describing-and-visualizing-data.html#working-with-interval-data"><i class="fa fa-check"></i><b>3.6</b> Working with Interval Data</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="visualizing-data-probability-the-normal-distribution-and-z-scores.html"><a href="visualizing-data-probability-the-normal-distribution-and-z-scores.html"><i class="fa fa-check"></i><b>4</b> Visualizing Data, Probability, the Normal Distribution, and Z Scores</a><ul>
+<li class="chapter" data-level="4.1" data-path="visualizing-data-probability-the-normal-distribution-and-z-scores.html"><a href="visualizing-data-probability-the-normal-distribution-and-z-scores.html#histograms-and-density"><i class="fa fa-check"></i><b>4.1</b> Histograms and Density</a><ul>
+<li class="chapter" data-level="4.1.1" data-path="visualizing-data-probability-the-normal-distribution-and-z-scores.html"><a href="visualizing-data-probability-the-normal-distribution-and-z-scores.html#normal-distribution-and-histograms"><i class="fa fa-check"></i><b>4.1.1</b> Normal Distribution and Histograms</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="visualizing-data-probability-the-normal-distribution-and-z-scores.html"><a href="visualizing-data-probability-the-normal-distribution-and-z-scores.html#probability-and-distributions"><i class="fa fa-check"></i><b>4.2</b> Probability and Distributions</a></li>
+<li class="chapter" data-level="4.3" data-path="visualizing-data-probability-the-normal-distribution-and-z-scores.html"><a href="visualizing-data-probability-the-normal-distribution-and-z-scores.html#visualizing-normality"><i class="fa fa-check"></i><b>4.3</b> Visualizing Normality</a></li>
+<li class="chapter" data-level="4.4" data-path="visualizing-data-probability-the-normal-distribution-and-z-scores.html"><a href="visualizing-data-probability-the-normal-distribution-and-z-scores.html#z-scores"><i class="fa fa-check"></i><b>4.4</b> Z-Scores</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="foundations-for-inference.html"><a href="foundations-for-inference.html"><i class="fa fa-check"></i><b>5</b> Foundations for Inference</a><ul>
+<li class="chapter" data-level="5.1" data-path="foundations-for-inference.html"><a href="foundations-for-inference.html#testing-for-normality"><i class="fa fa-check"></i><b>5.1</b> Testing for Normality</a><ul>
+<li class="chapter" data-level="5.1.1" data-path="foundations-for-inference.html"><a href="foundations-for-inference.html#shapiro-wilk-test"><i class="fa fa-check"></i><b>5.1.1</b> Shapiro-Wilk Test</a></li>
+<li class="chapter" data-level="5.1.2" data-path="foundations-for-inference.html"><a href="foundations-for-inference.html#testing-normality"><i class="fa fa-check"></i><b>5.1.2</b> Testing Normality</a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="foundations-for-inference.html"><a href="foundations-for-inference.html#standard-errors"><i class="fa fa-check"></i><b>5.2</b> Standard Errors</a></li>
+<li class="chapter" data-level="5.3" data-path="foundations-for-inference.html"><a href="foundations-for-inference.html#confidence-intervals"><i class="fa fa-check"></i><b>5.3</b> Confidence Intervals</a></li>
+<li class="chapter" data-level="5.4" data-path="foundations-for-inference.html"><a href="foundations-for-inference.html#more-on-single-sample-t-tests"><i class="fa fa-check"></i><b>5.4</b> More on Single Sample T-tests</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="inference-for-two-populations.html"><a href="inference-for-two-populations.html"><i class="fa fa-check"></i><b>6</b> Inference for Two Populations</a><ul>
+<li class="chapter" data-level="6.1" data-path="inference-for-two-populations.html"><a href="inference-for-two-populations.html#proportions"><i class="fa fa-check"></i><b>6.1</b> Proportions</a><ul>
+<li class="chapter" data-level="6.1.1" data-path="inference-for-two-populations.html"><a href="inference-for-two-populations.html#two-populations"><i class="fa fa-check"></i><b>6.1.1</b> Two Populations</a></li>
+</ul></li>
+<li class="chapter" data-level="6.2" data-path="inference-for-two-populations.html"><a href="inference-for-two-populations.html#cross-tabulations"><i class="fa fa-check"></i><b>6.2</b> Cross Tabulations</a><ul>
+<li class="chapter" data-level="6.2.1" data-path="inference-for-two-populations.html"><a href="inference-for-two-populations.html#other-coefficients"><i class="fa fa-check"></i><b>6.2.1</b> Other Coefficients</a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="inference-for-two-populations.html"><a href="inference-for-two-populations.html#independent-t-tests"><i class="fa fa-check"></i><b>6.3</b> Independent t-tests</a><ul>
+<li class="chapter" data-level="6.3.1" data-path="inference-for-two-populations.html"><a href="inference-for-two-populations.html#other-independent-sample-tests"><i class="fa fa-check"></i><b>6.3.1</b> Other Independent Sample Tests</a></li>
+</ul></li>
+<li class="chapter" data-level="6.4" data-path="inference-for-two-populations.html"><a href="inference-for-two-populations.html#paired-t-test"><i class="fa fa-check"></i><b>6.4</b> Paired t-test</a></li>
+<li class="chapter" data-level="6.5" data-path="inference-for-two-populations.html"><a href="inference-for-two-populations.html#visualizing-differences-in-means"><i class="fa fa-check"></i><b>6.5</b> Visualizing Differences in Means</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="covariance-and-correlation.html"><a href="covariance-and-correlation.html"><i class="fa fa-check"></i><b>7</b> Covariance and Correlation</a><ul>
+<li class="chapter" data-level="7.1" data-path="covariance-and-correlation.html"><a href="covariance-and-correlation.html#covariance"><i class="fa fa-check"></i><b>7.1</b> Covariance</a><ul>
+<li class="chapter" data-level="7.1.1" data-path="covariance-and-correlation.html"><a href="covariance-and-correlation.html#covariance-by-hand"><i class="fa fa-check"></i><b>7.1.1</b> Covariance by Hand</a></li>
+<li class="chapter" data-level="7.1.2" data-path="covariance-and-correlation.html"><a href="covariance-and-correlation.html#covariance-in-r"><i class="fa fa-check"></i><b>7.1.2</b> Covariance in R</a></li>
+<li class="chapter" data-level="7.1.3" data-path="covariance-and-correlation.html"><a href="covariance-and-correlation.html#covariance-in-class-data-set"><i class="fa fa-check"></i><b>7.1.3</b> Covariance in Class Data Set</a></li>
+</ul></li>
+<li class="chapter" data-level="7.2" data-path="covariance-and-correlation.html"><a href="covariance-and-correlation.html#correlation"><i class="fa fa-check"></i><b>7.2</b> Correlation</a><ul>
+<li class="chapter" data-level="7.2.1" data-path="covariance-and-correlation.html"><a href="covariance-and-correlation.html#correlation-by-hand"><i class="fa fa-check"></i><b>7.2.1</b> Correlation by Hand</a></li>
+<li class="chapter" data-level="7.2.2" data-path="covariance-and-correlation.html"><a href="covariance-and-correlation.html#correlation-tests"><i class="fa fa-check"></i><b>7.2.2</b> Correlation Tests</a></li>
+<li class="chapter" data-level="7.2.3" data-path="covariance-and-correlation.html"><a href="covariance-and-correlation.html#correlation-across-groups"><i class="fa fa-check"></i><b>7.2.3</b> Correlation Across Groups</a></li>
+</ul></li>
+<li class="chapter" data-level="7.3" data-path="covariance-and-correlation.html"><a href="covariance-and-correlation.html#visualizing-correlation"><i class="fa fa-check"></i><b>7.3</b> Visualizing Correlation</a><ul>
+<li class="chapter" data-level="7.3.1" data-path="covariance-and-correlation.html"><a href="covariance-and-correlation.html#another-example-political-party"><i class="fa fa-check"></i><b>7.3.1</b> Another Example: Political Party</a></li>
+<li class="chapter" data-level="7.3.2" data-path="covariance-and-correlation.html"><a href="covariance-and-correlation.html#one-more-visualization"><i class="fa fa-check"></i><b>7.3.2</b> One More Visualization</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="bivariate-linear-regression.html"><a href="bivariate-linear-regression.html"><i class="fa fa-check"></i><b>8</b> Bivariate Linear Regression</a><ul>
+<li class="chapter" data-level="8.1" data-path="bivariate-linear-regression.html"><a href="bivariate-linear-regression.html#bivariate-linear-regression-by-hand"><i class="fa fa-check"></i><b>8.1</b> Bivariate Linear Regression by Hand</a><ul>
+<li class="chapter" data-level="8.1.1" data-path="bivariate-linear-regression.html"><a href="bivariate-linear-regression.html#calculating-goodness-of-fit"><i class="fa fa-check"></i><b>8.1.1</b> Calculating Goodness of Fit</a></li>
+<li class="chapter" data-level="8.1.2" data-path="bivariate-linear-regression.html"><a href="bivariate-linear-regression.html#checking-our-work"><i class="fa fa-check"></i><b>8.1.2</b> Checking Our Work</a></li>
+</ul></li>
+<li class="chapter" data-level="8.2" data-path="bivariate-linear-regression.html"><a href="bivariate-linear-regression.html#bivariate-regression-in-r"><i class="fa fa-check"></i><b>8.2</b> Bivariate Regression in R</a></li>
+<li class="chapter" data-level="8.3" data-path="bivariate-linear-regression.html"><a href="bivariate-linear-regression.html#the-residuals"><i class="fa fa-check"></i><b>8.3</b> The Residuals</a></li>
+<li class="chapter" data-level="8.4" data-path="bivariate-linear-regression.html"><a href="bivariate-linear-regression.html#comparing-models"><i class="fa fa-check"></i><b>8.4</b> Comparing Models</a><ul>
+<li class="chapter" data-level="8.4.1" data-path="bivariate-linear-regression.html"><a href="bivariate-linear-regression.html#visualizing-multiple-models"><i class="fa fa-check"></i><b>8.4.1</b> Visualizing Multiple Models</a></li>
+</ul></li>
+<li class="chapter" data-level="8.5" data-path="bivariate-linear-regression.html"><a href="bivariate-linear-regression.html#hypothesis-testing"><i class="fa fa-check"></i><b>8.5</b> Hypothesis Testing</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="multivariable-linear-regression.html"><a href="multivariable-linear-regression.html"><i class="fa fa-check"></i><b>9</b> Multivariable Linear Regression</a><ul>
+<li class="chapter" data-level="9.1" data-path="multivariable-linear-regression.html"><a href="multivariable-linear-regression.html#part-i-calculating-least-squared-estimates"><i class="fa fa-check"></i><b>9.1</b> Part I: Calculating Least-Squared Estimates</a><ul>
+<li class="chapter" data-level="9.1.1" data-path="multivariable-linear-regression.html"><a href="multivariable-linear-regression.html#matrix-algebra"><i class="fa fa-check"></i><b>9.1.1</b> Matrix Algebra</a></li>
+<li class="chapter" data-level="9.1.2" data-path="multivariable-linear-regression.html"><a href="multivariable-linear-regression.html#representing-system-of-linear-equations-as-matrices"><i class="fa fa-check"></i><b>9.1.2</b> Representing System of Linear Equations as Matrices</a></li>
+<li class="chapter" data-level="9.1.3" data-path="multivariable-linear-regression.html"><a href="multivariable-linear-regression.html#ols-regression-and-matrices"><i class="fa fa-check"></i><b>9.1.3</b> OLS Regression and Matrices</a></li>
+</ul></li>
+<li class="chapter" data-level="9.2" data-path="multivariable-linear-regression.html"><a href="multivariable-linear-regression.html#part-ii-multiple-regression-in-r"><i class="fa fa-check"></i><b>9.2</b> Part II: Multiple Regression in R</a></li>
+<li class="chapter" data-level="9.3" data-path="multivariable-linear-regression.html"><a href="multivariable-linear-regression.html#part-iii-hypothesis-testing-with-multivariable-regression"><i class="fa fa-check"></i><b>9.3</b> Part III: Hypothesis Testing with Multivariable Regression</a><ul>
+<li class="chapter" data-level="9.3.1" data-path="multivariable-linear-regression.html"><a href="multivariable-linear-regression.html#visualizing-multivariable-linear-regression"><i class="fa fa-check"></i><b>9.3.1</b> Visualizing Multivariable Linear Regression</a></li>
+</ul></li>
+<li class="chapter" data-level="9.4" data-path="multivariable-linear-regression.html"><a href="multivariable-linear-regression.html#part-iv-predicting-with-ols-regression"><i class="fa fa-check"></i><b>9.4</b> Part IV: Predicting with OLS Regression</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="categorical-explanatory-variables-dummy-variables-and-interactions.html"><a href="categorical-explanatory-variables-dummy-variables-and-interactions.html"><i class="fa fa-check"></i><b>10</b> Categorical Explanatory Variables, Dummy Variables, and Interactions</a><ul>
+<li class="chapter" data-level="10.1" data-path="categorical-explanatory-variables-dummy-variables-and-interactions.html"><a href="categorical-explanatory-variables-dummy-variables-and-interactions.html#dummy-variables"><i class="fa fa-check"></i><b>10.1</b> Dummy Variables</a><ul>
+<li class="chapter" data-level="10.1.1" data-path="categorical-explanatory-variables-dummy-variables-and-interactions.html"><a href="categorical-explanatory-variables-dummy-variables-and-interactions.html#multiple-dummy-variables"><i class="fa fa-check"></i><b>10.1.1</b> Multiple Dummy Variables</a></li>
+</ul></li>
+<li class="chapter" data-level="10.2" data-path="categorical-explanatory-variables-dummy-variables-and-interactions.html"><a href="categorical-explanatory-variables-dummy-variables-and-interactions.html#interactions"><i class="fa fa-check"></i><b>10.2</b> Interactions</a><ul>
+<li class="chapter" data-level="10.2.1" data-path="categorical-explanatory-variables-dummy-variables-and-interactions.html"><a href="categorical-explanatory-variables-dummy-variables-and-interactions.html#interactions-with-two-non-binary-variables"><i class="fa fa-check"></i><b>10.2.1</b> Interactions with Two Non-binary Variables</a></li>
+</ul></li>
+<li class="chapter" data-level="10.3" data-path="categorical-explanatory-variables-dummy-variables-and-interactions.html"><a href="categorical-explanatory-variables-dummy-variables-and-interactions.html#releveling-variables"><i class="fa fa-check"></i><b>10.3</b> Releveling Variables</a></li>
+<li class="chapter" data-level="10.4" data-path="categorical-explanatory-variables-dummy-variables-and-interactions.html"><a href="categorical-explanatory-variables-dummy-variables-and-interactions.html#interaction-plots"><i class="fa fa-check"></i><b>10.4</b> Interaction Plots</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="non-linearity-non-normality-and-multicollinearity.html"><a href="non-linearity-non-normality-and-multicollinearity.html"><i class="fa fa-check"></i><b>11</b> Non-linearity, Non-normality, and Multicollinearity</a><ul>
+<li class="chapter" data-level="11.1" data-path="non-linearity-non-normality-and-multicollinearity.html"><a href="non-linearity-non-normality-and-multicollinearity.html#non-linearity"><i class="fa fa-check"></i><b>11.1</b> Non-linearity</a><ul>
+<li class="chapter" data-level="11.1.1" data-path="non-linearity-non-normality-and-multicollinearity.html"><a href="non-linearity-non-normality-and-multicollinearity.html#exploring-non-linearity"><i class="fa fa-check"></i><b>11.1.1</b> Exploring Non-linearity</a></li>
+</ul></li>
+<li class="chapter" data-level="11.2" data-path="non-linearity-non-normality-and-multicollinearity.html"><a href="non-linearity-non-normality-and-multicollinearity.html#non-normality"><i class="fa fa-check"></i><b>11.2</b> Non-normality</a></li>
+<li class="chapter" data-level="11.3" data-path="non-linearity-non-normality-and-multicollinearity.html"><a href="non-linearity-non-normality-and-multicollinearity.html#multicollinearity"><i class="fa fa-check"></i><b>11.3</b> Multicollinearity</a></li>
+<li class="chapter" data-level="11.4" data-path="non-linearity-non-normality-and-multicollinearity.html"><a href="non-linearity-non-normality-and-multicollinearity.html#standardizing-coefficients"><i class="fa fa-check"></i><b>11.4</b> Standardizing Coefficients</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="diagnosing-and-addressing-problems-in-linear-regression.html"><a href="diagnosing-and-addressing-problems-in-linear-regression.html"><i class="fa fa-check"></i><b>12</b> Diagnosing and Addressing Problems in Linear Regression</a><ul>
+<li class="chapter" data-level="12.1" data-path="diagnosing-and-addressing-problems-in-linear-regression.html"><a href="diagnosing-and-addressing-problems-in-linear-regression.html#introduction-to-the-data"><i class="fa fa-check"></i><b>12.1</b> Introduction to the Data</a></li>
+<li class="chapter" data-level="12.2" data-path="diagnosing-and-addressing-problems-in-linear-regression.html"><a href="diagnosing-and-addressing-problems-in-linear-regression.html#outliers"><i class="fa fa-check"></i><b>12.2</b> Outliers</a></li>
+<li class="chapter" data-level="12.3" data-path="diagnosing-and-addressing-problems-in-linear-regression.html"><a href="diagnosing-and-addressing-problems-in-linear-regression.html#heteroscedasticity"><i class="fa fa-check"></i><b>12.3</b> Heteroscedasticity</a></li>
+<li class="chapter" data-level="12.4" data-path="diagnosing-and-addressing-problems-in-linear-regression.html"><a href="diagnosing-and-addressing-problems-in-linear-regression.html#revisiting-linearity"><i class="fa fa-check"></i><b>12.4</b> Revisiting Linearity</a><ul>
+<li class="chapter" data-level="12.4.1" data-path="diagnosing-and-addressing-problems-in-linear-regression.html"><a href="diagnosing-and-addressing-problems-in-linear-regression.html#normality"><i class="fa fa-check"></i><b>12.4.1</b> Normality</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="logistic-regression.html"><a href="logistic-regression.html"><i class="fa fa-check"></i><b>13</b> Logistic Regression</a><ul>
+<li class="chapter" data-level="13.1" data-path="logistic-regression.html"><a href="logistic-regression.html#logistic-regression-with-a-binary-dv"><i class="fa fa-check"></i><b>13.1</b> Logistic Regression with a Binary DV</a><ul>
+<li class="chapter" data-level="13.1.1" data-path="logistic-regression.html"><a href="logistic-regression.html#goodness-of-fit-logit-regression"><i class="fa fa-check"></i><b>13.1.1</b> Goodness of Fit, Logit Regression</a></li>
+<li class="chapter" data-level="13.1.2" data-path="logistic-regression.html"><a href="logistic-regression.html#percent-correctly-predicted"><i class="fa fa-check"></i><b>13.1.2</b> Percent Correctly Predicted</a></li>
+<li class="chapter" data-level="13.1.3" data-path="logistic-regression.html"><a href="logistic-regression.html#logit-regression-with-groups"><i class="fa fa-check"></i><b>13.1.3</b> Logit Regression with Groups</a></li>
+</ul></li>
+<li class="chapter" data-level="13.2" data-path="logistic-regression.html"><a href="logistic-regression.html#ordered-logit-and-creating-an-index"><i class="fa fa-check"></i><b>13.2</b> Ordered Logit and Creating an Index</a></li>
+</ul></li>
+<li class="chapter" data-level="14" data-path="statistical-simulations.html"><a href="statistical-simulations.html"><i class="fa fa-check"></i><b>14</b> Statistical Simulations</a><ul>
+<li class="chapter" data-level="14.1" data-path="statistical-simulations.html"><a href="statistical-simulations.html#the-basics"><i class="fa fa-check"></i><b>14.1</b> The Basics</a><ul>
+<li class="chapter" data-level="14.1.1" data-path="statistical-simulations.html"><a href="statistical-simulations.html#plotting-predictions-with-zelig"><i class="fa fa-check"></i><b>14.1.1</b> Plotting Predictions with Zelig</a></li>
+</ul></li>
+<li class="chapter" data-level="14.2" data-path="statistical-simulations.html"><a href="statistical-simulations.html#other-models"><i class="fa fa-check"></i><b>14.2</b> Other Models</a><ul>
+<li class="chapter" data-level="14.2.1" data-path="statistical-simulations.html"><a href="statistical-simulations.html#ordered-logit"><i class="fa fa-check"></i><b>14.2.1</b> Ordered Logit</a></li>
+<li class="chapter" data-level="14.2.2" data-path="statistical-simulations.html"><a href="statistical-simulations.html#another-example"><i class="fa fa-check"></i><b>14.2.2</b> Another Example</a></li>
+</ul></li>
+<li class="chapter" data-level="14.3" data-path="statistical-simulations.html"><a href="statistical-simulations.html#zelig-with-non-zelig-models"><i class="fa fa-check"></i><b>14.3</b> Zelig with non-Zelig Models:</a></li>
+</ul></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Lab Guide to Quantitative Research Methods in Political Science, Public Policy &amp; Public Administration.</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="inference-for-two-populations" class="section level1">
+<h1><span class="header-section-number">6</span> Inference for Two Populations</h1>
+<p>This lab covers the basics of inference for two populations. We go through proportions and cross tabulations; the different types of two sample t-tests; difference in one and two tailed tests; and how to plot means and the differences between means. The following packages are required for this lab:</p>
+<ol style="list-style-type: decimal">
+<li>tidyverse</li>
+<li>psych</li>
+<li>car</li>
+<li>vcd</li>
+<li>reshape2</li>
+<li>skimr</li>
+</ol>
+<div id="proportions" class="section level2">
+<h2><span class="header-section-number">6.1</span> Proportions</h2>
+<p>To start with proportions, We will use the <code>glbcc</code> variable from the class dataset that contains respondents’ opinions on global climate change. Specifically, it asks if they believe that greenhouse gases cause global temperatures to increase. We start with describing the data. A zero indicates “no” and 1 indicates “yes.”</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ds <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">count</span>(glbcc)</code></pre></div>
+<pre><code>## # A tibble: 2 x 2
+##   glbcc     n
+##   &lt;int&gt; &lt;int&gt;
+## 1     0  1092
+## 2     1  1455</code></pre>
+<p>Now we can describe the population proportions.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ds <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">count</span>(glbcc) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">prop =</span> n <span class="op">/</span><span class="st"> </span><span class="kw">sum</span>(n))</code></pre></div>
+<pre><code>## # A tibble: 2 x 3
+##   glbcc     n  prop
+##   &lt;int&gt; &lt;int&gt; &lt;dbl&gt;
+## 1     0  1092 0.429
+## 2     1  1455 0.571</code></pre>
+<p>The above table describes the proportions of the population that believe humans cause climate change. Let’s visualize the proportions.</p>
+<p>Data frames are required for ggplot visualizations. Sometimes you have to construct the data frame manually, using the <code>data.frame()</code> function and creating vectors inside it with <code>c()</code>. However, when working with tidyverse functions, there are often shortcuts. Below we are able to visualize the proportion table by simply piping it directly to <code>ggplot2</code> and putting a <code>.</code> in place of the data set.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ds <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">count</span>(glbcc) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">prop =</span> n <span class="op">/</span><span class="st"> </span><span class="kw">sum</span>(n)) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">ggplot</span>(., <span class="kw">aes</span>(glbcc, prop)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_bar</span>(<span class="dt">stat =</span> <span class="st">&quot;identity&quot;</span>)</code></pre></div>
+<p><img src="_main_files/figure-html/5_prop3-1.png" width="672" /></p>
+<p>As we learned in the last lab, there are uncertainties associated to point estimates. We can include confidence intervals to get a range of values for which we are confident (at some level) the value actually falls between. To calculate confidence intervals we need to find the standard error of the proportionn and assign it to an object that we will name <code>se.gcc</code>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">se.gcc &lt;-<span class="kw">sqrt</span>((<span class="fl">0.5713</span> <span class="op">*</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">-</span><span class="st"> </span><span class="fl">0.5713</span>)<span class="op">/</span><span class="dv">2547</span>)) 
+se.gcc</code></pre></div>
+<pre><code>## [1] 0.009806056</code></pre>
+<p>Alternatively, we can use the <code>describe()</code> function to avoid rounding errors:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">se.gcc &lt;-<span class="st"> </span><span class="kw">describe</span>(ds<span class="op">$</span>glbcc)<span class="op">$</span>se
+se.gcc</code></pre></div>
+<pre><code>## [1] 0.009808095</code></pre>
+<p>With the standard error object, we can calculate the confidence intervals. Here we will calculate the following: the upper bounds and lower bounds for the yes and no confidence intervals.</p>
+<p><span class="math display">\[CI=\hat{p} \pm z\frac{s}{\sqrt{n}},\]</span></p>
+<p>Where <span class="math inline">\(\hat{p}\)</span> is the sample proportion. Recall that 95% confidence corresponds to a 1.96 z-score.</p>
+<p>The proportion table from earlier provides the values we will use:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ds <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">count</span>(glbcc) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">prop =</span> n <span class="op">/</span><span class="st"> </span><span class="kw">sum</span>(n))</code></pre></div>
+<pre><code>## # A tibble: 2 x 3
+##   glbcc     n  prop
+##   &lt;int&gt; &lt;int&gt; &lt;dbl&gt;
+## 1     0  1092 0.429
+## 2     1  1455 0.571</code></pre>
+<p>First store the standard error as an object:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">se.gcc &lt;-<span class="st"> </span>se.gcc &lt;-<span class="st"> </span><span class="kw">describe</span>(ds<span class="op">$</span>glbcc)<span class="op">$</span>se</code></pre></div>
+<p>Recall that the <code>mutate()</code> verb can be used to create multiple variables at once. With this in mind, we can easily create a data frame that contains the measurements of interest, the standard error, and the lower and upper bounds of the confidence interval. For a 95% confidence interval, you take the proportion, plus or minus 1.96 mulipltied by the standard error. Inside the <code>mutate()</code> function create three new variables: the standard error, lower, and upper:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">new.ds &lt;-<span class="st"> </span>ds <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">count</span>(glbcc) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">prop =</span> n <span class="op">/</span><span class="st"> </span><span class="kw">sum</span>(n),
+         <span class="dt">se.gcc =</span> se.gcc,
+         <span class="dt">lower =</span> prop <span class="op">-</span><span class="st"> </span><span class="fl">1.96</span> <span class="op">*</span><span class="st"> </span>se.gcc,
+         <span class="dt">upper =</span> prop <span class="op">+</span><span class="st"> </span><span class="fl">1.96</span> <span class="op">*</span><span class="st"> </span>se.gcc)
+new.ds</code></pre></div>
+<pre><code>## # A tibble: 2 x 6
+##   glbcc     n  prop  se.gcc lower upper
+##   &lt;int&gt; &lt;int&gt; &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+## 1     0  1092 0.429 0.00981 0.410 0.448
+## 2     1  1455 0.571 0.00981 0.552 0.590</code></pre>
+<p>With the new data frame we can create a visualization that includes the confidence intervals. The code is similar to the previous <code>ggplot2</code> code used, but now with the addition of the <code>geom_errorbar()</code> function. The <code>geom_errorbar()</code> function requires arguments to use the lower and upper bound values for the confidence intervals:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(new.ds, <span class="kw">aes</span>(<span class="dt">x =</span> glbcc, <span class="dt">y =</span> prop)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_bar</span>(<span class="dt">stat =</span> <span class="st">&quot;identity&quot;</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_errorbar</span>(<span class="kw">aes</span>(<span class="dt">ymin =</span> lower, <span class="dt">ymax =</span> upper))</code></pre></div>
+<p><img src="_main_files/figure-html/5_prop10-1.png" width="672" /></p>
+<div id="two-populations" class="section level3">
+<h3><span class="header-section-number">6.1.1</span> Two Populations</h3>
+<p>Research is often interested in differences between distinct populations. Using the <code>glbcc</code> variable, we will review responses differentiated by gender, using the <code>group_by()</code> function.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ds <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">group_by</span>(f.gender) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">count</span>(glbcc) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">drop_na</span>() <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">prop =</span> n <span class="op">/</span><span class="st"> </span><span class="kw">sum</span>(n)) </code></pre></div>
+<pre><code>## # A tibble: 4 x 4
+## # Groups:   f.gender [2]
+##   f.gender glbcc     n  prop
+##   &lt;fct&gt;    &lt;int&gt; &lt;int&gt; &lt;dbl&gt;
+## 1 Women        0   606 0.399
+## 2 Women        1   914 0.601
+## 3 Men          0   485 0.473
+## 4 Men          1   541 0.527</code></pre>
+<p>To visually examine which gender has, on average, higher belief that greenshouse gases cause climate change, plotting the two mean levels of belief for the genders is a good place to start. To create a visualization, the mean level of <code>glbcc</code> needs to be found for each gender. In this case, the proportion of each gender believing in climate change is the same as the “mean” amount of men or women believing in climate change. The following code returns a new data frame that is just like the previous one, but filters the data to include only responses indicate a belief that greenhouse gases cause climage change.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ds <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">group_by</span>(f.gender) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">count</span>(glbcc) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">drop_na</span>() <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">prop =</span> n <span class="op">/</span><span class="st"> </span><span class="kw">sum</span>(n)) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">filter</span>(glbcc <span class="op">==</span><span class="st"> </span><span class="dv">1</span>)</code></pre></div>
+<pre><code>## # A tibble: 2 x 4
+## # Groups:   f.gender [2]
+##   f.gender glbcc     n  prop
+##   &lt;fct&gt;    &lt;int&gt; &lt;int&gt; &lt;dbl&gt;
+## 1 Women        1   914 0.601
+## 2 Men          1   541 0.527</code></pre>
+<p>Similarly to earlier in the lab, confidence intervals can also be calculated by finding the standard error. In this case, we need to find the standard error for men and women separately. We will use the <code>filter()</code> function to simplify the calculations:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">male &lt;-<span class="st"> </span><span class="kw">filter</span>(ds, gender<span class="op">==</span><span class="dv">1</span>)
+female &lt;-<span class="st"> </span><span class="kw">filter</span>(ds, gender<span class="op">==</span><span class="dv">0</span>)
+m.se &lt;-<span class="st"> </span><span class="kw">describe</span>(male<span class="op">$</span>glbcc)<span class="op">$</span>se
+f.se &lt;-<span class="st"> </span><span class="kw">describe</span>(female<span class="op">$</span>glbcc)<span class="op">$</span>se</code></pre></div>
+<p>Now that we have the standard errors for men and women, we can return to the previous data frame we constucted and add a column for the standard error. This is done using the tidyverse verb <code>add_column()</code>. Assign the new data frame to a new object, then print the data frame:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df2 &lt;-<span class="st"> </span>ds <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">group_by</span>(f.gender) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">count</span>(glbcc) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">drop_na</span>() <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">prop =</span> n <span class="op">/</span><span class="st"> </span><span class="kw">sum</span>(n)) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">filter</span>(glbcc <span class="op">==</span><span class="st"> </span><span class="dv">1</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">add_column</span>(<span class="dt">se =</span> <span class="kw">c</span>(m.se, f.se))</code></pre></div>
+<p>Now construct the visualization. Like the previous visualization, use <code>geom_errorbar()</code> to construct the confidence intervals. However, this time you will need to calculate them inside the <code>geom_errorbar()</code> function itself!</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(df2, <span class="kw">aes</span>(f.gender, prop)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_bar</span>(<span class="dt">stat =</span> <span class="st">&quot;identity&quot;</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_errorbar</span>(<span class="kw">aes</span>(<span class="dt">ymin =</span> prop <span class="op">-</span><span class="st"> </span><span class="fl">1.96</span> <span class="op">*</span><span class="st"> </span>se,
+                <span class="dt">ymax =</span> prop <span class="op">+</span><span class="st"> </span><span class="fl">1.96</span> <span class="op">*</span><span class="st"> </span>se))</code></pre></div>
+<p><img src="_main_files/figure-html/5_2prop8-1.png" width="672" /></p>
+<p>Suppose we wondered whether women believe humans cause climate change more than men: this visualization provides only a partial answer. By the “eye test,” the visualization appears to show that women have a higher value than men, and furthermore the confidence intervals do not overlap; however, the eye test alone is insufficient. An empirical test is required.</p>
+<p>To start, we formulate the following hypotheses:<br />
+<span class="math inline">\(H_0\)</span>: there is no difference between genders<br />
+<span class="math inline">\(H_1\)</span>: there is a difference between genders</p>
+<p>We can use a two sample t-test to test these hypotheses. Using the different data sets created earlier for genders and the <code>glbcc</code> variable we will find the 95% confidence interval, p-value, and point estimate.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">t.test</span>(male<span class="op">$</span>glbcc, female<span class="op">$</span>glbcc)</code></pre></div>
+<pre><code>## 
+##  Welch Two Sample t-test
+## 
+## data:  male$glbcc and female$glbcc
+## t = -3.6966, df = 2170.3, p-value = 0.0002239
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  -0.11329550 -0.03475519
+## sample estimates:
+## mean of x mean of y 
+## 0.5272904 0.6013158</code></pre>
+<p>The t-test yields a p-value &lt; <span class="math inline">\(\alpha\)</span> = 0.05, thereby the null hypothesis is rejected to conclude there is a statistical significance in responses by gender. Further, the point estimate calculated as 0.074 informs us 7% more women than men believe humans cause climate change. <strong>Note:</strong> The confidence interval tells us that, with 95% confidence, the difference between women and men is between 3% and 11%. Judgment is required to determine whether gender difference is substantive.</p>
+</div>
+</div>
+<div id="cross-tabulations" class="section level2">
+<h2><span class="header-section-number">6.2</span> Cross Tabulations</h2>
+<p>Another way to examine the difference of gender and beliefs about climate change is cross tabulation. Cross tabulations describe relationships between two variables. The basic building block of cross tabulations are tables, a skill acquired in previous labs.</p>
+<p>For this section, we will use the <code>glbcc_risk</code> variable, that measures the level of risk respondents associate with climate change (on a scale of zero to ten). The range associated to this scale is simplified to zero to five using the <code>recode()</code> function:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ds<span class="op">$</span>r.gccrsk &lt;-<span class="st"> </span>car<span class="op">::</span><span class="kw">recode</span>(ds<span class="op">$</span>glbcc_risk, <span class="st">&quot;0:1=1; 2:3=2; 4:6=3; 7:8:=4; 9:10=5&quot;</span>)
+<span class="kw">table</span>(ds<span class="op">$</span>r.gccrsk)</code></pre></div>
+<pre><code>## 
+##   1   2   3   4   5 
+## 268 331 761 538 638</code></pre>
+<p>Next the variable is separated by gender using the <code>table()</code> function. The dependent variable, <code>r.gccrsk</code>, is specified followed by the independent variable, <code>f.gender</code>:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">gcc.table &lt;-<span class="st"> </span><span class="kw">table</span>(ds<span class="op">$</span>r.gccrsk, ds<span class="op">$</span>f.gender)
+gcc.table</code></pre></div>
+<pre><code>##    
+##     Women Men
+##   1   134 134
+##   2   175 155
+##   3   480 281
+##   4   330 208
+##   5   393 245</code></pre>
+<p>The <code>prop.table()</code> function describes the relationship by proportions. We convert the proportion to percentage of each response level by gender by including <code>margin=2</code>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">gcc.table <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">prop.table</span>(<span class="dt">margin =</span> <span class="dv">2</span>) <span class="op">*</span><span class="st"> </span><span class="dv">100</span></code></pre></div>
+<pre><code>##    
+##         Women       Men
+##   1  8.862434 13.098729
+##   2 11.574074 15.151515
+##   3 31.746032 27.468231
+##   4 21.825397 20.332356
+##   5 25.992063 23.949169</code></pre>
+<p>There appears to be a difference in genders; however, as these differences are within a sample we cannot infer there is a difference in the population without an empirical test. We will use the Chi-Square test to empirically test whether there is a statistically significant difference in genders. The <code>chisq.test()</code> function performs the Chi-Square test given on a table:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">chisq.test</span>(gcc.table)</code></pre></div>
+<pre><code>## 
+##  Pearson&#39;s Chi-squared test
+## 
+## data:  gcc.table
+## X-squared = 21.729, df = 4, p-value = 0.0002269</code></pre>
+<p><strong>Note:</strong> The <code>summary()</code> function will provide additional information about this table, independent of a Chi-Square test.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summary</span>(gcc.table)</code></pre></div>
+<pre><code>## Number of cases in table: 2535 
+## Number of factors: 2 
+## Test for independence of all factors:
+##  Chisq = 21.729, df = 4, p-value = 0.0002269</code></pre>
+<p>Given the Chi-Square test p-value &lt; <span class="math inline">\(\alpha\)</span> = 0.05, the null hypothesis is rejected such that there is a statistically significant difference between gender and perceived risk of climate change. Substantive difference is as important as statistical significance, and a variety of methods exist to test the strength of relationships. For the Chi-Square test, finding Cramer’s Vs is the appropriate method. The <code>assocstats()</code> function will return a variety of coefficients and numbers, including Cramer’s V.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">assocstats</span>(gcc.table)</code></pre></div>
+<pre><code>##                     X^2 df   P(&gt; X^2)
+## Likelihood Ratio 21.494  4 0.00025270
+## Pearson          21.729  4 0.00022695
+## 
+## Phi-Coefficient   : NA 
+## Contingency Coeff.: 0.092 
+## Cramer&#39;s V        : 0.093</code></pre>
+<p>Cramer’s V is a score ranging from 0 to 1, whereby 0 indicates a weak association and 1 indicates strong association. The Cramer’s V score returned for the previous test is quite small, indicating a weak association.</p>
+<p>Perhaps we are interested in gender as a control variable, with ideology as the independent variable. A new table for perceived risk of climate change, ideology (conservative, moderate, liberal), and gender is as follows:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">gcc.table2 &lt;-<span class="st"> </span><span class="kw">table</span>(ds<span class="op">$</span>r.gccrsk, ds<span class="op">$</span>f.ideology, ds<span class="op">$</span>f.gender)
+gcc.table2</code></pre></div>
+<pre><code>## , ,  = Women
+## 
+##    
+##     Conservative Liberal Moderate
+##   1          108       4       20
+##   2          119       5       50
+##   3          216      20      237
+##   4           84      60      185
+##   5           42     166      180
+## 
+## , ,  = Men
+## 
+##    
+##     Conservative Liberal Moderate
+##   1          115       1       17
+##   2          120       0       34
+##   3          151      10      118
+##   4           57      33      116
+##   5           24      99      121</code></pre>
+<p>Again, a Chi-Square test and Cramer’s V will provide insight. To separate the genders, [,,1] is used for male and [,,2] is used for female.</p>
+<p>For male:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">chisq.test</span>(gcc.table2[,,<span class="dv">1</span>])</code></pre></div>
+<pre><code>## 
+##  Pearson&#39;s Chi-squared test
+## 
+## data:  gcc.table2[, , 1]
+## X-squared = 485.92, df = 8, p-value &lt; 0.00000000000000022</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">assocstats</span>(gcc.table2[,,<span class="dv">1</span>])</code></pre></div>
+<pre><code>##                     X^2 df P(&gt; X^2)
+## Likelihood Ratio 496.17  8        0
+## Pearson          485.92  8        0
+## 
+## Phi-Coefficient   : NA 
+## Contingency Coeff.: 0.495 
+## Cramer&#39;s V        : 0.403</code></pre>
+<p>For female:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">chisq.test</span>(gcc.table2[,,<span class="dv">2</span>])</code></pre></div>
+<pre><code>## 
+##  Pearson&#39;s Chi-squared test
+## 
+## data:  gcc.table2[, , 2]
+## X-squared = 409.29, df = 8, p-value &lt; 0.00000000000000022</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">assocstats</span>(gcc.table2[,,<span class="dv">2</span>])</code></pre></div>
+<pre><code>##                     X^2 df P(&gt; X^2)
+## Likelihood Ratio 440.55  8        0
+## Pearson          409.29  8        0
+## 
+## Phi-Coefficient   : NA 
+## Contingency Coeff.: 0.536 
+## Cramer&#39;s V        : 0.449</code></pre>
+<p>Both chi-square tests return significant results, and both Cramer’s V scores are about .4. The interpretation of this Cramer’s V score is clearly stronger than the previous score; however, the score itself is not judged as a strong association.</p>
+<div id="other-coefficients" class="section level3">
+<h3><span class="header-section-number">6.2.1</span> Other Coefficients</h3>
+<p>There are other coefficient scores that are appropriate to use in certain situations. The Phi coefficient is used with a 2x2 contingency table. The contingency coefficient, C, is used for square tables. Keep these different methods in mind when doing cross-tabulations and chi-square tests.</p>
+</div>
+</div>
+<div id="independent-t-tests" class="section level2">
+<h2><span class="header-section-number">6.3</span> Independent t-tests</h2>
+<p>This section elaborates on t-tests. So far we have emphasized t-tests, as the Student’s t distribution can be used when n &lt; 30, and when <span class="math inline">\(\sigma\)</span> is unknown. The rule of thumb is to use Student’s t distribution in these two instances, and the normal distributions for all other cases; however, the Student’s t distribution begins to approximate the normal distribution with high n sizes, so t-tests are applicable in most instances.</p>
+<p>When using t-tests for two populations, you need to first decide if you should use an independent t-test or a paired t-test. An independent t-test is used when the two groups are independent from each other. A paired t-test is used for paired or connected groups. For the class data set the independent t-tests is appropriate. For an independent t-test, the variance between groups must be unequal.</p>
+<p>Let’s examine if there is a difference between the risk associated with climate change for Democrats and Republicans in our survey. In order to test only Democrats and Republicans, we need to recode our factored party variable to only include Democrats and Republicans:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ds<span class="op">$</span>f.part &lt;-<span class="st"> </span>car<span class="op">::</span><span class="kw">recode</span>(ds<span class="op">$</span>f.party.<span class="dv">2</span>, <span class="st">&quot;&#39;Dem&#39;=&#39;Dem&#39;; &#39;Rep&#39;=&#39;Rep&#39;; else=NA&quot;</span>)
+ds <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">count</span>(f.part) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">drop_na</span>()</code></pre></div>
+<pre><code>## # A tibble: 2 x 2
+##   f.part     n
+##   &lt;fct&gt;  &lt;int&gt;
+## 1 Dem      869
+## 2 Rep     1185</code></pre>
+<p>We need to compare variances for Democrats and Republicans on their risk perception of climate change. First use <code>skim()</code> to take a look at some summary statistics by political party.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ds <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">group_by</span>(f.part) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">skim</span>(glbcc_risk) </code></pre></div>
+<pre><code>## Skim summary statistics
+##  n obs: 2547 
+##  n variables: 216 
+##  group variables: f.part 
+## 
+## ── Variable type:integer ───────────────────────────────────────────────────
+##  f.part   variable missing complete    n mean   sd p0 p25 p50 p75 p100
+##     Dem glbcc_risk       4      865  869 7.71 2.43  0   6   8  10   10
+##     Rep glbcc_risk       5     1180 1185 4.53 2.77  0   2   5   7   10
+##    &lt;NA&gt; glbcc_risk       2      491  493 6.25 3.07  0   5   7   9   10
+##      hist
+##  ▁▁▁▃▁▂▂▇
+##  ▅▂▃▇▂▂▂▂
+##  ▃▂▂▅▂▃▃▇</code></pre>
+<p>The Levene test is used to test if the difference in variances is statistically significant. Similar to previously discussed hypotheses, the Levene tests the following hypotheses:</p>
+<p>-<span class="math inline">\(H_0\)</span>: variances are equal<br />
+-<span class="math inline">\(H_1\)</span>: variances are not equal</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">leveneTest</span>(ds<span class="op">$</span>glbcc_risk, ds<span class="op">$</span>f.part)</code></pre></div>
+<pre><code>## Levene&#39;s Test for Homogeneity of Variance (center = median)
+##         Df F value     Pr(&gt;F)    
+## group    1  18.852 0.00001481 ***
+##       2043                       
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+<p>Given the p-value &lt; <span class="math inline">\(\alpha\)</span> = 0.05, we reject the null hypothesis such that there is a statistically significant difference in variances. With this result we can perform an independent t-test for two populations. The framework for forming hypotheses is as follows:</p>
+<p>-<span class="math inline">\(H_0\)</span>: the two populations are indifferent; “there is no difference in perceived risk of climate change between Democrats and Republicans” -<span class="math inline">\(H_1\)</span>: the two populations are different; “there is a difference in perceived risk of climate change between Democrats and Republicans”</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">t.test</span>(ds<span class="op">$</span>glbcc_risk <span class="op">~</span><span class="st"> </span>ds<span class="op">$</span>f.part, <span class="dt">var.equal =</span> <span class="ot">FALSE</span>) <span class="co"># var.equal=FALSE is default</span></code></pre></div>
+<pre><code>## 
+##  Welch Two Sample t-test
+## 
+## data:  ds$glbcc_risk by ds$f.part
+## t = 27.556, df = 1977.2, p-value &lt; 0.00000000000000022
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  2.957765 3.411041
+## sample estimates:
+## mean in group Dem mean in group Rep 
+##          7.709827          4.525424</code></pre>
+<p>Given the p-value &lt; <span class="math inline">\(\alpha\)</span> = 0.05, we reject the null hypothesis such that there is a statistically significant difference in perceived risk of climate change between democrats and republicans.</p>
+<p>The previous test is an example of a two-tailed test, which lacks directionality (greater than, less than). In contrast, a one-tailed t-test tests hypotheses that include direction. To perform a one-tailed t-test, we include the command alt=“greater” inside the <code>t.test()</code> function:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">t.test</span>(ds<span class="op">$</span>glbcc_risk <span class="op">~</span><span class="st"> </span>ds<span class="op">$</span>f.part, <span class="dt">alt=</span><span class="st">&quot;greater&quot;</span>)</code></pre></div>
+<pre><code>## 
+##  Welch Two Sample t-test
+## 
+## data:  ds$glbcc_risk by ds$f.part
+## t = 27.556, df = 1977.2, p-value &lt; 0.00000000000000022
+## alternative hypothesis: true difference in means is greater than 0
+## 95 percent confidence interval:
+##  2.994229      Inf
+## sample estimates:
+## mean in group Dem mean in group Rep 
+##          7.709827          4.525424</code></pre>
+<div id="other-independent-sample-tests" class="section level3">
+<h3><span class="header-section-number">6.3.1</span> Other Independent Sample Tests</h3>
+<p>Not all research leads to testing two populations. For example, consider whether a difference exists in perceived risk of climate change among Democrats, Republicans, and independents. Further, if there are statistically significant differences, how could ideologies be ranked? Unfortunately, performing pairwise t-tests on the possible combinations is inadequate, due to the “family-wise error rate” associated to the p-value. The <code>pairwise.t.test()</code> function employs the family-wise correction method (by default, Holm-Bonferroni method) to correct the p-value.</p>
+<p>Like traditional independent sample tests involving two samples, the variances must be unequal:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">leveneTest</span>(ds<span class="op">$</span>glbcc_risk <span class="op">~</span><span class="st"> </span>ds<span class="op">$</span>f.party.<span class="dv">2</span>)</code></pre></div>
+<pre><code>## Levene&#39;s Test for Homogeneity of Variance (center = median)
+##         Df F value      Pr(&gt;F)    
+## group    2  13.683 0.000001234 ***
+##       2396                        
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+<p>Given that the p-value &lt; <span class="math inline">\(\alpha\)</span> = 0.05, we reject the null hypothesis such that there is a difference in variances. The <code>pairwise.t.test()</code> function can perform the pairwise test, using the <code>f.party_2</code> variable that was factored for Democrats, Republicans, and independents:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">pairwise.t.test</span>(ds<span class="op">$</span>glbcc_risk, ds<span class="op">$</span>f.party.<span class="dv">2</span>, <span class="dt">pool.sd=</span><span class="ot">FALSE</span>)</code></pre></div>
+<pre><code>## 
+##  Pairwise comparisons using t tests with non-pooled SD 
+## 
+## data:  ds$glbcc_risk and ds$f.party.2 
+## 
+##     Dem                  Ind                 
+## Ind 0.0000000000013      -                   
+## Rep &lt; 0.0000000000000002 &lt; 0.0000000000000002
+## 
+## P value adjustment method: holm</code></pre>
+<p>The output of the <code>pairwise.t.test()</code> function is read as a table, whereby each value is associated to the pairwise comparison.</p>
+<p>An alternative, multiple comparisons test, is the Tukey Honest Significance Difference test (“Tukey’s test”), that is commonly used with Analysis of Variance (ANOVA). In short, Tukey’s test is used to find means that are significantly difference between multiple samples. Tukey’s test requires using the <code>aov()</code> function to perform ANOVA, as follows:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">aov</span>(ds<span class="op">$</span>glbcc_risk <span class="op">~</span><span class="st"> </span>ds<span class="op">$</span>f.party.<span class="dv">2</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">TukeyHSD</span>()</code></pre></div>
+<pre><code>##   Tukey multiple comparisons of means
+##     95% family-wise confidence level
+## 
+## Fit: aov(formula = ds$glbcc_risk ~ ds$f.party.2)
+## 
+## $`ds$f.party.2`
+##              diff       lwr        upr p adj
+## Ind-Dem -1.294572 -1.691945 -0.8971998     0
+## Rep-Dem -3.184403 -3.466308 -2.9024976     0
+## Rep-Ind -1.889831 -2.271490 -1.5081713     0</code></pre>
+<p>The p-value &lt; <span class="math inline">\(\alpha\)</span> = 0.05 between each pair.</p>
+</div>
+</div>
+<div id="paired-t-test" class="section level2">
+<h2><span class="header-section-number">6.4</span> Paired t-test</h2>
+<p>Paired t-tests are appropriate for data that are not independent. Consider the need to compare data from the same population for different points in time, such as semester exams for the same students in a class.</p>
+<p>The teacher wants to examine if there is a difference in the students’ performances between exams one and two. The following hypothetical data frame could represent the students and their performance:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">Student &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;st1&quot;</span>, <span class="st">&quot;st2&quot;</span>, <span class="st">&quot;st3&quot;</span>, <span class="st">&quot;st4&quot;</span>, <span class="st">&quot;st5&quot;</span>, <span class="st">&quot;st6&quot;</span>, <span class="st">&quot;st7&quot;</span>, <span class="st">&quot;st8&quot;</span>, <span class="st">&quot;st9&quot;</span>, <span class="st">&quot;st10&quot;</span>)
+Exam1 &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">99</span>, <span class="dv">98</span>, <span class="dv">67</span>, <span class="dv">68</span>, <span class="dv">70</span>, <span class="dv">71</span>, <span class="dv">72</span>, <span class="dv">88</span>, <span class="dv">75</span>, <span class="dv">83</span>)
+Exam2 &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">94</span>, <span class="dv">93</span>, <span class="dv">62</span>, <span class="dv">63</span>, <span class="dv">65</span>, <span class="dv">66</span>, <span class="dv">67</span>, <span class="dv">83</span>, <span class="dv">70</span>, <span class="dv">76</span>) 
+exam.ds &lt;-<span class="st"> </span><span class="kw">data.frame</span>(Student, Exam1, Exam2)
+exam.ds</code></pre></div>
+<pre><code>##    Student Exam1 Exam2
+## 1      st1    99    94
+## 2      st2    98    93
+## 3      st3    67    62
+## 4      st4    68    63
+## 5      st5    70    65
+## 6      st6    71    66
+## 7      st7    72    67
+## 8      st8    88    83
+## 9      st9    75    70
+## 10    st10    83    76</code></pre>
+<p>The <code>exam.ds</code> data frame consists of three vectors: the student, exam one, and exam two.</p>
+<p>First check the variance between the two groups:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">var.test</span>(exam.ds<span class="op">$</span>Exam1, exam.ds<span class="op">$</span>Exam2)</code></pre></div>
+<pre><code>## 
+##  F test to compare two variances
+## 
+## data:  exam.ds$Exam1 and exam.ds$Exam2
+## F = 1.0091, num df = 9, denom df = 9, p-value = 0.9895
+## alternative hypothesis: true ratio of variances is not equal to 1
+## 95 percent confidence interval:
+##  0.2506424 4.0625692
+## sample estimates:
+## ratio of variances 
+##           1.009085</code></pre>
+<p>Given the p-value &gt; <span class="math inline">\(\alpha\)</span> = 0.05, the null hypothesis is not rejected such that there is no statistically significant difference in variances.</p>
+<p>Next, we define our hypotheses for the paired test:<br />
+-<span class="math inline">\(H_0\)</span>: there is no difference between exams one and two for students<br />
+-<span class="math inline">\(H_1\)</span>: there is a difference between exams one and two for students</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">t.test</span>(exam.ds<span class="op">$</span>Exam1, exam.ds<span class="op">$</span>Exam2, <span class="dt">paired =</span> <span class="ot">TRUE</span>, <span class="dt">var.equal =</span> <span class="ot">TRUE</span>)</code></pre></div>
+<pre><code>## 
+##  Paired t-test
+## 
+## data:  exam.ds$Exam1 and exam.ds$Exam2
+## t = 26, df = 9, p-value = 0.0000000008884
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  4.747569 5.652431
+## sample estimates:
+## mean of the differences 
+##                     5.2</code></pre>
+<p>Given the p-value &lt; <span class="math inline">\(\alpha\)</span> = 0.05, the null hypothesis is rejected such that there is a statistically significant difference in means. Next, to determine directionality, the <code>alt=&quot;greater&quot;</code> argument is included in the <code>t.test()</code> function. Additionally, the hypotheses are modified as follows: <span class="math inline">\(H_0\)</span>: there is no difference between exams one and two for students<br />
+<span class="math inline">\(H_1\)</span>: exams one performance is greater than exam two performance for students</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">t.test</span>(exam.ds<span class="op">$</span>Exam1, exam.ds<span class="op">$</span>Exam2, <span class="dt">paired =</span> <span class="ot">TRUE</span>, <span class="dt">var.equal =</span> <span class="ot">TRUE</span>, <span class="dt">alt =</span> <span class="st">&quot;greater&quot;</span>)</code></pre></div>
+<pre><code>## 
+##  Paired t-test
+## 
+## data:  exam.ds$Exam1 and exam.ds$Exam2
+## t = 26, df = 9, p-value = 0.0000000004442
+## alternative hypothesis: true difference in means is greater than 0
+## 95 percent confidence interval:
+##  4.833377      Inf
+## sample estimates:
+## mean of the differences 
+##                     5.2</code></pre>
+<p>Given the p-value &lt; <span class="math inline">\(\alpha\)</span> = 0.05, the null hypothesis is rejected.</p>
+</div>
+<div id="visualizing-differences-in-means" class="section level2">
+<h2><span class="header-section-number">6.5</span> Visualizing Differences in Means</h2>
+<p>Visualization of data is essential to interpreting and communicating difference in means. To demonstrate, we will use <code>ggplot2</code> to visualize the difference in exam scores used with the paired t-tests.</p>
+<p>First, we consider the difference of means with confidence intervals. We start by calculating the means for each exam:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">exam1 &lt;-<span class="st"> </span><span class="kw">mean</span>(exam.ds<span class="op">$</span>Exam1, <span class="dt">na.rm =</span> T)
+exam2 &lt;-<span class="st"> </span><span class="kw">mean</span>(exam.ds<span class="op">$</span>Exam2, <span class="dt">na.rm =</span> T)</code></pre></div>
+<p>Then, the standard errors:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">exam1.se &lt;-<span class="st"> </span><span class="kw">describe</span>(exam.ds<span class="op">$</span>Exam1)<span class="op">$</span>se
+exam2.se &lt;-<span class="st"> </span><span class="kw">describe</span>(exam.ds<span class="op">$</span>Exam2)<span class="op">$</span>se</code></pre></div>
+<p>Lastly, the bounds for the confidence intervals. The 1.96 z-score is used for 95% confidence:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">exam1up &lt;-<span class="st"> </span>exam1 <span class="op">+</span><span class="st"> </span>exam1.se<span class="op">*</span><span class="fl">1.96</span>
+exam1low &lt;-<span class="st"> </span>exam1 <span class="op">-</span><span class="st"> </span>exam1.se<span class="op">*</span><span class="fl">1.96</span>
+exam2up &lt;-<span class="st"> </span>exam2 <span class="op">+</span><span class="st"> </span>exam2.se<span class="op">*</span><span class="fl">1.96</span>
+exam2low &lt;-<span class="st"> </span>exam2 <span class="op">-</span><span class="st"> </span>exam2.se<span class="op">*</span><span class="fl">1.96</span></code></pre></div>
+<p>Next, a data frame is constructed with the previous information in respective vectors:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">test &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Exam1&quot;</span>, <span class="st">&quot;Exam2&quot;</span>)
+scores &lt;-<span class="st"> </span><span class="kw">c</span>(exam1, exam2)
+upper &lt;-<span class="st"> </span><span class="kw">c</span>(exam1up, exam2up)
+lower &lt;-<span class="st"> </span><span class="kw">c</span>(exam1low, exam2low)
+examdf &lt;-<span class="st"> </span><span class="kw">data.frame</span>(test, scores, upper, lower)
+examdf</code></pre></div>
+<pre><code>##    test scores    upper    lower
+## 1 Exam1   79.1 86.64282 71.55718
+## 2 Exam2   73.9 81.40879 66.39121</code></pre>
+<p>Now, for the visualization. Instead of a bar plot, we will create a graph consisting of a point for the means for each exam, and the confidence intervals. In additional, we will add color and labels. These arguments are available for other data sets and visualizations using <code>ggplot2</code>:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(examdf, <span class="kw">aes</span>(<span class="dt">x =</span> test, <span class="dt">y =</span> scores)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">size =</span> <span class="dv">3</span>, <span class="dt">shape =</span> <span class="dv">19</span>, <span class="dt">col =</span> <span class="st">&quot;dodgerblue3&quot;</span>) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_errorbar</span>(<span class="kw">aes</span>(<span class="dt">ymin =</span> lower, <span class="dt">ymax =</span> upper), <span class="dt">width =</span> .<span class="dv">1</span>, <span class="dt">col =</span> <span class="st">&quot;dodgerblue3&quot;</span>) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">ylim</span>(<span class="dv">10</span>, <span class="dv">100</span>) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">ggtitle</span>(<span class="st">&quot;Exam Scores&quot;</span>) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;Exams&quot;</span>) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">ylab</span>(<span class="st">&quot;Scores&quot;</span>) </code></pre></div>
+<p><img src="_main_files/figure-html/5_vis5-1.png" width="672" /></p>
+<p>Following the basic steps above will help you make attractive visualizations for different needs.</p>
+<p>Suppose the teacher wanted a visualization that plots each students’ test scores between the two exams for easy comparison. A grouped bar plot is a simple approach to accomplish this.</p>
+<p>This requires a different type of data frame. So far the data has been “wide” data, but we need “long” data. The <code>melt()</code> function found in the <code>dplyr</code> package converts data from wide to long format. Include “Exam1” and “Exam2” as the measured variables.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">exam.m &lt;-<span class="st"> </span><span class="kw">melt</span>(exam.ds, <span class="dt">measure.vars =</span> <span class="kw">c</span>(<span class="st">&quot;Exam1&quot;</span>, <span class="st">&quot;Exam2&quot;</span>))</code></pre></div>
+<p>The new data frame pairs the exams with the students and the respective score. This is what is meant by “long” data.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">exam.m</code></pre></div>
+<pre><code>##    Student variable value
+## 1      st1    Exam1    99
+## 2      st2    Exam1    98
+## 3      st3    Exam1    67
+## 4      st4    Exam1    68
+## 5      st5    Exam1    70
+## 6      st6    Exam1    71
+## 7      st7    Exam1    72
+## 8      st8    Exam1    88
+## 9      st9    Exam1    75
+## 10    st10    Exam1    83
+## 11     st1    Exam2    94
+## 12     st2    Exam2    93
+## 13     st3    Exam2    62
+## 14     st4    Exam2    63
+## 15     st5    Exam2    65
+## 16     st6    Exam2    66
+## 17     st7    Exam2    67
+## 18     st8    Exam2    83
+## 19     st9    Exam2    70
+## 20    st10    Exam2    76</code></pre>
+<p>The grouped bar plot is constructed similar to a bar plot, except that the visualization is based on the exam and uses the <code>position.dodge()</code> function to place bars near each other and the <code>fill=Exam</code> argument to specify what the groups</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(exam.m, <span class="kw">aes</span>(<span class="dt">x=</span>Student, <span class="dt">y=</span>value, <span class="dt">fill=</span>variable)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_bar</span>(<span class="dt">stat=</span><span class="st">&quot;identity&quot;</span>, <span class="dt">position =</span> <span class="kw">position_dodge</span>())</code></pre></div>
+<p><img src="_main_files/figure-html/5_vis8-1.png" width="672" /></p>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="foundations-for-inference.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="covariance-and-correlation.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"linkedin": false,
+"weibo": false,
+"instapper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "";
+    if (src === "" || src === "true") src = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:" && /^https?:/.test(src))
+      src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Lab Guide to Quantitative Research Methods in Political Science, Public Policy &amp; Public Administration.</title>
+  <meta name="description" content="Lab Guide to Quantitative Research Methods in Political Science, Public Policy &amp; Public Administration.">
+  <meta name="generator" content="bookdown 0.7 and GitBook 2.6.7">
+
+  <meta property="og:title" content="Lab Guide to Quantitative Research Methods in Political Science, Public Policy &amp; Public Administration." />
+  <meta property="og:type" content="book" />
+  
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Lab Guide to Quantitative Research Methods in Political Science, Public Policy &amp; Public Administration." />
+  
+  
+  
+
+<meta name="author" content="Alex Davis">
+<meta name="author" content="Cody Adams">
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="index.html">
+<link rel="next" href="describing-and-visualizing-data.html">
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+<script src="libs/htmlwidgets-1.2/htmlwidgets.js"></script>
+<script src="libs/plotly-binding-4.8.0/plotly.js"></script>
+<script src="libs/typedarray-0.1/typedarray.min.js"></script>
+<link href="libs/crosstalk-1.0.0/css/crosstalk.css" rel="stylesheet" />
+<script src="libs/crosstalk-1.0.0/js/crosstalk.min.js"></script>
+<link href="libs/plotly-htmlwidgets-css-1.39.2/plotly-htmlwidgets.css" rel="stylesheet" />
+<script src="libs/plotly-main-1.39.2/plotly-latest.min.js"></script>
+
+
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Preface</a><ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#acknowledgments"><i class="fa fa-check"></i><b>1.1</b> Acknowledgments</a></li>
+<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#requirements"><i class="fa fa-check"></i><b>1.2</b> Requirements</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="introduction-and-basics.html"><a href="introduction-and-basics.html"><i class="fa fa-check"></i><b>2</b> Introduction and Basics</a><ul>
+<li class="chapter" data-level="2.1" data-path="introduction-and-basics.html"><a href="introduction-and-basics.html#r-as-a-calculator"><i class="fa fa-check"></i><b>2.1</b> R, as a Calculator</a><ul>
+<li class="chapter" data-level="2.1.1" data-path="introduction-and-basics.html"><a href="introduction-and-basics.html#order-of-operations"><i class="fa fa-check"></i><b>2.1.1</b> Order of Operations</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="introduction-and-basics.html"><a href="introduction-and-basics.html#objects"><i class="fa fa-check"></i><b>2.2</b> Objects</a></li>
+<li class="chapter" data-level="2.3" data-path="introduction-and-basics.html"><a href="introduction-and-basics.html#functions"><i class="fa fa-check"></i><b>2.3</b> Functions</a><ul>
+<li class="chapter" data-level="2.3.1" data-path="introduction-and-basics.html"><a href="introduction-and-basics.html#object-types"><i class="fa fa-check"></i><b>2.3.1</b> Object Types</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="introduction-and-basics.html"><a href="introduction-and-basics.html#packages"><i class="fa fa-check"></i><b>2.4</b> Packages</a><ul>
+<li class="chapter" data-level="2.4.1" data-path="introduction-and-basics.html"><a href="introduction-and-basics.html#installing-packages"><i class="fa fa-check"></i><b>2.4.1</b> Installing Packages</a></li>
+<li class="chapter" data-level="2.4.2" data-path="introduction-and-basics.html"><a href="introduction-and-basics.html#loading-packages"><i class="fa fa-check"></i><b>2.4.2</b> Loading Packages</a></li>
+<li class="chapter" data-level="2.4.3" data-path="introduction-and-basics.html"><a href="introduction-and-basics.html#updating-packages"><i class="fa fa-check"></i><b>2.4.3</b> Updating Packages</a></li>
+</ul></li>
+<li class="chapter" data-level="2.5" data-path="introduction-and-basics.html"><a href="introduction-and-basics.html#r-help"><i class="fa fa-check"></i><b>2.5</b> R Help</a></li>
+<li class="chapter" data-level="2.6" data-path="introduction-and-basics.html"><a href="introduction-and-basics.html#setting-a-working-directory"><i class="fa fa-check"></i><b>2.6</b> Setting a Working Directory</a></li>
+<li class="chapter" data-level="2.7" data-path="introduction-and-basics.html"><a href="introduction-and-basics.html#importing-your-data"><i class="fa fa-check"></i><b>2.7</b> Importing Your Data</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="describing-and-visualizing-data.html"><a href="describing-and-visualizing-data.html"><i class="fa fa-check"></i><b>3</b> Describing and Visualizing Data’</a><ul>
+<li class="chapter" data-level="3.1" data-path="describing-and-visualizing-data.html"><a href="describing-and-visualizing-data.html#factoring"><i class="fa fa-check"></i><b>3.1</b> Factoring</a><ul>
+<li class="chapter" data-level="3.1.1" data-path="describing-and-visualizing-data.html"><a href="describing-and-visualizing-data.html#coerce-factoring"><i class="fa fa-check"></i><b>3.1.1</b> Coerce Factoring</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="describing-and-visualizing-data.html"><a href="describing-and-visualizing-data.html#recoding"><i class="fa fa-check"></i><b>3.2</b> Recoding</a><ul>
+<li class="chapter" data-level="3.2.1" data-path="describing-and-visualizing-data.html"><a href="describing-and-visualizing-data.html#factoring-and-recoding"><i class="fa fa-check"></i><b>3.2.1</b> Factoring and Recoding</a></li>
+<li class="chapter" data-level="3.2.2" data-path="describing-and-visualizing-data.html"><a href="describing-and-visualizing-data.html#creating-a-dummy-variable"><i class="fa fa-check"></i><b>3.2.2</b> Creating a Dummy Variable</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="describing-and-visualizing-data.html"><a href="describing-and-visualizing-data.html#building-and-sorting-your-data"><i class="fa fa-check"></i><b>3.3</b> Building and Sorting Your Data</a><ul>
+<li class="chapter" data-level="3.3.1" data-path="describing-and-visualizing-data.html"><a href="describing-and-visualizing-data.html#the-tidyverse"><i class="fa fa-check"></i><b>3.3.1</b> The Tidyverse</a></li>
+<li class="chapter" data-level="3.3.2" data-path="describing-and-visualizing-data.html"><a href="describing-and-visualizing-data.html#other-methods-of-exploring-your-data"><i class="fa fa-check"></i><b>3.3.2</b> Other Methods of Exploring Your Data</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="describing-and-visualizing-data.html"><a href="describing-and-visualizing-data.html#working-with-nominal-data"><i class="fa fa-check"></i><b>3.4</b> Working with Nominal Data</a><ul>
+<li class="chapter" data-level="3.4.1" data-path="describing-and-visualizing-data.html"><a href="describing-and-visualizing-data.html#finding-the-mode"><i class="fa fa-check"></i><b>3.4.1</b> Finding the Mode</a></li>
+<li class="chapter" data-level="3.4.2" data-path="describing-and-visualizing-data.html"><a href="describing-and-visualizing-data.html#visualizing-nominal-data"><i class="fa fa-check"></i><b>3.4.2</b> Visualizing Nominal Data</a></li>
+</ul></li>
+<li class="chapter" data-level="3.5" data-path="describing-and-visualizing-data.html"><a href="describing-and-visualizing-data.html#working-with-ordinal-data"><i class="fa fa-check"></i><b>3.5</b> Working with Ordinal Data</a></li>
+<li class="chapter" data-level="3.6" data-path="describing-and-visualizing-data.html"><a href="describing-and-visualizing-data.html#working-with-interval-data"><i class="fa fa-check"></i><b>3.6</b> Working with Interval Data</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="visualizing-data-probability-the-normal-distribution-and-z-scores.html"><a href="visualizing-data-probability-the-normal-distribution-and-z-scores.html"><i class="fa fa-check"></i><b>4</b> Visualizing Data, Probability, the Normal Distribution, and Z Scores</a><ul>
+<li class="chapter" data-level="4.1" data-path="visualizing-data-probability-the-normal-distribution-and-z-scores.html"><a href="visualizing-data-probability-the-normal-distribution-and-z-scores.html#histograms-and-density"><i class="fa fa-check"></i><b>4.1</b> Histograms and Density</a><ul>
+<li class="chapter" data-level="4.1.1" data-path="visualizing-data-probability-the-normal-distribution-and-z-scores.html"><a href="visualizing-data-probability-the-normal-distribution-and-z-scores.html#normal-distribution-and-histograms"><i class="fa fa-check"></i><b>4.1.1</b> Normal Distribution and Histograms</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="visualizing-data-probability-the-normal-distribution-and-z-scores.html"><a href="visualizing-data-probability-the-normal-distribution-and-z-scores.html#probability-and-distributions"><i class="fa fa-check"></i><b>4.2</b> Probability and Distributions</a></li>
+<li class="chapter" data-level="4.3" data-path="visualizing-data-probability-the-normal-distribution-and-z-scores.html"><a href="visualizing-data-probability-the-normal-distribution-and-z-scores.html#visualizing-normality"><i class="fa fa-check"></i><b>4.3</b> Visualizing Normality</a></li>
+<li class="chapter" data-level="4.4" data-path="visualizing-data-probability-the-normal-distribution-and-z-scores.html"><a href="visualizing-data-probability-the-normal-distribution-and-z-scores.html#z-scores"><i class="fa fa-check"></i><b>4.4</b> Z-Scores</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="foundations-for-inference.html"><a href="foundations-for-inference.html"><i class="fa fa-check"></i><b>5</b> Foundations for Inference</a><ul>
+<li class="chapter" data-level="5.1" data-path="foundations-for-inference.html"><a href="foundations-for-inference.html#testing-for-normality"><i class="fa fa-check"></i><b>5.1</b> Testing for Normality</a><ul>
+<li class="chapter" data-level="5.1.1" data-path="foundations-for-inference.html"><a href="foundations-for-inference.html#shapiro-wilk-test"><i class="fa fa-check"></i><b>5.1.1</b> Shapiro-Wilk Test</a></li>
+<li class="chapter" data-level="5.1.2" data-path="foundations-for-inference.html"><a href="foundations-for-inference.html#testing-normality"><i class="fa fa-check"></i><b>5.1.2</b> Testing Normality</a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="foundations-for-inference.html"><a href="foundations-for-inference.html#standard-errors"><i class="fa fa-check"></i><b>5.2</b> Standard Errors</a></li>
+<li class="chapter" data-level="5.3" data-path="foundations-for-inference.html"><a href="foundations-for-inference.html#confidence-intervals"><i class="fa fa-check"></i><b>5.3</b> Confidence Intervals</a></li>
+<li class="chapter" data-level="5.4" data-path="foundations-for-inference.html"><a href="foundations-for-inference.html#more-on-single-sample-t-tests"><i class="fa fa-check"></i><b>5.4</b> More on Single Sample T-tests</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="inference-for-two-populations.html"><a href="inference-for-two-populations.html"><i class="fa fa-check"></i><b>6</b> Inference for Two Populations</a><ul>
+<li class="chapter" data-level="6.1" data-path="inference-for-two-populations.html"><a href="inference-for-two-populations.html#proportions"><i class="fa fa-check"></i><b>6.1</b> Proportions</a><ul>
+<li class="chapter" data-level="6.1.1" data-path="inference-for-two-populations.html"><a href="inference-for-two-populations.html#two-populations"><i class="fa fa-check"></i><b>6.1.1</b> Two Populations</a></li>
+</ul></li>
+<li class="chapter" data-level="6.2" data-path="inference-for-two-populations.html"><a href="inference-for-two-populations.html#cross-tabulations"><i class="fa fa-check"></i><b>6.2</b> Cross Tabulations</a><ul>
+<li class="chapter" data-level="6.2.1" data-path="inference-for-two-populations.html"><a href="inference-for-two-populations.html#other-coefficients"><i class="fa fa-check"></i><b>6.2.1</b> Other Coefficients</a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="inference-for-two-populations.html"><a href="inference-for-two-populations.html#independent-t-tests"><i class="fa fa-check"></i><b>6.3</b> Independent t-tests</a><ul>
+<li class="chapter" data-level="6.3.1" data-path="inference-for-two-populations.html"><a href="inference-for-two-populations.html#other-independent-sample-tests"><i class="fa fa-check"></i><b>6.3.1</b> Other Independent Sample Tests</a></li>
+</ul></li>
+<li class="chapter" data-level="6.4" data-path="inference-for-two-populations.html"><a href="inference-for-two-populations.html#paired-t-test"><i class="fa fa-check"></i><b>6.4</b> Paired t-test</a></li>
+<li class="chapter" data-level="6.5" data-path="inference-for-two-populations.html"><a href="inference-for-two-populations.html#visualizing-differences-in-means"><i class="fa fa-check"></i><b>6.5</b> Visualizing Differences in Means</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="covariance-and-correlation.html"><a href="covariance-and-correlation.html"><i class="fa fa-check"></i><b>7</b> Covariance and Correlation</a><ul>
+<li class="chapter" data-level="7.1" data-path="covariance-and-correlation.html"><a href="covariance-and-correlation.html#covariance"><i class="fa fa-check"></i><b>7.1</b> Covariance</a><ul>
+<li class="chapter" data-level="7.1.1" data-path="covariance-and-correlation.html"><a href="covariance-and-correlation.html#covariance-by-hand"><i class="fa fa-check"></i><b>7.1.1</b> Covariance by Hand</a></li>
+<li class="chapter" data-level="7.1.2" data-path="covariance-and-correlation.html"><a href="covariance-and-correlation.html#covariance-in-r"><i class="fa fa-check"></i><b>7.1.2</b> Covariance in R</a></li>
+<li class="chapter" data-level="7.1.3" data-path="covariance-and-correlation.html"><a href="covariance-and-correlation.html#covariance-in-class-data-set"><i class="fa fa-check"></i><b>7.1.3</b> Covariance in Class Data Set</a></li>
+</ul></li>
+<li class="chapter" data-level="7.2" data-path="covariance-and-correlation.html"><a href="covariance-and-correlation.html#correlation"><i class="fa fa-check"></i><b>7.2</b> Correlation</a><ul>
+<li class="chapter" data-level="7.2.1" data-path="covariance-and-correlation.html"><a href="covariance-and-correlation.html#correlation-by-hand"><i class="fa fa-check"></i><b>7.2.1</b> Correlation by Hand</a></li>
+<li class="chapter" data-level="7.2.2" data-path="covariance-and-correlation.html"><a href="covariance-and-correlation.html#correlation-tests"><i class="fa fa-check"></i><b>7.2.2</b> Correlation Tests</a></li>
+<li class="chapter" data-level="7.2.3" data-path="covariance-and-correlation.html"><a href="covariance-and-correlation.html#correlation-across-groups"><i class="fa fa-check"></i><b>7.2.3</b> Correlation Across Groups</a></li>
+</ul></li>
+<li class="chapter" data-level="7.3" data-path="covariance-and-correlation.html"><a href="covariance-and-correlation.html#visualizing-correlation"><i class="fa fa-check"></i><b>7.3</b> Visualizing Correlation</a><ul>
+<li class="chapter" data-level="7.3.1" data-path="covariance-and-correlation.html"><a href="covariance-and-correlation.html#another-example-political-party"><i class="fa fa-check"></i><b>7.3.1</b> Another Example: Political Party</a></li>
+<li class="chapter" data-level="7.3.2" data-path="covariance-and-correlation.html"><a href="covariance-and-correlation.html#one-more-visualization"><i class="fa fa-check"></i><b>7.3.2</b> One More Visualization</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="bivariate-linear-regression.html"><a href="bivariate-linear-regression.html"><i class="fa fa-check"></i><b>8</b> Bivariate Linear Regression</a><ul>
+<li class="chapter" data-level="8.1" data-path="bivariate-linear-regression.html"><a href="bivariate-linear-regression.html#bivariate-linear-regression-by-hand"><i class="fa fa-check"></i><b>8.1</b> Bivariate Linear Regression by Hand</a><ul>
+<li class="chapter" data-level="8.1.1" data-path="bivariate-linear-regression.html"><a href="bivariate-linear-regression.html#calculating-goodness-of-fit"><i class="fa fa-check"></i><b>8.1.1</b> Calculating Goodness of Fit</a></li>
+<li class="chapter" data-level="8.1.2" data-path="bivariate-linear-regression.html"><a href="bivariate-linear-regression.html#checking-our-work"><i class="fa fa-check"></i><b>8.1.2</b> Checking Our Work</a></li>
+</ul></li>
+<li class="chapter" data-level="8.2" data-path="bivariate-linear-regression.html"><a href="bivariate-linear-regression.html#bivariate-regression-in-r"><i class="fa fa-check"></i><b>8.2</b> Bivariate Regression in R</a></li>
+<li class="chapter" data-level="8.3" data-path="bivariate-linear-regression.html"><a href="bivariate-linear-regression.html#the-residuals"><i class="fa fa-check"></i><b>8.3</b> The Residuals</a></li>
+<li class="chapter" data-level="8.4" data-path="bivariate-linear-regression.html"><a href="bivariate-linear-regression.html#comparing-models"><i class="fa fa-check"></i><b>8.4</b> Comparing Models</a><ul>
+<li class="chapter" data-level="8.4.1" data-path="bivariate-linear-regression.html"><a href="bivariate-linear-regression.html#visualizing-multiple-models"><i class="fa fa-check"></i><b>8.4.1</b> Visualizing Multiple Models</a></li>
+</ul></li>
+<li class="chapter" data-level="8.5" data-path="bivariate-linear-regression.html"><a href="bivariate-linear-regression.html#hypothesis-testing"><i class="fa fa-check"></i><b>8.5</b> Hypothesis Testing</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="multivariable-linear-regression.html"><a href="multivariable-linear-regression.html"><i class="fa fa-check"></i><b>9</b> Multivariable Linear Regression</a><ul>
+<li class="chapter" data-level="9.1" data-path="multivariable-linear-regression.html"><a href="multivariable-linear-regression.html#part-i-calculating-least-squared-estimates"><i class="fa fa-check"></i><b>9.1</b> Part I: Calculating Least-Squared Estimates</a><ul>
+<li class="chapter" data-level="9.1.1" data-path="multivariable-linear-regression.html"><a href="multivariable-linear-regression.html#matrix-algebra"><i class="fa fa-check"></i><b>9.1.1</b> Matrix Algebra</a></li>
+<li class="chapter" data-level="9.1.2" data-path="multivariable-linear-regression.html"><a href="multivariable-linear-regression.html#representing-system-of-linear-equations-as-matrices"><i class="fa fa-check"></i><b>9.1.2</b> Representing System of Linear Equations as Matrices</a></li>
+<li class="chapter" data-level="9.1.3" data-path="multivariable-linear-regression.html"><a href="multivariable-linear-regression.html#ols-regression-and-matrices"><i class="fa fa-check"></i><b>9.1.3</b> OLS Regression and Matrices</a></li>
+</ul></li>
+<li class="chapter" data-level="9.2" data-path="multivariable-linear-regression.html"><a href="multivariable-linear-regression.html#part-ii-multiple-regression-in-r"><i class="fa fa-check"></i><b>9.2</b> Part II: Multiple Regression in R</a></li>
+<li class="chapter" data-level="9.3" data-path="multivariable-linear-regression.html"><a href="multivariable-linear-regression.html#part-iii-hypothesis-testing-with-multivariable-regression"><i class="fa fa-check"></i><b>9.3</b> Part III: Hypothesis Testing with Multivariable Regression</a><ul>
+<li class="chapter" data-level="9.3.1" data-path="multivariable-linear-regression.html"><a href="multivariable-linear-regression.html#visualizing-multivariable-linear-regression"><i class="fa fa-check"></i><b>9.3.1</b> Visualizing Multivariable Linear Regression</a></li>
+</ul></li>
+<li class="chapter" data-level="9.4" data-path="multivariable-linear-regression.html"><a href="multivariable-linear-regression.html#part-iv-predicting-with-ols-regression"><i class="fa fa-check"></i><b>9.4</b> Part IV: Predicting with OLS Regression</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="categorical-explanatory-variables-dummy-variables-and-interactions.html"><a href="categorical-explanatory-variables-dummy-variables-and-interactions.html"><i class="fa fa-check"></i><b>10</b> Categorical Explanatory Variables, Dummy Variables, and Interactions</a><ul>
+<li class="chapter" data-level="10.1" data-path="categorical-explanatory-variables-dummy-variables-and-interactions.html"><a href="categorical-explanatory-variables-dummy-variables-and-interactions.html#dummy-variables"><i class="fa fa-check"></i><b>10.1</b> Dummy Variables</a><ul>
+<li class="chapter" data-level="10.1.1" data-path="categorical-explanatory-variables-dummy-variables-and-interactions.html"><a href="categorical-explanatory-variables-dummy-variables-and-interactions.html#multiple-dummy-variables"><i class="fa fa-check"></i><b>10.1.1</b> Multiple Dummy Variables</a></li>
+</ul></li>
+<li class="chapter" data-level="10.2" data-path="categorical-explanatory-variables-dummy-variables-and-interactions.html"><a href="categorical-explanatory-variables-dummy-variables-and-interactions.html#interactions"><i class="fa fa-check"></i><b>10.2</b> Interactions</a><ul>
+<li class="chapter" data-level="10.2.1" data-path="categorical-explanatory-variables-dummy-variables-and-interactions.html"><a href="categorical-explanatory-variables-dummy-variables-and-interactions.html#interactions-with-two-non-binary-variables"><i class="fa fa-check"></i><b>10.2.1</b> Interactions with Two Non-binary Variables</a></li>
+</ul></li>
+<li class="chapter" data-level="10.3" data-path="categorical-explanatory-variables-dummy-variables-and-interactions.html"><a href="categorical-explanatory-variables-dummy-variables-and-interactions.html#releveling-variables"><i class="fa fa-check"></i><b>10.3</b> Releveling Variables</a></li>
+<li class="chapter" data-level="10.4" data-path="categorical-explanatory-variables-dummy-variables-and-interactions.html"><a href="categorical-explanatory-variables-dummy-variables-and-interactions.html#interaction-plots"><i class="fa fa-check"></i><b>10.4</b> Interaction Plots</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="non-linearity-non-normality-and-multicollinearity.html"><a href="non-linearity-non-normality-and-multicollinearity.html"><i class="fa fa-check"></i><b>11</b> Non-linearity, Non-normality, and Multicollinearity</a><ul>
+<li class="chapter" data-level="11.1" data-path="non-linearity-non-normality-and-multicollinearity.html"><a href="non-linearity-non-normality-and-multicollinearity.html#non-linearity"><i class="fa fa-check"></i><b>11.1</b> Non-linearity</a><ul>
+<li class="chapter" data-level="11.1.1" data-path="non-linearity-non-normality-and-multicollinearity.html"><a href="non-linearity-non-normality-and-multicollinearity.html#exploring-non-linearity"><i class="fa fa-check"></i><b>11.1.1</b> Exploring Non-linearity</a></li>
+</ul></li>
+<li class="chapter" data-level="11.2" data-path="non-linearity-non-normality-and-multicollinearity.html"><a href="non-linearity-non-normality-and-multicollinearity.html#non-normality"><i class="fa fa-check"></i><b>11.2</b> Non-normality</a></li>
+<li class="chapter" data-level="11.3" data-path="non-linearity-non-normality-and-multicollinearity.html"><a href="non-linearity-non-normality-and-multicollinearity.html#multicollinearity"><i class="fa fa-check"></i><b>11.3</b> Multicollinearity</a></li>
+<li class="chapter" data-level="11.4" data-path="non-linearity-non-normality-and-multicollinearity.html"><a href="non-linearity-non-normality-and-multicollinearity.html#standardizing-coefficients"><i class="fa fa-check"></i><b>11.4</b> Standardizing Coefficients</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="diagnosing-and-addressing-problems-in-linear-regression.html"><a href="diagnosing-and-addressing-problems-in-linear-regression.html"><i class="fa fa-check"></i><b>12</b> Diagnosing and Addressing Problems in Linear Regression</a><ul>
+<li class="chapter" data-level="12.1" data-path="diagnosing-and-addressing-problems-in-linear-regression.html"><a href="diagnosing-and-addressing-problems-in-linear-regression.html#introduction-to-the-data"><i class="fa fa-check"></i><b>12.1</b> Introduction to the Data</a></li>
+<li class="chapter" data-level="12.2" data-path="diagnosing-and-addressing-problems-in-linear-regression.html"><a href="diagnosing-and-addressing-problems-in-linear-regression.html#outliers"><i class="fa fa-check"></i><b>12.2</b> Outliers</a></li>
+<li class="chapter" data-level="12.3" data-path="diagnosing-and-addressing-problems-in-linear-regression.html"><a href="diagnosing-and-addressing-problems-in-linear-regression.html#heteroscedasticity"><i class="fa fa-check"></i><b>12.3</b> Heteroscedasticity</a></li>
+<li class="chapter" data-level="12.4" data-path="diagnosing-and-addressing-problems-in-linear-regression.html"><a href="diagnosing-and-addressing-problems-in-linear-regression.html#revisiting-linearity"><i class="fa fa-check"></i><b>12.4</b> Revisiting Linearity</a><ul>
+<li class="chapter" data-level="12.4.1" data-path="diagnosing-and-addressing-problems-in-linear-regression.html"><a href="diagnosing-and-addressing-problems-in-linear-regression.html#normality"><i class="fa fa-check"></i><b>12.4.1</b> Normality</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="logistic-regression.html"><a href="logistic-regression.html"><i class="fa fa-check"></i><b>13</b> Logistic Regression</a><ul>
+<li class="chapter" data-level="13.1" data-path="logistic-regression.html"><a href="logistic-regression.html#logistic-regression-with-a-binary-dv"><i class="fa fa-check"></i><b>13.1</b> Logistic Regression with a Binary DV</a><ul>
+<li class="chapter" data-level="13.1.1" data-path="logistic-regression.html"><a href="logistic-regression.html#goodness-of-fit-logit-regression"><i class="fa fa-check"></i><b>13.1.1</b> Goodness of Fit, Logit Regression</a></li>
+<li class="chapter" data-level="13.1.2" data-path="logistic-regression.html"><a href="logistic-regression.html#percent-correctly-predicted"><i class="fa fa-check"></i><b>13.1.2</b> Percent Correctly Predicted</a></li>
+<li class="chapter" data-level="13.1.3" data-path="logistic-regression.html"><a href="logistic-regression.html#logit-regression-with-groups"><i class="fa fa-check"></i><b>13.1.3</b> Logit Regression with Groups</a></li>
+</ul></li>
+<li class="chapter" data-level="13.2" data-path="logistic-regression.html"><a href="logistic-regression.html#ordered-logit-and-creating-an-index"><i class="fa fa-check"></i><b>13.2</b> Ordered Logit and Creating an Index</a></li>
+</ul></li>
+<li class="chapter" data-level="14" data-path="statistical-simulations.html"><a href="statistical-simulations.html"><i class="fa fa-check"></i><b>14</b> Statistical Simulations</a><ul>
+<li class="chapter" data-level="14.1" data-path="statistical-simulations.html"><a href="statistical-simulations.html#the-basics"><i class="fa fa-check"></i><b>14.1</b> The Basics</a><ul>
+<li class="chapter" data-level="14.1.1" data-path="statistical-simulations.html"><a href="statistical-simulations.html#plotting-predictions-with-zelig"><i class="fa fa-check"></i><b>14.1.1</b> Plotting Predictions with Zelig</a></li>
+</ul></li>
+<li class="chapter" data-level="14.2" data-path="statistical-simulations.html"><a href="statistical-simulations.html#other-models"><i class="fa fa-check"></i><b>14.2</b> Other Models</a><ul>
+<li class="chapter" data-level="14.2.1" data-path="statistical-simulations.html"><a href="statistical-simulations.html#ordered-logit"><i class="fa fa-check"></i><b>14.2.1</b> Ordered Logit</a></li>
+<li class="chapter" data-level="14.2.2" data-path="statistical-simulations.html"><a href="statistical-simulations.html#another-example"><i class="fa fa-check"></i><b>14.2.2</b> Another Example</a></li>
+</ul></li>
+<li class="chapter" data-level="14.3" data-path="statistical-simulations.html"><a href="statistical-simulations.html#zelig-with-non-zelig-models"><i class="fa fa-check"></i><b>14.3</b> Zelig with non-Zelig Models:</a></li>
+</ul></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Lab Guide to Quantitative Research Methods in Political Science, Public Policy &amp; Public Administration.</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="introduction-and-basics" class="section level1">
+<h1><span class="header-section-number">2</span> Introduction and Basics</h1>
+<p>This chapter serves as a primer to R by introducing the basics. It is advised to follow the lab via the .rmd file within RStudio rather than solely the compiled PDF. This way, students can experiment with code in the “code blocks” provided. <strong>Note:</strong> In text R code is displayed in a <code>fixed-width</code> font.</p>
+<div id="r-as-a-calculator" class="section level2">
+<h2><span class="header-section-number">2.1</span> R, as a Calculator</h2>
+<p>The first thing to know about R is that it is essentially a large calculator capable of performing arithmetic:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="dv">1</span> <span class="op">+</span><span class="st"> </span><span class="dv">1</span></code></pre></div>
+<pre><code>## [1] 2</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="dv">8</span> <span class="op">*</span><span class="st"> </span><span class="dv">8</span></code></pre></div>
+<pre><code>## [1] 64</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="dv">2</span> <span class="op">^</span><span class="st"> </span><span class="dv">8</span> <span class="co"># exponent</span></code></pre></div>
+<pre><code>## [1] 256</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">(<span class="dv">5</span> <span class="op">+</span><span class="st"> </span><span class="dv">2</span>) <span class="op">^</span><span class="st"> </span><span class="dv">4</span></code></pre></div>
+<pre><code>## [1] 2401</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="dv">5</span> <span class="op">+</span><span class="st"> </span><span class="dv">2</span> <span class="op">^</span><span class="st"> </span><span class="dv">4</span></code></pre></div>
+<pre><code>## [1] 21</code></pre>
+<p>R also supports elementary and algebraic functions such as log and square root.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">log</span>(<span class="dv">100</span>)</code></pre></div>
+<pre><code>## [1] 4.60517</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">sqrt</span>(<span class="dv">49</span>)</code></pre></div>
+<pre><code>## [1] 7</code></pre>
+<div id="order-of-operations" class="section level3">
+<h3><span class="header-section-number">2.1.1</span> Order of Operations</h3>
+<p>R solves equations according to the order of operations, “PEMDAS”:</p>
+<ol style="list-style-type: decimal">
+<li>Parentheses</li>
+<li>Exponents</li>
+<li>Multiplication</li>
+<li>Division</li>
+<li>Addition</li>
+<li>Subtraction</li>
+</ol>
+<p>Watch this video for a refresher on the order of operations: <a href="https://www.youtube.com/watch?v=94yAmf7GyHw" class="uri">https://www.youtube.com/watch?v=94yAmf7GyHw</a></p>
+<p><strong>Try this!</strong> Using R, solve: (5 + 1) ^ 4 / (9 - 2) ^ 3</p>
+</div>
+</div>
+<div id="objects" class="section level2">
+<h2><span class="header-section-number">2.2</span> Objects</h2>
+<p>R is an “object oriented” programming language. Put simply, R uses objects to store attributes. Objects are created by assigning an attibute to them via the <code>&lt;-</code> operation. You can always view the attribute of an object by typing the object name.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">object1 &lt;-<span class="st"> </span><span class="dv">10</span> <span class="op">+</span><span class="st"> </span><span class="dv">10</span> 
+object1</code></pre></div>
+<pre><code>## [1] 20</code></pre>
+<p><strong>Try this!</strong> Create a new object below; you can name it almost anything!</p>
+<p>R includes various functions for managing created objects. The <code>ls()</code> function lists all existing objects.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ls</span>()</code></pre></div>
+<pre><code>## [1] &quot;ds&quot;       &quot;object1&quot;  &quot;packages&quot; &quot;pkg&quot;</code></pre>
+<p>The <code>rm()</code> function removes existing objects.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">rm</span>(object1)</code></pre></div>
+<p>There is no strict convention for naming objects; however, there are best practices:</p>
+<ol style="list-style-type: decimal">
+<li>Avoid spaces, use <em>underscores</em>, periods, or CamelCase (or camelCase) for long object names
+<ul>
+<li>e.g., This_is_a_long_name, This.Is.A.Long.Name, thisIsALongName</li>
+</ul></li>
+<li>Avoid names of existing functions or reserved R objects - e.g., <code>mean</code> or <code>sum</code></li>
+<li>Be descriptive but keep it short (less than 10 characters)</li>
+<li>Avoid special characters
+<ul>
+<li>e.g., ? $ % ^ &amp;</li>
+</ul></li>
+<li>Numbers are fine, but names cannot begin with numbers.
+<ul>
+<li>e.g., <code>object1</code> is ok, but <code>1object</code> is not</li>
+</ul></li>
+</ol>
+<p><strong>Important:</strong> Object names are case sensitive. - e.g., <code>object.One</code> and <code>Object.One</code> refer to two separate objects</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">object.One &lt;-<span class="st"> </span><span class="dv">10</span> <span class="op">+</span><span class="st"> </span><span class="dv">10</span>
+Object.One &lt;-<span class="st"> </span><span class="dv">5</span> <span class="op">+</span><span class="st"> </span><span class="dv">5</span>
+
+object.One</code></pre></div>
+<pre><code>## [1] 20</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">Object.One</code></pre></div>
+<pre><code>## [1] 10</code></pre>
+</div>
+<div id="functions" class="section level2">
+<h2><span class="header-section-number">2.3</span> Functions</h2>
+<p>In addition to elementary and algebraic functions, R includes functions that simplify statistical analysis. For example, the <code>mean()</code> function calculates the mean. <strong>Note:</strong> Sometimes <code>na.rm = TRUE</code> is necessary within the paranetheses to instruct R to ignore missing data.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">mean</span>(cars<span class="op">$</span>dist)</code></pre></div>
+<pre><code>## [1] 42.98</code></pre>
+<p>R comes with a vairety of “built in” data sets, such as the <code>cars</code> data set, which contains some information about about cars. This data set is used below to demonstrate and/or experiment with R functions.</p>
+<p>A note about syntax: the dollar sign, <code>$</code>, is used to indicate the variable of interest relative to a data set. This is important in the case of multiple data sets that contain variables of the same name. In the previous code, R calculated the mean using the <code>dist</code> variable within the <code>cars</code> data set by specifying <code>cars\$dist</code></p>
+<p>To ignore missing data when calculating the mean of <code>dist</code>, include the <code>na.rm = TRUE</code> argument within the paranetheses as follows.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">mean</span>(cars<span class="op">$</span>dist, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)</code></pre></div>
+<pre><code>## [1] 42.98</code></pre>
+<p><strong>Note:</strong> The mean is exactly the same because there is no missing data in the <code>dist</code> variable.</p>
+<div id="object-types" class="section level3">
+<h3><span class="header-section-number">2.3.1</span> Object Types</h3>
+<p>Object types are improtant in R and the type of an object is contingent on the attribute stored by the object. For example, an object storing characters (e.g., “blue”) has a different type than an object storing a number (e.g., 1). Use of R functions is contingent on the type of objects. For example, functions like <code>mean()</code> work only for objects containing numbers. The R <code>str()</code> function describes the structure of objects and functions.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">str</span>(mean)</code></pre></div>
+<pre><code>## Formal class &#39;standardGeneric&#39; [package &quot;methods&quot;] with 8 slots
+##   ..@ .Data     :function (x, ...)  
+##   ..@ generic   : chr &quot;mean&quot;
+##   .. ..- attr(*, &quot;package&quot;)= chr &quot;base&quot;
+##   ..@ package   : chr &quot;base&quot;
+##   ..@ group     : list()
+##   ..@ valueClass: chr(0) 
+##   ..@ signature : chr &quot;x&quot;
+##   ..@ default   :Formal class &#39;derivedDefaultMethod&#39; [package &quot;methods&quot;] with 4 slots
+##   .. .. ..@ .Data  :function (x, ...)  
+##   .. .. ..@ target :Formal class &#39;signature&#39; [package &quot;methods&quot;] with 3 slots
+##   .. .. .. .. ..@ .Data  : chr &quot;ANY&quot;
+##   .. .. .. .. ..@ names  : chr &quot;x&quot;
+##   .. .. .. .. ..@ package: chr &quot;methods&quot;
+##   .. .. ..@ defined:Formal class &#39;signature&#39; [package &quot;methods&quot;] with 3 slots
+##   .. .. .. .. ..@ .Data  : chr &quot;ANY&quot;
+##   .. .. .. .. ..@ names  : chr &quot;x&quot;
+##   .. .. .. .. ..@ package: chr &quot;methods&quot;
+##   .. .. ..@ generic: chr &quot;mean&quot;
+##   .. .. .. ..- attr(*, &quot;package&quot;)= chr &quot;base&quot;
+##   ..@ skeleton  : language (new(&quot;derivedDefaultMethod&quot;, .Data = function (x, ...)  UseMethod(&quot;mean&quot;), target = new(&quot;signature&quot;, .Data = &quot;ANY| __truncated__ ...</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">str</span>(object.One)</code></pre></div>
+<pre><code>##  num 20</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">str</span>(cars)</code></pre></div>
+<pre><code>## &#39;data.frame&#39;:    50 obs. of  2 variables:
+##  $ speed: num  4 4 7 7 8 9 10 10 10 11 ...
+##  $ dist : num  2 10 4 22 16 10 18 26 34 17 ...</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">str</span>(cars<span class="op">$</span>dist)</code></pre></div>
+<pre><code>##  num [1:50] 2 10 4 22 16 10 18 26 34 17 ...</code></pre>
+<p>The <code>str()</code> function described <code>mean</code> as a function, <code>object.One</code> as a numeric object, the <code>cars</code> data is a data frame, etc.</p>
+<p>Previously, objects were introduced as a method of storing single attributes, either a specified value or the result of arithmetic. In addition, objects can contain a collection of data via a vector or list. In mathematics and physics, a vector is defined as a quantity of both direction and magnitude. In R, vectors are defined a collection of data of the same type. The <code>c()</code> function creates a vector.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">vectorObject &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>)
+vectorObject</code></pre></div>
+<pre><code>## [1] 1 2 3</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">str</span>(vectorObject)</code></pre></div>
+<pre><code>##  num [1:3] 1 2 3</code></pre>
+<p>Further, a list is defined as a collection of multiple data types.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">listObject &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="st">&quot;your name&quot;</span>, <span class="dv">1</span>, F)
+listObject</code></pre></div>
+<pre><code>## [[1]]
+## [1] &quot;your name&quot;
+## 
+## [[2]]
+## [1] 1
+## 
+## [[3]]
+## [1] FALSE</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">str</span>(listObject)</code></pre></div>
+<pre><code>## List of 3
+##  $ : chr &quot;your name&quot;
+##  $ : num 1
+##  $ : logi FALSE</code></pre>
+<p><strong>Note:</strong> The structure of the list object consists of a character, a number, and a logic (True/False).</p>
+</div>
+</div>
+<div id="packages" class="section level2">
+<h2><span class="header-section-number">2.4</span> Packages</h2>
+<p>Packages expand R to include additional functions important to statistical analysis.</p>
+<div id="installing-packages" class="section level3">
+<h3><span class="header-section-number">2.4.1</span> Installing Packages</h3>
+<p>Installing packages in R is performed via <code>install.packages(&quot;packagename&quot;)</code>, whereby the name of the desired package must be within quotation marks.</p>
+<p><strong>Note:</strong> Occasionally a package may require dependencies for installation. The dependencies can be automatically installed along with the package by including the <code>dependencies = TRUE</code> argument within the <code>install.packages()</code> function.</p>
+<p><strong>Try this!</strong> Use this code to install the following packages:</p>
+<ol style="list-style-type: decimal">
+<li><code>car</code></li>
+<li><code>psych</code></li>
+<li><code>memisc</code></li>
+<li><code>Rcpp</code></li>
+</ol>
+</div>
+<div id="loading-packages" class="section level3">
+<h3><span class="header-section-number">2.4.2</span> Loading Packages</h3>
+<p>After installation, packages must be loaded to use their functions within R. Packages are loaded via <code>library(packagename)</code>. <strong>Note:</strong> Unlike the <code>install.packages()</code> function, the <code>library()</code> function does not require quotation marks around the package name.</p>
+<pre><code>## 
+## Attaching package: &#39;knitr&#39;</code></pre>
+<pre><code>## The following object is masked from &#39;package:skimr&#39;:
+## 
+##     kable</code></pre>
+<p><strong>Note:</strong> The <code>memisc</code> package contains object/package conflicts with the <code>car</code> package for the <code>recode</code> object. A conflict occurs when two packages contain objects (e.g., functions) of the same name. A conflict will not prevent loading packages; however, use of a specific package’s object requires an explicit call to the desired parent package. For example, to use the <code>recode()</code> function from <code>car</code>, the <code>car::recode(variable)</code> statement will explicitly call <code>recode()</code> from the <code>car</code> package. Vice versa, <code>memisc::recode()</code> will explicitly call <code>recode()</code> from the <code>memisc</code> package.</p>
+</div>
+<div id="updating-packages" class="section level3">
+<h3><span class="header-section-number">2.4.3</span> Updating Packages</h3>
+<p>Most packages are regularly updated. The <code>old.packages()</code> function compares installed packages to their latest versions online.</p>
+<p>The <code>update.packages()</code> function updates out of date packages. <strong>Note:</strong> Updating packages requires consent. The <code>ask = FALSE</code> argument will skip the additional consent step to save time.</p>
+<p>The <code>library()</code> function lists currently loaded packages.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>()</code></pre></div>
+<p>As previously demonstrated, occasionally conflicts exist between packages. The <code>conflicts()</code> lists conflicts between loaded packages.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">conflicts</span>()</code></pre></div>
+<pre><code>##   [1] &quot;show&quot;              &quot;show&quot;              &quot;factorize&quot;        
+##   [4] &quot;show&quot;              &quot;traceplot&quot;         &quot;sim&quot;              
+##   [7] &quot;summary&quot;           &quot;Arith&quot;             &quot;as.array&quot;         
+##  [10] &quot;coerce&quot;            &quot;Compare&quot;           &quot;format&quot;           
+##  [13] &quot;initialize&quot;        &quot;Math&quot;              &quot;Math2&quot;            
+##  [16] &quot;print&quot;             &quot;rename&quot;            &quot;show&quot;             
+##  [19] &quot;style&quot;             &quot;summary&quot;           &quot;Summary&quot;          
+##  [22] &quot;negative.binomial&quot; &quot;select&quot;            &quot;%&gt;%&quot;              
+##  [25] &quot;kable&quot;             &quot;%&gt;%&quot;               &quot;%&gt;%&quot;              
+##  [28] &quot;%&gt;%&quot;               &quot;arrange&quot;           &quot;arrange_&quot;         
+##  [31] &quot;collect&quot;           &quot;contains&quot;          &quot;distinct&quot;         
+##  [34] &quot;distinct_&quot;         &quot;do&quot;                &quot;do_&quot;              
+##  [37] &quot;ends_with&quot;         &quot;everything&quot;        &quot;filter&quot;           
+##  [40] &quot;filter_&quot;           &quot;group_by&quot;          &quot;group_by_&quot;        
+##  [43] &quot;groups&quot;            &quot;last&quot;              &quot;matches&quot;          
+##  [46] &quot;mutate&quot;            &quot;mutate_&quot;           &quot;num_range&quot;        
+##  [49] &quot;one_of&quot;            &quot;recode&quot;            &quot;rename&quot;           
+##  [52] &quot;rename_&quot;           &quot;select&quot;            &quot;select_&quot;          
+##  [55] &quot;slice&quot;             &quot;slice_&quot;            &quot;starts_with&quot;      
+##  [58] &quot;summarise&quot;         &quot;summarise_&quot;        &quot;syms&quot;             
+##  [61] &quot;transmute&quot;         &quot;transmute_&quot;        &quot;ungroup&quot;          
+##  [64] &quot;%&gt;%&quot;               &quot;reduce&quot;            &quot;%&gt;%&quot;              
+##  [67] &quot;expand&quot;            &quot;add_row&quot;           &quot;as_data_frame&quot;    
+##  [70] &quot;as_tibble&quot;         &quot;data_frame&quot;        &quot;data_frame_&quot;      
+##  [73] &quot;frame_data&quot;        &quot;glimpse&quot;           &quot;lst&quot;              
+##  [76] &quot;lst_&quot;              &quot;tbl_sum&quot;           &quot;tibble&quot;           
+##  [79] &quot;tribble&quot;           &quot;trunc_mat&quot;         &quot;type_sum&quot;         
+##  [82] &quot;arrow&quot;             &quot;enexpr&quot;            &quot;enexprs&quot;          
+##  [85] &quot;enquo&quot;             &quot;enquos&quot;            &quot;ensym&quot;            
+##  [88] &quot;ensyms&quot;            &quot;expr&quot;              &quot;last_plot&quot;        
+##  [91] &quot;quo&quot;               &quot;quo_name&quot;          &quot;quos&quot;             
+##  [94] &quot;stat&quot;              &quot;sym&quot;               &quot;syms&quot;             
+##  [97] &quot;unit&quot;              &quot;vars&quot;              &quot;%+%&quot;              
+## [100] &quot;alpha&quot;             &quot;logit&quot;             &quot;rescale&quot;          
+## [103] &quot;sim&quot;               &quot;smiths&quot;            &quot;logit&quot;            
+## [106] &quot;recode&quot;            &quot;some&quot;              &quot;coef&quot;             
+## [109] &quot;coefficients&quot;      &quot;contr.sum&quot;         &quot;contr.treatment&quot;  
+## [112] &quot;contrasts&quot;         &quot;contrasts&lt;-&quot;       &quot;cov2cor&quot;          
+## [115] &quot;df.residual&quot;       &quot;filter&quot;            &quot;fitted&quot;           
+## [118] &quot;lag&quot;               &quot;predict&quot;           &quot;residuals&quot;        
+## [121] &quot;toeplitz&quot;          &quot;update&quot;            &quot;vcov&quot;             
+## [124] &quot;image&quot;             &quot;layout&quot;            &quot;plot&quot;             
+## [127] &quot;head&quot;              &quot;prompt&quot;            &quot;tail&quot;             
+## [130] &quot;npk&quot;               &quot;Arith&quot;             &quot;cbind2&quot;           
+## [133] &quot;coerce&quot;            &quot;Compare&quot;           &quot;initialize&quot;       
+## [136] &quot;kronecker&quot;         &quot;Logic&quot;             &quot;Math&quot;             
+## [139] &quot;Math2&quot;             &quot;Ops&quot;               &quot;rbind2&quot;           
+## [142] &quot;show&quot;              &quot;Summary&quot;           &quot;%in%&quot;             
+## [145] &quot;all.equal&quot;         &quot;as.array&quot;          &quot;as.factor&quot;        
+## [148] &quot;as.matrix&quot;         &quot;as.ordered&quot;        &quot;body&lt;-&quot;           
+## [151] &quot;chol&quot;              &quot;chol2inv&quot;          &quot;colMeans&quot;         
+## [154] &quot;colSums&quot;           &quot;crossprod&quot;         &quot;det&quot;              
+## [157] &quot;determinant&quot;       &quot;diag&quot;              &quot;diag&lt;-&quot;           
+## [160] &quot;diff&quot;              &quot;drop&quot;              &quot;formals&lt;-&quot;        
+## [163] &quot;format&quot;            &quot;intersect&quot;         &quot;isSymmetric&quot;      
+## [166] &quot;kronecker&quot;         &quot;labels&quot;            &quot;mean&quot;             
+## [169] &quot;merge&quot;             &quot;norm&quot;              &quot;Position&quot;         
+## [172] &quot;print&quot;             &quot;qr&quot;                &quot;qr.coef&quot;          
+## [175] &quot;qr.fitted&quot;         &quot;qr.Q&quot;              &quot;qr.qty&quot;           
+## [178] &quot;qr.qy&quot;             &quot;qr.R&quot;              &quot;qr.resid&quot;         
+## [181] &quot;rcond&quot;             &quot;row.names&quot;         &quot;rowMeans&quot;         
+## [184] &quot;rowSums&quot;           &quot;sample&quot;            &quot;setdiff&quot;          
+## [187] &quot;setequal&quot;          &quot;solve&quot;             &quot;subset&quot;           
+## [190] &quot;summary&quot;           &quot;t&quot;                 &quot;tcrossprod&quot;       
+## [193] &quot;union&quot;             &quot;unique&quot;            &quot;unname&quot;           
+## [196] &quot;which&quot;             &quot;within&quot;            &quot;zapsmall&quot;</code></pre>
+<p>The <code>detach()</code> function detaches packages and is an alternative method to resolve conflicts. Supplying <code>unload = TRUE</code> argument within the <code>detach()</code> function will unload the package. For example, to resolve the <code>recode()</code> function conflict between <code>car</code> and <code>memisc</code>, the memisc package can be detached and unloaded as follows: <code>detach(package:memisc, unload = TRUE)</code>.</p>
+</div>
+</div>
+<div id="r-help" class="section level2">
+<h2><span class="header-section-number">2.5</span> R Help</h2>
+<p>R includes a help function to assist with functions, accessible by including a <code>?</code> prior to the function name.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">? mean</code></pre></div>
+<p><strong>Note:</strong> The help documentation will display in the bottom right quadrant of RStudio. Alternatively, typing the function name into the help search bar will yield a similar result.</p>
+<p>To search all of R documentation for help about a function, use <code>??</code>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">?? mean</code></pre></div>
+<p><strong>Note:</strong> Google is a valuable tool for finding help. Large communities like StackExchange consist of answers and explanations to common issues in R. At times a particular problem may seem unique, but someone else has almost certainly had the same problem and the solution likely can be found online.</p>
+</div>
+<div id="setting-a-working-directory" class="section level2">
+<h2><span class="header-section-number">2.6</span> Setting a Working Directory</h2>
+<p>The working directory is the location where files accessed and saved within a R session. Normally, the working directory is set at the beginning of every R file. The working directory should be set and the class data set at the beginning of each lab.</p>
+<p>There are two methods of setting the working directory. First, the <code>setwd()</code> function can be used with the directory path. For example, <code>setwd(&quot;C:/Directory\_to\_folder/&quot;)</code>. <strong>Note:</strong> Forward slashes are used in place of backward slashes for directory paths.</p>
+<p>Second, within RStudio, the “Session” tab will set the working directory. The following steps provide guidance to the “Session” tab functionality:</p>
+<ol style="list-style-type: decimal">
+<li>Click the “Session” tab.</li>
+<li>Select “Set Working Directory.”</li>
+<li>Select “Choose Directory.”</li>
+<li>Select the working directory.</li>
+</ol>
+<p>The <code>getwd()</code> function returns the set working directory.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">getwd</span>()</code></pre></div>
+<pre><code>## [1] &quot;/Users/lolevo/Documents/GitHub/qrmlabs&quot;</code></pre>
+</div>
+<div id="importing-your-data" class="section level2">
+<h2><span class="header-section-number">2.7</span> Importing Your Data</h2>
+<p>R can read many different file types, including text files, Excel files, Google Sheet files, SPSS files, and Stata files. It can even read data sets directly from websites. The file type determines the function that is necessary import a data set. For example CSV files use the function <code>read.csv</code> to import a dataset. Here is an example that uses this function:</p>
+<p><code>ds &lt;- read.csv(&quot;Class Data Set Factored.csv&quot;, header = TRUE)</code></p>
+<p>This line of code saves the data set in <code>Class Data Set Factored.csv</code> to an object called ds (short for data set). The <code>header = TRUE</code> argument tells R that the first row in the data set provides column (or variable) names. <strong>Note:</strong> This code assumes that <code>Class Data Set Factored.csv</code> is in the working directory. To check, use <code>list.files()</code>. If the file containing the data set is not in the working directory, provide the complete file path in the <code>read.csv</code> function, like this:</p>
+<p><code>ds &lt;- read_csv(&quot;https://github.com/ripberjt/qrmlabs/raw/master/Class%20Data%20Set%20Factored.csv&quot;, header = TRUE)</code></p>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="index.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="describing-and-visualizing-data.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"linkedin": false,
+"weibo": false,
+"instapper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "";
+    if (src === "" || src === "true") src = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:" && /^https?:/.test(src))
+      src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

@@ -1,0 +1,787 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Lab Guide to Quantitative Research Methods in Political Science, Public Policy &amp; Public Administration.</title>
+  <meta name="description" content="Lab Guide to Quantitative Research Methods in Political Science, Public Policy &amp; Public Administration.">
+  <meta name="generator" content="bookdown 0.7 and GitBook 2.6.7">
+
+  <meta property="og:title" content="Lab Guide to Quantitative Research Methods in Political Science, Public Policy &amp; Public Administration." />
+  <meta property="og:type" content="book" />
+  
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Lab Guide to Quantitative Research Methods in Political Science, Public Policy &amp; Public Administration." />
+  
+  
+  
+
+<meta name="author" content="Alex Davis">
+<meta name="author" content="Cody Adams">
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="logistic-regression.html">
+
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+<script src="libs/htmlwidgets-1.2/htmlwidgets.js"></script>
+<script src="libs/plotly-binding-4.8.0/plotly.js"></script>
+<script src="libs/typedarray-0.1/typedarray.min.js"></script>
+<link href="libs/crosstalk-1.0.0/css/crosstalk.css" rel="stylesheet" />
+<script src="libs/crosstalk-1.0.0/js/crosstalk.min.js"></script>
+<link href="libs/plotly-htmlwidgets-css-1.39.2/plotly-htmlwidgets.css" rel="stylesheet" />
+<script src="libs/plotly-main-1.39.2/plotly-latest.min.js"></script>
+
+
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Preface</a><ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#acknowledgments"><i class="fa fa-check"></i><b>1.1</b> Acknowledgments</a></li>
+<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#requirements"><i class="fa fa-check"></i><b>1.2</b> Requirements</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="introduction-and-basics.html"><a href="introduction-and-basics.html"><i class="fa fa-check"></i><b>2</b> Introduction and Basics</a><ul>
+<li class="chapter" data-level="2.1" data-path="introduction-and-basics.html"><a href="introduction-and-basics.html#r-as-a-calculator"><i class="fa fa-check"></i><b>2.1</b> R, as a Calculator</a><ul>
+<li class="chapter" data-level="2.1.1" data-path="introduction-and-basics.html"><a href="introduction-and-basics.html#order-of-operations"><i class="fa fa-check"></i><b>2.1.1</b> Order of Operations</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="introduction-and-basics.html"><a href="introduction-and-basics.html#objects"><i class="fa fa-check"></i><b>2.2</b> Objects</a></li>
+<li class="chapter" data-level="2.3" data-path="introduction-and-basics.html"><a href="introduction-and-basics.html#functions"><i class="fa fa-check"></i><b>2.3</b> Functions</a><ul>
+<li class="chapter" data-level="2.3.1" data-path="introduction-and-basics.html"><a href="introduction-and-basics.html#object-types"><i class="fa fa-check"></i><b>2.3.1</b> Object Types</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="introduction-and-basics.html"><a href="introduction-and-basics.html#packages"><i class="fa fa-check"></i><b>2.4</b> Packages</a><ul>
+<li class="chapter" data-level="2.4.1" data-path="introduction-and-basics.html"><a href="introduction-and-basics.html#installing-packages"><i class="fa fa-check"></i><b>2.4.1</b> Installing Packages</a></li>
+<li class="chapter" data-level="2.4.2" data-path="introduction-and-basics.html"><a href="introduction-and-basics.html#loading-packages"><i class="fa fa-check"></i><b>2.4.2</b> Loading Packages</a></li>
+<li class="chapter" data-level="2.4.3" data-path="introduction-and-basics.html"><a href="introduction-and-basics.html#updating-packages"><i class="fa fa-check"></i><b>2.4.3</b> Updating Packages</a></li>
+</ul></li>
+<li class="chapter" data-level="2.5" data-path="introduction-and-basics.html"><a href="introduction-and-basics.html#r-help"><i class="fa fa-check"></i><b>2.5</b> R Help</a></li>
+<li class="chapter" data-level="2.6" data-path="introduction-and-basics.html"><a href="introduction-and-basics.html#setting-a-working-directory"><i class="fa fa-check"></i><b>2.6</b> Setting a Working Directory</a></li>
+<li class="chapter" data-level="2.7" data-path="introduction-and-basics.html"><a href="introduction-and-basics.html#importing-your-data"><i class="fa fa-check"></i><b>2.7</b> Importing Your Data</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="describing-and-visualizing-data.html"><a href="describing-and-visualizing-data.html"><i class="fa fa-check"></i><b>3</b> Describing and Visualizing Data’</a><ul>
+<li class="chapter" data-level="3.1" data-path="describing-and-visualizing-data.html"><a href="describing-and-visualizing-data.html#factoring"><i class="fa fa-check"></i><b>3.1</b> Factoring</a><ul>
+<li class="chapter" data-level="3.1.1" data-path="describing-and-visualizing-data.html"><a href="describing-and-visualizing-data.html#coerce-factoring"><i class="fa fa-check"></i><b>3.1.1</b> Coerce Factoring</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="describing-and-visualizing-data.html"><a href="describing-and-visualizing-data.html#recoding"><i class="fa fa-check"></i><b>3.2</b> Recoding</a><ul>
+<li class="chapter" data-level="3.2.1" data-path="describing-and-visualizing-data.html"><a href="describing-and-visualizing-data.html#factoring-and-recoding"><i class="fa fa-check"></i><b>3.2.1</b> Factoring and Recoding</a></li>
+<li class="chapter" data-level="3.2.2" data-path="describing-and-visualizing-data.html"><a href="describing-and-visualizing-data.html#creating-a-dummy-variable"><i class="fa fa-check"></i><b>3.2.2</b> Creating a Dummy Variable</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="describing-and-visualizing-data.html"><a href="describing-and-visualizing-data.html#building-and-sorting-your-data"><i class="fa fa-check"></i><b>3.3</b> Building and Sorting Your Data</a><ul>
+<li class="chapter" data-level="3.3.1" data-path="describing-and-visualizing-data.html"><a href="describing-and-visualizing-data.html#the-tidyverse"><i class="fa fa-check"></i><b>3.3.1</b> The Tidyverse</a></li>
+<li class="chapter" data-level="3.3.2" data-path="describing-and-visualizing-data.html"><a href="describing-and-visualizing-data.html#other-methods-of-exploring-your-data"><i class="fa fa-check"></i><b>3.3.2</b> Other Methods of Exploring Your Data</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="describing-and-visualizing-data.html"><a href="describing-and-visualizing-data.html#working-with-nominal-data"><i class="fa fa-check"></i><b>3.4</b> Working with Nominal Data</a><ul>
+<li class="chapter" data-level="3.4.1" data-path="describing-and-visualizing-data.html"><a href="describing-and-visualizing-data.html#finding-the-mode"><i class="fa fa-check"></i><b>3.4.1</b> Finding the Mode</a></li>
+<li class="chapter" data-level="3.4.2" data-path="describing-and-visualizing-data.html"><a href="describing-and-visualizing-data.html#visualizing-nominal-data"><i class="fa fa-check"></i><b>3.4.2</b> Visualizing Nominal Data</a></li>
+</ul></li>
+<li class="chapter" data-level="3.5" data-path="describing-and-visualizing-data.html"><a href="describing-and-visualizing-data.html#working-with-ordinal-data"><i class="fa fa-check"></i><b>3.5</b> Working with Ordinal Data</a></li>
+<li class="chapter" data-level="3.6" data-path="describing-and-visualizing-data.html"><a href="describing-and-visualizing-data.html#working-with-interval-data"><i class="fa fa-check"></i><b>3.6</b> Working with Interval Data</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="visualizing-data-probability-the-normal-distribution-and-z-scores.html"><a href="visualizing-data-probability-the-normal-distribution-and-z-scores.html"><i class="fa fa-check"></i><b>4</b> Visualizing Data, Probability, the Normal Distribution, and Z Scores</a><ul>
+<li class="chapter" data-level="4.1" data-path="visualizing-data-probability-the-normal-distribution-and-z-scores.html"><a href="visualizing-data-probability-the-normal-distribution-and-z-scores.html#histograms-and-density"><i class="fa fa-check"></i><b>4.1</b> Histograms and Density</a><ul>
+<li class="chapter" data-level="4.1.1" data-path="visualizing-data-probability-the-normal-distribution-and-z-scores.html"><a href="visualizing-data-probability-the-normal-distribution-and-z-scores.html#normal-distribution-and-histograms"><i class="fa fa-check"></i><b>4.1.1</b> Normal Distribution and Histograms</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="visualizing-data-probability-the-normal-distribution-and-z-scores.html"><a href="visualizing-data-probability-the-normal-distribution-and-z-scores.html#probability-and-distributions"><i class="fa fa-check"></i><b>4.2</b> Probability and Distributions</a></li>
+<li class="chapter" data-level="4.3" data-path="visualizing-data-probability-the-normal-distribution-and-z-scores.html"><a href="visualizing-data-probability-the-normal-distribution-and-z-scores.html#visualizing-normality"><i class="fa fa-check"></i><b>4.3</b> Visualizing Normality</a></li>
+<li class="chapter" data-level="4.4" data-path="visualizing-data-probability-the-normal-distribution-and-z-scores.html"><a href="visualizing-data-probability-the-normal-distribution-and-z-scores.html#z-scores"><i class="fa fa-check"></i><b>4.4</b> Z-Scores</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="foundations-for-inference.html"><a href="foundations-for-inference.html"><i class="fa fa-check"></i><b>5</b> Foundations for Inference</a><ul>
+<li class="chapter" data-level="5.1" data-path="foundations-for-inference.html"><a href="foundations-for-inference.html#testing-for-normality"><i class="fa fa-check"></i><b>5.1</b> Testing for Normality</a><ul>
+<li class="chapter" data-level="5.1.1" data-path="foundations-for-inference.html"><a href="foundations-for-inference.html#shapiro-wilk-test"><i class="fa fa-check"></i><b>5.1.1</b> Shapiro-Wilk Test</a></li>
+<li class="chapter" data-level="5.1.2" data-path="foundations-for-inference.html"><a href="foundations-for-inference.html#testing-normality"><i class="fa fa-check"></i><b>5.1.2</b> Testing Normality</a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="foundations-for-inference.html"><a href="foundations-for-inference.html#standard-errors"><i class="fa fa-check"></i><b>5.2</b> Standard Errors</a></li>
+<li class="chapter" data-level="5.3" data-path="foundations-for-inference.html"><a href="foundations-for-inference.html#confidence-intervals"><i class="fa fa-check"></i><b>5.3</b> Confidence Intervals</a></li>
+<li class="chapter" data-level="5.4" data-path="foundations-for-inference.html"><a href="foundations-for-inference.html#more-on-single-sample-t-tests"><i class="fa fa-check"></i><b>5.4</b> More on Single Sample T-tests</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="inference-for-two-populations.html"><a href="inference-for-two-populations.html"><i class="fa fa-check"></i><b>6</b> Inference for Two Populations</a><ul>
+<li class="chapter" data-level="6.1" data-path="inference-for-two-populations.html"><a href="inference-for-two-populations.html#proportions"><i class="fa fa-check"></i><b>6.1</b> Proportions</a><ul>
+<li class="chapter" data-level="6.1.1" data-path="inference-for-two-populations.html"><a href="inference-for-two-populations.html#two-populations"><i class="fa fa-check"></i><b>6.1.1</b> Two Populations</a></li>
+</ul></li>
+<li class="chapter" data-level="6.2" data-path="inference-for-two-populations.html"><a href="inference-for-two-populations.html#cross-tabulations"><i class="fa fa-check"></i><b>6.2</b> Cross Tabulations</a><ul>
+<li class="chapter" data-level="6.2.1" data-path="inference-for-two-populations.html"><a href="inference-for-two-populations.html#other-coefficients"><i class="fa fa-check"></i><b>6.2.1</b> Other Coefficients</a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="inference-for-two-populations.html"><a href="inference-for-two-populations.html#independent-t-tests"><i class="fa fa-check"></i><b>6.3</b> Independent t-tests</a><ul>
+<li class="chapter" data-level="6.3.1" data-path="inference-for-two-populations.html"><a href="inference-for-two-populations.html#other-independent-sample-tests"><i class="fa fa-check"></i><b>6.3.1</b> Other Independent Sample Tests</a></li>
+</ul></li>
+<li class="chapter" data-level="6.4" data-path="inference-for-two-populations.html"><a href="inference-for-two-populations.html#paired-t-test"><i class="fa fa-check"></i><b>6.4</b> Paired t-test</a></li>
+<li class="chapter" data-level="6.5" data-path="inference-for-two-populations.html"><a href="inference-for-two-populations.html#visualizing-differences-in-means"><i class="fa fa-check"></i><b>6.5</b> Visualizing Differences in Means</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="covariance-and-correlation.html"><a href="covariance-and-correlation.html"><i class="fa fa-check"></i><b>7</b> Covariance and Correlation</a><ul>
+<li class="chapter" data-level="7.1" data-path="covariance-and-correlation.html"><a href="covariance-and-correlation.html#covariance"><i class="fa fa-check"></i><b>7.1</b> Covariance</a><ul>
+<li class="chapter" data-level="7.1.1" data-path="covariance-and-correlation.html"><a href="covariance-and-correlation.html#covariance-by-hand"><i class="fa fa-check"></i><b>7.1.1</b> Covariance by Hand</a></li>
+<li class="chapter" data-level="7.1.2" data-path="covariance-and-correlation.html"><a href="covariance-and-correlation.html#covariance-in-r"><i class="fa fa-check"></i><b>7.1.2</b> Covariance in R</a></li>
+<li class="chapter" data-level="7.1.3" data-path="covariance-and-correlation.html"><a href="covariance-and-correlation.html#covariance-in-class-data-set"><i class="fa fa-check"></i><b>7.1.3</b> Covariance in Class Data Set</a></li>
+</ul></li>
+<li class="chapter" data-level="7.2" data-path="covariance-and-correlation.html"><a href="covariance-and-correlation.html#correlation"><i class="fa fa-check"></i><b>7.2</b> Correlation</a><ul>
+<li class="chapter" data-level="7.2.1" data-path="covariance-and-correlation.html"><a href="covariance-and-correlation.html#correlation-by-hand"><i class="fa fa-check"></i><b>7.2.1</b> Correlation by Hand</a></li>
+<li class="chapter" data-level="7.2.2" data-path="covariance-and-correlation.html"><a href="covariance-and-correlation.html#correlation-tests"><i class="fa fa-check"></i><b>7.2.2</b> Correlation Tests</a></li>
+<li class="chapter" data-level="7.2.3" data-path="covariance-and-correlation.html"><a href="covariance-and-correlation.html#correlation-across-groups"><i class="fa fa-check"></i><b>7.2.3</b> Correlation Across Groups</a></li>
+</ul></li>
+<li class="chapter" data-level="7.3" data-path="covariance-and-correlation.html"><a href="covariance-and-correlation.html#visualizing-correlation"><i class="fa fa-check"></i><b>7.3</b> Visualizing Correlation</a><ul>
+<li class="chapter" data-level="7.3.1" data-path="covariance-and-correlation.html"><a href="covariance-and-correlation.html#another-example-political-party"><i class="fa fa-check"></i><b>7.3.1</b> Another Example: Political Party</a></li>
+<li class="chapter" data-level="7.3.2" data-path="covariance-and-correlation.html"><a href="covariance-and-correlation.html#one-more-visualization"><i class="fa fa-check"></i><b>7.3.2</b> One More Visualization</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="bivariate-linear-regression.html"><a href="bivariate-linear-regression.html"><i class="fa fa-check"></i><b>8</b> Bivariate Linear Regression</a><ul>
+<li class="chapter" data-level="8.1" data-path="bivariate-linear-regression.html"><a href="bivariate-linear-regression.html#bivariate-linear-regression-by-hand"><i class="fa fa-check"></i><b>8.1</b> Bivariate Linear Regression by Hand</a><ul>
+<li class="chapter" data-level="8.1.1" data-path="bivariate-linear-regression.html"><a href="bivariate-linear-regression.html#calculating-goodness-of-fit"><i class="fa fa-check"></i><b>8.1.1</b> Calculating Goodness of Fit</a></li>
+<li class="chapter" data-level="8.1.2" data-path="bivariate-linear-regression.html"><a href="bivariate-linear-regression.html#checking-our-work"><i class="fa fa-check"></i><b>8.1.2</b> Checking Our Work</a></li>
+</ul></li>
+<li class="chapter" data-level="8.2" data-path="bivariate-linear-regression.html"><a href="bivariate-linear-regression.html#bivariate-regression-in-r"><i class="fa fa-check"></i><b>8.2</b> Bivariate Regression in R</a></li>
+<li class="chapter" data-level="8.3" data-path="bivariate-linear-regression.html"><a href="bivariate-linear-regression.html#the-residuals"><i class="fa fa-check"></i><b>8.3</b> The Residuals</a></li>
+<li class="chapter" data-level="8.4" data-path="bivariate-linear-regression.html"><a href="bivariate-linear-regression.html#comparing-models"><i class="fa fa-check"></i><b>8.4</b> Comparing Models</a><ul>
+<li class="chapter" data-level="8.4.1" data-path="bivariate-linear-regression.html"><a href="bivariate-linear-regression.html#visualizing-multiple-models"><i class="fa fa-check"></i><b>8.4.1</b> Visualizing Multiple Models</a></li>
+</ul></li>
+<li class="chapter" data-level="8.5" data-path="bivariate-linear-regression.html"><a href="bivariate-linear-regression.html#hypothesis-testing"><i class="fa fa-check"></i><b>8.5</b> Hypothesis Testing</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="multivariable-linear-regression.html"><a href="multivariable-linear-regression.html"><i class="fa fa-check"></i><b>9</b> Multivariable Linear Regression</a><ul>
+<li class="chapter" data-level="9.1" data-path="multivariable-linear-regression.html"><a href="multivariable-linear-regression.html#part-i-calculating-least-squared-estimates"><i class="fa fa-check"></i><b>9.1</b> Part I: Calculating Least-Squared Estimates</a><ul>
+<li class="chapter" data-level="9.1.1" data-path="multivariable-linear-regression.html"><a href="multivariable-linear-regression.html#matrix-algebra"><i class="fa fa-check"></i><b>9.1.1</b> Matrix Algebra</a></li>
+<li class="chapter" data-level="9.1.2" data-path="multivariable-linear-regression.html"><a href="multivariable-linear-regression.html#representing-system-of-linear-equations-as-matrices"><i class="fa fa-check"></i><b>9.1.2</b> Representing System of Linear Equations as Matrices</a></li>
+<li class="chapter" data-level="9.1.3" data-path="multivariable-linear-regression.html"><a href="multivariable-linear-regression.html#ols-regression-and-matrices"><i class="fa fa-check"></i><b>9.1.3</b> OLS Regression and Matrices</a></li>
+</ul></li>
+<li class="chapter" data-level="9.2" data-path="multivariable-linear-regression.html"><a href="multivariable-linear-regression.html#part-ii-multiple-regression-in-r"><i class="fa fa-check"></i><b>9.2</b> Part II: Multiple Regression in R</a></li>
+<li class="chapter" data-level="9.3" data-path="multivariable-linear-regression.html"><a href="multivariable-linear-regression.html#part-iii-hypothesis-testing-with-multivariable-regression"><i class="fa fa-check"></i><b>9.3</b> Part III: Hypothesis Testing with Multivariable Regression</a><ul>
+<li class="chapter" data-level="9.3.1" data-path="multivariable-linear-regression.html"><a href="multivariable-linear-regression.html#visualizing-multivariable-linear-regression"><i class="fa fa-check"></i><b>9.3.1</b> Visualizing Multivariable Linear Regression</a></li>
+</ul></li>
+<li class="chapter" data-level="9.4" data-path="multivariable-linear-regression.html"><a href="multivariable-linear-regression.html#part-iv-predicting-with-ols-regression"><i class="fa fa-check"></i><b>9.4</b> Part IV: Predicting with OLS Regression</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="categorical-explanatory-variables-dummy-variables-and-interactions.html"><a href="categorical-explanatory-variables-dummy-variables-and-interactions.html"><i class="fa fa-check"></i><b>10</b> Categorical Explanatory Variables, Dummy Variables, and Interactions</a><ul>
+<li class="chapter" data-level="10.1" data-path="categorical-explanatory-variables-dummy-variables-and-interactions.html"><a href="categorical-explanatory-variables-dummy-variables-and-interactions.html#dummy-variables"><i class="fa fa-check"></i><b>10.1</b> Dummy Variables</a><ul>
+<li class="chapter" data-level="10.1.1" data-path="categorical-explanatory-variables-dummy-variables-and-interactions.html"><a href="categorical-explanatory-variables-dummy-variables-and-interactions.html#multiple-dummy-variables"><i class="fa fa-check"></i><b>10.1.1</b> Multiple Dummy Variables</a></li>
+</ul></li>
+<li class="chapter" data-level="10.2" data-path="categorical-explanatory-variables-dummy-variables-and-interactions.html"><a href="categorical-explanatory-variables-dummy-variables-and-interactions.html#interactions"><i class="fa fa-check"></i><b>10.2</b> Interactions</a><ul>
+<li class="chapter" data-level="10.2.1" data-path="categorical-explanatory-variables-dummy-variables-and-interactions.html"><a href="categorical-explanatory-variables-dummy-variables-and-interactions.html#interactions-with-two-non-binary-variables"><i class="fa fa-check"></i><b>10.2.1</b> Interactions with Two Non-binary Variables</a></li>
+</ul></li>
+<li class="chapter" data-level="10.3" data-path="categorical-explanatory-variables-dummy-variables-and-interactions.html"><a href="categorical-explanatory-variables-dummy-variables-and-interactions.html#releveling-variables"><i class="fa fa-check"></i><b>10.3</b> Releveling Variables</a></li>
+<li class="chapter" data-level="10.4" data-path="categorical-explanatory-variables-dummy-variables-and-interactions.html"><a href="categorical-explanatory-variables-dummy-variables-and-interactions.html#interaction-plots"><i class="fa fa-check"></i><b>10.4</b> Interaction Plots</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="non-linearity-non-normality-and-multicollinearity.html"><a href="non-linearity-non-normality-and-multicollinearity.html"><i class="fa fa-check"></i><b>11</b> Non-linearity, Non-normality, and Multicollinearity</a><ul>
+<li class="chapter" data-level="11.1" data-path="non-linearity-non-normality-and-multicollinearity.html"><a href="non-linearity-non-normality-and-multicollinearity.html#non-linearity"><i class="fa fa-check"></i><b>11.1</b> Non-linearity</a><ul>
+<li class="chapter" data-level="11.1.1" data-path="non-linearity-non-normality-and-multicollinearity.html"><a href="non-linearity-non-normality-and-multicollinearity.html#exploring-non-linearity"><i class="fa fa-check"></i><b>11.1.1</b> Exploring Non-linearity</a></li>
+</ul></li>
+<li class="chapter" data-level="11.2" data-path="non-linearity-non-normality-and-multicollinearity.html"><a href="non-linearity-non-normality-and-multicollinearity.html#non-normality"><i class="fa fa-check"></i><b>11.2</b> Non-normality</a></li>
+<li class="chapter" data-level="11.3" data-path="non-linearity-non-normality-and-multicollinearity.html"><a href="non-linearity-non-normality-and-multicollinearity.html#multicollinearity"><i class="fa fa-check"></i><b>11.3</b> Multicollinearity</a></li>
+<li class="chapter" data-level="11.4" data-path="non-linearity-non-normality-and-multicollinearity.html"><a href="non-linearity-non-normality-and-multicollinearity.html#standardizing-coefficients"><i class="fa fa-check"></i><b>11.4</b> Standardizing Coefficients</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="diagnosing-and-addressing-problems-in-linear-regression.html"><a href="diagnosing-and-addressing-problems-in-linear-regression.html"><i class="fa fa-check"></i><b>12</b> Diagnosing and Addressing Problems in Linear Regression</a><ul>
+<li class="chapter" data-level="12.1" data-path="diagnosing-and-addressing-problems-in-linear-regression.html"><a href="diagnosing-and-addressing-problems-in-linear-regression.html#introduction-to-the-data"><i class="fa fa-check"></i><b>12.1</b> Introduction to the Data</a></li>
+<li class="chapter" data-level="12.2" data-path="diagnosing-and-addressing-problems-in-linear-regression.html"><a href="diagnosing-and-addressing-problems-in-linear-regression.html#outliers"><i class="fa fa-check"></i><b>12.2</b> Outliers</a></li>
+<li class="chapter" data-level="12.3" data-path="diagnosing-and-addressing-problems-in-linear-regression.html"><a href="diagnosing-and-addressing-problems-in-linear-regression.html#heteroscedasticity"><i class="fa fa-check"></i><b>12.3</b> Heteroscedasticity</a></li>
+<li class="chapter" data-level="12.4" data-path="diagnosing-and-addressing-problems-in-linear-regression.html"><a href="diagnosing-and-addressing-problems-in-linear-regression.html#revisiting-linearity"><i class="fa fa-check"></i><b>12.4</b> Revisiting Linearity</a><ul>
+<li class="chapter" data-level="12.4.1" data-path="diagnosing-and-addressing-problems-in-linear-regression.html"><a href="diagnosing-and-addressing-problems-in-linear-regression.html#normality"><i class="fa fa-check"></i><b>12.4.1</b> Normality</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="logistic-regression.html"><a href="logistic-regression.html"><i class="fa fa-check"></i><b>13</b> Logistic Regression</a><ul>
+<li class="chapter" data-level="13.1" data-path="logistic-regression.html"><a href="logistic-regression.html#logistic-regression-with-a-binary-dv"><i class="fa fa-check"></i><b>13.1</b> Logistic Regression with a Binary DV</a><ul>
+<li class="chapter" data-level="13.1.1" data-path="logistic-regression.html"><a href="logistic-regression.html#goodness-of-fit-logit-regression"><i class="fa fa-check"></i><b>13.1.1</b> Goodness of Fit, Logit Regression</a></li>
+<li class="chapter" data-level="13.1.2" data-path="logistic-regression.html"><a href="logistic-regression.html#percent-correctly-predicted"><i class="fa fa-check"></i><b>13.1.2</b> Percent Correctly Predicted</a></li>
+<li class="chapter" data-level="13.1.3" data-path="logistic-regression.html"><a href="logistic-regression.html#logit-regression-with-groups"><i class="fa fa-check"></i><b>13.1.3</b> Logit Regression with Groups</a></li>
+</ul></li>
+<li class="chapter" data-level="13.2" data-path="logistic-regression.html"><a href="logistic-regression.html#ordered-logit-and-creating-an-index"><i class="fa fa-check"></i><b>13.2</b> Ordered Logit and Creating an Index</a></li>
+</ul></li>
+<li class="chapter" data-level="14" data-path="statistical-simulations.html"><a href="statistical-simulations.html"><i class="fa fa-check"></i><b>14</b> Statistical Simulations</a><ul>
+<li class="chapter" data-level="14.1" data-path="statistical-simulations.html"><a href="statistical-simulations.html#the-basics"><i class="fa fa-check"></i><b>14.1</b> The Basics</a><ul>
+<li class="chapter" data-level="14.1.1" data-path="statistical-simulations.html"><a href="statistical-simulations.html#plotting-predictions-with-zelig"><i class="fa fa-check"></i><b>14.1.1</b> Plotting Predictions with Zelig</a></li>
+</ul></li>
+<li class="chapter" data-level="14.2" data-path="statistical-simulations.html"><a href="statistical-simulations.html#other-models"><i class="fa fa-check"></i><b>14.2</b> Other Models</a><ul>
+<li class="chapter" data-level="14.2.1" data-path="statistical-simulations.html"><a href="statistical-simulations.html#ordered-logit"><i class="fa fa-check"></i><b>14.2.1</b> Ordered Logit</a></li>
+<li class="chapter" data-level="14.2.2" data-path="statistical-simulations.html"><a href="statistical-simulations.html#another-example"><i class="fa fa-check"></i><b>14.2.2</b> Another Example</a></li>
+</ul></li>
+<li class="chapter" data-level="14.3" data-path="statistical-simulations.html"><a href="statistical-simulations.html#zelig-with-non-zelig-models"><i class="fa fa-check"></i><b>14.3</b> Zelig with non-Zelig Models:</a></li>
+</ul></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Lab Guide to Quantitative Research Methods in Political Science, Public Policy &amp; Public Administration.</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="statistical-simulations" class="section level1">
+<h1><span class="header-section-number">14</span> Statistical Simulations</h1>
+<p>So far we have covered many different techniques of statistical analysis. This lab will cover the basics of statistical simulations. As a foundation for this, we will be using the various functions associated with the Zelig Project. Zelig provides a method of simulating outcomes based on certain parameters, but it also provides a different way of constructing almost any model in R. The following packages are required for this lab:</p>
+<ol style="list-style-type: decimal">
+<li>tidyverse</li>
+<li>psych</li>
+<li>car</li>
+<li>stargazer</li>
+<li>reshape2</li>
+<li>MASS</li>
+<li>zeligverse</li>
+</ol>
+<div id="the-basics" class="section level2">
+<h2><span class="header-section-number">14.1</span> The Basics</h2>
+<p>The basics of Zelig can be broken down into four steps:</p>
+<ol style="list-style-type: decimal">
+<li><code>zelig()</code> function to estimate parameters.</li>
+<li><code>setx()</code> to set values.</li>
+<li><code>sim()</code> to simulate the quantities of interest.</li>
+<li><code>plot()</code> to visualize the simulation results.</li>
+</ol>
+<p>As the lab progresses, we will amend the steps, but these are almost always a good place to start.</p>
+<p>First create a subset of data and remove missing observations.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ds.sub &lt;-<span class="st"> </span>ds <span class="op">%&gt;%</span>
+<span class="st">  </span>dplyr<span class="op">::</span><span class="kw">select</span>(<span class="st">&quot;footage&quot;</span>, <span class="st">&quot;income&quot;</span>, <span class="st">&quot;education&quot;</span>, <span class="st">&quot;age&quot;</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">na.omit</span>()</code></pre></div>
+<p>Use OLS regression to look at the relationship between square footage of a home (DV) and the IVs income, age, and education. First we use <code>zelig()</code> to specify the model, indicate <code>model=&quot;ls&quot;</code>. For the income variable use logged income. As we’ve shown many times throughout the lab, the income variable has a skew.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ds.sub<span class="op">$</span>log.inc &lt;-<span class="st"> </span><span class="kw">log</span>(ds.sub<span class="op">$</span>income)
+ols1 &lt;-<span class="st"> </span><span class="kw">zelig</span>(footage <span class="op">~</span><span class="st"> </span>log.inc <span class="op">+</span><span class="st"> </span>age <span class="op">+</span><span class="st"> </span>education, <span class="dt">data =</span> ds.sub, <span class="dt">model =</span> <span class="st">&quot;ls&quot;</span>, <span class="dt">cite =</span> <span class="ot">FALSE</span>)</code></pre></div>
+<p>Just like any other model, we look at the results using the usual methods. Let’s start with <code>summary()</code>:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summary</span>(ols1)</code></pre></div>
+<pre><code>## Model: 
+## 
+## Call:
+## z5$zelig(formula = footage ~ log.inc + age + education, data = ds.sub)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -1951.5  -526.0  -176.6   296.6 18199.8 
+## 
+## Coefficients:
+##              Estimate Std. Error t value             Pr(&gt;|t|)
+## (Intercept) -4598.212    403.704 -11.390 &lt; 0.0000000000000002
+## log.inc       536.881     36.366  14.763 &lt; 0.0000000000000002
+## age             9.633      1.695   5.683          0.000000015
+## education      32.968     14.126   2.334               0.0197
+## 
+## Residual standard error: 1111 on 2232 degrees of freedom
+## Multiple R-squared:  0.1186, Adjusted R-squared:  0.1174 
+## F-statistic: 100.1 on 3 and 2232 DF,  p-value: &lt; 0.00000000000000022
+## 
+## Next step: Use &#39;setx&#39; method</code></pre>
+<p>As we could have guessed, increased income corresponds with increased square footage, as does age and education. Further explore education and square footage while holding logged income and age at their means. First take a look at the education variable:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">table</span>(ds.sub<span class="op">$</span>education)</code></pre></div>
+<pre><code>## 
+##   1   2   3   4   5   6   7   8 
+##  24 270 110 456 180 653 406 137</code></pre>
+<p>According to the code book, a 2 indicates a High School education, and 6 indicates a Bachelor’s degree. We can set the x value of education to both 2 and 6, and then have Zelig run Monte Carlo simulations, creating quantities of interest that we can compare. Use <code>setx()</code> and <code>setx1()</code> to set the two x values:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ols1.ed &lt;-<span class="st"> </span><span class="kw">setx</span>(ols1, <span class="dt">education =</span> <span class="dv">2</span>)
+ols1.ed &lt;-<span class="st"> </span><span class="kw">setx1</span>(ols1.ed, <span class="dt">education =</span> <span class="dv">6</span>)
+ols1.ed</code></pre></div>
+<pre><code>## setx:
+##   (Intercept) log.inc  age education
+## 1           1    10.9 59.9         2
+## setx1:
+##   (Intercept) log.inc  age education
+## 1           1    10.9 59.9         6
+## 
+## Next step: Use &#39;sim&#39; method</code></pre>
+<p>The next step is to use the <code>Zelig::sim()</code> function. This will use Monte Carlo simulations to generate quantiles of interest at each of the specified levels. In the past we might have predicted a Y value based on a model, but this will allow us to see mean, standard deviation, and more, based on 1000 simulations at each level of x.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ols.sim &lt;-<span class="st"> </span>Zelig<span class="op">::</span><span class="kw">sim</span>(ols1.ed)
+<span class="kw">summary</span>(ols.sim)</code></pre></div>
+<pre><code>## 
+##  sim x :
+##  -----
+## ev
+##       mean       sd      50%     2.5%   97.5%
+## 1 1915.526 49.33007 1916.169 1822.868 2011.28
+## pv
+##          mean      sd      50%      2.5%    97.5%
+## [1,] 1947.017 1083.78 1944.384 -261.5647 4044.672
+## 
+##  sim x1 :
+##  -----
+## ev
+##       mean       sd      50%     2.5%    97.5%
+## 1 2046.847 26.29678 2047.144 1995.798 2100.174
+## pv
+##          mean       sd      50%      2.5%    97.5%
+## [1,] 2131.777 1127.846 2097.634 -53.42045 4340.725
+## fd
+##       mean       sd      50%     2.5%    97.5%
+## 1 131.3212 56.90982 131.8491 26.07368 241.1586</code></pre>
+<p>Next we use <code>plot()</code> to visualize the various QIs. I recommend clicking the “Show in New Window” button in the top right corner of the space below. <strong>Note:</strong> This is not visible via the knit PDF.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(ols.sim)</code></pre></div>
+<p><img src="_main_files/figure-html/13_zel7-1.png" width="672" /></p>
+<p>We can use Zelig to simulate based on a range of values, similar to how we would sequence one independent variable when we would predict in past labs. Let’s simulate the data for the whole range of education values, from 1 to 8. We use to pipe operator, %&gt;%, to simplify the syntax.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ols2.ed &lt;-<span class="st"> </span><span class="kw">setx</span>(ols1, <span class="dt">education=</span><span class="dv">1</span><span class="op">:</span><span class="dv">8</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span>Zelig<span class="op">::</span><span class="kw">sim</span>()
+<span class="kw">plot</span>(ols2.ed)</code></pre></div>
+<p><img src="_main_files/figure-html/13_zel8-1.png" width="672" /></p>
+<div id="plotting-predictions-with-zelig" class="section level3">
+<h3><span class="header-section-number">14.1.1</span> Plotting Predictions with Zelig</h3>
+<p>Zelig is useful in another way: plotting predictions. By adding only two more steps to the process, R can return a data frame of information in the tidyverse format that we plot with <code>ggplot2</code>. Let’s plot predicted values of Y, square footage of home, by each education level. We’ve got the simulated values, so use <code>zelig_qi_to_df()</code> to transform the data into a data frame, and use <code>qi_slimmer()</code> to slim the values and generate confidence intervals for each point:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ols.ed.df &lt;-<span class="st"> </span><span class="kw">zelig_qi_to_df</span>(ols2.ed) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">qi_slimmer</span>()</code></pre></div>
+<pre><code>## Slimming Expected Values . . .</code></pre>
+<p>Take a look at the new data:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ols.ed.df</code></pre></div>
+<pre><code>##   setx_value  log.inc      age education qi_ci_min qi_ci_median qi_ci_max
+## 1          x 10.93598 59.94007         1  1768.807     1888.237  2003.685
+## 2          x 10.93598 59.94007         2  1823.811     1919.995  2013.536
+## 3          x 10.93598 59.94007         3  1876.057     1952.843  2024.939
+## 4          x 10.93598 59.94007         4  1927.109     1984.267  2037.408
+## 5          x 10.93598 59.94007         5  1968.526     2016.057  2064.091
+## 6          x 10.93598 59.94007         6  1995.594     2047.471  2099.608
+## 7          x 10.93598 59.94007         7  2016.014     2079.884  2145.876
+## 8          x 10.93598 59.94007         8  2025.621     2111.976  2200.112</code></pre>
+<p>Logged income and age are held at their means, education is sequenced from 1 to 8, and there are three other groups of values. <code>Qi_ci_min</code> is the lower limit, <code>qi_ci_median</code> is the estimate, and <code>qi_ci_max</code> is the upper limit. Let’s plot them. Make sure to use <code>factor(education)</code> to treat each level separately.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(ols.ed.df, <span class="kw">aes</span>(<span class="kw">factor</span>(education), qi_ci_median)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_errorbar</span>(<span class="kw">aes</span>(<span class="dt">ymin =</span> qi_ci_min, <span class="dt">ymax =</span> qi_ci_max)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_point</span>()</code></pre></div>
+<p><img src="_main_files/figure-html/13_zel11-1.png" width="672" /></p>
+</div>
+</div>
+<div id="other-models" class="section level2">
+<h2><span class="header-section-number">14.2</span> Other Models</h2>
+<p>Zelig can be utilized for many different types of models. Let’s run through an example of logistic regression. For instance, we can run through the example we used in the last lab, predicting a vote for Trump.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ds<span class="op">$</span>trump &lt;-<span class="st"> </span>car<span class="op">::</span><span class="kw">recode</span>(ds<span class="op">$</span>vote_cand, <span class="st">&quot;0 = 1;1 = 0;else = NA;NA = NA&quot;</span>)</code></pre></div>
+<p>Subset the data and remove missing observations:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ds.sub &lt;-<span class="st"> </span>ds <span class="op">%&gt;%</span><span class="st"> </span>dplyr<span class="op">::</span><span class="kw">select</span>(<span class="st">&quot;footage&quot;</span>, <span class="st">&quot;trump&quot;</span>, <span class="st">&quot;gender&quot;</span>,
+                                <span class="st">&quot;ideol&quot;</span>, <span class="st">&quot;income&quot;</span>, <span class="st">&quot;education&quot;</span>, <span class="st">&quot;race&quot;</span>, <span class="st">&quot;age&quot;</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">na.omit</span>() <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">log.inc =</span> <span class="kw">log</span>(income))</code></pre></div>
+<p>Build a model that includes gender, ideology, logged income, education, and race. To indicate a logit model, include <code>model=&quot;logit&quot;</code>:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">z.log &lt;-<span class="st"> </span><span class="kw">zelig</span>(trump <span class="op">~</span><span class="st"> </span>gender <span class="op">+</span><span class="st"> </span>ideol <span class="op">+</span><span class="st"> </span>log.inc <span class="op">+</span><span class="st"> </span>education <span class="op">+</span><span class="st"> </span>race, <span class="dt">data =</span> ds.sub, <span class="dt">model=</span><span class="st">&quot;logit&quot;</span>, <span class="dt">cite=</span><span class="ot">FALSE</span>)
+<span class="kw">summary</span>(z.log)</code></pre></div>
+<pre><code>## Model: 
+## 
+## Call:
+## z5$zelig(formula = trump ~ gender + ideol + log.inc + education + 
+##     race, data = ds.sub)
+## 
+## Deviance Residuals: 
+##     Min       1Q   Median       3Q      Max  
+## -2.8637  -0.3625   0.2492   0.4504   2.8749  
+## 
+## Coefficients:
+##             Estimate Std. Error z value             Pr(&gt;|z|)
+## (Intercept) -4.74842    1.23843  -3.834             0.000126
+## gender       0.10011    0.15174   0.660             0.509394
+## ideol        1.27104    0.05868  21.661 &lt; 0.0000000000000002
+## log.inc      0.10294    0.11766   0.875             0.381643
+## education   -0.21835    0.04648  -4.698           0.00000263
+## race        -0.25301    0.06389  -3.960           0.00007500
+## 
+## (Dispersion parameter for binomial family taken to be 1)
+## 
+##     Null deviance: 2322.4  on 1772  degrees of freedom
+## Residual deviance: 1225.2  on 1767  degrees of freedom
+## AIC: 1237.2
+## 
+## Number of Fisher Scoring iterations: 5
+## 
+## Next step: Use &#39;setx&#39; method</code></pre>
+<p>Since we used ideology in the last lab, let’s find the predicted probabilities of voting for Trump based on education levels:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">log.out &lt;-<span class="st"> </span><span class="kw">setx</span>(z.log, <span class="dt">education =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">8</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span>Zelig<span class="op">::</span><span class="kw">sim</span>() <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">zelig_qi_to_df</span>() <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">qi_slimmer</span>()</code></pre></div>
+<pre><code>## Slimming Expected Values . . .</code></pre>
+<p>Now take a look at the data frame:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">log.out</code></pre></div>
+<pre><code>##   setx_value    gender    ideol  log.inc education     race qi_ci_min
+## 1          x 0.4179357 4.695431 10.97955         1 1.320361 0.8043388
+## 2          x 0.4179357 4.695431 10.97955         2 1.320361 0.7830302
+## 3          x 0.4179357 4.695431 10.97955         3 1.320361 0.7574758
+## 4          x 0.4179357 4.695431 10.97955         4 1.320361 0.7294318
+## 5          x 0.4179357 4.695431 10.97955         5 1.320361 0.6939839
+## 6          x 0.4179357 4.695431 10.97955         6 1.320361 0.6425855
+## 7          x 0.4179357 4.695431 10.97955         7 1.320361 0.5798745
+## 8          x 0.4179357 4.695431 10.97955         8 1.320361 0.5057178
+##   qi_ci_median qi_ci_max
+## 1    0.8634084 0.9074866
+## 2    0.8350942 0.8773442
+## 3    0.8031580 0.8399864
+## 4    0.7659425 0.7993544
+## 5    0.7240259 0.7553631
+## 6    0.6774094 0.7148882
+## 7    0.6287197 0.6782930
+## 8    0.5758595 0.6452315</code></pre>
+<p>Next make the visualization.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(log.out, <span class="kw">aes</span>(<span class="kw">factor</span>(education), qi_ci_median))<span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_errorbar</span>(<span class="kw">aes</span>(<span class="dt">ymin =</span> qi_ci_min, <span class="dt">ymax =</span> qi_ci_max), <span class="dt">width =</span> .<span class="dv">2</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">size =</span> <span class="dv">2</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">ylab</span>(<span class="st">&quot;Predicted Probability of Trump Vote&quot;</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;Education Level&quot;</span>)</code></pre></div>
+<p><img src="_main_files/figure-html/13_zel17-1.png" width="672" /></p>
+<div id="ordered-logit" class="section level3">
+<h3><span class="header-section-number">14.2.1</span> Ordered Logit</h3>
+<p>Recall that in the last lab, we created an index of energy-saving activities and used ordered logit to assess the probability of individuals doing the activities based on their perceived climate change risk. Let’s revisit that model and go one step farther than we did last time. Instead of looking at predicted probabilities, we will use Zelig to simulate predicted values, actually predicting the number of energy-saving activities individuals do based on their perceived climate change risk.</p>
+<p>First create the index again:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">energy &lt;-<span class="st"> </span><span class="kw">with</span>(ds, <span class="kw">cbind</span>(enrgy_steps_lghts, enrgy_steps_heat, enrgy_steps_ac, 
+                         enrgy_steps_savappl, enrgy_steps_unplug, enrgy_steps_insul,
+                         enrgy_steps_savdoor, enrgy_steps_bulbs))
+
+ds<span class="op">$</span>s.energy &lt;-<span class="st"> </span><span class="kw">with</span>(ds, enrgy_steps_lghts <span class="op">+</span><span class="st"> </span>enrgy_steps_heat <span class="op">+</span><span class="st"> </span>enrgy_steps_ac <span class="op">+</span>
+<span class="st">                        </span>enrgy_steps_savappl <span class="op">+</span><span class="st"> </span>enrgy_steps_unplug <span class="op">+</span><span class="st"> </span>enrgy_steps_insul <span class="op">+</span>
+<span class="st">                        </span>enrgy_steps_savdoor <span class="op">+</span><span class="st"> </span>enrgy_steps_bulbs)</code></pre></div>
+<p>Subset the data and remove missing observations:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ds.sub3 &lt;-<span class="st"> </span>ds <span class="op">%&gt;%</span>
+<span class="st">  </span>dplyr<span class="op">::</span><span class="kw">select</span>(<span class="st">&quot;s.energy&quot;</span>, <span class="st">&quot;ideol&quot;</span>, <span class="st">&quot;age&quot;</span>, <span class="st">&quot;glbcc_risk&quot;</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">na.omit</span>()</code></pre></div>
+<p>Create a factored version of the index:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ds.sub3<span class="op">$</span>f.energy &lt;-<span class="st"> </span><span class="kw">factor</span>(ds.sub3<span class="op">$</span>s.energy)</code></pre></div>
+<p>Build the model using <code>model=&quot;ologit&quot;</code>:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">logit1 &lt;-<span class="st"> </span><span class="kw">zelig</span>(f.energy <span class="op">~</span><span class="st"> </span>ideol <span class="op">+</span><span class="st"> </span>age <span class="op">+</span><span class="st"> </span>glbcc_risk, <span class="dt">data=</span>ds.sub3,
+               <span class="dt">model =</span> <span class="st">&quot;ologit&quot;</span>, <span class="dt">cite=</span><span class="ot">FALSE</span>)</code></pre></div>
+<p>Let’s review the results:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summary</span>(logit1)</code></pre></div>
+<pre><code>## Model: 
+## Call:
+## z5$zelig(formula = f.energy ~ ideol + age + glbcc_risk, data = ds.sub3)
+## 
+## Coefficients:
+##                Value Std. Error t value
+## ideol       0.048599   0.025282  1.9223
+## age        -0.002486   0.002491 -0.9978
+## glbcc_risk  0.098279   0.014475  6.7895
+## 
+## Intercepts:
+##     Value   Std. Error t value
+## 0|1 -1.3457  0.2420    -5.5618
+## 1|2 -0.6035  0.2393    -2.5219
+## 2|3  0.1868  0.2382     0.7841
+## 3|4  1.1010  0.2389     4.6087
+## 4|5  2.1605  0.2421     8.9254
+## 5|6  3.4735  0.2524    13.7609
+## 6|7  4.4917  0.2743    16.3742
+## 7|8  5.4706  0.3237    16.8994
+## 
+## Residual Deviance: 9616.121 
+## AIC: 9638.121 
+## Next step: Use &#39;setx&#39; method</code></pre>
+<p>We’re primarily interested in the relationship between climate change risk and energy-saving activities. Normally the next step would be to sequence climate change risk from one to ten and generate predicted probabilities, but we already did that in the last lab. This time, let’s use Zelig to generate predicted values. These next steps might get a little messy, so here they are:</p>
+<ol style="list-style-type: decimal">
+<li>Use <code>setx()</code> and <code>Zelig::sim()</code> to simulate values for each level of climate change risk. Then use <code>get_qi()</code> to extract the predicted values. We have to do this for each level separately.</li>
+<li>Put all the predicted values into a data frame:</li>
+<li>Use <code>melt()</code> to melt the data frame into long form:</li>
+<li>Use ggplot2 and <code>facet_wrap()</code> to create bar plots of the predicted values.</li>
+</ol>
+<p>We can do steps one and two together in one line of code by piping:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">pv.<span class="dv">0</span> &lt;-<span class="st"> </span><span class="kw">setx</span>(logit1, <span class="dt">glbcc_risk =</span> <span class="dv">0</span>) <span class="op">%&gt;%</span><span class="st"> </span>Zelig<span class="op">::</span><span class="kw">sim</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">get_qi</span>(<span class="dt">qi =</span> <span class="st">&quot;pv&quot;</span>, <span class="dt">xvalue =</span> <span class="st">&quot;x&quot;</span>)
+
+pv.<span class="dv">1</span> &lt;-<span class="st"> </span><span class="kw">setx</span>(logit1, <span class="dt">glbcc_risk =</span> <span class="dv">1</span>) <span class="op">%&gt;%</span><span class="st"> </span>Zelig<span class="op">::</span><span class="kw">sim</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">get_qi</span>(<span class="dt">qi =</span> <span class="st">&quot;pv&quot;</span>, <span class="dt">xvalue =</span> <span class="st">&quot;x&quot;</span>)
+
+pv.<span class="dv">2</span> &lt;-<span class="st"> </span><span class="kw">setx</span>(logit1, <span class="dt">glbcc_risk =</span> <span class="dv">2</span>) <span class="op">%&gt;%</span><span class="st"> </span>Zelig<span class="op">::</span><span class="kw">sim</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">get_qi</span>(<span class="dt">qi =</span> <span class="st">&quot;pv&quot;</span>, <span class="dt">xvalue =</span> <span class="st">&quot;x&quot;</span>)
+
+pv.<span class="dv">3</span> &lt;-<span class="st"> </span><span class="kw">setx</span>(logit1, <span class="dt">glbcc_risk =</span> <span class="dv">3</span>) <span class="op">%&gt;%</span><span class="st"> </span>Zelig<span class="op">::</span><span class="kw">sim</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">get_qi</span>(<span class="dt">qi =</span> <span class="st">&quot;pv&quot;</span>, <span class="dt">xvalue =</span> <span class="st">&quot;x&quot;</span>)
+
+pv.<span class="dv">4</span> &lt;-<span class="st"> </span><span class="kw">setx</span>(logit1, <span class="dt">glbcc_risk =</span> <span class="dv">4</span>) <span class="op">%&gt;%</span><span class="st"> </span>Zelig<span class="op">::</span><span class="kw">sim</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">get_qi</span>(<span class="dt">qi =</span> <span class="st">&quot;pv&quot;</span>, <span class="dt">xvalue =</span> <span class="st">&quot;x&quot;</span>)
+
+pv.<span class="dv">5</span> &lt;-<span class="st"> </span><span class="kw">setx</span>(logit1, <span class="dt">glbcc_risk =</span> <span class="dv">5</span>) <span class="op">%&gt;%</span><span class="st"> </span>Zelig<span class="op">::</span><span class="kw">sim</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">get_qi</span>(<span class="dt">qi =</span> <span class="st">&quot;pv&quot;</span>, <span class="dt">xvalue =</span> <span class="st">&quot;x&quot;</span>)
+
+pv.<span class="dv">6</span> &lt;-<span class="st"> </span><span class="kw">setx</span>(logit1, <span class="dt">glbcc_risk =</span> <span class="dv">6</span>) <span class="op">%&gt;%</span><span class="st"> </span>Zelig<span class="op">::</span><span class="kw">sim</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">get_qi</span>(<span class="dt">qi =</span> <span class="st">&quot;pv&quot;</span>, <span class="dt">xvalue =</span> <span class="st">&quot;x&quot;</span>)
+
+pv.<span class="dv">7</span> &lt;-<span class="st"> </span><span class="kw">setx</span>(logit1, <span class="dt">glbcc_risk =</span> <span class="dv">7</span>) <span class="op">%&gt;%</span><span class="st"> </span>Zelig<span class="op">::</span><span class="kw">sim</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">get_qi</span>(<span class="dt">qi =</span> <span class="st">&quot;pv&quot;</span>, <span class="dt">xvalue =</span> <span class="st">&quot;x&quot;</span>)
+
+pv.<span class="dv">8</span> &lt;-<span class="st"> </span><span class="kw">setx</span>(logit1, <span class="dt">glbcc_risk =</span> <span class="dv">8</span>) <span class="op">%&gt;%</span><span class="st"> </span>Zelig<span class="op">::</span><span class="kw">sim</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">get_qi</span>(<span class="dt">qi =</span> <span class="st">&quot;pv&quot;</span>, <span class="dt">xvalue =</span> <span class="st">&quot;x&quot;</span>)
+
+pv.<span class="dv">9</span> &lt;-<span class="st"> </span><span class="kw">setx</span>(logit1, <span class="dt">glbcc_risk =</span> <span class="dv">9</span>) <span class="op">%&gt;%</span><span class="st"> </span>Zelig<span class="op">::</span><span class="kw">sim</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">get_qi</span>(<span class="dt">qi =</span> <span class="st">&quot;pv&quot;</span>, <span class="dt">xvalue =</span> <span class="st">&quot;x&quot;</span>)
+
+pv.<span class="dv">10</span> &lt;-<span class="st"> </span><span class="kw">setx</span>(logit1, <span class="dt">glbcc_risk =</span> <span class="dv">10</span>) <span class="op">%&gt;%</span><span class="st"> </span>Zelig<span class="op">::</span><span class="kw">sim</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">get_qi</span>(<span class="dt">qi =</span> <span class="st">&quot;pv&quot;</span>, <span class="dt">xvalue =</span> <span class="st">&quot;x&quot;</span>)</code></pre></div>
+<p>Put the predicted values into a data frame:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">pv.df &lt;-<span class="st"> </span><span class="kw">data.frame</span>(pv.<span class="dv">0</span>, pv.<span class="dv">1</span>, pv.<span class="dv">2</span>, pv.<span class="dv">3</span>, pv.<span class="dv">4</span>, pv.<span class="dv">5</span>,
+                    pv.<span class="dv">6</span>, pv.<span class="dv">7</span>, pv.<span class="dv">8</span>, pv.<span class="dv">9</span>, pv.<span class="dv">10</span>)</code></pre></div>
+<p>Melt the data:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">pv.m &lt;-<span class="st"> </span><span class="kw">melt</span>(pv.df, <span class="dt">measure.vars =</span> <span class="kw">c</span>(<span class="st">&quot;pv.0&quot;</span>, <span class="st">&quot;pv.1&quot;</span>, <span class="st">&quot;pv.2&quot;</span>,<span class="st">&quot;pv.3&quot;</span>,<span class="st">&quot;pv.4&quot;</span>,<span class="st">&quot;pv.5&quot;</span>,
+                                     <span class="st">&quot;pv.6&quot;</span>,<span class="st">&quot;pv.7&quot;</span>,<span class="st">&quot;pv.8&quot;</span>,<span class="st">&quot;pv.9&quot;</span>,<span class="st">&quot;pv.10&quot;</span>))</code></pre></div>
+<p>Plot the predicted values. Remember, these are the predicted values that Zelig found by doing 1000 simulations at each level, not just one predicted value. Use <code>geom_bar()</code> to bar plots:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(pv.m, <span class="kw">aes</span>(value)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_bar</span>() <span class="op">+</span>
+<span class="st">  </span><span class="kw">facet_wrap</span>( <span class="op">~</span><span class="st"> </span>variable, <span class="dt">scales =</span> <span class="st">&quot;fixed&quot;</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">scale_x_continuous</span>(<span class="dt">breaks =</span> <span class="kw">c</span>(<span class="dv">0</span><span class="op">:</span><span class="dv">10</span>))</code></pre></div>
+<p><img src="_main_files/figure-html/13_ord9-1.png" width="672" /></p>
+<p>We can deduce from this visualization that the skew shifts more negative as climate change risk increases, indicating that individuals more concerned about climate change are doing more energy-saving activities.</p>
+</div>
+<div id="another-example" class="section level3">
+<h3><span class="header-section-number">14.2.2</span> Another Example</h3>
+<p>Let’s go back to the example model that regressed home square footage on logged income, age, and education. Recall the model:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ols1 &lt;-<span class="st"> </span><span class="kw">zelig</span>(footage <span class="op">~</span><span class="st"> </span>log.inc <span class="op">+</span><span class="st"> </span>age <span class="op">+</span><span class="st"> </span>education, <span class="dt">data =</span> ds.sub,
+              <span class="dt">model =</span> <span class="st">&quot;ls&quot;</span>, <span class="dt">cite =</span> <span class="ot">FALSE</span>)
+<span class="kw">summary</span>(ols1)</code></pre></div>
+<pre><code>## Model: 
+## 
+## Call:
+## z5$zelig(formula = footage ~ log.inc + age + education, data = ds.sub)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -1900.9  -527.6  -178.5   312.6 17418.2 
+## 
+## Coefficients:
+##              Estimate Std. Error t value             Pr(&gt;|t|)
+## (Intercept) -5121.208    456.914 -11.208 &lt; 0.0000000000000002
+## log.inc       592.457     40.386  14.670 &lt; 0.0000000000000002
+## age             9.209      1.934   4.762           0.00000207
+## education      24.542     15.564   1.577                0.115
+## 
+## Residual standard error: 1077 on 1769 degrees of freedom
+## Multiple R-squared:  0.1321, Adjusted R-squared:  0.1306 
+## F-statistic: 89.77 on 3 and 1769 DF,  p-value: &lt; 0.00000000000000022
+## 
+## Next step: Use &#39;setx&#39; method</code></pre>
+<p>So far in the labs, we would often sequence one IV while holding the rest constant at their means. But that is not the only way to go about this. Perhaps you were interested in the relationship between income and square footage for people who have a Bachelor’s degree, or maybe the relationship between education and square footage for individuals with a specific income. You can hold IVs constant at values other than their means. If you do so, in it important that you make note of it and are transparent about the data you are presenting. Let’s use Zelig to generate simulations and predictions for respondents who went to college by their logged income. A Bachelor’s degree is indicated by a 6 on the education scale. We need to know the range of logged income as well:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">describe</span>(ds.sub<span class="op">$</span>log.inc)</code></pre></div>
+<pre><code>##    vars    n  mean   sd median trimmed mad  min   max range  skew kurtosis
+## X1    1 1773 10.98 0.69     11   10.99 0.7 9.21 13.71   4.5 -0.12     0.05
+##      se
+## X1 0.02</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">inc.out &lt;-<span class="st"> </span><span class="kw">setx</span>(ols1, <span class="dt">education=</span><span class="dv">6</span>,
+                <span class="dt">log.inc =</span> <span class="kw">seq</span>(<span class="kw">min</span>(ds.sub<span class="op">$</span>log.inc), <span class="kw">max</span>(ds.sub<span class="op">$</span>log.inc))) <span class="op">%&gt;%</span>
+<span class="st">  </span>Zelig<span class="op">::</span><span class="kw">sim</span>() <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">zelig_qi_to_df</span>() <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">qi_slimmer</span>()</code></pre></div>
+<pre><code>## Slimming Expected Values . . .</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">inc.out</code></pre></div>
+<pre><code>##   setx_value  log.inc      age education qi_ci_min qi_ci_median qi_ci_max
+## 1          x  9.21034 60.93739         6  882.4395     1036.623  1192.488
+## 2          x 10.21034 60.93739         6 1548.5850     1632.855  1721.080
+## 3          x 11.21034 60.93739         6 2173.4661     2228.582  2282.978
+## 4          x 12.21034 60.93739         6 2713.8159     2821.148  2932.045
+## 5          x 13.21034 60.93739         6 3230.8880     3417.201  3593.192</code></pre>
+<p>Plot the predictions:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(inc.out, <span class="kw">aes</span>(<span class="kw">factor</span>(log.inc), qi_ci_median)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_errorbar</span>(<span class="kw">aes</span>(<span class="dt">ymin=</span>qi_ci_min, <span class="dt">ymax=</span>qi_ci_max),<span class="dt">width=</span>.<span class="dv">2</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">size=</span><span class="dv">2</span>)</code></pre></div>
+<p><img src="_main_files/figure-html/13_ex4-1.png" width="672" /></p>
+</div>
+</div>
+<div id="zelig-with-non-zelig-models" class="section level2">
+<h2><span class="header-section-number">14.3</span> Zelig with non-Zelig Models:</h2>
+<p>There are some models that can be specified outside of Zelig but that you can use the Zelig functions on. The complete list can be found on the Zelig website, but we can demonstrate with the <code>lm()</code> function. Here’s a classic model from our labs:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ds<span class="op">$</span>log.inc &lt;-<span class="st"> </span><span class="kw">log</span>(ds<span class="op">$</span>income)
+lm1 &lt;-<span class="st"> </span><span class="kw">lm</span>(glbcc_risk <span class="op">~</span><span class="st"> </span>glbcc_cert <span class="op">+</span><span class="st"> </span>log.inc <span class="op">+</span><span class="st"> </span>education <span class="op">+</span><span class="st"> </span>gender <span class="op">+</span><span class="st"> </span>ideol, <span class="dt">data=</span>ds)
+<span class="kw">summary</span>(lm1)</code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = glbcc_risk ~ glbcc_cert + log.inc + education + 
+##     gender + ideol, data = ds)
+## 
+## Residuals:
+##    Min     1Q Median     3Q    Max 
+## -7.826 -1.356  0.145  1.584  8.013 
+## 
+## Coefficients:
+##             Estimate Std. Error t value             Pr(&gt;|t|)    
+## (Intercept) 10.31811    0.78977  13.065 &lt; 0.0000000000000002 ***
+## glbcc_cert   0.27605    0.01886  14.636 &lt; 0.0000000000000002 ***
+## log.inc     -0.17187    0.07537  -2.280              0.02268 *  
+## education    0.03038    0.02981   1.019              0.30831    
+## gender      -0.34293    0.10091  -3.398              0.00069 ***
+## ideol       -0.92756    0.02956 -31.378 &lt; 0.0000000000000002 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 2.325 on 2260 degrees of freedom
+##   (281 observations deleted due to missingness)
+## Multiple R-squared:  0.4192, Adjusted R-squared:  0.4179 
+## F-statistic: 326.2 on 5 and 2260 DF,  p-value: &lt; 0.00000000000000022</code></pre>
+<p>We pass this model along to <code>setx()</code> and go from there. Let’s sequence ideology from 1 to 7:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">lm1.out &lt;-<span class="st"> </span><span class="kw">setx</span>(lm1, <span class="dt">ideol=</span><span class="dv">1</span><span class="op">:</span><span class="dv">7</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span>Zelig<span class="op">::</span><span class="kw">sim</span>() <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">zelig_qi_to_df</span>() <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">qi_slimmer</span>()</code></pre></div>
+<pre><code>## to_zelig is an experimental function.
+##   Please report issues to: https://github.com/IQSS/Zelig/issues</code></pre>
+<pre><code>## Assuming zls to convert to Zelig.</code></pre>
+<pre><code>## Slimming Expected Values . . .</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(lm1.out, <span class="kw">aes</span>(<span class="dt">x=</span><span class="kw">factor</span>(ideol), <span class="dt">y =</span> qi_ci_median)) <span class="op">+</span>
+<span class="st">    </span><span class="kw">geom_errorbar</span>(<span class="kw">aes</span>(<span class="dt">ymin =</span> qi_ci_min, <span class="dt">ymax =</span> qi_ci_max), <span class="dt">width =</span> .<span class="dv">2</span>) <span class="op">+</span>
+<span class="st">    </span><span class="kw">geom_point</span>(<span class="dt">size =</span> <span class="dv">2</span>)</code></pre></div>
+<p><img src="_main_files/figure-html/13_ex7-1.png" width="672" /></p>
+<p>Let’s move onto a different model that might provide some interesting findings. In a previous lab we looked the relationship between ideology and support for the candidate an individual voted for. Recall that we used polynomial terms to find a better model fit and concluded that the relationship was not strictly linear. Let’s take that question one step further and break it down by political party. Perhaps there are linear relationships when we look at candidate support by ideology and party. We use Zelig to run simulations and predict values of candidate support for each of the ideology levels based on political party.</p>
+<p>First subset the data:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">d &lt;-<span class="st"> </span><span class="kw">filter</span>(ds) <span class="op">%&gt;%</span>
+<span class="st">  </span>dplyr<span class="op">::</span><span class="kw">select</span>(<span class="st">&quot;ideol&quot;</span>, <span class="st">&quot;education&quot;</span>, <span class="st">&quot;vote_cand_spt&quot;</span>, <span class="st">&quot;income&quot;</span>, <span class="st">&quot;age&quot;</span>, <span class="st">&quot;gender&quot;</span>, <span class="st">&quot;f.party.2&quot;</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">na.omit</span>() <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">log.inc =</span> <span class="kw">log</span>(income),
+         <span class="dt">f.part =</span> <span class="kw">as.factor</span>(f.party.<span class="dv">2</span>))</code></pre></div>
+<p>Build the model:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">lm2 &lt;-<span class="st"> </span><span class="kw">lm</span>(vote_cand_spt <span class="op">~</span><span class="st"> </span>ideol <span class="op">+</span><span class="st"> </span>education <span class="op">+</span><span class="st"> </span>log.inc <span class="op">+</span><span class="st"> </span>age <span class="op">+</span><span class="st"> </span>gender <span class="op">+</span><span class="st"> </span>f.part, <span class="dt">data=</span>d)
+<span class="kw">summary</span>(lm2)</code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = vote_cand_spt ~ ideol + education + log.inc + age + 
+##     gender + f.part, data = d)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -2.9741 -0.6758  0.1736  1.0439  2.2191 
+## 
+## Coefficients:
+##              Estimate Std. Error t value             Pr(&gt;|t|)    
+## (Intercept)  4.073215   0.455838   8.936 &lt; 0.0000000000000002 ***
+## ideol        0.018765   0.019300   0.972             0.331009    
+## education   -0.040783   0.015770  -2.586             0.009776 ** 
+## log.inc     -0.063440   0.040437  -1.569             0.116841    
+## age          0.007197   0.001913   3.763             0.000173 ***
+## gender      -0.048230   0.052717  -0.915             0.360362    
+## f.partInd   -0.532600   0.085114  -6.257        0.00000000048 ***
+## f.partRep   -0.076862   0.073093  -1.052             0.293129    
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 1.123 on 1941 degrees of freedom
+## Multiple R-squared:  0.0445, Adjusted R-squared:  0.04106 
+## F-statistic: 12.91 on 7 and 1941 DF,  p-value: 0.0000000000000002543</code></pre>
+<p>Within the <code>setx()</code> function we can sequence ideology from 1 to 7 and sequence the three party options, Democrats, Independents, and Republicans. Then use <code>Zelig::sim()</code>. Doing so will perform 1000 simulations for each level of ideology and each party, so 1000 for Democrats with an ideology score of 1, 1000 for Democrats with an ideology score of 2, and so on.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">lm2.out &lt;-<span class="st"> </span><span class="kw">setx</span>(lm2, <span class="dt">ideol=</span><span class="dv">1</span><span class="op">:</span><span class="dv">7</span>, <span class="dt">f.part=</span><span class="kw">c</span>(<span class="st">&quot;Dem&quot;</span>, <span class="st">&quot;Ind&quot;</span>, <span class="st">&quot;Rep&quot;</span>)) <span class="op">%&gt;%</span>
+<span class="st">  </span>Zelig<span class="op">::</span><span class="kw">sim</span>()</code></pre></div>
+<pre><code>## to_zelig is an experimental function.
+##   Please report issues to: https://github.com/IQSS/Zelig/issues</code></pre>
+<pre><code>## Assuming zls to convert to Zelig.</code></pre>
+<p>Now get the data into tidyverse data frame form, slim the QIs:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">lm2.out &lt;-<span class="st"> </span><span class="kw">zelig_qi_to_df</span>(lm2.out) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">qi_slimmer</span>()</code></pre></div>
+<pre><code>## Slimming Expected Values . . .</code></pre>
+<p>Next plot the results of the simulations:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(lm2.out, <span class="kw">aes</span>(<span class="kw">factor</span>(ideol), qi_ci_median, <span class="dt">color =</span> f.part)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_errorbar</span>(<span class="kw">aes</span>(<span class="dt">ymin =</span> qi_ci_min, <span class="dt">ymax =</span> qi_ci_max), <span class="dt">width =</span> .<span class="dv">2</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">size =</span> <span class="dv">2</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">scale_color_manual</span>(<span class="dt">values =</span> <span class="kw">c</span>(<span class="st">&quot;blue&quot;</span>, <span class="st">&quot;purple&quot;</span>, <span class="st">&quot;red&quot;</span>),
+                     <span class="dt">name =</span> <span class="kw">c</span>(<span class="st">&quot;Party&quot;</span>)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">facet_wrap</span>( <span class="op">~</span><span class="st"> </span>f.part, <span class="dt">scales =</span> <span class="st">&quot;fixed&quot;</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">ggtitle</span>(<span class="st">&quot;Candidate Support by Party and Ideology&quot;</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;Ideology&quot;</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">ylab</span>(<span class="st">&quot;Candidate Support&quot;</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">theme_bw</span>()</code></pre></div>
+<p><img src="_main_files/figure-html/13_ex12-1.png" width="672" /></p>
+<p>This visualization tells us some interesting information: Independents do not appear to be have as much support for the candidate they voted for, regardless of their ideology. It also appears that Democrats and Republicans follow the same trend, with more conservative Democrats tending to support the candidate they voted for a little more, and the same for Republicans.</p>
+<p>For more on Zelig, make sure to check out the website: zeligproject.org</p>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="logistic-regression.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"linkedin": false,
+"weibo": false,
+"instapper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "";
+    if (src === "" || src === "true") src = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:" && /^https?:/.test(src))
+      src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
