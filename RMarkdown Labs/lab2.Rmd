@@ -87,7 +87,8 @@ table(ds$f.gender)
 While this factored variable is split into two categories, it is not apparent which numbers represent male and female. Labels should be assigned to the numbers to clarify the relationship between the numbers and their meaning. When factoring a variable, R requires the number of levels within the variable and the corresponding labels. In the `f.gender` variable there are two levels, 0 and 1, that require woman and men labels.
 
 ```{r 2_fac3, echo = TRUE}
-ds$f.gender <- factor(ds$gender, levels = c(0,1), labels = c("Women", "Men"))
+ds$f.gender <- factor(ds$gender, levels = c(0,1), 
+                      labels = c("Women", "Men"))
 table(ds$f.gender)
 ```
 
@@ -96,7 +97,8 @@ The vector function, `c()`, instructs R the levels and labels of the variable.
 The `f.party` variable should also be factored, where 1 = Dem, 2 = Rep, 3 = Ind, and 4 = Other, then create a table of the variable.
 
 ```{r 2_fac4, echo = TRUE}
-ds$f.party <- factor(ds$party, levels = c(1,2,3,4), labels = c("Dem", "Rep", "Ind", "Other"))
+ds$f.party <- factor(ds$party, levels = c(1,2,3,4), 
+                     labels = c("Dem", "Rep", "Ind", "Other"))
 table(ds$f.party)
 ```
 
@@ -152,7 +154,8 @@ Performing a recode is best demonstrated via example. The best practice for reco
 Within the class data set is an `ideol` variable describing ideology. Currently the ideology variable goes from 1 to 7, with 1 being very liberal and 7 being very conservative. The ideology variable can be recoded from seven levels to three, liberal, moderate, and conservative, via the `recode()` function. Values from 1 to 2 will recode as 1, 3 to 5 will recode as 2, and 6 to 7 will recode as 3. The `recode()` function is provided by the `car` package. 
 
 ```{r 2_recode1, echo = TRUE}
-ds$r.ideol <- car::recode(ds$ideol, "1:2 = 1; 3:5 = 2; 6:7 = 3; else = NA; NA = NA")
+ds$r.ideol <- car::recode(ds$ideol, "1:2 = 1; 3:5 = 2; 6:7 = 3; 
+                          else = NA; NA = NA")
 ```
 
 The `table()` function describes the result of recoding the `ideol` variable.
@@ -180,7 +183,8 @@ In the `ds` data set, the `race` variable consists of codes: 1 for Caucasian, 2 
 __Try it!__ Recode this variable to go from 7 levels to 3, where 1 is still Caucasian, 2 is African American, and 3 includes all others. 
 
 ```{r 2_race2, echo = TRUE}
-ds$r.race <- car::recode(ds$race, "1 = 1; 2 = 2; 3:7 = 3; else = NA; NA = NA")
+ds$r.race <- car::recode(ds$race, "1 = 1; 2 = 2; 3:7 = 3; 
+                         else = NA; NA = NA")
 table(ds$r.race)
 ```
 
@@ -189,14 +193,16 @@ table(ds$r.race)
 Factoring a variable is generally easier subsequent to recoding. Given the `race` variable now consists of 3 levels instead of 7, factoring will add meaningful words in place of the values. The values 1, 2, and 3 can be factored as White, African-American, and Other, respectively.
 
 ```{r 2_race3, echo = TRUE}
-ds$f.race.2 <- factor(ds$r.race, levels = c(1, 2, 3), labels = c("White", "African-American", "Other"))
+ds$f.race.2 <- factor(ds$r.race, levels = c(1, 2, 3), 
+                      labels = c("White", "African-American", "Other"))
 table(ds$f.race.2)
 ```
 
 The same can be done with the `ideol` variable. The values 1, 2, and 3 can be factored as Liberal, Moderate, and Conservative, respectively.
 
 ```{r 2_ideol, echo = TRUE}
-ds$f.ideol <- factor(ds$r.ideol, levels = c(1, 2, 3), labels = c("Liberal", "Moderate", "Conservative"))
+ds$f.ideol <- factor(ds$r.ideol, levels = c(1, 2, 3), 
+                     labels = c("Liberal", "Moderate", "Conservative"))
 table(ds$f.ideol)
 ```
 
@@ -214,7 +220,8 @@ table(ds$r.AfAm)
 The newly created dummy variable will now be factored to apply meaningful labels in place of the numbers.
 
 ```{r 2_dummy2, echo = TRUE}
-ds$f.AfAm <- factor(ds$r.AfAm, levels = c(0, 1), labels = c("Non African-American", "African-American"))
+ds$f.AfAm <- factor(ds$r.AfAm, levels = c(0, 1), 
+                    labels = c("Non African-American", "African-American"))
 table(ds$f.AfAm)
 ```
 
@@ -448,14 +455,14 @@ As a note, making a visualization with `ggplot2` requires multiple functions. Ma
 
 A good place to start is with a bar plot. To do this, use `geom_bar()`. 
 
-```{r 2_bar1, echo = TRUE}
+```{r 2_bar1, echo = TRUE, fig.width = 4, fig.height = 3, fig.align = 'center'}
  ggplot(ds, aes(f.party.2)) +
   geom_bar()
 ```
 
 To create a visualization that only includes Democrats, Republicans, and Independents, use the `drop_na` function to filter out NAs, then pipe it to `ggplot2` Color can also be included by specifying `fill = f.party.2`. Note that inlcuding the `.` in place of the data set argument works when you pipe a dataset into `ggplot2`. Doing so tells R to use the data that is being piped into `ggplot2`.
 
-```{r 2_bar1.5, echo = TRUE}
+```{r 2_bar1.5, echo = TRUE, fig.width = 4, fig.height = 3, fig.align = 'center'}
 ds %>%
   drop_na(f.party.2) %>%
   ggplot(., aes(f.party.2, fill = f.party.2)) +
@@ -464,7 +471,7 @@ ds %>%
 
 `ggplot2` has a default color pallete that it assigns to groups based on the order they appear in the data. However, matching the color red with Democrats and the color blue with Republicans might not make a lot of intuitive sense. By using the `scale_fill_manual()` function, specific colors cna be specified.
 
-```{r 2_bar2, echo=TRUE}
+```{r 2_bar2, echo = TRUE, fig.width = 4, fig.height = 3, fig.align = 'center'}
 ds %>%
   drop_na(f.party.2) %>%
   ggplot(., aes(f.party.2, fill=f.party.2)) +
@@ -474,7 +481,7 @@ ds %>%
 
 Construct one more visualization. This time, include a title by using `ggtitle()` and axis labels by using `xlab()` and `ylab()`.
 
-```{r 2_bar3, echo=TRUE}
+```{r 2_bar3, echo = TRUE, fig.width = 4, fig.height = 3, fig.align = 'center'}
 ds %>%
   drop_na(f.party.2) %>%
   ggplot(., aes(f.party.2, fill = f.party.2)) +
@@ -491,7 +498,7 @@ Recall that ordinal data is data that is assigned numeric values, but on an orde
 
 The `count()` function describes the `education` variable. Note that the `table()` function is a good way to look at categorical and ordinal data as well, but using `count()` allows us to see the NAs and is consistent with tidyverse syntax. 
 
-```{r 2_ord, echo=TRUE}
+```{r 2_ord, echo = TRUE}
 ds %>%
   count(education)
 ```
@@ -500,8 +507,9 @@ The `education` variable contains 8 categories on an ordered scale. Factoring th
 
 ```{r 2_ord2, echo = TRUE}
 ds$f.education <- factor(ds$education, levels=c(1, 2, 3, 4, 5, 6, 7, 8), 
-				   labels=c("< HS", "HS/GED", "Vocational/Technical", "Some College",
-							"2 year/Associates", "Bachelor's Degree", "Master's degree", "PhD/JD/MD")) 
+				   labels=c("< HS", "HS/GED", "Vocational/Technical", 
+				            "Some College", "2 year/Associates", "Bachelor's Degree", 
+				            "Master's degree", "PhD/JD/MD"))
 ds %>%
   count(f.education)
 ```
@@ -515,14 +523,14 @@ ds %>%
 
 The `barplot()` function will visualize education levels.
 
-```{r 2_ord4, echo = TRUE}
+```{r 2_ord4, echo = TRUE, fig.width = 6, fig.height = 4, fig.align = 'center'}
 ggplot(ds, aes(f.education)) +
   geom_bar() 
 ```
 
 Notice the very muddled labels. One way to solve this is to flip the coordinates of the plot by using `coord_flip()`:
 
-```{r 2_ord4.5, echo = TRUE}
+```{r 2_ord4.5, echo = TRUE, fig.width = 6, fig.height = 4, fig.align = 'center'}
 ggplot(ds, aes(f.education)) +
   geom_bar() +
   coord_flip()
@@ -530,7 +538,7 @@ ggplot(ds, aes(f.education)) +
 
 More detail is available by adding colors. There are a few different methods of adding colors using ggplot. Include `fill = f.education` to indicate that the bars will be filled with color, and `scale_fill_manual()` to indiciate the colors:
 
-```{r 2_ord5, echo = TRUE}
+```{r 2_ord5, echo = TRUE, fig.width = 6, fig.height = 4, fig.align = 'center'}
 ggplot(ds, aes(f.education, fill = f.education)) +
   geom_bar() +
   scale_fill_manual(values = c("#fbb4ae", "#b3cde3", "#ccebc5", "#decbe4",
@@ -538,9 +546,7 @@ ggplot(ds, aes(f.education, fill = f.education)) +
   coord_flip()
 ```
 
-__Note:__ The colors in the previous example are hexadecimal colors. Color schemes are available via the following website:
-
-http://colorbrewer2.org/
+__Note:__ The colors in the previous example are hexadecimal colors. Color schemes are available via the following website: http://colorbrewer2.org/
 
 ## Part VI: Working with Interval Data
 
@@ -563,28 +569,28 @@ The modal value is 65.
 
 A histogram is the appropriate visualization for interval data. Histograms returns values on a continuous scale as opposed to individual values. To make a histogram, follow the same basic steps as before, but this time use `geom_histogram()` instead.
 `
-```{r 2_hist, echo = TRUE}
+```{r 2_hist, echo = TRUE, fig.width = 4, fig.height = 3, fig.align = 'center'}
 ggplot(ds, aes(age)) +
   geom_histogram() 
 ```
 
 To look at the density distribution, use `geom_density()`. 
 
-```{r 2_dens, echo = TRUE}
+```{r 2_dens, echo = TRUE, fig.width = 4, fig.height = 3, fig.align = 'center'}
 ggplot(ds, aes(age)) +
   geom_density()
 ```
 
 To adjust the bandwidth, use `adjust =`  to specify a value.
 
-```{r 2_dens2, echo = TRUE}
+```{r 2_dens2, echo = TRUE, fig.width = 4, fig.height = 3, fig.align = 'center'}
 ggplot(ds, aes(age)) +
   geom_density(adjust = 3)
 ```
 
 Last, a box plot can be generated via the `boxplot()` function. Technically a box plot in `ggplot2` requires both an x and y value, so simply indiciate `""` for the x portion of the aesthetic. 
 
-```{r 2_box, echo=TRUE}
+```{r 2_box, echo = TRUE, fig.width = 4, fig.height = 3, fig.align = 'center'}
 ggplot(ds, aes(x = "", y = age)) +
   geom_boxplot()
 ```
