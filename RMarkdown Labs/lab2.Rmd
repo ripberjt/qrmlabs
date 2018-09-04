@@ -354,7 +354,7 @@ ds.sub %>%
 
 In the previous section we used `summarize()` to get breakdowns of ceratin variables. If you wanted to get diagnostics on all the variables in your data, use the `skim()` function from the `skimr` package:
 
-```{r tidy13, echo=TRUE}
+```{r tidy13, echo = TRUE}
 # ds.sub %>%
 #   skim()
 ```
