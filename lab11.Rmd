@@ -325,16 +325,6 @@ This method fixed some problems and created new ones. The votes graphic suggests
 
 ```{r 11_lin4, echo=TRUE}
 fit.poly <- lm(rating ~ poly(length, 2) + poly(budget_1m, 2) + poly(votes_1k, 2), data = ds)
-fit.poly %>%
-  augment() %>% 
-  melt(measure.vars = c("poly.length..2.", "poly.budget_1m..2.",
-                        "poly.votes_1k..2.",
-                        ".fitted")) %>%
-  ggplot(., aes(value, .std.resid)) +
-  geom_point(shape = 1) +
-  geom_smooth(method = "loess") +
-  geom_hline(yintercept = 0) +
-  facet_wrap(~variable, scales = "free")
 ```
 
 Compare the last three models:
