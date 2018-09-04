@@ -206,7 +206,7 @@ Factoring and recoding permit the creation of dummy variables. A dummy variable 
 
 A dummy variable will be created with the recoded `race` variable to indicate whether the respondent identified as African-American (1) or not (0). Recall that in the `r.race` variable, African-American is coded as 2.
 
-```{r 2_dummy1, echo=TRUE}
+```{r 2_dummy1, echo = TRUE}
 ds$r.AfAm <- car::recode(ds$r.race, "2 = 1; else = 0; NA = NA")
 table(ds$r.AfAm)
 ```
@@ -214,7 +214,7 @@ table(ds$r.AfAm)
 The newly created dummy variable will now be factored to apply meaningful labels in place of the numbers.
 
 ```{r 2_dummy2, echo = TRUE}
-ds$f.AfAm <- factor(ds$r.AfAm, levels=c(0,1), labels = c("Non African-American", "African-American"))
+ds$f.AfAm <- factor(ds$r.AfAm, levels = c(0, 1), labels = c("Non African-American", "African-American"))
 table(ds$f.AfAm)
 ```
 
@@ -224,15 +224,15 @@ In R, random data can be generated easily into objects, and manipulated as desir
 
 The `rnorm()` function generates `n` random values that fit a normal distribution, given a mean and standard deviation.
 
-```{r 2_norm, echo=TRUE}
-one <- rnorm(100, mean=3)
-two <- rnorm(100, mean=7)
-three <- rnorm(100, mean=1)
+```{r 2_norm, echo = TRUE}
+one <- rnorm(100, mean = 3)
+two <- rnorm(100, mean = 7)
+three <- rnorm(100, mean = 1)
 ```
 
 The previous code created three objects consisting of 100 random values with different means. The three objects can be combined into a single column using the `cbind()` function. The `cbind()` function will combine the  given objects sequentially in a column in the provided order. 
 
-```{r 2_cbind, echo=TRUE}
+```{r 2_cbind, echo = TRUE}
 four <- cbind(one, two, three)
 ```
 
@@ -248,30 +248,30 @@ The tidyverse is a collection of packages and functions for exploring and visual
 
 Let's begin with learning how to filter your data. Filtering allows you to create a subset of your data that meets specific criteria. For example, you could filter your data to examine only men, or only Republicans, etc. To filter data, use the `filter()` verb from the `dplyr` package. The tidyverse functions are best optimized by using the pipe operator, `%>%`, to pipe functions together. The pipe operator takes whatever is before it and sends it on to the next function. For example:
 
-```{r tidy, echo=TRUE}
+```{r tidy, echo = TRUE}
 ds.men <- ds %>%
   filter(gender == 1)
 ```
 
 The code chunk above creates a subset of the data that only includes men. The syntax can be read as "First take the data set, then filter it to include men only". We also assigned it to a new object, `ds.men`.  The filter verb can include multiple specifications. You also do not have to always assign your filtered data to a new object. For example, suppose you wanted to examine women who are age 42. You can do so like this:
 
-```{r tidy2, echo=TRUE}
+```{r tidy2, echo = TRUE}
 ds %>%
   filter(gender == 0, age == 42)
 ```
 
 Similar to `filter()`, you can use the `select()` function from the `dplyr()` package to create a new data set that includes a few variables of interest. __Note__: `select` is a very common verb in R, and therefore is often masked by other packages. If you encounter an error when using `select()`, include `dplyr::` before calling the function, so that R knows which version of `select()` to use. Follow it up by using `na.omit()` to remove missing observations:
 
-```{r tidy3, echo=TRUE}
+```{r tidy3, echo = TRUE}
 ds.sub <- ds %>%
   select(gender, age, income, education, ideol, glbcc_cert) %>%
   na.omit()
 ```
 
 
-The next verb is `arrange()` which allows you to sort your data in ascending or descending order by a particular specification. Recall the previous code chunk where we filtered the data to include only women who are age 42. Adding another pipe operator, %>%, and `arrange()` will allow us to examine the data further. Use the `arrange()` function to sort the data by education:
+The next verb is `arrange()`, which allows you to sort your data in ascending or descending order by a particular specification. Recall the previous code chunk where we filtered the data to include only women who are age 42. Adding another pipe operator, %>%, and `arrange()` will allow us to examine the data further. Use the `arrange()` function to sort the data by education:
 
-```{r tidy4, echo=TRUE}
+```{r tidy4, echo = TRUE}
 ds.sub %>%
   filter(gender == 0, age == 42) %>%
   arrange(education)
@@ -279,28 +279,28 @@ ds.sub %>%
 
 The `slice()` function selects a set amount of observations from the data. Using `slice()` selects a particular set of observations. Use `slice()` to select the first 10 observations from the data:
 
-```{r 1tidy5, echo=TRUE}
+```{r 1tidy5, echo = TRUE}
 ds.new <- ds.sub %>%
   slice(1:10)
 ```
 
 The `mutate()` verb allows you to either change an existing variable or create a new one. For example, we can create a new variable that returns income in increments of 1000s:
 
-```{r 2tidy5, echo=TRUE}
+```{r 2tidy5, echo = TRUE}
 ds.new %>%
   mutate(inc_100 = income / 1000)
 ```
 
 Suppose you wanted to examine summary statistics for the data. Perhaps you needed to know the average income of everyone in the survey. The `summarize()` verb can be used to do this, and more:
 
-```{r tidy6, echo=TRUE}
+```{r tidy6, echo = TRUE}
 ds.sub %>%
   summarize(mean_inc = mean(income))
 ```
 
 Combining the `summarize()` verb with the `filter()` verb allows you to summarize a more specific set of observations. To find the average income of men only, filter the data to include only men, then summarize:
 
-```{r tidy7, echo=TRUE}
+```{r tidy7, echo = TRUE}
 ds.sub %>%
   filter(gender == 1) %>%
   summarize(mean_inc = mean(income))
@@ -309,7 +309,7 @@ ds.sub %>%
 
 Summarize can also be used to return mulitple values of interest:
 
-```{r tidy8, echo=TRUE}
+```{r tidy8, echo = TRUE}
 ds.sub %>%
   filter(gender == 1) %>%
   summarize(mean_inc = mean(income), med_inc = median(income), sd_inc = sd(income))
@@ -320,7 +320,7 @@ The code chunk above returns the mean, median, and standard deviation of income 
 
 Filtering for multiple categories can be tedious. Fortunately, there is a tidyverse function that will return desired information for each group in a variable. For example, we can get the mean, median, and standard deviation of the income variable for men and women by using the `group_by()` verb and indicating "gender":
 
-```{r tidy9, echo=TRUE}
+```{r tidy9, echo = TRUE}
 ds.sub %>%
   group_by(gender) %>%
   summarize(mean_inc = mean(income), med_inc = median(income), sd_inc = sd(income))
@@ -328,7 +328,7 @@ ds.sub %>%
 
 The `group_by` verb can be used to find lots of information. Perhaps you wanted to find the average level of belief that humans cause cliamte change by ideology level:
 
-```{r tidy10, echo=TRUE}
+```{r tidy10, echo = TRUE}
 ds.sub %>%
   group_by(ideol) %>%
   summarize(mean_glbcc_cert = mean(glbcc_cert))
@@ -337,7 +337,7 @@ ds.sub %>%
 
 The ideology variable runs from 1 to 7, with 1 being very liberal and 7 being very conservative. It is clear that liberals, on average, are more certain that humans cause climate change. The `group_by()` verb can also be used to look at multiple groups at once. We can create the same table as above, but this time break it down by ideology and gender:
 
-```{r tidy11, echo=TRUE}
+```{r tidy11, echo = TRUE}
 ds.sub %>%
   group_by(gender, ideol) %>%
   summarize(mean_glbcc_cert = mean(glbcc_cert))
@@ -347,7 +347,7 @@ ds.sub %>%
 
 There are many functions in the tidyverse that can be used for data exploration. By loading the `tidyverse` package at the beginning of the lab, most of these functions should be readily available. The `glimpse()` verb returns an overall breakdown of what is contained in your data set:
 
-```{r tidy12, echo=TRUE}
+```{r tidy12, echo = TRUE}
 ds.sub %>%
   glimpse()
 ```
@@ -355,21 +355,19 @@ ds.sub %>%
 In the previous section we used `summarize()` to get breakdowns of ceratin variables. If you wanted to get diagnostics on all the variables in your data, use the `skim()` function from the `skimr` package:
 
 ```{r tidy13, echo=TRUE}
-ds.sub %>%
-  skim()
+# ds.sub %>%
+#   skim()
 ```
 
 This provides loads of useful incormation, including summary statistics and a histogram showing the rough distribution of the data. As demonstrated in teh previous section, you can combine different tidyverse functions together in order to maximize efficiency. For example, combining `group_by()` and `skim()` provide breakdowns of all the variables by gender:
 
 ```{r tidy14, echo=TRUE}
-ds.sub %>%
-  group_by(gender) %>%
-  skim()
+# ds.sub %>%
+#   group_by(gender) %>%
+#   skim()
 ```
 
-
-
-There are a variety of operators thancan be used when working with your data. These Boolean operators assist with building data subsets in R:
+There are a variety of operators that can be used when working with your data. These Boolean operators assist with building data subsets in R:
 
 1. < less than
 2. <= less than or equal to
@@ -386,15 +384,15 @@ There are a variety of operators thancan be used when working with your data. Th
 
 Often times data is nominal. This is data that does not necessarily have a numeric value, but rather is categorized by a word or label (e.g., race, political party, etc.). The factored `party` variable is an example.
 
-```{r 2_nom1, echo=TRUE}
+```{r 2_nom1, echo = TRUE}
 table(ds$f.party)
 ```
 
 If analyzing the data, the "Other" category does not explain much. In this case, recoding the Other responses as NA will exclude Other from summaries.
 
-```{r 2_nom2, echo=TRUE}
-ds$f.party.2 <- car::recode(ds$f.party, "'Dem'='Dem' ; 'Rep'='Rep' ;'Ind'='Ind';
-                            'Other'=NA; else=NA; NA=NA")
+```{r 2_nom2, echo = TRUE}
+ds$f.party.2 <- car::recode(ds$f.party, "'Dem' = 'Dem'; 'Rep' = 'Rep'; 'Ind' = 'Ind';
+                            'Other' = NA; else = NA; NA = NA")
 table(ds$f.party.2)
 ```
 
@@ -405,7 +403,7 @@ __Note:__ When recoding a factored variable, label names must be in in apostroph
 When working with nominal data, there are some inapplicable statistics. For example, the mean for the factored political party variable does not exist. However, finding the mode for nominal data is useful. Recall from mathematics that the mode is the value, or in this case the label, that occurs the most often. 
 
 A simple way to find the mode is to use the `count` verb from the `tidyverse`. Use `count` to find the mode of the factored political party variable:
-```{r 2_mode, echo=TRUE}
+```{r 2_mode, echo = TRUE}
 ds %>%
   count(f.party.2)
 ```
@@ -436,36 +434,35 @@ ds %>%
 
 ### Visualizing Nominal Data
 
-R has nearly countless ways to visualize data. GGplot will be the primary visualization method for these labs. There are many different visualization packages and sets of packages, but GGplot provides a consistent set of visualization tools that shares a common language and syntax. A great introcution to GGplot can be found here:
+R has nearly countless ways to visualize data. `ggplot2` will be the primary visualization method for these labs. There are many different visualization packages and sets of packages, but `ggplot2` provides a consistent set of visualization tools that shares a common language and syntax. A great introcution to ggplot2 can be found here:
 https://www.rstudio.com/wp-content/uploads/2015/03/ggplot2-cheatsheet.pdf
 
-To make a visualization with GGplot, first call it with the `ggplot()` function, then specify what type of visualization you want to make. The steps are:
+To make a visualization with `ggplot2`, first call it with the `ggplot()` function, then specify what type of visualization you want to make. The steps are:
 
-1. Call GGplot
-2. Specify the aesthetic mapping
-3. Choose what type of visualization by using the `geom_` function.
+1. Call ggplot
+2. Identify the dataset (`data`)
+3. Specify the aesthetic mapping (`aes`)
+4. Choose what type of visualization by using the `geom_` function.
 
-As a note, making a visualization with GGplot requires multiple functions. Make sure to include a + sign after each function. 
+As a note, making a visualization with `ggplot2` requires multiple functions. Make sure to include a `+` sign after each function. 
 
 A good place to start is with a bar plot. To do this, use `geom_bar()`. 
 
-```{r 2_bar1, echo=TRUE}
+```{r 2_bar1, echo = TRUE}
  ggplot(ds, aes(f.party.2)) +
-  geom_bar() 
+  geom_bar()
 ```
 
-To create a visualization that only includes Democrats, Republicans, and Independents, use the `drop_na` function to filter out NAs, then pipe it to GGplot. Color can also be included by specifying `fill=f.party.2`. Note that inlcuding the `.` in place of the data set argument works when you pipe a dataset into `ggplot2`. Doing so tells R to use the data that is being piped into `ggplot2`. 
+To create a visualization that only includes Democrats, Republicans, and Independents, use the `drop_na` function to filter out NAs, then pipe it to `ggplot2` Color can also be included by specifying `fill = f.party.2`. Note that inlcuding the `.` in place of the data set argument works when you pipe a dataset into `ggplot2`. Doing so tells R to use the data that is being piped into `ggplot2`.
 
-
-```{r 2_bar1.5, echo=TRUE}
+```{r 2_bar1.5, echo = TRUE}
 ds %>%
   drop_na(f.party.2) %>%
   ggplot(., aes(f.party.2, fill = f.party.2)) +
   geom_bar()
 ```
 
-GGplot has a default color pallete that it assigns to groups based on the order they appear in the data. However, matching the color red with Democrats and the color blue with Republicans might not make a lot of intuitive sense. By using the `scale_fill_manual()` function, specific colors cna be specified.
-
+`ggplot2` has a default color pallete that it assigns to groups based on the order they appear in the data. However, matching the color red with Democrats and the color blue with Republicans might not make a lot of intuitive sense. By using the `scale_fill_manual()` function, specific colors cna be specified.
 
 ```{r 2_bar2, echo=TRUE}
 ds %>%
@@ -477,11 +474,10 @@ ds %>%
 
 Construct one more visualization. This time, include a title by using `ggtitle()` and axis labels by using `xlab()` and `ylab()`.
 
-
 ```{r 2_bar3, echo=TRUE}
 ds %>%
   drop_na(f.party.2) %>%
-  ggplot(., aes(f.party.2, fill=f.party.2)) +
+  ggplot(., aes(f.party.2, fill = f.party.2)) +
   geom_bar() +
   scale_fill_manual(values = c("blue", "green", "red")) +
   ggtitle("Breakdown of Political Parties") +
@@ -502,42 +498,40 @@ ds %>%
 
 The `education` variable contains 8 categories on an ordered scale. Factoring the `education` variable to apply labels will provide meaning to each value.
 
-```{r 2_ord2, echo=TRUE}
+```{r 2_ord2, echo = TRUE}
 ds$f.education <- factor(ds$education, levels=c(1, 2, 3, 4, 5, 6, 7, 8), 
-				   labels=c("< HS","HS/GED", "Vocational/Technical", "Some College",
+				   labels=c("< HS", "HS/GED", "Vocational/Technical", "Some College",
 							"2 year/Associates", "Bachelor's Degree", "Master's degree", "PhD/JD/MD")) 
 ds %>%
   count(f.education)
-
 ```
 
-Including the `sort=TRUE` argument can return the modal education level.
+Including the `sort = TRUE` argument can return the modal education level.
 
-```{r 2_ord3, echo=TRUE}
+```{r 2_ord3, echo = TRUE}
 ds %>%
   count(f.education, sort = TRUE)
 ```
 
 The `barplot()` function will visualize education levels.
 
-```{r 2_ord4, echo=TRUE}
+```{r 2_ord4, echo = TRUE}
 ggplot(ds, aes(f.education)) +
   geom_bar() 
 ```
 
 Notice the very muddled labels. One way to solve this is to flip the coordinates of the plot by using `coord_flip()`:
 
-```{r 2_ord4.5, echo=TRUE}
+```{r 2_ord4.5, echo = TRUE}
 ggplot(ds, aes(f.education)) +
   geom_bar() +
   coord_flip()
 ```
 
+More detail is available by adding colors. There are a few different methods of adding colors using ggplot. Include `fill = f.education` to indicate that the bars will be filled with color, and `scale_fill_manual()` to indiciate the colors:
 
-More detail is available by adding colors. There are a few different methods of adding colors using ggplot. Include `fill=f.education` to indicate that the bars will be filled with color, and `scale_fill_manual()` to indiciate the colors:
-
-```{r 2_ord5, echo=TRUE}
-ggplot(ds, aes(f.education, fill=f.education)) +
+```{r 2_ord5, echo = TRUE}
+ggplot(ds, aes(f.education, fill = f.education)) +
   geom_bar() +
   scale_fill_manual(values = c("#fbb4ae", "#b3cde3", "#ccebc5", "#decbe4",
                                "#fed9a6", "#ffffcc", "#e5d8bd", "#d3d3d3")) +
@@ -554,43 +548,41 @@ Interval data is similar to ordinal data, but with interval data the difference 
 
 The `psych` package provides a `describe()` function. The `describe()` function is useful to examine variables.
 
-```{r 2_int, echo=TRUE}
+```{r 2_int, echo = TRUE}
 describe(ds$age)
 ```
 
 Find the modal value of `age`:
 
-```{r 2_int2, echo=TRUE}
+```{r 2_int2, echo = TRUE}
 ds %>%
   count(age, sort = TRUE)
 ```
 
 The modal value is 65.
 
-A histogram is the appropriate visualization for interval data. Histograms returns values on a continuous scale as opposed to individual values. To make a histogram, follow the same basic steps as before, but this time use `geom_histogram()` instead. 
-
-
-```{r 2_hist, echo=TRUE}
+A histogram is the appropriate visualization for interval data. Histograms returns values on a continuous scale as opposed to individual values. To make a histogram, follow the same basic steps as before, but this time use `geom_histogram()` instead.
+`
+```{r 2_hist, echo = TRUE}
 ggplot(ds, aes(age)) +
   geom_histogram() 
 ```
 
-TO look at the density distribution, use `geom_density()`. 
+To look at the density distribution, use `geom_density()`. 
 
-```{r 2_dens, echo=TRUE}
+```{r 2_dens, echo = TRUE}
 ggplot(ds, aes(age)) +
   geom_density()
 ```
 
-To adjust the bandwidth, use `adjust=`  to specify a value.
+To adjust the bandwidth, use `adjust =`  to specify a value.
 
-```{r 2_dens2, echo=TRUE}
+```{r 2_dens2, echo = TRUE}
 ggplot(ds, aes(age)) +
   geom_density(adjust = 3)
 ```
 
-
-Last, a box plot can be generated via the `boxplot()` function. Technically a box plot in GGplot requires both an x and y value, so simply indiciate "" for the x portion of the aesthetic. 
+Last, a box plot can be generated via the `boxplot()` function. Technically a box plot in `ggplot2` requires both an x and y value, so simply indiciate `""` for the x portion of the aesthetic. 
 
 ```{r 2_box, echo=TRUE}
 ggplot(ds, aes(x = "", y = age)) +
