@@ -24,8 +24,7 @@ library(descr)
 library(psych)
 library(tidyverse)
 library(skimr)
-ds <- read_csv("https://github.com/ripberjt/qrmlabs/raw/master/Class%20Data%20Set%20Factored.csv") %>% 
-  mutate_if(is.character, factor)
+ds <- read_csv("https://github.com/ripberjt/qrmlabs/raw/master/Class%20Data%20Set%20Factored.csv")
 ```
 
 ## Part I: Factoring
@@ -468,7 +467,7 @@ ds %>%
   geom_bar()
 ```
 
-`ggplot2` has a default color pallete that it assigns to groups based on the order they appear in the data. However, matching the color red with Democrats and the color blue with Republicans might not make a lot of intuitive sense. By using the `scale_fill_manual()` function, specific colors cna be specified.
+`ggplot2` has a default color pallete that it assigns to groups based on the order they appear in the data. However, matching the color red with Democrats and the color blue with Republicans might not make a lot of intuitive sense. By using the `scale_fill_manual()` function, specific colors can be specified.
 
 ```{r 2_bar2, echo = TRUE, fig.width = 4, fig.height = 3, fig.align = 'center'}
 ds %>%
