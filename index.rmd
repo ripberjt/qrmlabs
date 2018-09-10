@@ -1,8 +1,5 @@
 --- 
 title: "Lab Guide to Quantitative Research Methods in Political Science, Public Policy & Public Administration."
-author:
-- Alex Davis
-- Cody Adams
 site: bookdown::bookdown_site
 output: bookdown::gitbook #bookdown::pdf_book
 book_filename: "labbook"
