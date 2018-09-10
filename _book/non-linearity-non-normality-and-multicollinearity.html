@@ -22,8 +22,6 @@
   
   
 
-<meta name="author" content="Alex Davis">
-<meta name="author" content="Cody Adams">
 
 
 
@@ -48,12 +46,12 @@
 
 
 <script src="libs/htmlwidgets-1.2/htmlwidgets.js"></script>
-<script src="libs/plotly-binding-4.7.1/plotly.js"></script>
+<script src="libs/plotly-binding-4.8.0/plotly.js"></script>
 <script src="libs/typedarray-0.1/typedarray.min.js"></script>
 <link href="libs/crosstalk-1.0.0/css/crosstalk.css" rel="stylesheet" />
 <script src="libs/crosstalk-1.0.0/js/crosstalk.min.js"></script>
-<link href="libs/plotlyjs-1.29.2/plotly-htmlwidgets.css" rel="stylesheet" />
-<script src="libs/plotlyjs-1.29.2/plotly-latest.min.js"></script>
+<link href="libs/plotly-htmlwidgets-css-1.39.2/plotly-htmlwidgets.css" rel="stylesheet" />
+<script src="libs/plotly-main-1.39.2/plotly-latest.min.js"></script>
 
 
 <style type="text/css">
@@ -348,20 +346,17 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">model <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">augment</span>() -&gt;<span class="st"> </span>m.df
 <span class="kw">head</span>(m.df)</code></pre></div>
-<pre><code>##   .rownames vote_cand_spt ideol education income age gender  .fitted
-## 1         1             5     6         4 160000  50      1 3.491419
-## 2         2             2     3         4  45000  58      1 3.528439
-## 3         3             4     6         6  40000  52      0 3.510794
-## 4         5             4     4         4  55000  40      0 3.452976
-## 5         7             3     2         6  40000  60      0 3.493267
-## 6         8             4     4         6  50000  67      1 3.533273
-##      .se.fit     .resid        .hat   .sigma       .cooksd .std.resid
-## 1 0.06292522  1.5085812 0.003078242 1.133935 0.00091331373  1.3321858
-## 2 0.05491383 -1.5284394 0.002344319 1.133922 0.00071294152 -1.3492255
-## 3 0.04930230  0.4892061 0.001889677 1.134391 0.00005881882  0.4317469
-## 4 0.05455346  0.5470242 0.002313651 1.134378 0.00009012074  0.4828766
-## 5 0.05215890 -0.4932672 0.002114999 1.134390 0.00006696004 -0.4353802
-## 6 0.04636595  0.4667270 0.001671289 1.134396 0.00004732953  0.4118630</code></pre>
+<pre><code>## # A tibble: 6 x 14
+##   .rownames vote_cand_spt ideol education income   age gender .fitted
+##   &lt;chr&gt;             &lt;int&gt; &lt;int&gt;     &lt;int&gt;  &lt;dbl&gt; &lt;int&gt;  &lt;int&gt;   &lt;dbl&gt;
+## 1 1                     5     6         4 160000    50      1    3.49
+## 2 2                     2     3         4  45000    58      1    3.53
+## 3 3                     4     6         6  40000    52      0    3.51
+## 4 5                     4     4         4  55000    40      0    3.45
+## 5 7                     3     2         6  40000    60      0    3.49
+## 6 8                     4     4         6  50000    67      1    3.53
+## # ... with 6 more variables: .se.fit &lt;dbl&gt;, .resid &lt;dbl&gt;, .hat &lt;dbl&gt;,
+## #   .sigma &lt;dbl&gt;, .cooksd &lt;dbl&gt;, .std.resid &lt;dbl&gt;</code></pre>
 <p>Now we need to melt the data into rows with unique id-variable combinations.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">m.df <span class="op">%&gt;%</span>
 <span class="kw">melt</span>(<span class="dt">measure.vars =</span> <span class="kw">c</span>(<span class="st">&quot;ideol&quot;</span>, <span class="st">&quot;education&quot;</span>, <span class="st">&quot;income&quot;</span>, <span class="st">&quot;age&quot;</span>,
