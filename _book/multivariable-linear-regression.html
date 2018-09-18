@@ -203,16 +203,16 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="8.5" data-path="bivariate-linear-regression.html"><a href="bivariate-linear-regression.html#hypothesis-testing"><i class="fa fa-check"></i><b>8.5</b> Hypothesis Testing</a></li>
 </ul></li>
 <li class="chapter" data-level="9" data-path="multivariable-linear-regression.html"><a href="multivariable-linear-regression.html"><i class="fa fa-check"></i><b>9</b> Multivariable Linear Regression</a><ul>
-<li class="chapter" data-level="9.1" data-path="multivariable-linear-regression.html"><a href="multivariable-linear-regression.html#part-i-calculating-least-squared-estimates"><i class="fa fa-check"></i><b>9.1</b> Part I: Calculating Least-Squared Estimates</a><ul>
+<li class="chapter" data-level="9.1" data-path="multivariable-linear-regression.html"><a href="multivariable-linear-regression.html#calculating-least-squared-estimates"><i class="fa fa-check"></i><b>9.1</b> Calculating Least-Squared Estimates</a><ul>
 <li class="chapter" data-level="9.1.1" data-path="multivariable-linear-regression.html"><a href="multivariable-linear-regression.html#matrix-algebra"><i class="fa fa-check"></i><b>9.1.1</b> Matrix Algebra</a></li>
 <li class="chapter" data-level="9.1.2" data-path="multivariable-linear-regression.html"><a href="multivariable-linear-regression.html#representing-system-of-linear-equations-as-matrices"><i class="fa fa-check"></i><b>9.1.2</b> Representing System of Linear Equations as Matrices</a></li>
 <li class="chapter" data-level="9.1.3" data-path="multivariable-linear-regression.html"><a href="multivariable-linear-regression.html#ols-regression-and-matrices"><i class="fa fa-check"></i><b>9.1.3</b> OLS Regression and Matrices</a></li>
 </ul></li>
-<li class="chapter" data-level="9.2" data-path="multivariable-linear-regression.html"><a href="multivariable-linear-regression.html#part-ii-multiple-regression-in-r"><i class="fa fa-check"></i><b>9.2</b> Part II: Multiple Regression in R</a></li>
-<li class="chapter" data-level="9.3" data-path="multivariable-linear-regression.html"><a href="multivariable-linear-regression.html#part-iii-hypothesis-testing-with-multivariable-regression"><i class="fa fa-check"></i><b>9.3</b> Part III: Hypothesis Testing with Multivariable Regression</a><ul>
+<li class="chapter" data-level="9.2" data-path="multivariable-linear-regression.html"><a href="multivariable-linear-regression.html#multiple-regression-in-r"><i class="fa fa-check"></i><b>9.2</b> Multiple Regression in R</a></li>
+<li class="chapter" data-level="9.3" data-path="multivariable-linear-regression.html"><a href="multivariable-linear-regression.html#hypothesis-testing-with-multivariable-regression"><i class="fa fa-check"></i><b>9.3</b> Hypothesis Testing with Multivariable Regression</a><ul>
 <li class="chapter" data-level="9.3.1" data-path="multivariable-linear-regression.html"><a href="multivariable-linear-regression.html#visualizing-multivariable-linear-regression"><i class="fa fa-check"></i><b>9.3.1</b> Visualizing Multivariable Linear Regression</a></li>
 </ul></li>
-<li class="chapter" data-level="9.4" data-path="multivariable-linear-regression.html"><a href="multivariable-linear-regression.html#part-iv-predicting-with-ols-regression"><i class="fa fa-check"></i><b>9.4</b> Part IV: Predicting with OLS Regression</a></li>
+<li class="chapter" data-level="9.4" data-path="multivariable-linear-regression.html"><a href="multivariable-linear-regression.html#predicting-with-ols-regression"><i class="fa fa-check"></i><b>9.4</b> Predicting with OLS Regression</a></li>
 </ul></li>
 <li class="chapter" data-level="10" data-path="categorical-explanatory-variables-dummy-variables-and-interactions.html"><a href="categorical-explanatory-variables-dummy-variables-and-interactions.html"><i class="fa fa-check"></i><b>10</b> Categorical Explanatory Variables, Dummy Variables, and Interactions</a><ul>
 <li class="chapter" data-level="10.1" data-path="categorical-explanatory-variables-dummy-variables-and-interactions.html"><a href="categorical-explanatory-variables-dummy-variables-and-interactions.html#dummy-variables"><i class="fa fa-check"></i><b>10.1</b> Dummy Variables</a><ul>
@@ -287,8 +287,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li>broom</li>
 <li>skimr</li>
 </ol>
-<div id="part-i-calculating-least-squared-estimates" class="section level2">
-<h2><span class="header-section-number">9.1</span> Part I: Calculating Least-Squared Estimates</h2>
+<div id="calculating-least-squared-estimates" class="section level2">
+<h2><span class="header-section-number">9.1</span> Calculating Least-Squared Estimates</h2>
 <p>The previous lab introduced the estimated bivariate linear regression model as follows:</p>
 <p><span class="math display">\[\hat{y}=\hat{\alpha}+\hat{\beta} x\]</span></p>
 <p>Where <span class="math inline">\(\hat{\alpha}\)</span> and <span class="math inline">\(\hat{\beta}\)</span> are solved via the following formulas:</p>
@@ -563,8 +563,8 @@ ols</code></pre></div>
 ## -0.175   0.425   0.625</code></pre>
 </div>
 </div>
-<div id="part-ii-multiple-regression-in-r" class="section level2">
-<h2><span class="header-section-number">9.2</span> Part II: Multiple Regression in R</h2>
+<div id="multiple-regression-in-r" class="section level2">
+<h2><span class="header-section-number">9.2</span> Multiple Regression in R</h2>
 <p>The R syntax for multiple linear regression is similar to what we used for bivariate regression: add the independent variables to the <code>lm()</code> function. Construct a model that looks at climate change certainty as the dependent variable with age and ideology as the independent variables:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">sub.ds &lt;-<span class="st"> </span>ds <span class="op">%&gt;%</span>
 <span class="st">  </span>dplyr<span class="op">::</span><span class="kw">select</span>(<span class="st">&quot;glbcc_cert&quot;</span>, <span class="st">&quot;ideol&quot;</span>, <span class="st">&quot;age&quot;</span>) <span class="op">%&gt;%</span>
@@ -636,8 +636,8 @@ model3 &lt;-<span class="st"> </span><span class="kw">lm</span>(sub.ds<span clas
 ## F-statistic: 85.58 on 2 and 2515 DF,  p-value: &lt; 0.00000000000000022</code></pre>
 <p>To interpret these results: a one unit increase in ideology corresponds with a -0.392 unit decrease in climate change certainty with all other variables held constant at their means. Further, given the p-value &lt; <span class="math inline">\(\alpha\)</span> = 0.05, the change in climate change certainty is statistically significant. Further, assessing the p-value of the age coefficient yields that the partial effect of age on climate change certainty is not statistically significant. You may have noticed a difference in the p-value for the age variable’s coefficient between the bivariate and multivariable regression models. This is due to the reduction in error in the model by adding the ideology variable. This is a good example of why, in most cases, multivariable regression provides a clearer picture of relationships. Only looking at age and climate change risk, we could potentially conclude that there is a statistically significant relationship; however, when appending ideology to model, we find that ideology is the more likely cause of change in climate change certainty.</p>
 </div>
-<div id="part-iii-hypothesis-testing-with-multivariable-regression" class="section level2">
-<h2><span class="header-section-number">9.3</span> Part III: Hypothesis Testing with Multivariable Regression</h2>
+<div id="hypothesis-testing-with-multivariable-regression" class="section level2">
+<h2><span class="header-section-number">9.3</span> Hypothesis Testing with Multivariable Regression</h2>
 <p>Perhaps we want to explore the relationship between opinions about fossil fuels and ideology. The class data set includes a question asking respondents what percentage of Oklahoma’s electricity should come from fossil fuels. It is reasonable to posit that more conservative individuals will want a higher percentage of the state’s electricity to come from fossil fuels. For this test, we include other independent variables: age, income, and education. We establish a hypothesis that the more conservative a respondent is, the more electricity they want to come from fossil fuels, all other variables held constant. The null hypothesis is that there is no difference in preferred percentage of electricity coming from fossil fuels by ideology. First we look at our variables:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">str</span>(ds<span class="op">$</span>okelec_foss)</code></pre></div>
 <pre><code>##  Factor w/ 63 levels &quot;0&quot;,&quot;10&quot;,&quot;100&quot;,..: 51 28 44 3 28 13 35 51 57 16 ...</code></pre>
@@ -708,8 +708,8 @@ ds.sub <span class="op">%&gt;%</span>
 <p>Now we can see the general relationship between each independent variable and the dependent variable. The <code>geom_smooth()</code> function defaults to showing 95% confidence intervals. You can disable the confidence intervals with the <code>se=FALSE</code> argument, but that is not recommended. Notice the very large confidence interval in the income visualization, especially at the higher income levels. This happens because there are fewer observations with very high incomes. A smaller sample size leads to a larger standard error, and in turn larger confidence intervals.</p>
 </div>
 </div>
-<div id="part-iv-predicting-with-ols-regression" class="section level2">
-<h2><span class="header-section-number">9.4</span> Part IV: Predicting with OLS Regression</h2>
+<div id="predicting-with-ols-regression" class="section level2">
+<h2><span class="header-section-number">9.4</span> Predicting with OLS Regression</h2>
 <p>Regression analysis is performed not only to explain relationships, but also to predict. In R, we can use the model we built to predict values of the dependent variable based on the values of the independent variables. Doing so is rather simple. Recall that our model attempts to explain how much of the state’s electricity a respondent thinks should come from fossil fuels as a function of their ideology, age, education, and income.</p>
 <p>To start predicting, we need to identify what values we want to assign to our independent variables. Perhaps you wanted to know the preferred percentage of energy coming from fossil fuels for an individual with a bachelor’s degree, an income of 45000, 40 years old, and a moderate (3) ideology. First we need to know the beta coefficients for each variable:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">coef</span>(model)</code></pre></div>

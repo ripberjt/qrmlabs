@@ -10,7 +10,7 @@ This lab covers the basics of multivariable linear regression. We begin by revie
 6. broom
 7. skimr
 
-## Part I: Calculating Least-Squared Estimates
+## Calculating Least-Squared Estimates
 
 The previous lab introduced the estimated bivariate linear regression model as follows:
 
@@ -328,7 +328,7 @@ ols <- lm(Y ~ 0 + X)
 ols
 ```
 
-## Part II: Multiple Regression in R
+## Multiple Regression in R
 
 The R syntax for multiple linear regression is similar to what we used for bivariate regression: add the independent variables to the `lm()` function. Construct a model that looks at climate change certainty as the dependent variable with age and ideology as the independent variables:
 
@@ -361,7 +361,7 @@ summary(model1)
 
 To interpret these results: a one unit increase in ideology corresponds with a -0.392 unit decrease in climate change certainty with all other variables held constant at their means. Further, given the p-value < $\alpha$ = 0.05, the change in climate change certainty is statistically significant. Further, assessing the p-value of the age coefficient yields that the partial effect of age on climate change certainty is not statistically significant. You may have noticed a difference in the p-value for the age variable's coefficient between the bivariate and multivariable regression models. This is due to the reduction in error in the model by adding the ideology variable. This is a good example of why, in most cases, multivariable regression provides a clearer picture of relationships. Only looking at age and climate change risk, we could potentially conclude that there is a statistically significant relationship; however, when appending ideology to model, we find that ideology is the more likely cause of change in climate change certainty.
 
-## Part III: Hypothesis Testing with Multivariable Regression
+## Hypothesis Testing with Multivariable Regression
 
 Perhaps we want to explore the relationship between opinions about fossil fuels and ideology. The class data set includes a question asking respondents what percentage of Oklahoma's electricity should come from fossil fuels. It is reasonable to posit that more conservative individuals will want a higher percentage of the state's electricity to come from fossil fuels. For this test, we include other independent variables: age, income, and education. We establish a hypothesis that the more conservative a respondent is, the more electricity they want to come from fossil fuels, all other variables held constant. The null hypothesis is that there is no difference in preferred percentage of electricity coming from fossil fuels by ideology. First we look at our variables:
 
@@ -420,7 +420,7 @@ model %>%
 Now we can see the general relationship between each independent variable and the dependent variable. The `geom_smooth()` function defaults to showing 95% confidence intervals. You can disable the confidence intervals with the `se=FALSE` argument, but that is not recommended. Notice the very large confidence interval in the income visualization, especially at the higher income levels. This happens because there are fewer observations with very high incomes. A smaller sample size leads to a larger standard error, and in turn larger confidence intervals. 
 
 
-## Part IV: Predicting with OLS Regression
+## Predicting with OLS Regression
 
 Regression analysis is performed not only to explain relationships, but also to predict. In R, we can use the model we built to predict values of the dependent variable based on the values of the independent variables. Doing so is rather simple. Recall that our model attempts to explain how much of the state's electricity a respondent thinks should come from fossil fuels as a function of their ideology, age, education, and income. 
 
