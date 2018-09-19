@@ -1,8 +1,5 @@
 ---
 title: 'Lab Three: Visualizing Data, Probability, the Normal Distribution, and Z Scores'
-author:
- - Alex Davis
- - Cody Adams
 output: pdf_document
 ---
 

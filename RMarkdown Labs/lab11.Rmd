@@ -1,8 +1,5 @@
 ---
 title: 'Lab Eleven: Diagnosing and Addressing Problems in Linear Regression'
-author:
- - Alex Davis
- - Cody Adams
 output: pdf_document
 always_allow_html: yes
 ---

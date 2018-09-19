@@ -1,8 +1,5 @@
 ---
 title: 'Lab Five: Inference for Two Populations'
-author:
- - Alex Davis
- - Cody Adams
 output: pdf_document
 ---
 
