@@ -1,8 +1,5 @@
 ---
 title: 'Lab Nine: Categorical Explanatory Variables, Dummy Variables, and Interactions'
-author:
- - Alex Davis
- - Cody Adams
 output: pdf_document
 ---
 

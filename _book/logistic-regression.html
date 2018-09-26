@@ -22,8 +22,6 @@
   
   
 
-<meta name="author" content="Alex Davis">
-<meta name="author" content="Cody Adams">
 
 
 
@@ -48,12 +46,12 @@
 
 
 <script src="libs/htmlwidgets-1.2/htmlwidgets.js"></script>
-<script src="libs/plotly-binding-4.7.1/plotly.js"></script>
+<script src="libs/plotly-binding-4.8.0/plotly.js"></script>
 <script src="libs/typedarray-0.1/typedarray.min.js"></script>
 <link href="libs/crosstalk-1.0.0/css/crosstalk.css" rel="stylesheet" />
 <script src="libs/crosstalk-1.0.0/js/crosstalk.min.js"></script>
-<link href="libs/plotlyjs-1.29.2/plotly-htmlwidgets.css" rel="stylesheet" />
-<script src="libs/plotlyjs-1.29.2/plotly-latest.min.js"></script>
+<link href="libs/plotly-htmlwidgets-css-1.39.2/plotly-htmlwidgets.css" rel="stylesheet" />
+<script src="libs/plotly-main-1.39.2/plotly-latest.min.js"></script>
 
 
 <style type="text/css">
@@ -205,16 +203,16 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="8.5" data-path="bivariate-linear-regression.html"><a href="bivariate-linear-regression.html#hypothesis-testing"><i class="fa fa-check"></i><b>8.5</b> Hypothesis Testing</a></li>
 </ul></li>
 <li class="chapter" data-level="9" data-path="multivariable-linear-regression.html"><a href="multivariable-linear-regression.html"><i class="fa fa-check"></i><b>9</b> Multivariable Linear Regression</a><ul>
-<li class="chapter" data-level="9.1" data-path="multivariable-linear-regression.html"><a href="multivariable-linear-regression.html#part-i-calculating-least-squared-estimates"><i class="fa fa-check"></i><b>9.1</b> Part I: Calculating Least-Squared Estimates</a><ul>
+<li class="chapter" data-level="9.1" data-path="multivariable-linear-regression.html"><a href="multivariable-linear-regression.html#calculating-least-squared-estimates"><i class="fa fa-check"></i><b>9.1</b> Calculating Least-Squared Estimates</a><ul>
 <li class="chapter" data-level="9.1.1" data-path="multivariable-linear-regression.html"><a href="multivariable-linear-regression.html#matrix-algebra"><i class="fa fa-check"></i><b>9.1.1</b> Matrix Algebra</a></li>
 <li class="chapter" data-level="9.1.2" data-path="multivariable-linear-regression.html"><a href="multivariable-linear-regression.html#representing-system-of-linear-equations-as-matrices"><i class="fa fa-check"></i><b>9.1.2</b> Representing System of Linear Equations as Matrices</a></li>
 <li class="chapter" data-level="9.1.3" data-path="multivariable-linear-regression.html"><a href="multivariable-linear-regression.html#ols-regression-and-matrices"><i class="fa fa-check"></i><b>9.1.3</b> OLS Regression and Matrices</a></li>
 </ul></li>
-<li class="chapter" data-level="9.2" data-path="multivariable-linear-regression.html"><a href="multivariable-linear-regression.html#part-ii-multiple-regression-in-r"><i class="fa fa-check"></i><b>9.2</b> Part II: Multiple Regression in R</a></li>
-<li class="chapter" data-level="9.3" data-path="multivariable-linear-regression.html"><a href="multivariable-linear-regression.html#part-iii-hypothesis-testing-with-multivariable-regression"><i class="fa fa-check"></i><b>9.3</b> Part III: Hypothesis Testing with Multivariable Regression</a><ul>
+<li class="chapter" data-level="9.2" data-path="multivariable-linear-regression.html"><a href="multivariable-linear-regression.html#multiple-regression-in-r"><i class="fa fa-check"></i><b>9.2</b> Multiple Regression in R</a></li>
+<li class="chapter" data-level="9.3" data-path="multivariable-linear-regression.html"><a href="multivariable-linear-regression.html#hypothesis-testing-with-multivariable-regression"><i class="fa fa-check"></i><b>9.3</b> Hypothesis Testing with Multivariable Regression</a><ul>
 <li class="chapter" data-level="9.3.1" data-path="multivariable-linear-regression.html"><a href="multivariable-linear-regression.html#visualizing-multivariable-linear-regression"><i class="fa fa-check"></i><b>9.3.1</b> Visualizing Multivariable Linear Regression</a></li>
 </ul></li>
-<li class="chapter" data-level="9.4" data-path="multivariable-linear-regression.html"><a href="multivariable-linear-regression.html#part-iv-predicting-with-ols-regression"><i class="fa fa-check"></i><b>9.4</b> Part IV: Predicting with OLS Regression</a></li>
+<li class="chapter" data-level="9.4" data-path="multivariable-linear-regression.html"><a href="multivariable-linear-regression.html#predicting-with-ols-regression"><i class="fa fa-check"></i><b>9.4</b> Predicting with OLS Regression</a></li>
 </ul></li>
 <li class="chapter" data-level="10" data-path="categorical-explanatory-variables-dummy-variables-and-interactions.html"><a href="categorical-explanatory-variables-dummy-variables-and-interactions.html"><i class="fa fa-check"></i><b>10</b> Categorical Explanatory Variables, Dummy Variables, and Interactions</a><ul>
 <li class="chapter" data-level="10.1" data-path="categorical-explanatory-variables-dummy-variables-and-interactions.html"><a href="categorical-explanatory-variables-dummy-variables-and-interactions.html#dummy-variables"><i class="fa fa-check"></i><b>10.1</b> Dummy Variables</a><ul>
@@ -368,14 +366,16 @@ ideol.data</code></pre></div>
 <p>Now use the <code>augment()</code> function to calculate predicted probabilities of voting for Trump at the various ideology levels. To do so, include <code>type.predict = &quot;response&quot;</code>. This tells <code>augment()</code> to generate predicted probabilities:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">logit1 <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">augment</span>(<span class="dt">newdata =</span> ideol.data, <span class="dt">predict =</span> <span class="st">&quot;response&quot;</span>) </code></pre></div>
-<pre><code>##   education    gender   income ideol    .fitted    .se.fit
-## 1  5.023987 0.4029851 70641.77     1 -3.6814727 0.20316959
-## 2  5.023987 0.4029851 70641.77     2 -2.4347767 0.15138394
-## 3  5.023987 0.4029851 70641.77     3 -1.1880808 0.10484256
-## 4  5.023987 0.4029851 70641.77     4  0.0586152 0.07417868
-## 5  5.023987 0.4029851 70641.77     5  1.3053112 0.08030343
-## 6  5.023987 0.4029851 70641.77     6  2.5520071 0.11760295
-## 7  5.023987 0.4029851 70641.77     7  3.7987031 0.16627662</code></pre>
+<pre><code>## # A tibble: 7 x 6
+##   education gender income ideol .fitted .se.fit
+## *     &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt; &lt;int&gt;   &lt;dbl&gt;   &lt;dbl&gt;
+## 1      5.02  0.403 70642.     1 -3.68    0.203 
+## 2      5.02  0.403 70642.     2 -2.43    0.151 
+## 3      5.02  0.403 70642.     3 -1.19    0.105 
+## 4      5.02  0.403 70642.     4  0.0586  0.0742
+## 5      5.02  0.403 70642.     5  1.31    0.0803
+## 6      5.02  0.403 70642.     6  2.55    0.118 
+## 7      5.02  0.403 70642.     7  3.80    0.166</code></pre>
 <p>As we would likely expect, increasing ideology increases the probability of voting for Trump. At an ideology level of 7, there is almost a guarantee of voting for Trump. To get a sense of what this would look like, we can visualize these predicted probabilities rather easily. We need to calculate lower and upper bounds of the confidence interval first, which is done just like with other models. Assign the data frame to an object.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">logit1 <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">augment</span>(<span class="dt">newdata =</span> ideol.data, <span class="dt">type.predict =</span> <span class="st">&quot;response&quot;</span>) <span class="op">%&gt;%</span>

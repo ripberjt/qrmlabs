@@ -1,8 +1,5 @@
 ---
 title: 'Lab Four: Foundations for Inference'
-author:
- - Alex Davis
- - Cody Adams
 output: pdf_document
 
 ---

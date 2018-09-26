@@ -1,8 +1,5 @@
 ---
 title: 'Lab Ten: Non-linearity, Non-normality, and Multicollinearity'
-author:
- - Alex Davis
- - Cody Adams
 output: pdf_document
 ---
 
