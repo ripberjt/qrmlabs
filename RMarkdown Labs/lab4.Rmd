@@ -149,161 +149,103 @@ Alternatively, the `describe()` function includes the SEM statistic for a given 
 
 ```{r 4_se2, echo = TRUE}
 describe(ds$age)
+describe(ds$age)$se
 ```
 
-__Note:__ The previous two methods return the same result.
+## Part III: Confidence Intervals (CIs)
 
-## Part III: Confidence Intervals
+The standard error is vital to inferential statistics. For example, the standard error is required to calculate confidence intervals (CIs). CIs employ standard error to assist with inferring information from a sample of a larger population, through inclusion of uncertainty. The formula to calculate a CI around the SEM is:
 
-The standard error is vital to inferential statistics. For example, the standard error is required to calculate confidence intervals. Confidence intervals employ standard error to assist with inferring information from a sample of a larger population, through inclusion of uncertainty.
+$$CI=\bar{x} \pm z\frac{s}{\sqrt{n}} = \bar{x} \pm z*SE$$
 
-Confidence intervals synthesize  knowledge of standard error and z-scores. Recall that with the normal distribution, a z-score standardizes standard deviations values are from the mean. To calculate a level of confidence (90%, 95%, 99%), the z-score associated with those levels of confidence is necessary:
+where z corresponds with confidence level. Here are the most common confidence levels and corresponding values of z:
 
- - 90% confidence = 1.645
- - 95% confidence = 1.960
- - 99% confidence = 2.576
- 
-The formula for confidence level is:
+    - 90% = 1.645
+    - 95% = 1.960
+    - 99% = 2.576
 
-$$CI=\bar{x} \pm z\frac{s}{\sqrt{n}},$$ 
-or
+To calculate these values or select a different value, use the following code:
 
-$$CI=\bar{x} \pm z*SE$$
+```{r 4_ci1, echo = TRUE}
+qnorm(1 - 0.05 / 2) #0.05 = 95% CI
+qnorm(1 - 0.2 / 2) #here, 0.05 = 80% CI
+```
 
-Put simply, the confidence interval is the sample mean plus/minus the product of the z-score and standard error. 
-
-Using the `age` variable within the `ds` data set, the a 95% confidence interval is calculated as follows: 
+Here, we calculate a 95% CI around the mean of the `age` variable within `ds`: 
 
 First calculate the mean:
 
-```{r 4_ci1, echo = TRUE}
+```{r 4_ci2, echo = TRUE}
 mean(ds$age, na.rm = T)
 ```
 
-Second, find the standard error:
-
-```{r 4_ci2, echo = TRUE}
-describe(ds$age)$se # this is a way to pull the standard error out without having to look at everything else
-```
-
-Given a 95% confidence interval, the z-score is 1.96. The upper bound of the confidence interval is calculated as follows:
+Second, find the SEM:
 
 ```{r 4_ci3, echo = TRUE}
+describe(ds$age)$se
+```
+
+Given that the z-score for a 95% CI is 1.96, the upper bound of the CI is calculated as follows:
+
+```{r 4_ci4, echo = TRUE}
 60.38 + 1.96 * 0.28
 ```
 
 The lower bound of the confidence interval is calculated as follows:
 
-```{r 4_ci4, echo = TRUE}
+```{r 4_ci5, echo = TRUE}
 60.38 - 1.96 * 0.28
 ```
 
-With 95% confidence, the population mean of `age` is between 59.83 and 60.93 (rounded).
+Our best guess is that the average age in the population is 60.37; but we are 95% confident that the age is somewhere between 59.8 and 60.9. To increase confidence in the estimate (reduce the likelihood of error), increase the CI from 95% to 99%. The z-score associated to 99% is 2.58, so the 99% CI is calculated as follows:
 
-Increasing confidence will increase the interval of the confidence interval. For example, the z-score associated to 99% is 2.58, so the confidence interval for 99% is calculated as follows:
-
-```{r 4_ci5, echo = TRUE}
+```{r 4_ci7, echo = TRUE}
 age.se <- describe(ds$age)$se
-```
-
-__Note:__ The standard error of the `age` variable was stored as to the `age.se` object via specifying only to return the standard error from the `describe()` function. Using the `se` object simplifies the confidence interval calculation as exemplified:
-
-```{r 4_ci6, echo = TRUE}
 mean(ds$age, na.rm = T) + 2.58 * age.se
 mean(ds$age, na.rm = T) - 2.58 * age.se
 ```
 
-With 99% confidence, the population mean of `age` is between 59.64 and 61.09. This interval is larger than the interval calculated for 95% confidence.
+Our best guess is that the average age in the population is 60.37; but we are 99%  confident that the age is somewhere between 59.6 and 61.1. We can use these CIs to test hypotheses about the average age of Oklahomans. For example: we can use it to test the following hypothesis:
+$H_0: \mu = 60$
+$H_A: \mu \neq 60$
 
-Alternatively, the `t.test()` function in R provides the 95% confidence interval for a given variable.
+In this case, the both the 95% and the 99% CIs include the null value (60), so we cannot reject the null hypothesis.
 
-```{r 4`ci7, echo = TRUE}
-t.test(ds$age)
+## Part IIII: P-values
+Like CIs, we can manually calculate p-values in R. This requires the following steps:
+
+1. Define a significe level ($\alpha = 0.05$)
+2. Calculate the sample mean ($\bar{x}$)
+3. Calculate the SEM
+4. Calculate the z-score of the sample mean, assuming the null value is the population mean ($\mu$) and the SE is the standard deviation ($\sigma$)
+5. Calculate the p-value, the probability of observing a sample mean of at least $\bar{x}$ if $\mu$ is the null value
+
+Here, is an example using age in the class dataset. We begin by calculating and storing the values we will need.
+
+```{r 4_p, echo = TRUE}
+xbar <- mean(ds$age, na.rm = T)
+nv <- 60
+s <- sd(ds$age, na.rm = T)
+n <- 2547
+se <- s / sqrt(n)
+z <- (xbar - nv) / se
 ```
 
-The results of _t.test()_ is similar to the manual calculations performed previously. By default, the _t.test()_ tests whether $\mu$ for the variable is equal to zero. The hypotheses for the _t.test()_ function are:
+Now, we can use these values to calculate a p-value.
 
-- $H_0: \bar{x} = \mu$
-- $H_1: \bar{x} \neq \mu$
-
-Note the returned p-value of the previous `t.test()` performed is less than $\alpha$ = 0.05; therefore, the null hypothesis is rejected. That is, given the sample data, with 95% confidence the $\mu$ is not zero.
-
-To explain a different way, using the same variable, but with a defined $\mu$ of 50, the `t.test()` function can test whether $\mu$ is 50.
-
-```{r 4_ci8, echo = TRUE}
-t.test(ds$age, mu = 50)
+```{r 4_p2, echo = TRUE}
+2 * pnorm(z, lower.tail = FALSE)
 ```
 
-The same result occurs: the null hypothesis is rejected. Once again, the `t.test()` function is employed to test whether $\mu$ = 60:
+In this case, the p-value is 0.191, which is greater than $\alpha$ = 0.05; therefore, we *cannot* reject the null hypothesis ($H_0: \mu = 60$).
+
+## Part IV: Single Sample T-tests
+The hypotheses and tests above are single sample tests, where we test a sample value ($\barx$) against a known null value ($\mu = 60$). A more common version of this test uses the `Student's t-distribution` rather than the `standard normal z-distribution` to calculate CIs and p-values. This is called the Single sample t-test. Note that when $n \gtrapprox 100$, the single sample z-test and t-test produce the same results. 
+
+To execute the tests we describe above, use the the `t.test` function. Here is an example, using the same test as above: 
 
 ```{r 4_ci9, echo = TRUE}
 t.test(ds$age, mu = 60)
 ```
 
-The result differs, such that the null hypothesis is not rejected as the p-value is greater than $\alpha$ = 0.05. That is, with 95% confidence, $\mu$ = 60.
-
-__Note:__ The p-values can be calculated manually from z-scores to test population means using confidence intervals. This requires:
-
-1. Calculate $\bar{x}$
-2. Calculate confidence intervals (as previously shown)
-3. Calculate the p-value associated with $H_0$
-
-Objects are employed to simplify the calculation:
-
-```{r 4_p, echo = TRUE}
-xbar <- mean(ds$age, na.rm = T)
-a <- 60
-s <- sd(ds$age, na.rm = T)
-n <- 2547
-```
-
-The p-value for if the population mean $\neq$ 60:
-
-```{r 4_p2, echo = TRUE}
-2 * (1 - pnorm(xbar, mean = a, sd = s/sqrt(n)))
-```
-
-The p-value of 0.191 is greater than $\alpha$ = 0.05; therefore, failing to reject $H_0$: $\mu$ = 60.
-
-## Part IV: More on Single Sample T-tests
-
-The previous confidence interval section introduced a preliminary discussion of t-tests. The Student's t distribution is based on sample estimates, whereas the normal distribution is used when $\sigma$ and $\mu$ are known. 
-
-Performing a t-test requires:
-
-1. n
-2. s
-3. $\bar{x}$
-4. t statistic
-
-To demonstrate, the following tests whether the population mean is 58 for the given data by defining the above parameters:
-
-```{r 4_t test, echo = TRUE}
-nAge <- length(ds$age) - sum(is.na(ds$age))
-sdAge <- sd(ds$age, na.rm = TRUE) # Standard deviation of age
-seAge <- sdAge/(sqrt(nAge)) # Standard error of age
-meanAge <- mean(ds$age, na.rm = TRUE)
-```
-
-To calculate the t statistic, the population mean is subtracted from the sample mean, and divided by the standard error as follows: 
-
-```{r 4_t test2, echo = TRUE}
-t_value <- (meanAge - 58)/seAge   
-t_value
-```
-
-To calculate the two-sided p value under the t distribution:
-
-```{r 4_t test3, echo = TRUE}
-2 * (1 - pt(abs(t_value), df = nAge - 1))
-
-```
-
-The returned p-value is less than $\alpha$ = 0.05, rejecting $H_0$: $\mu$ = 60. Put another way, $H_1$:  
-$\mu \neq 60$.
-
-```{r 4_t test4, echo = TRUE}
-t.test(ds$age, mu = 58)
-```
-
-With 95% confidence, $\mu \neq 60$
+Note that the `t.test` function, automatically calculates the sample mean, the t-score, CIs, and a p-value. By default, the `t.test` function uses the 95% CI. As above, both the CIs and the p-value indicate that we *cannot* reject the null hypothesis that $\mu = 60$ in Oklahoma. 
