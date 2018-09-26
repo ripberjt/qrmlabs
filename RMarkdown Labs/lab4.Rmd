@@ -4,7 +4,7 @@ output: pdf_document
 
 ---
 
-This lab introduces the tools for the foundation of inference by examining the normal distribution, standard errors, confidence errors, and single sample t-tests. The following packages are required:
+This lab introduces the tools for the foundation of inference by examining the normal distribution, standard errors, confidence intervals, p-values, and single sample t-tests. The following packages are required:
 
 1. car
 2. psych
@@ -34,7 +34,7 @@ data <- data.frame(random = rnorm(1000, mean = 50, sd = 5))
 
 Visualizing data is an important first step to inspecting data for normality. The previous lab introduced density plots, box plots, and Q-Q plots as means of visualizing data and their relationships to a normal distribution. Recall that the Q-Q plot graphs the quantiles of data against quantiles of a normal distribution, given the $\mu$ and $\sigma$ of the data.
 
-```{r 4_qq, echo = TRUE}
+```{r 4_qq, echo = TRUE, fig.height = 3, fig.width = 5, fig.align = 'center'}
 ggplot(data, aes(sample = random)) +
   stat_qq() +
   stat_qq_line()
@@ -74,7 +74,7 @@ describe(faithful$eruptions)
 
 Comparing the `eruptions` data to a normal distribution, given $\mu$ and $\sigma$ from the `eruptions` data, is available via the *geom_density()* and *stat_function()* functions.
 
-```{r 4_faith2, echo = TRUE}
+```{r 4_faith2, echo = TRUE, fig.height = 3, fig.width = 5, fig.align = 'center'}
 ggplot(faithful, aes(eruptions)) +
   geom_density() +
   stat_function(fun = dnorm, args = list(mean = mean(faithful$eruptions), 
@@ -85,7 +85,7 @@ The black line represents the `eruptions` data, and the blue line represents the
 
 The `eruptions` data is further examined using Q-Q plots via the `qqPlot()` function:
 
-```{r 4_faith4, echo = TRUE}
+```{r 4_faith4, echo = TRUE, fig.height = 3, fig.width = 5, fig.align = 'center'}
 ggplot(faithful, aes(sample = eruptions)) +
   stat_qq() +
   stat_qq_line()
@@ -101,14 +101,14 @@ The p-value for the Shapiro-Wilk test is less than $\alpha$ = 0.05, leading us t
 
 The `MacdonellDF` variable within the `HistData` package consists of finger length data. Again, visualizing the data for normality is performed via various methods. A box plot is generated for the `MacdonellDF` data:
 
-```{r 4_f, echo = TRUE}
+```{r 4_f, echo = TRUE, fig.height = 3, fig.width = 5, fig.align = 'center'}
 ggplot(MacdonellDF, aes(y = finger)) +
   geom_boxplot()
 ```
 
 The box plot appears balanced, indicating normality. Generating a density plot should show the distribution of `MacdonellDF` variable as similar to the projected normal distribution given the $\mu$ and $\sigma$ parameters of the `MacdonellDF` variable.
 
-```{r 4_f2, echo = TRUE}
+```{r 4_f2, echo = TRUE, fig.height = 3, fig.width = 5, fig.align = 'center'}
 ggplot(MacdonellDF, aes(finger)) +
   geom_density() +
   stat_function(fun = "dnorm", args = list(mean = mean(MacdonellDF$finger), 
@@ -119,7 +119,7 @@ ggplot(MacdonellDF, aes(finger)) +
 
 Additionally, a Q-Q plot:
 
-```{r 4_f3, echo = TRUE}
+```{r 4_f3, echo = TRUE, fig.height = 3, fig.width = 5, fig.align = 'center'}
 ggplot(MacdonellDF, aes(sample = finger)) +
   stat_qq() +
   stat_qq_line()
@@ -240,7 +240,7 @@ Now, we can use these values to calculate a p-value.
 In this case, the p-value is 0.191, which is greater than $\alpha$ = 0.05; therefore, we *cannot* reject the null hypothesis ($H_0: \mu = 60$).
 
 ## Part IV: Single Sample T-tests
-The hypotheses and tests above are single sample tests, where we test a sample value ($\barx$) against a known null value ($\mu = 60$). A more common version of this test uses the `Student's t-distribution` rather than the `standard normal z-distribution` to calculate CIs and p-values. This is called the Single sample t-test. Note that when $n \gtrapprox 100$, the single sample z-test and t-test produce the same results. 
+The hypotheses and tests above are single sample tests, where we test a sample value ($\bar{x}$) against a known null value ($\mu = 60$). A more common version of this test uses the `Student's t-distribution` rather than the `standard normal z-distribution` to calculate CIs and p-values. This is called the Single sample t-test. Note that when $n \gtrapprox 100$, the single sample z-test and t-test produce the same results. 
 
 To execute the tests we describe above, use the the `t.test` function. Here is an example, using the same test as above: 
 
