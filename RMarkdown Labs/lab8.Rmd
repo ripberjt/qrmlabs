@@ -1,5 +1,5 @@
 ---
-title: 'Lab Eight: Multivariable Linear Regression'
+title: 'Lab Eight: Multiple Linear Regression'
 output: pdf_document
 ---
 

@@ -1,5 +1,5 @@
 ---
-title: 'Lab Seven: Bivariate Linear Regression'
+title: 'Lab Seven: Bivariate (Simple) Linear Regression'
 output: pdf_document
 ---
 
