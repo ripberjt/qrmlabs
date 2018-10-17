@@ -27,11 +27,11 @@ options(scipen = 999)
 
 ## Part I: Bivariate Linear Regression by Hand
 
-The goal of bivariate linear regression is to estimate a line (slope and intercept) that minimizes the error term (residual). The bivariate linear regression model is as follows:
+The goal of bivariate linear regression is to estimate a line (slope and intercept) that minimizes the distance from each point to the line (the residual). The bivariate linear regression model takes the following form:
 
 $$y_i=\alpha+\beta x_i+\varepsilon_i$$
 
-Where, `y` is the dependent variable, `i` is the unit of analysis, $\alpha$ is the y-intercept, $\beta$ is the slope, `x` is the independent variable, and $\varepsilon$ is the error term (residuals).
+Where, `y` is the dependent variable, `i` is the unit of analysis, $\alpha$ is the y-intercept, $\beta$ is the slope, `x` is the independent variable, and $\varepsilon$ is the error term.
 
 When working with samples, we develop an estimated model:
 
@@ -44,9 +44,9 @@ This lab focuses on the ordinary least squares method to find $\hat{\alpha}$ and
 To demonstrate, we will explore the relationship between ideology and concern for natural resources. The first step is to subset the variables of interest absent of NA values:
 
 ```{r 7_71, echo=TRUE}
-ds %>% 
+ds.sub <- ds %>% 
   dplyr::select("ideol", "cncrn_natres") %>%
-  na.omit() -> ds.sub
+  na.omit()
 ```
 
 Reviewing the variables is an important first step:
@@ -61,7 +61,7 @@ The ideology variable ranges from 1 "very liberal" to 7 "very conservative." The
 DV: Ideology  
 IV: Concern for natural resources
 
-We need to find $\hat{\alpha}$ and $\hat{\beta}$ to develop the estimated bivariate regression model. Our first step is to find $\hat{\beta}$. Recall the formula for $\hat{\beta}$ is:
+We need to find $\hat{\alpha}$ and $\hat{\beta}$ to estimate the bivariate regression model. Our first step is to find $\hat{\beta}$. Recall the formula for $\hat{\beta}$ is:
 
 $$\hat{\beta}=\frac{cov(x,y)}{var(x)}$$
 
@@ -72,12 +72,12 @@ ds.sub$x <- ds.sub$ideol
 ds.sub$y <- ds.sub$cncrn_natres
 ```
 
-Next we calculate the cov(x,y) for the numerator and var(x) for the denominator:
+Next we calculate the `cov(x, y)` for the numerator and `var(x)` for the denominator:
 
 ```{r 7_7biv2, echo=TRUE}
 r <- cor(ds.sub$x, ds.sub$y)
 cov.xy <- cov(ds.sub$x, ds.sub$y, use = "complete.obs")
-var.x <- var(ds.sub$x, na.rm = T)
+var.x <- var(ds.sub$x, na.rm = TRUE)
 ```
 
 Finally, to calculate $\hat{\beta}$:
@@ -110,21 +110,21 @@ alpha.hat
 beta.hat
 ```
 
-Now create some predicted values of y, concern for natural resources, based on our estimated regression model:
+Now create some predicted values of `y`, concern for natural resources, based on our estimated regression model:
 
 ```{r 7_7biv7, echo=TRUE}
 yhat <- alpha.hat + beta.hat * ds.sub$x
 head(yhat) # Returns the first 5 values
 ```
 
-To draw inference using the estimated regression model we need to understand how `x` helps us understand `y`. More formally, we explore this relationship by evaluating the residuals associated to the coefficients $\hat{\alpha}$ and $\hat{\beta}$. We are interested in whether the coefficients are statistically different than zero.
+To draw inference using the estimated regression model we need to understand how `x` helps us understand `y`. More formally, we explore this relationship by evaluating the residuals associated to the coefficients $\hat{\alpha}$ and $\hat{\beta}$. Usually, we are interested in whether the coefficient ($\hat{\beta}$) is statistically different than zero.
 
 -$H_0$: $\beta$ = 0  
 -$H_1$: $\beta$ $\neq$ 0
 
-Put simply, if the coefficient $\hat{\beta}$ is zero, than that is to say that no value of x helps us understand y ($0*x=0$).
+Put simply, if the coefficient $\hat{\beta}$ is zero, than that is to say that no value of x helps us understand y ($0*x=0$), or, that there is no relationship between `x` and `y`.
 
-If we assume the residuals follow a normal distribution, then we can calculate the t-statistic to examine the coefficient's statistical significance.
+If we assume the unobservable error term follows a normal distribution, then we can calculate the t-statistic to examine the coefficient's statistical significance. We can learn about the error term by examining the residuals (the observable error).
 
 Recall that residuals are the differences in the observed values of the data and the predicted values of the estimated regression model. We can calculate residuals by subtracting the $\hat{y}$ values we just calculated from the `y` values:
 
@@ -132,14 +132,14 @@ Recall that residuals are the differences in the observed values of the data and
 res <- ds.sub$y - yhat
 ```
 
-Now that we have the residuals, we need to calculate the residual standard error, which measures the spread of observations around the regression line we just calculated. We also need to know the residual standard error so that we can find the standard errors for the regression coefficients, which are then used to calculate the t scores of the coefficients. To calculate the residual standard error we need to find:
+Now that we have the residuals, we can calculate the residual standard error, which measures the spread of observations around the regression line we just calculated. We also need to know the residual standard error so that we can find the standard errors for the regression coefficients, which are then used to calculate the t-scores of the coefficients. To calculate the residual standard error we need to find:
 
 1. The residual sum of squares
 2. The degrees of freedom for our model
 
 ```{r 7_7rss, echo=TRUE}
-res.sqr <- res^2
-RSS <- sum(res.sqr, na.rm=T)
+res.sqr <- res ^ 2
+RSS <- sum(res.sqr, na.rm = T)
 ```
 
 Now we need to calculate the degrees of freedom. In this case, we have the intercept and the ideology variable, so we subtract two. Since we subset our data to remove all missing observations, we know the n size for x and y are the same:
@@ -224,11 +224,11 @@ r.sqr
 
 #### Adjusted R Squared
 
-There is a slightly more accurate measure of model fit, though, known as adjusted R squared. Adjusted R squared addresses some problems that are inherent in the R squared calculation, like the realtiy that R squared tends to increase as you add more predictors to your model, even if it's more due to chance than actual predicting power. Adjusted R squared addresses this issue by penalizing the model for an increased number of predictors. Use this formula to find adjusted R squared
+There is a slightly more accurate measure of model fit, though, known as adjusted R squared. Adjusted R squared addresses some problems that are inherent in the R squared calculation, like the reality that R squared tends to increase as you add more predictors to your model, even if it's more due to chance than actual predicting power. Adjusted R squared addresses this issue by penalizing the model for an increased number of predictors. Use this formula to find adjusted R squared
 
 $$1-\frac{(1-R^{2})(n-1)}{n-k-1}$$
 
-where k is the number of predictors in our model, not including the intercept(A). We can actually find this pretty simply. Recall that we are working with an n size of 2508. Our k value is 1, becuase we only have one predictor in the model (ideology). Find the adjusted R squared value:
+where k is the number of predictors in our model, not including the intercept(A). We can actually find this pretty simply. Recall that we are working with an n size of 2508. Our k value is 1, because we only have one predictor in the model (ideology). Find the adjusted R squared value:
 
 ```{r 7_7adjr, echo=TRUE}
 adj.r2 <- 1-(((1 - r.sqr) * (2508 - 1)) / (2508 - 1 - 1))
@@ -304,7 +304,7 @@ First we  examine the normality of both variables. Create a histogram and overla
 
 ```{r 7_7br6, echo=TRUE}
 ggplot(sub.ds, aes(renew)) +
-  geom_histogram(aes(y= ..density.. ), bins = 20) +
+  geom_density(bw = 10, col = "blue") +
   stat_function(fun = dnorm, args = list(mean = mean(sub.ds$renew),
                                          sd = sd(sub.ds$renew)))
 ```
@@ -312,7 +312,7 @@ ggplot(sub.ds, aes(renew)) +
 
 ```{r 7_7br7, echo=TRUE}
 ggplot(sub.ds, aes(ideol)) +
-  geom_histogram(aes(y = ..density..), bins = 7) +
+  geom_density(bw = 1, col = "blue") +
   stat_function(fun = dnorm, args = list(mean = mean(sub.ds$ideol), sd = sd(sub.ds$ideol)))
 ```
 
@@ -399,7 +399,7 @@ mtable(model1, model2, model3)
 Alternatively, you can use the `stargazer()` function to create tables for your models. The `stargazer()` function is different in that you can specify a table created with text or with LaTex code that you can subsequently paste into a LaTex document. We'll create a text table, but if you wanted to create a Latex table, you would use the `type=latex` argument.
 
 ```{r 7_7com3, echo=TRUE}
-stargazer(model1, model2, model3, type="text", style="apsr")
+stargazer(model1, model2, model3, type = "text", style = "apsr")
 ```
  
 ### Visualizing Multiple Models
@@ -407,8 +407,7 @@ stargazer(model1, model2, model3, type="text", style="apsr")
 The three models can be visualized together by melting the data set into long form, with the three IVs as measure variables, then using `ggplot2` and facet wrapping by independent variable. Including `scales = "free_x"` inside the `facet_wrap()` function will make the visualization so that each plot has its own independent x axis but is on the same fixed y axis. 
 
 ```{r 7_7vis, echo=TRUE}
-melt(sub, measure.vars = c("ideol", "glbcc_cert", "age"),
-              variable.name = c("IV")) %>%
+melt(sub, measure.vars = c("ideol", "glbcc_cert", "age"), variable.name = c("IV")) %>%
   ggplot(., aes(value, glbcc_risk)) +
   geom_smooth(method = lm) +
   facet_wrap(~ IV, scales = "free_x")
@@ -448,14 +447,16 @@ Now visualize the normality of the variables:
 
 ```{r 7_7hyp4, echo=TRUE}
 ggplot(new.ds, aes(wtr_comm)) +
-  geom_density(adjust = 3) +
-  stat_function(fun = dnorm, args = list(mean = mean(new.ds$wtr_comm), sd = sd(new.ds$wtr_comm)), color = "blue")
+  geom_density(bw = 0.5, color = "blue") +
+  stat_function(fun = dnorm, args = list(mean = mean(new.ds$wtr_comm), 
+                                         sd = sd(new.ds$wtr_comm)))
 ```
 
 ```{r 7_7hyp5, echo=TRUE}
 ggplot(new.ds, aes(glbcc_risk)) +
-  geom_density(adjust = 3) +
-  stat_function(fun = dnorm, args = list(mean = mean(new.ds$glbcc_risk), sd = sd(new.ds$glbcc_risk)), color = "blue")
+  geom_density(bw = 1, color = "blue") +
+  stat_function(fun = dnorm, args = list(mean = mean(new.ds$glbcc_risk), 
+                                         sd = sd(new.ds$glbcc_risk)))
 ```
 
 Next, create the model. Recall that the dependent variable is concern for water supply and the independent variable is climate change risk.
@@ -476,8 +477,9 @@ We examine the normality of the residuals:
 
 ```{r 7_7hyp8, echo=TRUE}
 ggplot(lm1, aes(lm1$residuals)) +
-  geom_density(adjust = 3) +
-  stat_function(fun = dnorm, args = list(mean = mean(lm1$residuals), sd = sd(lm1$residuals)), color = "blue")
+  geom_density(bw = 0.5, color = "blue") +
+  stat_function(fun = dnorm, args = list(mean = mean(lm1$residuals), 
+                                         sd = sd(lm1$residuals)))
 ```
 
 Now build a good visualization that would be worthy of a paper:
@@ -489,11 +491,13 @@ ggplot(new.ds, aes(wtr_comm, glbcc_risk)) +
   ggtitle("Concern for Water and Climate Change") +
   xlab("Considers Water Supply Adequate") +
   ylab("Perceived Climate Change Risk") +
-  scale_x_continuous(breaks=c(1, 2 ,3 ,4 ,5), labels=c("Definitely No", 
-                                                       "Probably No", "Unsure",
-                                                       "Probably Yes", "Definitely Yes")) +
+  scale_x_continuous(breaks=c(1, 2 ,3 ,4 ,5), 
+                     labels=c("Definitely No", 
+                              "Probably No", 
+                              "Unsure", 
+                              "Probably Yes", 
+                              "Definitely Yes")) +
   theme_bw()
-  
 ```
 
-Our findings support that individuals less concerned about climate change are also less concerned about their community's water supply.
+Our findings are consistent with the hypothesis that individuals less concerned about climate change are also less concerned about their community's water supply.
