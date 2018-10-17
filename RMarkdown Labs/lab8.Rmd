@@ -3,7 +3,7 @@ title: 'Lab Eight: Multiple Linear Regression'
 output: pdf_document
 ---
 
-This lab covers the basics of multivariable linear regression. We begin by reviewing linear algebra to perform ordinary least squares (OLS) regression in matrix form. Then we cover an introduction to multiple linear regression and visualizations with R. The following packages are required for this lab: 
+This lab covers the basics of multiple linear regression. We begin by reviewing linear algebra to perform ordinary least squares (OLS) regression in matrix form. Then we cover an introduction to multiple linear regression and visualizations with R. The following packages are required for this lab: 
 
 1. tidyverse
 2. psych
@@ -38,11 +38,11 @@ $$\hat{\alpha}=\bar{y} - \hat{\beta}\bar{x}$$
 
 $$\hat{\beta}=\frac{cov(x,y)}{var(x)}$$
 
-In this lab we use matrix algebra to calculate the least-squared estimates. This proves useful for multivariable linear regression models where the methods introduced for bivariate regression models become more complex and computationally cumbersome to express as equations.
+In this lab we use matrix algebra to calculate the least-squared estimates. This proves useful for multiple linear regression models where the methods introduced for bivariate regression models become more complex and computationally cumbersome to express as equations.
 
 ### Matrix Algebra
 
-For multivariable regression analysis, the formulas for calculating coefficients are more easily found using matrix algebra. In this section we cover the basics of matrix algebra relevant to calculating the coefficients for an estimated linear regression model. A matrix is a rectangular array of numbers organized in rows and columns and each number within a matrix is an element. A matrix is defined as consisting of `m` rows and `n` columns. __Note:__ If m = n, the matrix is referred to as a square matrix.
+For multiple regression analysis, the formulas for calculating coefficients are more easily found using matrix algebra. In this section we cover the basics of matrix algebra relevant to calculating the coefficients for an estimated linear regression model. A matrix is a rectangular array of numbers organized in rows and columns and each number within a matrix is an element. A matrix is defined as consisting of `m` rows and `n` columns. __Note:__ If m = n, the matrix is referred to as a square matrix.
 
 The following is a general form of a matrix:
 
@@ -77,7 +77,6 @@ A
 ```
 
 Further, the `t()` function will transpose a given matrix:
-
 
 ```{r 8_mat2, echo=TRUE}
 Aprime <- t(A)
@@ -183,7 +182,7 @@ $$\hat{\alpha}=\bar{y} - \hat{\beta}\bar{x}$$
 
 $$\hat{\beta}=\frac{cov(x,y)}{var(x)}$$
 
-In this lab we demonstrate how to use matrix algebra to calculate the least-squared estimates. For bivariate linear regression, the above formulas and matrix algebra will produce the same result; however, for multivariable linear regression the underlying methods that develop the above formulas become computationally complex such that matrix algebra is the preferred method to calculate the coefficients. 
+In this lab we demonstrate how to use matrix algebra to calculate the least-squared estimates. For bivariate linear regression, the above formulas and matrix algebra will produce the same result; however, for multiple linear regression the underlying methods that develop the above formulas become computationally complex such that matrix algebra is the preferred method to calculate the coefficients. 
 
 Using bivariate regression we explored hypotheses related to how preference for renewable energy is a function of ideology. Sometimes the dependent variable (`y`) is not easily explainable via a single independent variable (`x`), but rather multiple independent variables ($x_0, x_1, ..., x_n$). We can modify the bivariate regression model to append the additional variables of interest, as follows:
 
@@ -191,7 +190,7 @@ Using bivariate regression we explored hypotheses related to how preference for 
 
 $$y_i=\beta_0+\sum^n_{j=1}{\beta_j x_{ij}}+\varepsilon_i$$
 
-Where, n is the number of independent variables, $\beta_0$ is the regression intercept, and $\beta_j$ is the slope for the $j^{th}$ variable. The above model is the general form of a regression model, and as such, will work for bivariate and multivariable models. If $n=1$, the model is exactly the same as the model stated in the textbook and previous lab.
+Where, n is the number of independent variables, $\beta_0$ is the regression intercept, and $\beta_j$ is the slope for the $j^{th}$ variable. The above model is the general form of a regression model, and as such, will work for bivariate and multiple models. If $n=1$, the model is exactly the same as the model stated in the textbook and previous lab.
 
 Using this model we can imagine collected data as a system of linear equations. To demonstrate, suppose we collected the following data:
 
@@ -305,7 +304,7 @@ ols
 b
 ```
 
-The previous example demonstrated calculating least-squared estimates for a bivariate regression model. Next is an example using matrix algebra to calculate the least-squared estimates for a multivariable linear regression model.
+The previous example demonstrated calculating least-squared estimates for a bivariate regression model. Next is an example using matrix algebra to calculate the least-squared estimates for a multiple linear regression model.
 
 Suppose we have the following data set:
 
@@ -361,7 +360,7 @@ Now look at the model:
 summary(model1)
 ```
 
-Before interpreting these results, we need to review partial effects. Chapter 12 of the textbook discusses partial effects in great detail. Essentially, multivariable regression "controls" for the effects of other dependent variables when reporting the effect of one particular variable. This is not accidental. Explore this for our model. First construct a bivariate regression model for each of independent variable in the multivariable regression model:
+Before interpreting these results, we need to review partial effects. Chapter 12 of the textbook discusses partial effects in great detail. Essentially, multiple regression "controls" for the effects of other dependent variables when reporting the effect of one particular variable. This is not accidental. Explore this for our model. First construct a bivariate regression model for each of independent variable in the multiple regression model:
 
 ```{r 8_mlr3, echo=TRUE}
 model2 <- lm(sub.ds$glbcc_cert ~ sub.ds$ideol)
@@ -369,15 +368,15 @@ model3 <- lm(sub.ds$glbcc_cert ~ sub.ds$age)
 stargazer(model2, model3, single.row = TRUE, type = "text")
 ```
 
-Notice the ideology coefficient in the bivariate model is larger than the ideology coefficient in the multivariable regression model. The same is also true for the age variable. This is because the bivariate model reports the total effects of X on Y, but the multivariable regression model reports the effects of X on Y when "controlling" for the other independent variables. Look at the multivariable regression model again:
+Notice the ideology coefficient in the bivariate model is larger than the ideology coefficient in the multiple regression model. The same is also true for the age variable. This is because the bivariate model reports the total effects of X on Y, but the multiple regression model reports the effects of X on Y when "controlling" for the other independent variables. Look at the multiple regression model again:
 
 ```{r 8_mlr4, echo=TRUE}
 summary(model1)
 ```
 
-To interpret these results: a one unit increase in ideology corresponds with a -0.392 unit decrease in climate change certainty with all other variables held constant at their means. Further, given the p-value < $\alpha$ = 0.05, the change in climate change certainty is statistically significant. Further, assessing the p-value of the age coefficient yields that the partial effect of age on climate change certainty is not statistically significant. You may have noticed a difference in the p-value for the age variable's coefficient between the bivariate and multivariable regression models. This is due to the reduction in error in the model by adding the ideology variable. This is a good example of why, in most cases, multivariable regression provides a clearer picture of relationships. Only looking at age and climate change risk, we could potentially conclude that there is a statistically significant relationship; however, when appending ideology to model, we find that ideology is the more likely cause of change in climate change certainty.
+To interpret these results: a one unit increase in ideology corresponds with a -0.392 unit decrease in climate change certainty with all other variables held constant at their means. Further, given the p-value < $\alpha$ = 0.05, the change in climate change certainty is statistically significant. Further, assessing the p-value of the age coefficient yields that the partial effect of age on climate change certainty is not statistically significant. You may have noticed a difference in the p-value for the age variable's coefficient between the bivariate and multiple regression models. This is due to the reduction in error in the model by adding the ideology variable. This is a good example of why, in most cases, multiple regression provides a clearer picture of relationships. Only looking at age and climate change risk, we could potentially conclude that there is a statistically significant relationship; however, when appending ideology to model, we find that ideology is the more likely cause of change in climate change certainty.
 
-## Part III: Hypothesis Testing with Multivariable Regression
+## Part III: Hypothesis Testing with Multiple Regression
 
 Perhaps we want to explore the relationship between opinions about fossil fuels and ideology. The class data set includes a question asking respondents what percentage of Oklahoma's electricity should come from fossil fuels. It is reasonable to posit that more conservative individuals will want a higher percentage of the state's electricity to come from fossil fuels. For this test, we include other independent variables: age, income, and education. We establish a hypothesis that the more conservative a respondent is, the more electricity they want to come from fossil fuels, all other variables held constant. The null hypothesis is that there is no difference in preferred percentage of electricity coming from fossil fuels by ideology. First we look at our variables:
 
@@ -420,7 +419,7 @@ To interpret these results, we start with the intercept. In a regression model, 
 
 Next we need to visualize the model. Visualizing multiple linear regression is not as simple as visualizing bivariate relationships. There is no intuitive way for us to visualize, in one graphic, how all of these variables look while all others are held constant simultaneously. For a relationship with one dependent variable and two independent variables, we can make a three dimensional scatter plot and regression plane; however, these still don't provide a very intuitive visualization. 
 
-### Visualizing Multivariable Linear Regression
+### Visualizing Multiple Linear Regression
 
 The best way to visualize multiple linear regression is to create a visualization for each independent variable while holding the other independent variables constant. Doing this allows us to see how each relationship between the DV and IV looks. Constructing a quick and dirty visualization for each IV in `ggplot2` is simiular to the methods used for bivariate linear regression. We will go into greater detail in the next section when we cover predictions with OLS, but making a quick visualization is rather simple. The `augment()` function from the `broom` package is very useful for this. The function transforms the data created from an OLS model into a tidyverse data frame format. Use `augment()`, then melt the data into long form, and create a `ggplot2` visualization for each IV by using `facet_wrap()`.
 
@@ -434,7 +433,6 @@ model %>%
 ```
 
 Now we can see the general relationship between each independent variable and the dependent variable. The `geom_smooth()` function defaults to showing 95% confidence intervals. You can disable the confidence intervals with the `se=FALSE` argument, but that is not recommended. Notice the very large confidence interval in the income visualization, especially at the higher income levels. This happens because there are fewer observations with very high incomes. A smaller sample size leads to a larger standard error, and in turn larger confidence intervals. 
-
 
 ## Part IV: Predicting with OLS Regression
 
@@ -478,9 +476,6 @@ model %>%
                                age = mean(ds.sub$age)))
 ```
 
-
-
-
 Recall that the earlier hypothesis stated that the more conservative a respondent, the more electricity they will prefer comes from fossil fuels. We can safely reject the null hypothesis, given the clear relationship and overall evidence that there is a positive relationship. To conlcude, let's build a solid, paper-worthy visualization of the relationship between ideology and opinions on fossil fuels from our model.
 
 __Note__:Until now, we have used `geom_smooth()` to create regression lines. However, the superior method of creating regression lines is to generate predictions outside of ggplot and use `geom_line()` to plot the line and `geom_ribbom()` to plot the confidence intervals. This is because `geom_smooth()` does not let you set the specific IV values. However, the `augment()` (or `predict()`!) function tells R to predict values of the DV based on specific values of the IV. To create a good regression line and confidence interval using the `augment()` function, instruct R to hold all DVs at their means except ideology. Sequence ideology from 1 to 7, and include `se.fit=TRUE`, then assign the fitted values to an object:
@@ -507,7 +502,7 @@ ggplot(fit.df, aes(ideol, .fitted)) +
   ylab("% of State's Electricity Should Come From Fossil Fuels") +
   xlab("Ideology") +
   scale_x_continuous(breaks=c(1:7), labels = c("1", "2", "3", "4", "5", "6", "7")) +
-  coord_cartesian(ylim = c(15, 40), xlim = c(1, 7)) +
+  coord_cartesian(ylim = c(25, 60), xlim = c(1, 7)) +
   theme_bw()
 ```
 
