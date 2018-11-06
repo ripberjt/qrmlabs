@@ -33,10 +33,7 @@ A critical assumption of OLS is that the relationship between variables are line
 
 ```{r 10_poly, echo=TRUE}
 sub <- ds %>%
-  dplyr::select("vote_cand_spt", "ideol","education",
-                                    "income", "age", "gender", "f.gender",
-                                    "glbcc_cert", "f.party", "glbcc_risk",
-                                    "cncrn_econ") %>%
+  dplyr::select("vote_cand_spt", "ideol", "education", "income", "age", "gender", "f.gender", "glbcc_cert", "f.party", "glbcc_risk", "cncrn_econ") %>%
   na.omit()
 ```
 
@@ -54,14 +51,23 @@ table(sub$vote_cand_spt)
 
 We can see that the modal value is 3, a response indicating moderate support for the candidate the respondent voted for. We also observe a negative skew indicating more responses in the higher values.
 
-Next build the linear regression model:
+Next, make a plot to explore the relationship between candidate support and ideology; are conservatives more supportive of their candidate than liberals?
+
+```{r 10_plot, echo=TRUE}
+ggplot(sub, aes(x = ideol, y = vote_cand_spt)) +
+  geom_jitter(alpha = 0.2) +
+  geom_smooth(method = "lm", color = "black") +
+  geom_smooth(method = "loess")
+```
+
+It looks like conservatives are a bit more supportive of their candidate than liberals, but the relationship may be nonlinear. Lets estimate a multiple regression model to check it out:
 
 ```{r 10_lin, echo=TRUE}
 model <- lm(vote_cand_spt ~ ideol + education + income + age + gender, data = sub)
 summary(model)
 ```
 
-Based on the p-values for the model variables, the ideology variable does not appear to help us understand candidate support; however, we should examine the linearity of the relationships. One way to do this is to plot the residuals by the values of the independent variables. Residual relationships should constitute a straight line with the residuals spread around a line at zero. To build this visualization we need to:
+Based on the p-values for the model variables, the ideology variable does not appear to help us understand candidate support; however, we should examine the linearity of the relationships. One way to do this is to plot the residuals by the values of the independent variables. Residual relationships should constitute a straight line with the residuals spread around a line at zero. To build this visualization we:
 
 1. Use `augment()` to predict values and create a data frame containing fitted values and residuals for each observation
 2. Melt the data into long form, sorted by independent variables
@@ -79,7 +85,7 @@ Now we need to melt the data into rows with unique id-variable combinations.
 
 ```{r 10_lin3, echo=TRUE}
 m.df <- m.df %>%
-melt(measure.vars = c("ideol", "education", "income", "age", "gender", ".fitted"))
+melt(measure.vars = c("ideol", "education", "income", "age", "gender"))
 head(m.df)
 ```
 
@@ -93,14 +99,14 @@ ggplot(m.df, aes(value, .std.resid)) +
   facet_wrap(~variable, scales = "free_x")
 ```
 
-We can see there are some potential non-linear relationships, for instance: the ideology variable. The next step is to consider adding an exponent the ideology variable. __Note:__ We want to avoid over fitting our model to the sample data. Therefore its important to have an understanding of why you are including an exponent.
+We can see there are some potential nonlinearities, for instance: the ideology variable. The next step is to consider adding an exponent the ideology variable. __Note:__ We want to avoid over fitting our model to the sample data. Therefore its important to have an understanding of why you are including an exponent.
 
 For example, when thinking about how ideology might influence candidate support, this could be an instance when a quadratic model might be appropriate. Think about it: it doesn't make any sense to theorize that the more conservative an individual, the more enthusiastic they were for the candidate they voted for, regardless of the candidate, but it **does** make sense to theorize that the more ideologically extreme an individual is (very liberal or very conservative) the more they supported the candidate they voted for. Perhaps the moderates voting in the 2016 election felt left our or alienated by the polarized political environment, and therefore could have had support for the candidate they voted for. 
 
 With this in mind, let's build a new model to include ideology as a squared term. __Note:__ The syntax to use a polynomial is: `poly(var,# of powers)`. The `poly` function creates an independent variable for each of the powers as required to create orthogonal power terms. Let's construct the model:
 
 ```{r 10_poly4, echo=TRUE}
-pol <- lm(vote_cand_spt ~ poly(ideol,2) + education + income + age + gender, data = sub)
+pol <- lm(vote_cand_spt ~ poly(ideol, 2) + education + income + age + gender, data = sub)
 summary(pol)
 ```
 
@@ -116,16 +122,7 @@ The significant p-value for the second line implies the second model is a better
 stargazer(model, pol, single.row = TRUE, type = "text")
 ```
 
-The coefficients for the individual variables in the quadratic model are statistically significant, suggesting they help us understand our dependent variable. Let's move onto the visualization. Since ideology is our variable of interest, we will visualize the relationship between ideology and candidate support while holding the other variables constant at their means.
-
-Start by looking at a scatter plot. To assist we need to jitter the data because ideology is a discrete variable:
-
-```{r 10_poly5, echo=TRUE}
-ggplot(sub, aes(ideol, vote_cand_spt)) +
-  geom_jitter(shape = 1) 
-```
-
-Now add the regression line and confidence interval. To do this we will:
+Let's move onto the visualization. Since ideology is our variable of interest, we will visualize the relationship between ideology and candidate support while holding the other variables constant at their means. To do this we will:
 
 1. Create predicted values and standard error values of candidate support using the `augment()` function, while holding all other values constant at their mean.
 2. Generate upper and lower limits of the confidence interval using `mutate()`
@@ -134,52 +131,57 @@ Now add the regression line and confidence interval. To do this we will:
 First predict. We are going to sequence ideology from 1 to 7 by 0.1 instead of by 1 to produce a smoother line:
 
 ```{r 10_poly6, echo=TRUE}
-pol %>%
-  augment(newdata = data.frame(ideol = seq(1,7,.1),
+pol.df <- pol %>%
+  augment(newdata = data.frame(ideol = seq(1, 7, 0.1),
                                education = mean(sub$education),
                                income = mean(sub$income),
                                age = mean(sub$age),
-                               gender= mean(sub$gender))) -> pol.df
+                               gender = mean(sub$gender)))
 ```
 
 Now create the upper and lower limits of the confidence interval:
 
 ```{r 10_poly7, echo=TRUE}
-pol.df %>%
+pol.df <- pol.df %>%
   mutate(upper = .fitted + 1.96 * .se.fit,
-         lower = .fitted - 1.96 * .se.fit) -> pol.df
+         lower = .fitted - 1.96 * .se.fit)
 ```
 
-The next step is to visualize. Use `geom_line()` to create the line, and `geom_ribbon()` to create the confidence interval. For practice, let's label the axes and add a title. 
+The next step is to visualize. Use `geom_line()` to create the line, and `geom_ribbon()` to create the confidence interval. For practice, let's label the axes, add a title, and use the `theme_bw`.
 
 ```{r 10_poly9, echo=TRUE}
-ggplot(pol.df, aes(ideol, .fitted)) +
+ggplot(pol.df, aes(x = ideol, y = .fitted)) +
   geom_line(size = 1, color = "dodgerblue") +
-  geom_ribbon(aes(ymin = lower, ymax = upper), fill = "dodgerblue", alpha = .5) +
+  geom_ribbon(aes(ymin = lower, ymax = upper), fill = "dodgerblue", alpha = 0.5) +
   coord_cartesian(ylim = c(2:5), xlim = c(1:7)) +
   xlab("Ideology") +
   ylab("Support for Candidate") +
   ggtitle("Ideology and Support for Candidate") +
   theme_bw()
-  
 ```
 
 This visualization shows the relationship specified in our theory: that the relationship between ideology and candidate support is quadratic, that more ideologically extreme individuals have more support for the candidate they voted for than moderates. 
 
-Let's use an example where a cubed exponent would be appropriate. A very common model we've used has been exploring the relationship between ideology and climate change risk. Perhaps the relationship between the two is not best described linearly. Let's first make a model we've looked at many times before:
+Let's use an example where a cubic term might be appropriate. A very common model we've used has been exploring the relationship between ideology and climate change risk. Perhaps the relationship between the two is not best described as a linear function. We can explore this with a simple scatter plot:
+
+```{r 10_cube1, echo=TRUE}
+ggplot(sub, aes(x = ideol, y = glbcc_risk)) +
+  geom_jitter(alpha = 0.2) +
+  geom_smooth(method = "lm", color = "black") +
+  geom_smooth(method = "loess")
+```
+
+Now, let's estimate a model we've looked at many times before and plot the residuals by IV, as we did above.
 
 ```{r 10_cube, echo=TRUE}
 lm1 <- lm(glbcc_risk ~ age + gender + ideol + education, data = sub)
 summary(lm1)
 ```
 
-Now plot the residuals by the independent variables:
-
 ```{r 10_cube2, echo=TRUE, warning=FALSE}
 lm1 %>%
   augment() %>%
-  melt(measure.vars = c("ideol", "education", "age",
-                        "gender", ".fitted")) %>%
+  melt(measure.vars = c("ideol", "education", "age", "gender")) %>%
 ggplot(., aes(value, .std.resid)) +
   geom_point(shape = 1) +
   geom_smooth(aes(value, .std.resid), method = "loess") +
@@ -187,7 +189,7 @@ ggplot(., aes(value, .std.resid)) +
   facet_wrap(~variable, scales = "free_x")
 ```
 
-Looking at the ideology variable, we can see that it is likely not linear. It looks more like the loess line moves above and below the line at zero. This may imply that a cube term might be appropriate. Build a model that cubes ideology:
+Looking at the ideology variable, we can see that it is not exactly linear. It looks more like the loess line moves above and below the line at zero. This may imply that a cubic term is appropriate, so lets estimate a model with a cubic term for ideology:
 
 ```{r 10_cube3, echo=TRUE}
 cubed <- lm(formula = glbcc_risk ~ age + gender + poly(ideol, 3)  + education, data = sub)
@@ -200,28 +202,28 @@ Now compare the two models:
 stargazer(lm1, cubed, single.row = TRUE, type = "text")
 ```
 
-It actually looks like the cube term does not describe the data very well. The adjusted R squared appears to marginally increase in the cubed model, but that does not tell us much. Let's use ANOVA:
+It looks like the cube term does not describe the data very well. The adjusted R squared appears to marginally increase in the more complex model, but that does not tell us much. Let's use anova function to conduct a nested F-test:
 
 ```{r 10_cube5, echo=TRUE}
 anova(lm1, cubed)
 ```
 
-The ANOVA test tells us that our cubed model is a better fit. This is likely due to the square term, which is statistically significant. Nonetheless, let's visualize this so you have experience seeing cubed lines. 
+The F-test tells us that the more complex model is a better fit. This is likely due to the square term, which is statistically significant. Nonetheless, let's visualize this so you have experience seeing cubic functions. 
 
 Follow the same steps as last time, predicting values, calculating the confidence interval, and plotting using `geom_line()` and `geom_ribbon()`. 
 
 ```{r 10_cube6, echo=TRUE}
-cubed %>%
+cube.df <- cubed %>%
   augment(newdata = data.frame(ideol = seq(1,7,.1),
                                education = mean(sub$education),
                                age = mean(sub$age),
                                gender= mean(sub$gender))) %>%
   mutate(upper = .fitted + 1.96 * .se.fit,
-         lower = .fitted - 1.96 * .se.fit) -> cube.df
+         lower = .fitted - 1.96 * .se.fit)
 
 ggplot(cube.df, aes(ideol, .fitted)) +
   geom_line(size = 1, color = "dodgerblue") +
-  geom_ribbon(aes(ymin = lower, ymax = upper), fill = "dodgerblue", alpha = .5) +
+  geom_ribbon(aes(ymin = lower, ymax = upper), fill = "dodgerblue", alpha = 0.5) +
   coord_cartesian(ylim = c(1:10), xlim = c(1:7)) +
   xlab("Ideology") +
   ylab("Climate Change Risk") +
