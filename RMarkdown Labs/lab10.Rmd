@@ -20,7 +20,6 @@ library(psych)
 library(car)
 library(stargazer)
 library(reshape2)
-library(skimr)
 library(broom)
 options(scipen = 999)
 ds <- read_csv("https://github.com/ripberjt/qrmlabs/raw/master/Class%20Data%20Set%20Factored.csv")
@@ -62,30 +61,29 @@ model <- lm(vote_cand_spt ~ ideol + education + income + age + gender, data = su
 summary(model)
 ```
 
-Based on the p-values for the model variables, the ideology variable does not appear to help us understand what candidate the responded supported; however, we should examine the linearity of the variables. One way to do this is to plot the residuals by the values of the independent variables. Residual relationships should constitute a straight line with the residuals spread around a line at zero. To build this visualization we need to:
+Based on the p-values for the model variables, the ideology variable does not appear to help us understand candidate support; however, we should examine the linearity of the relationships. One way to do this is to plot the residuals by the values of the independent variables. Residual relationships should constitute a straight line with the residuals spread around a line at zero. To build this visualization we need to:
 
-1. Use `augment()` to predict values and create a data frame containing fitted values and residuals
-2. Melt the data into long form, sorted by independent variables.
-3. Visualize the  relationship between the residuals and IVs simultaneously using `facet_wrap()`.
+1. Use `augment()` to predict values and create a data frame containing fitted values and residuals for each observation
+2. Melt the data into long form, sorted by independent variables
+3. Visualize the  relationship between the residuals and IVs simultaneously using `facet_wrap()`
 
 First the residuals and fitted values. Use `head()` to look at the first five observations in the data frame:
 
 ```{r 10_lin2, echo=TRUE}
-model %>%
-  augment() -> m.df
+m.df <- model %>%
+  augment()
 head(m.df)
 ```
 
 Now we need to melt the data into rows with unique id-variable combinations.
 
 ```{r 10_lin3, echo=TRUE}
-m.df %>%
-melt(measure.vars = c("ideol", "education", "income", "age",
-                                       "gender", ".fitted")) -> m.df
+m.df <- m.df %>%
+melt(measure.vars = c("ideol", "education", "income", "age", "gender", ".fitted"))
 head(m.df)
 ```
 
-The next step is to plot the residuals by the values of the independent variables. We're going to use `geom_smooth()` to create a loess line that approximates the spread of our data, and we will use `geom_hline()` to plot a horizontal line at 0. Then we will use `facet_wrap()` to tell R to create different plots for each independent variable of the model:
+The next step is to plot the residuals by the values of the independent variables. We're going to use `geom_smooth()` to create a loess line that approximates the spread of our data, and we will use `geom_hline()` to plot a horizontal line at 0. Then we will use `facet_wrap()` to create different plots for each independent variable of the model:
 
 ```{r 10_lin4, echo=TRUE, warning=FALSE}
 ggplot(m.df, aes(value, .std.resid)) +
@@ -95,7 +93,7 @@ ggplot(m.df, aes(value, .std.resid)) +
   facet_wrap(~variable, scales = "free_x")
 ```
 
-We can see there are some potential non-linear relationships, for instance: the ideology variable. The next step is to consider adding an exponent the ideology variable. __Note:__ We want to avoid over fitting our model to the data. Therefore its important to have an understanding of why you are including an exponent.
+We can see there are some potential non-linear relationships, for instance: the ideology variable. The next step is to consider adding an exponent the ideology variable. __Note:__ We want to avoid over fitting our model to the sample data. Therefore its important to have an understanding of why you are including an exponent.
 
 For example, when thinking about how ideology might influence candidate support, this could be an instance when a quadratic model might be appropriate. Think about it: it doesn't make any sense to theorize that the more conservative an individual, the more enthusiastic they were for the candidate they voted for, regardless of the candidate, but it **does** make sense to theorize that the more ideologically extreme an individual is (very liberal or very conservative) the more they supported the candidate they voted for. Perhaps the moderates voting in the 2016 election felt left our or alienated by the polarized political environment, and therefore could have had support for the candidate they voted for. 
 
