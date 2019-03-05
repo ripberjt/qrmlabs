@@ -9,20 +9,22 @@ This lab discusses the basics of formatting, describing, and visualizing data. T
 5. tidyverse
 6. skimr
 
-__Reminder:__ Lab One introduced how to install packages via `install.packages()` function. __Note:__ These packages should already be installed from the class initialization script.
+__Reminder:__ Lab One introduced how to install packages via the `install.packages()` function. 
 
-The installed packages require loading at the beginning of a R session.
+__Note:__ These packages should already be installed from the class initialization script.
+
+The installed packages require loading at the beginning of a R session. Remember that this can be done via the `library()` command.
 
 ## Factoring
 
-The previous lab introduced several types of objects in R. For the purpose of this lab, objects are classified in two broad groups: factors and numerics.
+The previous lab introduced several types of objects in R. For the purpose of this lab, objects are classified into two broad groups: factors and numerics.
 
 Factors are nominal data that a label is applied to.
  - e.g., race, gender, party identification, etc. 
 
-Numerics are data consisting of numbers, where it is ranked (ordinal and interval). 
+Numerics are data consisting of numbers, which are ranked (ordinal and interval). 
 
-When data is read into R (e.g., importing csv file), R automatically classifies the data by type. When data is recognized as non-numeric, R will classify it as a factor.
+When data is read into R (e.g., by importing a .csv file), R automatically classifies the data by type. When data is recognized as non-numeric, R will classify it as a factor.
 
 In the class dataset, the variable `f.party.2` is a variable consisting of factors that identifies the party affilation of the individuals who answered a survey. The `table()` function describes the variable by category.
 
@@ -36,7 +38,7 @@ Attempting to take mean of the `f.party.2` variable inevitably fails.
 mean(ds$f.party.2)
 ```
 
-Party affiliation is nominal data that cannot be described via mean. Consequently, R will error when attempting to calculate the mean or median of factor variables. 
+Party affiliation is nominal data that cannot be described via mean. Consequently, R will error when attempting to calculate the mean or median for factor variables. 
 
 The `str()` function describes the structure of the `f.party.2` variable:
 
@@ -57,19 +59,20 @@ Without a codebook to decipher the numeric values, statisticians are unable to e
 1. Applies labels to data
 2. Tells R to treat the data as categorical/nominal
 
-At a very basic level, a variable can be factored without applying labels. At minimum, R will treat the data as categorical. This method is sufficient when a variable requires quick factoring. The basic syntax is to use the `factor()` function. __Note:__ Best practice for factoring an existing variable is to create a variable within the same data set. Best practice suggests to append the new variable with `f.` to indicate the variable is factored.
+At a very basic level, a variable can be factored without applying labels. At minimum, R will treat the data as categorical. This method is sufficient when a variable requires quick factoring. The basic syntax is to use the `factor()` function. 
+__Note:__ Best practice for factoring an existing variable is to create an additional variable within the same data set. Best practice then suggests to append the new variable with `f.` to indicate the variable is factored.
 
 ```{r 2_fac1, echo = TRUE}
 ds$f.gender <- factor(ds$gender)
 ```
 
-__Reminder:__ The `$` sign instructs R what data set to draw the variable from, or to tell R what data set to assign the new factored variable to. The new factored variable can be described via the `table()` function.
+__Reminder:__ The `$` sign shows R which data set to draw the variable from, or to tell R what data set to assign the new factored variable to. The new factored variable can be described via the `table()` function.
 
 ```{r 2_fac2, echo = TRUE}
 table(ds$f.gender)
 ```
 
-While this factored variable is split into two categories, it is not apparent which numbers represent male and female. Labels should be assigned to the numbers to clarify the relationship between the numbers and their meaning. When factoring a variable, R requires the number of levels within the variable and the corresponding labels. In the `f.gender` variable there are two levels, 0 and 1, that require woman and men labels.
+While this factored variable is split into two categories, it is not apparent which numbers represent male and female. Labels should be assigned to the numbers to clarify the relationship between the numbers and their meaning. When factoring a variable, R requires the number of levels within the variable and the corresponding labels. In the `f.gender` variable there are two levels, 0 and 1, that require women and men labels.
 
 ```{r 2_fac3, echo = TRUE}
 ds$f.gender <- factor(ds$gender, levels = c(0, 1), 
@@ -77,9 +80,9 @@ ds$f.gender <- factor(ds$gender, levels = c(0, 1),
 table(ds$f.gender)
 ```
 
-The vector function, `c()`, instructs R the levels and labels of the variable.
+The vector function, `c()`, tells R the levels and labels of the variable.
 
-The `f.party` variable should also be factored, where 1 = Dem, 2 = Rep, 3 = Ind, and 4 = Other, then create a table of the variable.
+The `f.party` variable should also be factored, where 1 = Dem, 2 = Rep, 3 = Ind, and 4 = Other, and a table of the variable should be created.
 
 ```{r 2_fac4, echo = TRUE}
 ds$f.party <- factor(ds$party, levels = c(1, 2, 3, 4), 
@@ -93,7 +96,8 @@ The structure of the `f.party` variable describes a factor with four levels.
 str(ds$f.party)
 ```
 
-There are other types of data conversions as well. In most cases, the basic syntax is the same as the `factor()` function, except the function names are `numeric()` or `integer()`. __Note:__ For most purposes, numeric and integer are the same.
+There are other types of data conversions as well. In most cases, the basic syntax is the same as the `factor()` function, except the function names are `numeric()` or `integer()`.
+__Note:__ For most purposes, numeric and integer are the same.
 
 ### Coerce Factoring
 
@@ -136,7 +140,7 @@ To perform a recode, follow this basic syntax: `recoded.variable <- recode(old.v
 
 Performing a recode is best demonstrated via example. The best practice for recoding variables suggest creating a new variable with a `r.` prefix. 
 
-Within the class data set is an `ideol` variable describing ideology. Currently the ideology variable goes from 1 to 7, with 1 being very liberal and 7 being very conservative. The ideology variable can be recoded from seven levels to three, liberal, moderate, and conservative, via the `recode()` function. Values from 1 to 2 will recode as 1, 3 to 5 will recode as 2, and 6 to 7 will recode as 3. The `recode()` function is provided by the `car` package. 
+Within the class data set is an `ideol` variable describing ideology. Currently, the ideology variable goes from 1 to 7, with 1 being very liberal and 7 being very conservative. The ideology variable can be recoded from seven levels to three, liberal, moderate, and conservative, via the `recode()` function. Values from 1 to 2 will recode as 1, 3 to 5 will recode as 2, and 6 to 7 will recode as 3. This `recode()` function is provided by the `car` package. 
 
 ```{r 2_recode1, echo = TRUE}
 ds$r.ideol <- car::recode(ds$ideol, "1:2 = 1; 3:5 = 2; 6:7 = 3; 
@@ -155,7 +159,7 @@ __Note:__ In the recode function, all the recode arguments are required __inside
 
 Using colons to define ranges will save time. In the `recode()` function, using `3:5 = 1` instructs R to recode all values between 3 and 5 to a 2. This is the preferred method opposed to typing `3 = 2; 4 = 2; 5 = 2`.
 
-There is no standard method to categorize or recode data. Let the research question, model design, and data determine the best approach to recoding. For example, surveys that ask individuals to support something on a scale of 1 to 4, with 1 as very supportive and 4 as least supportive, perhaps recoding the higher value to indicate greater support is appropriate.
+There is no standard method to categorize or recode data. Let the research question, model design, and data determine the best approach to recoding. For example, in surveys that ask individuals to support something on a scale of 1 to 4, with 1 as very supportive and 4 as least supportive, perhaps recoding the higher value to indicate greater support is appropriate.
 
 Now let's look at the race variable:
 
@@ -212,7 +216,7 @@ table(ds$f.AfAm)
 
 ## Part III: Building and Sorting Your Data
 
-In R, random data can be generated easily into objects, and manipulated as desired. There are a variety of methods to accomplish this, of which the basics are explored below. 
+In R, random data can be generated easily into objects and manipulated as desired. There are a variety of methods to accomplish this, the basics of which are explored below. 
 
 The `rnorm()` function generates `n` random values that fit a normal distribution, given a mean and standard deviation.
 
@@ -252,7 +256,9 @@ ds %>%
   filter(gender == 0, age == 42)
 ```
 
-Similar to `filter()`, you can use the `select()` function from the `dplyr()` package to create a new data set that includes a few variables of interest. __Note__: `select` is a very common verb in R, and therefore is often masked by other packages. If you encounter an error when using `select()`, include `dplyr::` before calling the function, so that R knows which version of `select()` to use. Follow it up by using `na.omit()` to remove missing observations:
+Similar to `filter()`, you can use the `select()` function from the `dplyr()` package to create a new data set that includes a few variables of interest.
+
+__Note__: `select` is a very common verb in R, and therefore is often masked by other packages. If you encounter an error when using `select()`, include `dplyr::` before calling the function, so that R knows which version of `select()` to use. Follow it up by using `na.omit()` to remove missing observations:
 
 ```{r tidy3, echo = TRUE}
 ds.sub <- ds %>%
@@ -269,7 +275,7 @@ ds.sub %>%
   arrange(education)
 ```
 
-The `slice()` function selects a set amount of observations from the data. Using `slice()` selects a particular set of observations. Use `slice()` to select the first 10 observations from the data:
+The `slice()` function selects a set amount of observations from the data. Use `slice()` to select the first 10 observations from the data:
 
 ```{r 1tidy5, echo = TRUE}
 ds.new <- ds.sub %>%
