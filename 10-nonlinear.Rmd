@@ -14,7 +14,7 @@ This lab focuses on issues that arise with non-linearity, non-normality, and mul
 
 ### Exploring Non-linearity
 
-A critical assumption of OLS is that the relationship between variables are linear in their functional form, therefore it is imperative to inspect whether a model consist of non-linear relationships between variables of interest. As the book describes, regression diagnostics is largely an art. To demonstrate, suppose you want to examine the relationship between ideology and candidate support in the 2016 presidential election. The survey associated to the class data set asked respondents to indicate on a scale of 1 to 5 the level of support they have for the candidate they voted for in the 2016 presidential election. We will start by exploring data in preparation for a linear regression model:
+A critical assumption of OLS is that the relationship between variables is linear in their functional form, therefore it is imperative to inspect whether a model consist of non-linear relationships between variables of interest. As the book describes, regression diagnostics is largely an art. To demonstrate, suppose you want to examine the relationship between ideology and candidate support in the 2016 presidential election. The survey associated with the class data set asked respondents to indicate on a scale of 1 to 5 the level of support they have for the candidate they voted for in the 2016 presidential election. We will start by exploring data in preparation for a linear regression model:
 
 ```{r 10_poly, echo=TRUE}
 sub <- ds %>%
@@ -79,9 +79,9 @@ ggplot(m.df, aes(value, .std.resid)) +
   facet_wrap(~variable, scales = "free_x")
 ```
 
-We can see there are some potential non-linear relationships, for instance: the ideology variable. The next step is to consider adding an exponent the ideology variable. __Note:__ We want to avoid over fitting our model to the data. Therefore its important to have an understanding of why you are including an exponent.
+We can see there are some potential non-linear relationships; for instance, the ideology variable. The next step is to consider adding an exponent the ideology variable. __Note:__ We want to avoid over fitting our model to the data. Therefore it is important to have an understanding of why you are including an exponent.
 
-For example, when thinking about how ideology might influence candidate support, this could be an instance when a quadratic model might be appropriate. Think about it: it doesn't make any sense to theorize that the more conservative an individual, the more enthusiastic they were for the candidate they voted for, regardless of the candidate, but it **does** make sense to theorize that the more ideologically extreme an individual is (very liberal or very conservative) the more they supported the candidate they voted for. Perhaps the moderates voting in the 2016 election felt left our or alienated by the polarized political environment, and therefore could have had support for the candidate they voted for. 
+For example, when thinking about how ideology might influence candidate support, you could imagine this might be an instance when a quadratic model would be appropriate. Think about it: it wouldn't make sense to theorize that the more conservative an individual, the more enthusiastic they were for the candidate they voted for (regardless of who the candidate was), but it **does** make sense to theorize that the more ideologically extreme an individual is (very liberal or very conservative) the more they supported the candidate they voted for. Perhaps the moderates voting in the 2016 election felt left our or alienated by the polarized political environment, and therefore might have had less support for the candidate they voted for. 
 
 With this in mind, let's build a new model to include ideology as a squared term. __Note:__ The syntax to use a polynomial is: `poly(var,# of powers)`. The `poly` function creates an independent variable for each of the powers as required to create orthogonal power terms. Let's construct the model:
 
@@ -90,7 +90,7 @@ pol <- lm(vote_cand_spt ~ poly(ideol,2) + education + income + age + gender, dat
 summary(pol)
 ```
 
-We see that our squared ideology term is statistically significant, but the coefficient may not provide us an intuitive interpretation. Before visualizing the model, it may be helpful to compare the new model to the previous, via the `anova()` function, to compare fit to the data:
+We see that our squared ideology term is statistically significant, but the coefficient may not provide us an intuitive interpretation. Before visualizing the model, it may be helpful to compare the new model to the previous, via the `anova()` function, to compare their fit to the data:
 
 ```{r 10_comp, echo=TRUE}
 anova(model, pol)
@@ -117,7 +117,7 @@ Now add the regression line and confidence interval. To do this we will:
 2. Generate upper and lower limits of the confidence interval using `mutate()`
 3. Visualize.
 
-First predict. We are going to sequence ideology from 1 to 7 by 0.1 instead of by 1 to produce a smoother line:
+First: predict. We are going to sequence ideology from 1 to 7 by 0.1 instead of by 1 to produce a smoother line:
 
 ```{r 10_poly6, echo=TRUE}
 pol %>%
@@ -150,7 +150,7 @@ ggplot(pol.df, aes(ideol, .fitted)) +
   
 ```
 
-This visualization shows the relationship specified in our theory: that the relationship between ideology and candidate support is quadratic, that more ideologically extreme individuals have more support for the candidate they voted for than moderates. 
+This visualization shows the relationship specified in our theory: that the relationship between ideology and candidate support is quadratic, where more ideologically extreme individuals have more support for the candidate they voted for than moderates. 
 
 Let's use an example where a cubed exponent would be appropriate. A very common model we've used has been exploring the relationship between ideology and climate change risk. Perhaps the relationship between the two is not best described linearly. Let's first make a model we've looked at many times before:
 
@@ -275,14 +275,16 @@ ggplot(new.ds, aes(log.inc))+
   geom_density(adjust = 3)
 ```
 
-The skew appears to be reduced. Transforming a variable does not really change how you use it in a model, but it does change the interpretation. Now the variable is ordered in logs. So a mean of 10.96 indicates 10.96 natural logs income. Now let's build the model, using the log of income instead of the income variable:
+The skew appears to be reduced. Transforming a variable does not really change how you use it in a model, but it does change the interpretation. Now the variable is ordered in logs. So a mean of 10.96 indicates 10.96 natural logged income. Now let's build the model, using the log of income instead of the income variable:
 
 ```{r 10_non9, echo=TRUE}
 lm.trump <- lm(v.trump ~  log.inc + education + gender + ideol, data = new.ds)
 summary(lm.trump)
 ```
 
-Regarding the ideology variable, there really should not be any surprises. More conservative individuals voted for Trump. Education is significant, but the coefficient is rather small. Our model suggests that education helps us explain voting, with more education tending to go with voting for Clinton. Our log.income variable does not help us to explain voting. Let's now look at the normality of the residuals. First assign the residuals to our data set:
+Regarding the ideology variable, there really should not be any surprises. More conservative individuals voted for Trump. Education is significant, but the coefficient is rather small. Our model suggests that education helps us explain voting, with more education tending to go with voting for Clinton. Our log.income variable does not help us to explain voting. 
+
+Let's now look at the normality of the residuals. First assign the residuals to our data set:
 
 ```{r 10_non10, echo=TRUE}
 new.ds$res <- residuals(lm.trump)
@@ -307,7 +309,7 @@ Recall that the Shapiro-Wilk test tests against the null hypothesis that data ar
 
 ## Multicollinearity
 
-Multicollinearity occurs when one independent variable of a model can be predicted with a high degree of accuracy by another independent variable. Even though perfect multicollinearity is very rare, checking for multicollinearity is an important exercise. The first way to explore potential multicollinearity is to check the collinearity between independent variables:
+Multicollinearity occurs when one independent variable of a model can be predicted with a high degree of accuracy by another independent variable. Even though perfect multicollinearity is very rare, checking for multicollinearity is an important process. The first way to explore potential multicollinearity is to check the collinearity between independent variables:
 
 ```{r 10_mc, echo=TRUE}
 new.ds %>%
@@ -315,7 +317,7 @@ new.ds %>%
   cor()
 ```
 
-There does not appear to be extremely highly-correlated variables. We should find the variance inflation factor, which measures the increase in variance of the other coefficients due to the inclusion of a particular variable:
+There does not appear to be any extremely highly-correlated variables. We should find the variance inflation factor, which measures the increase in variance of the other coefficients due to the inclusion of a particular variable:
 
 ```{r 10_mc2, echo=TRUE}
 vif(lm.trump)
@@ -407,7 +409,7 @@ If you want to compare coefficients of different scales, you need to standardize
 2. Standardize the independent variables.
 3. Standardize all the variables.
 
-Standardizing a variable makes it scaled in standard deviations. This allows us to compare across variables that were originally scaled in different units. Let's use the previously developed model, but this time we will standardize the dependent variable only. Use the `scale()` function on the footage variable to standardize it:
+Standardizing a variable refers to scaling it in standard deviations. This allows us to compare variables that were originally measured in different units. Let's use our previously developed model, but this time we will standardize the dependent variable only. Use the `scale()` function on the footage variable to standardize it:
 
 ```{r 10_stan, echo=TRUE}
 d$z.footage <- scale(d$footage)
