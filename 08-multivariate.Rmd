@@ -1,6 +1,6 @@
 # Multivariable Linear Regression
 
-This lab covers the basics of multivariable linear regression. We begin by reviewing linear algebra to perform ordinary least squares (OLS) regression in matrix form. Then we cover an introduction to multiple linear regression and visualizations with R. The following packages are required for this lab: 
+This lab covers the basics of multivariable linear regression. We begin by reviewing linear algebra to perform ordinary least squares (OLS) regression in matrix form. Then we will cover an introduction to multiple linear regression and visualizations with R. The following packages are required for this lab: 
 
 1. tidyverse
 2. psych
@@ -94,7 +94,7 @@ AxAprime <- A %*% Aprime
 AxAprime
 ```
 
-__Note:__ Not all matrices can be multiplied. The number of columns in the first matrix must equal the number of columns in the second matrix. Further, unlike ordinary algebra multiplication, matrix multiplication is NOT commutative (order of operands matter). In the previous example we were able to find the product of A and A', because the number of columns in A (3) is equal to the number of rows in A' (3). Suppose we wanted the product of A' and B, where B is defined as the following matrix:
+__Note:__ Not all matrices can be multiplied. The number of columns in the first matrix must equal the number of rows in the second matrix. Further, unlike ordinary algebra multiplication, matrix multiplication is NOT commutative (order of operands matter). In the previous example we were able to find the product of A and A', because the number of columns in A (3) is equal to the number of rows in A' (3). Suppose we wanted the product of A' and B, where B is defined as the following matrix:
 
 $$B = \begin{bmatrix}
     1 & 2 & 3\\
@@ -102,7 +102,7 @@ $$B = \begin{bmatrix}
     4 & 5 & 6
 \end{bmatrix}$$
 
-We are unable to find the product of AB because the number of columns in A' (2) does not equal the number of rows in B (3). We are able to find the product of BA' as follows:
+We are unable to find the product of A'B because the number of columns in A' (2) does not equal the number of rows in B (3). We are able to find the product of BA' as follows:
 
 $$ A' \times B = \begin{bmatrix}
     1 & 2 & 4 \\
