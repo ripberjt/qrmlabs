@@ -191,9 +191,9 @@ fit3.df
 Build the visualization. Creating a grouped bar plot will allow us to see each party broken down by gender. To create a grouped bar plot, include `position = position_dodge()` in the `geom_bar()` and `geom_errorbar()` functions.
 
 ```{r 9_dum22, echo=TRUE}
-ggplot(fit3.df, aes(f.party, .fitted, fill = f.gender)) +
+ggplot(fit3.df, aes(f.party, .fitted, color = f.gender)) +
   geom_point(stat = "identity", position = position_dodge())  +
-  geom_errorbar(aes(ymin = low, ymax = up), position = position_dodge())
+  geom_errorbar(aes(ymin = low, ymax = up))
 ```
 
 It appears that there might be a difference in certainty of climate change between the political parties by gender. If we were to test how political beliefs vary as a function of gender and are related to opinions about climate change certainty, we would need to explore interaction terms.

@@ -1,6 +1,6 @@
 # Diagnosing and Addressing Problems in Linear Regression
 
-This lab helps us understand how to diagnose and address potential problems in OLS regression. In the last lab, we addressed OLS assumptions of normality of residuals, linearity, and multicollinearity. This lab addresses outliers and heteroscedasticity and also provides a refresher on exploring and visualizing your data. The following packages are required for this lab: 
+This lab helps us understand how to diagnose and address potential problems in OLS regression. In the last lab, we addressed the OLS assumptions of linearity, multicollinearity, and normality of residuals. This lab addresses outliers and heteroscedasticity while also providing a refresher on exploring and visualizing your data. The following packages are required for this lab: 
 
 1. tidyverse
 2. psych
@@ -19,7 +19,7 @@ ds <- read_csv("https://github.com/ripberjt/qrmlabs/raw/master/imdb_2014.csv")
 
 ## Introduction to the Data
 
-For this lab we will use a data set that contains information on movies from the IMDB website. The initial data set contains almost 60,000 observations, so we filter the data to make it a little smaller:
+For this lab we will use a data set that contains information on movies from the IMDB website. The initial data set contains almost 60,000 observations, so we will filter the data to make it a little smaller:
 
 ```{r 11_int, echo=TRUE}
 ds <- filter(ds, year>=1995 & votes>1000 & Short!=1) %>% dplyr::select(rating, length, budget,
@@ -57,7 +57,7 @@ Explore some descriptive statistics:
 describe(ds)
 ```
 
-We will want to start with a clean up a couple variables. First, we can scale the budget variable by millions of dollars, scale votes by thousands, and factor the year variable:
+We will want to start by cleaning up a couple variables. First, we can scale the budget variable by millions of dollars, scale votes by thousands, and factor the year variable:
 
 ```{r 11_int7, echo=TRUE}
 ds %>%
