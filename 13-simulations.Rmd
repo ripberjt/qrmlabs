@@ -42,12 +42,12 @@ Just like any other model, we look at the results using the usual methods. Let's
 summary(ols1)
 ```
 
-As we could have guessed, increased income corresponds with increased square footage, as does age and education. Further explore education and square footage while holding logged income and age at their means. First take a look at the education variable:
+As we could have guessed, increased income corresponds with increased square footage, as does age and education. Let's further explore education and square footage while holding logged income and age at their means. First take a look at the education variable:
 
 ```{r 13_zel4, echo=TRUE}
 table(ds.sub$education)
 ```
-According to the code book, a 2 indicates a High School education, and 6 indicates a Bachelor's degree. We can set the x value of education to both 2 and 6, and then have Zelig run Monte Carlo simulations, creating quantities of interest that we can compare. Use `setx()` and `setx1()` to set the two x values:
+According to the code book, a 2 indicates a High School education and 6 indicates a Bachelor's degree. We can set the x value of education to both 2 and 6, and then have Zelig run Monte Carlo simulations, creating quantities of interest that we can compare. Use `setx()` and `setx1()` to set the two x values:
 
 ```{r 13_zel5, echo=TRUE}
 ols1.ed <- setx(ols1, education = 2)
@@ -68,7 +68,7 @@ Next we use `plot()` to visualize the various QIs. I recommend clicking the "Sho
 plot(ols.sim)
 ```
 
-We can use Zelig to simulate based on a range of values, similar to how we would sequence one independent variable when we would predict in past labs. Let's simulate the data for the whole range of education values, from 1 to 8. We use to pipe operator, %>%, to simplify the syntax. 
+We can use Zelig to simulate based on a range of values, similar to how we would sequence one independent variable when we would predict values in past labs. Let's simulate the data for the whole range of education values, from 1 to 8. We use the pipe operator, %>%, to simplify the syntax. 
 
 ```{r 13_zel8, echo=TRUE}
 ols2.ed <- setx(ols1, education=1:8) %>%
