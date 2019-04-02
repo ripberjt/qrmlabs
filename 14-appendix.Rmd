@@ -1,0 +1,19 @@
+# Appendix: Guide to Data Visualization
+
+Throughout these labs, we have created numerous high quality data visualizations using the class data sets. While you can always use the code we have created there - which may even help refresh your memory on the data analysis skills you've learned - this guide is designed to be a quick, additional resource for the creation and customization of data visualizations.
+
+## Deciding Which Visualization to Use
+
+Remember - the type of data you are using _matters_. 
+
+## Adding Labels
+
+## Scale and Limits
+
+## Confidence Intervals
+
+## Adding Color
+
+## Creating a Legend
+
+## Using Themes

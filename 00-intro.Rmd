@@ -37,11 +37,11 @@ Additionally, it is important to note that RStudio is an entirely separate piece
 
 As you can see, the RStudio interface is primarily composed of 4 quadrants.
 
-In the upper-left corner is the source pane. This is the primarily location where most of your work will take place. You will write and edit collections of code - or R Scripts - here. When working in the source pane, your code will not compile untl you tell it to run; this allows you the flexibility to work at your own pace, as well as to save your work.
+In the upper-left corner is the __source pane__. This is the primarily location where most of your work will take place. You will write and edit collections of code - or R Scripts - here. When working in the source pane, your code will not compile untl you tell it to run; this allows you the flexibility to work at your own pace, as well as to save your work.
 
-In the lower-left corner is the console, or the command window. The console is the powerhouse of the software; this is where `R` actually evaluates code. While you can type code directly into the console and receive immediate results, it is advisable to stick to the source pane while you are learning how to use R. Running code in the source pane will automatically produce output in the console pane.
+In the lower-left corner is the __console__, or the command window. The console is the powerhouse of the software; this is where `R` actually evaluates code. While you can type code directly into the console and receive immediate results, it is advisable to stick to the source pane while you are learning how to use R. Running code in the source pane will automatically produce output in the console pane.
 
-The upper-right quadrant contains the Environment and History tabs. The Environment tab displays a list of all the data objects that you havae defined in your current R session, as well as some basic details about the data (such as the number of observations and variables in each).
+The upper-right quadrant contains the __Environment__ and __History__ tabs. The Environment tab displays a list of all the data objects that you havae defined in your current R session, as well as some basic details about the data (such as the number of observations and variables in each). The History tab contains an archive of all the commands you've run in the current session.
 
 Finally, the lower-right quadrant holds a number of helpful navigation tabs. The "Files" tab displays your hard drive's own file directory for easy access. The "Plots" tab will show the plots and visualzations you have created in your current R session. The "Packages" tabs shows a list of all the packages currently installed, as well as an indication of whther or not that are loaded in the current session. The "Help" tab is, unsurprisingly, the help menu.
 
