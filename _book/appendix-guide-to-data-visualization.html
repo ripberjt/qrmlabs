@@ -5,11 +5,11 @@
 
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Lab Guide to Quantitative Research Methods in Political Science, Public Policy &amp; Public Administration.</title>
-  <meta name="description" content="Lab Guide to Quantitative Research Methods in Political Science, Public Policy &amp; Public Administration.">
+  <title>15 Appendix: Guide to Data Visualization | Lab Guide to Quantitative Research Methods in Political Science, Public Policy &amp; Public Administration.</title>
+  <meta name="description" content="15 Appendix: Guide to Data Visualization | Lab Guide to Quantitative Research Methods in Political Science, Public Policy &amp; Public Administration.">
   <meta name="generator" content="bookdown  and GitBook 2.6.7">
 
-  <meta property="og:title" content="Lab Guide to Quantitative Research Methods in Political Science, Public Policy &amp; Public Administration." />
+  <meta property="og:title" content="15 Appendix: Guide to Data Visualization | Lab Guide to Quantitative Research Methods in Political Science, Public Policy &amp; Public Administration." />
   <meta property="og:type" content="book" />
   
   
@@ -17,7 +17,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Lab Guide to Quantitative Research Methods in Political Science, Public Policy &amp; Public Administration." />
+  <meta name="twitter:title" content="15 Appendix: Guide to Data Visualization | Lab Guide to Quantitative Research Methods in Political Science, Public Policy &amp; Public Administration." />
   
   
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   
   
+<link rel="prev" href="statistical-simulations.html">
 
-<link rel="next" href="introduction-to-r-rstudio-and-r-markdown.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -295,42 +295,31 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="header">
-<h1 class="title">Lab Guide to Quantitative Research Methods in Political Science, Public Policy &amp; Public Administration.</h1>
+<div id="appendix-guide-to-data-visualization" class="section level1">
+<h1><span class="header-section-number">15</span> Appendix: Guide to Data Visualization</h1>
+<p>Throughout these labs, we have created numerous high quality data visualizations using the class data sets. While you can always use the code we have created there - which may even help refresh your memory on the data analysis skills you’ve learned - this guide is designed to be a quick, additional resource for the creation and customization of data visualizations using the Tidyverse and <code>ggplot2</code>.</p>
+<p><strong>Note:</strong> While this quick guide is hopefully helpful, it is by no means complete. Remember that R and the Tidyverse are open source; you can always find help online, such as this <a href="https://resources.rstudio.com/rstudio-cheatsheets/data-visualization-2-1-cheat-sheet">Data Visualization Cheat Sheet</a> from RStudio.</p>
+<div id="deciding-which-visualization-to-use" class="section level2">
+<h2><span class="header-section-number">15.1</span> Deciding Which Visualization to Use</h2>
+<p>Remember - the type of data you are using <em>matters</em>.</p>
 </div>
-<div id="preface" class="section level1 unnumbered">
-<h1>Preface</h1>
-<p>This book is a companion to <em>Quantitative Research Methods for Political Science, Public Policy and Public Administration (With Applications in R): 4th Edition</em>, an open-source text book that is available <a href="">here</a>. It grew from our experiences teaching introductory and intermediate quantitative methods classes for graduate students in Political Science and Public Policy at the University of Oklahoma. We teach these courses using a format that pairs seminars on theory and statistics with exercises that focus on applications in <code>R</code>. We use the text book to motivate seminars and this book to guide exercises. The book is written in <code>R Markdown</code> and <code>bookdown</code>. While a “complete” copy of the book is available, we suggest that students and instructors use the “raw” <code>.Rmd</code> files for exercises. These materials ara available in our <code>GitHub</code> repository <a href="https://github.com/ripberjt/qrmlabs">here</a>.</p>
-<p>Currently, the labs use survey data from the <em>Meso-Scale Integrated Socio-geographic Network (M-SISNet)</em> to explain concepts and methods. The M-SISNet is a quarterly survey of approximately 1,500 households in Oklahoma that is conducted with support of the National Science Foundation (Grant No. IIA-1301789). One wave of M-SISNet data is available in our <code>GitHub</code> repository. Readers can learn more about the project and download the remaining waves <a href="http://crcm.ou.edu/epscordata/">here</a>. We welcome students and instructors to explore and use these data, but we also encourage instructors to modify the book by incorporating data that is more relevant to the course they are teaching.</p>
-<div id="acknowledgments" class="section level2 unnumbered">
-<h2>Acknowledgments</h2>
-<p>By intent, this book represents an open-ended group project that changes over time as new ideas and new instructors become involved in teaching graduate methods in the University of Oklahoma Political Science Department. Early ideas and materials came from Hank Jenkins-Smith, who began teaching these courses (in R) in 2010. Graduate assistants Matthew Nowlin, Tyler Hughes, and Aaron Fister were responsible for developing the labs for Hank’s courses. Joseph Ripberger began teaching these courses in 2015. Wesley Wehde was responsible for updating the labs for his courses. After many years of informal development, Alexander Davis and Cody Adams took the labs and turned them in to this book. We thank everyone, especially our students, for helping us write and continue to improve this book.</p>
+<div id="adding-labels" class="section level2">
+<h2><span class="header-section-number">15.2</span> Adding Labels</h2>
 </div>
-<div id="requirements" class="section level2 unnumbered">
-<h2>Requirements</h2>
-<p>Each chapter is written in R Markdown, allowing readers to follow along and interact with examples via their favorite integrated development environment (e.g., RStudio), or to knit as a PDF. For more information on R Markdown, visit: <a href="https://rmarkdown.rstudio.com/" class="uri">https://rmarkdown.rstudio.com/</a>.</p>
-<p>Statistical analysis in R is possible via a plethora of publicly available packages. These chapters introduce various functions from select packages to expand upon the base functions of R, and therefore the following packages are required:</p>
-<ol style="list-style-type: decimal">
-<li>car</li>
-<li>reshape2</li>
-<li>descr</li>
-<li>tidyverse</li>
-<li>skimr</li>
-<li>memisc</li>
-<li>stargazer</li>
-<li>MASS</li>
-<li>pscl</li>
-<li>broom</li>
-<li>zeligverse</li>
-<li>plotly</li>
-<li>vcd</li>
-<li>HistData</li>
-<li>sfsmisc</li>
-<li>interplot</li>
-<li>sandwich</li>
-<li>DAMisc</li>
-</ol>
-<p>For convenience, executing the <em>setup.R</em> script or knitting this document within RStudio will install these packages if they are not already installed.</p>
+<div id="scale-and-limits" class="section level2">
+<h2><span class="header-section-number">15.3</span> Scale and Limits</h2>
+</div>
+<div id="confidence-intervals-1" class="section level2">
+<h2><span class="header-section-number">15.4</span> Confidence Intervals</h2>
+</div>
+<div id="adding-color" class="section level2">
+<h2><span class="header-section-number">15.5</span> Adding Color</h2>
+</div>
+<div id="creating-a-legend" class="section level2">
+<h2><span class="header-section-number">15.6</span> Creating a Legend</h2>
+</div>
+<div id="using-themes" class="section level2">
+<h2><span class="header-section-number">15.7</span> Using Themes</h2>
 
 </div>
 </div>
@@ -339,8 +328,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
           </div>
         </div>
       </div>
+<a href="statistical-simulations.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
 
-<a href="introduction-to-r-rstudio-and-r-markdown.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

@@ -269,6 +269,15 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </ul></li>
 <li class="chapter" data-level="14.3" data-path="statistical-simulations.html"><a href="statistical-simulations.html#zelig-with-non-zelig-models"><i class="fa fa-check"></i><b>14.3</b> Zelig with non-Zelig Models:</a></li>
 </ul></li>
+<li class="chapter" data-level="15" data-path="appendix-guide-to-data-visualization.html"><a href="appendix-guide-to-data-visualization.html"><i class="fa fa-check"></i><b>15</b> Appendix: Guide to Data Visualization</a><ul>
+<li class="chapter" data-level="15.1" data-path="appendix-guide-to-data-visualization.html"><a href="appendix-guide-to-data-visualization.html#deciding-which-visualization-to-use"><i class="fa fa-check"></i><b>15.1</b> Deciding Which Visualization to Use</a></li>
+<li class="chapter" data-level="15.2" data-path="appendix-guide-to-data-visualization.html"><a href="appendix-guide-to-data-visualization.html#adding-labels"><i class="fa fa-check"></i><b>15.2</b> Adding Labels</a></li>
+<li class="chapter" data-level="15.3" data-path="appendix-guide-to-data-visualization.html"><a href="appendix-guide-to-data-visualization.html#scale-and-limits"><i class="fa fa-check"></i><b>15.3</b> Scale and Limits</a></li>
+<li class="chapter" data-level="15.4" data-path="appendix-guide-to-data-visualization.html"><a href="appendix-guide-to-data-visualization.html#confidence-intervals-1"><i class="fa fa-check"></i><b>15.4</b> Confidence Intervals</a></li>
+<li class="chapter" data-level="15.5" data-path="appendix-guide-to-data-visualization.html"><a href="appendix-guide-to-data-visualization.html#adding-color"><i class="fa fa-check"></i><b>15.5</b> Adding Color</a></li>
+<li class="chapter" data-level="15.6" data-path="appendix-guide-to-data-visualization.html"><a href="appendix-guide-to-data-visualization.html#creating-a-legend"><i class="fa fa-check"></i><b>15.6</b> Creating a Legend</a></li>
+<li class="chapter" data-level="15.7" data-path="appendix-guide-to-data-visualization.html"><a href="appendix-guide-to-data-visualization.html#using-themes"><i class="fa fa-check"></i><b>15.7</b> Using Themes</a></li>
+</ul></li>
 </ul>
 
       </nav>
@@ -331,54 +340,155 @@ object1</code></pre></div>
 <p><strong>Try this!</strong> Create a new object below; you can name it almost anything!</p>
 <p>R includes various functions for managing created objects. The <code>ls()</code> function lists all existing objects.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ls</span>()</code></pre></div>
-<pre><code>##  [1] &quot;A&quot;                     &quot;A.inverse&quot;            
-##  [3] &quot;aic.logit2&quot;            &quot;b&quot;                    
-##  [5] &quot;B&quot;                     &quot;Bhi&quot;                  
-##  [7] &quot;Blow&quot;                  &quot;by1&quot;                  
-##  [9] &quot;df&quot;                    &quot;df.ols1&quot;              
-## [11] &quot;df2.ols1&quot;              &quot;ds&quot;                   
-## [13] &quot;ds.small&quot;              &quot;ds.temp&quot;              
-## [15] &quot;ds200&quot;                 &quot;e&quot;                    
-## [17] &quot;ESS&quot;                   &quot;ESS.mod1&quot;             
-## [19] &quot;ESS.mod2&quot;              &quot;F&quot;                    
-## [21] &quot;G&quot;                     &quot;glbcc.table&quot;          
-## [23] &quot;I&quot;                     &quot;ideology.prime&quot;       
-## [25] &quot;log.data&quot;              &quot;log.df&quot;               
-## [27] &quot;logit0&quot;                &quot;logit1&quot;               
-## [29] &quot;logit2&quot;                &quot;meanF&quot;                
-## [31] &quot;meanM&quot;                 &quot;n.total&quot;              
-## [33] &quot;newdat&quot;                &quot;nF&quot;                   
-## [35] &quot;nM&quot;                    &quot;object1&quot;              
-## [37] &quot;OLS_env&quot;               &quot;OLS_env2&quot;             
-## [39] &quot;ols1&quot;                  &quot;ols2&quot;                 
-## [41] &quot;ols2.resids&quot;           &quot;ols3&quot;                 
-## [43] &quot;ols3.resids&quot;           &quot;ols4&quot;                 
-## [45] &quot;output.1&quot;              &quot;output.2&quot;             
-## [47] &quot;p&quot;                     &quot;packages&quot;             
-## [49] &quot;pkg&quot;                   &quot;plotdb&quot;               
-## [51] &quot;pseudoR2&quot;              &quot;r&quot;                    
-## [53] &quot;R2&quot;                    &quot;rbyR&quot;                 
-## [55] &quot;robust.se&quot;             &quot;rskttest&quot;             
-## [57] &quot;RSS&quot;                   &quot;RSS.mod1&quot;             
-## [59] &quot;RSS.mod2&quot;              &quot;RSSideol&quot;             
-## [61] &quot;s3d&quot;                   &quot;sdF&quot;                  
-## [63] &quot;sdM&quot;                   &quot;sdX&quot;                  
-## [65] &quot;sdY&quot;                   &quot;Se&quot;                   
-## [67] &quot;SEa&quot;                   &quot;SEb&quot;                  
-## [69] &quot;seD&quot;                   &quot;seF&quot;                  
-## [71] &quot;SEideol&quot;               &quot;seM&quot;                  
-## [73] &quot;Sx&quot;                    &quot;Sxy&quot;                  
-## [75] &quot;Sy&quot;                    &quot;t&quot;                    
-## [77] &quot;TSS&quot;                   &quot;TSSx&quot;                 
-## [79] &quot;v2.glbcc.table&quot;        &quot;v3.glbcc.table&quot;       
-## [81] &quot;x&quot;                     &quot;X&quot;                    
-## [83] &quot;x.m.xbar&quot;              &quot;X.prime&quot;              
-## [85] &quot;X.prime.X&quot;             &quot;X.prime.X.inv&quot;        
-## [87] &quot;X.prime.X.inv.X.prime&quot; &quot;xbar&quot;                 
-## [89] &quot;y&quot;                     &quot;y.hat&quot;                
-## [91] &quot;y.m.ybar&quot;              &quot;y1&quot;                   
-## [93] &quot;y2&quot;                    &quot;ybar&quot;                 
-## [95] &quot;z&quot;</code></pre>
+<pre><code>##   [1] &quot;a&quot;                     &quot;A&quot;                    
+##   [3] &quot;A.inv&quot;                 &quot;A.inverse&quot;            
+##   [5] &quot;adj.r2&quot;                &quot;age.se&quot;               
+##   [7] &quot;AI&quot;                    &quot;aic.logit2&quot;           
+##   [9] &quot;Aident&quot;                &quot;alpha&quot;                
+##  [11] &quot;alpha.hat&quot;             &quot;Aprime&quot;               
+##  [13] &quot;AxAprime&quot;              &quot;b&quot;                    
+##  [15] &quot;B&quot;                     &quot;beta.hat&quot;             
+##  [17] &quot;bhat&quot;                  &quot;Bhat&quot;                 
+##  [19] &quot;Bhi&quot;                   &quot;Blow&quot;                 
+##  [21] &quot;budget&quot;                &quot;BxAprime&quot;             
+##  [23] &quot;by1&quot;                   &quot;col_scale&quot;            
+##  [25] &quot;con&quot;                   &quot;cov.xy&quot;               
+##  [27] &quot;cov_xy&quot;                &quot;covar&quot;                
+##  [29] &quot;cube.df&quot;               &quot;cubed&quot;                
+##  [31] &quot;d&quot;                     &quot;dem.data&quot;             
+##  [33] &quot;dem.prob&quot;              &quot;denominator&quot;          
+##  [35] &quot;df&quot;                    &quot;df.budget&quot;            
+##  [37] &quot;df.length&quot;             &quot;df.ols1&quot;              
+##  [39] &quot;df.party&quot;              &quot;df.votes&quot;             
+##  [41] &quot;df2&quot;                   &quot;df2.ols1&quot;             
+##  [43] &quot;dfbs.fit1&quot;             &quot;ds&quot;                   
+##  [45] &quot;ds.dem&quot;                &quot;ds.men&quot;               
+##  [47] &quot;ds.new&quot;                &quot;ds.omit&quot;              
+##  [49] &quot;ds.rep&quot;                &quot;ds.small&quot;             
+##  [51] &quot;ds.sub&quot;                &quot;ds.sub2&quot;              
+##  [53] &quot;ds.sub3&quot;               &quot;ds.temp&quot;              
+##  [55] &quot;ds200&quot;                 &quot;e&quot;                    
+##  [57] &quot;energy&quot;                &quot;ESS&quot;                  
+##  [59] &quot;ESS.mod1&quot;              &quot;ESS.mod2&quot;             
+##  [61] &quot;ex.ds&quot;                 &quot;exam.ds&quot;              
+##  [63] &quot;exam.m&quot;                &quot;exam1&quot;                
+##  [65] &quot;Exam1&quot;                 &quot;exam1.se&quot;             
+##  [67] &quot;exam1low&quot;              &quot;exam1up&quot;              
+##  [69] &quot;exam2&quot;                 &quot;Exam2&quot;                
+##  [71] &quot;exam2.se&quot;              &quot;exam2low&quot;             
+##  [73] &quot;exam2up&quot;               &quot;examdf&quot;               
+##  [75] &quot;F&quot;                     &quot;f.se&quot;                 
+##  [77] &quot;female&quot;                &quot;fit.df&quot;               
+##  [79] &quot;fit.log&quot;               &quot;fit.m&quot;                
+##  [81] &quot;fit.mm&quot;                &quot;fit.omit&quot;             
+##  [83] &quot;fit.poly&quot;              &quot;fit.w&quot;                
+##  [85] &quot;fit1&quot;                  &quot;fit2.df&quot;              
+##  [87] &quot;fit3.df&quot;               &quot;fit3.m&quot;               
+##  [89] &quot;fit3.w&quot;                &quot;fit5.df&quot;              
+##  [91] &quot;fit5.m&quot;                &quot;fit5.w&quot;               
+##  [93] &quot;fit6.df&quot;               &quot;five&quot;                 
+##  [95] &quot;four&quot;                  &quot;G&quot;                    
+##  [97] &quot;gcc.table&quot;             &quot;gcc.table2&quot;           
+##  [99] &quot;glbcc.table&quot;           &quot;I&quot;                    
+## [101] &quot;id1&quot;                   &quot;id2&quot;                  
+## [103] &quot;id3&quot;                   &quot;id4&quot;                  
+## [105] &quot;id5&quot;                   &quot;id6&quot;                  
+## [107] &quot;id7&quot;                   &quot;ideol.data&quot;           
+## [109] &quot;ideology.prime&quot;        &quot;inc.out&quot;              
+## [111] &quot;ind.data&quot;              &quot;ind.prob&quot;             
+## [113] &quot;int&quot;                   &quot;length&quot;               
+## [115] &quot;lib&quot;                   &quot;listObject&quot;           
+## [117] &quot;lm.trump&quot;              &quot;lm1&quot;                  
+## [119] &quot;lm1.out&quot;               &quot;lm2&quot;                  
+## [121] &quot;lm2.out&quot;               &quot;lm3&quot;                  
+## [123] &quot;lm4&quot;                   &quot;lm5&quot;                  
+## [125] &quot;lm6&quot;                   &quot;log.data&quot;             
+## [127] &quot;log.df&quot;                &quot;log.out&quot;              
+## [129] &quot;logit.null&quot;            &quot;logit0&quot;               
+## [131] &quot;logit1&quot;                &quot;logit2&quot;               
+## [133] &quot;logit3&quot;                &quot;loglikli.demo&quot;        
+## [135] &quot;loglikli.null&quot;         &quot;lower&quot;                
+## [137] &quot;m.df&quot;                  &quot;m.se&quot;                 
+## [139] &quot;male&quot;                  &quot;meanAge&quot;              
+## [141] &quot;meanF&quot;                 &quot;meanM&quot;                
+## [143] &quot;melt.ds&quot;               &quot;mod&quot;                  
+## [145] &quot;model&quot;                 &quot;model1&quot;               
+## [147] &quot;model2&quot;                &quot;model3&quot;               
+## [149] &quot;mv.df&quot;                 &quot;n&quot;                    
+## [151] &quot;n.total&quot;               &quot;nAge&quot;                 
+## [153] &quot;new.ds&quot;                &quot;newdat&quot;               
+## [155] &quot;nF&quot;                    &quot;nM&quot;                   
+## [157] &quot;numerator&quot;             &quot;object.One&quot;           
+## [159] &quot;Object.One&quot;            &quot;object1&quot;              
+## [161] &quot;ols&quot;                   &quot;ols.ed.df&quot;            
+## [163] &quot;ols.sim&quot;               &quot;OLS_env&quot;              
+## [165] &quot;OLS_env2&quot;              &quot;ols1&quot;                 
+## [167] &quot;ols1.ed&quot;               &quot;ols2&quot;                 
+## [169] &quot;ols2.ed&quot;               &quot;ols2.resids&quot;          
+## [171] &quot;ols3&quot;                  &quot;ols3.resids&quot;          
+## [173] &quot;ols4&quot;                  &quot;one&quot;                  
+## [175] &quot;ord.df&quot;                &quot;ord1&quot;                 
+## [177] &quot;output.1&quot;              &quot;output.2&quot;             
+## [179] &quot;p&quot;                     &quot;packages&quot;             
+## [181] &quot;pkg&quot;                   &quot;plotdb&quot;               
+## [183] &quot;pol&quot;                   &quot;pol.df&quot;               
+## [185] &quot;prob.df&quot;               &quot;pseudoR2&quot;             
+## [187] &quot;psuedoR2&quot;              &quot;pv.0&quot;                 
+## [189] &quot;pv.1&quot;                  &quot;pv.10&quot;                
+## [191] &quot;pv.2&quot;                  &quot;pv.3&quot;                 
+## [193] &quot;pv.4&quot;                  &quot;pv.5&quot;                 
+## [195] &quot;pv.6&quot;                  &quot;pv.7&quot;                 
+## [197] &quot;pv.8&quot;                  &quot;pv.9&quot;                 
+## [199] &quot;pv.df&quot;                 &quot;pv.m&quot;                 
+## [201] &quot;r&quot;                     &quot;r.sqr&quot;                
+## [203] &quot;R2&quot;                    &quot;random&quot;               
+## [205] &quot;rbyR&quot;                  &quot;rep.data&quot;             
+## [207] &quot;rep.prob&quot;              &quot;res&quot;                  
+## [209] &quot;res.sqr&quot;               &quot;resid&quot;                
+## [211] &quot;robust.se&quot;             &quot;RSE&quot;                  
+## [213] &quot;rse.fit1&quot;              &quot;rskttest&quot;             
+## [215] &quot;RSS&quot;                   &quot;RSS.mod1&quot;             
+## [217] &quot;RSS.mod2&quot;              &quot;RSSideol&quot;             
+## [219] &quot;rvalues&quot;               &quot;s&quot;                    
+## [221] &quot;s3d&quot;                   &quot;scores&quot;               
+## [223] &quot;sd.x&quot;                  &quot;sd.xy&quot;                
+## [225] &quot;sd.y&quot;                  &quot;sdAge&quot;                
+## [227] &quot;sdF&quot;                   &quot;sdM&quot;                  
+## [229] &quot;sdX&quot;                   &quot;sdY&quot;                  
+## [231] &quot;Se&quot;                    &quot;se.fit1&quot;              
+## [233] &quot;se.gcc&quot;                &quot;SEa&quot;                  
+## [235] &quot;SEA&quot;                   &quot;seAge&quot;                
+## [237] &quot;SEb&quot;                   &quot;SEB&quot;                  
+## [239] &quot;seD&quot;                   &quot;seF&quot;                  
+## [241] &quot;SEideol&quot;               &quot;seM&quot;                  
+## [243] &quot;slope&quot;                 &quot;stats&quot;                
+## [245] &quot;stnd.dev&quot;              &quot;Student&quot;              
+## [247] &quot;sub&quot;                   &quot;sub.ds&quot;               
+## [249] &quot;sum_xdev_ydev&quot;         &quot;Sx&quot;                   
+## [251] &quot;Sxy&quot;                   &quot;Sy&quot;                   
+## [253] &quot;t&quot;                     &quot;t.A&quot;                  
+## [255] &quot;t.B&quot;                   &quot;t_value&quot;              
+## [257] &quot;test&quot;                  &quot;three&quot;                
+## [259] &quot;TSS&quot;                   &quot;TSSx&quot;                 
+## [261] &quot;two&quot;                   &quot;upper&quot;                
+## [263] &quot;v2.glbcc.table&quot;        &quot;v3.glbcc.table&quot;       
+## [265] &quot;var.x&quot;                 &quot;vari&quot;                 
+## [267] &quot;vcov.fit1&quot;             &quot;vectorObject&quot;         
+## [269] &quot;vote&quot;                  &quot;x&quot;                    
+## [271] &quot;X&quot;                     &quot;x.m.xbar&quot;             
+## [273] &quot;X.prime&quot;               &quot;X.prime.X&quot;            
+## [275] &quot;X.prime.X.inv&quot;         &quot;X.prime.X.inv.X.prime&quot;
+## [277] &quot;xbar&quot;                  &quot;xdev&quot;                 
+## [279] &quot;xdev_ydev&quot;             &quot;Xprime&quot;               
+## [281] &quot;XprimeX&quot;               &quot;XprimeXinv&quot;           
+## [283] &quot;XprimeXinvXprime&quot;      &quot;y&quot;                    
+## [285] &quot;Y&quot;                     &quot;y.hat&quot;                
+## [287] &quot;y.m.ybar&quot;              &quot;y1&quot;                   
+## [289] &quot;y2&quot;                    &quot;ybar&quot;                 
+## [291] &quot;ydev&quot;                  &quot;yhat&quot;                 
+## [293] &quot;z&quot;                     &quot;z.log&quot;                
+## [295] &quot;z.mod1&quot;                &quot;z.mod2&quot;               
+## [297] &quot;z.mod3&quot;</code></pre>
 <p>The <code>rm()</code> function removes existing objects.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">rm</span>(object1)</code></pre></div>
 <p>There is no strict convention for naming objects; however, there are best practices:</p>
@@ -505,11 +615,6 @@ listObject</code></pre></div>
 <span class="kw">library</span>(Rcpp)
 <span class="kw">library</span>(rmarkdown)
 <span class="kw">library</span>(knitr)</code></pre></div>
-<pre><code>## 
-## Attaching package: &#39;knitr&#39;</code></pre>
-<pre><code>## The following object is masked from &#39;package:skimr&#39;:
-## 
-##     kable</code></pre>
 <p><strong>Note:</strong> The <code>memisc</code> package contains object/package conflicts with the <code>car</code> package for the <code>recode</code> object. A conflict occurs when two packages contain objects (e.g., functions) of the same name. A conflict will not prevent loading packages; however, use of a specific package’s object requires an explicit call to the desired parent package. For example, to use the <code>recode()</code> function from <code>car</code>, the <code>car::recode(variable)</code> statement will explicitly call <code>recode()</code> from the <code>car</code> package. Vice versa, <code>memisc::recode()</code> will explicitly call <code>recode()</code> from the <code>memisc</code> package.</p>
 </div>
 <div id="updating-packages" class="section level3">
@@ -521,39 +626,6 @@ listObject</code></pre></div>
 <pre><code>## AER :
 ##  Version 1.2-5 installed in C:/Users/josie/OneDrive/Documents/R/win-library/3.5 
 ##  Version 1.2-6 available at https://cran.rstudio.com
-## assertthat :
-##  Version 0.2.0 installed in C:/Users/josie/OneDrive/Documents/R/win-library/3.5 
-##  Version 0.2.1 available at https://cran.rstudio.com
-## backports :
-##  Version 1.1.2 installed in C:/Users/josie/OneDrive/Documents/R/win-library/3.5 
-##  Version 1.1.3 available at https://cran.rstudio.com
-## BH :
-##  Version 1.66.0-1 installed in C:/Users/josie/OneDrive/Documents/R/win-library/3.5 
-##  Version 1.69.0-1 available at https://cran.rstudio.com
-## broom :
-##  Version 0.5.0 installed in C:/Users/josie/OneDrive/Documents/R/win-library/3.5 
-##  Version 0.5.1 available at https://cran.rstudio.com
-## callr :
-##  Version 2.0.4 installed in C:/Users/josie/OneDrive/Documents/R/win-library/3.5 
-##  Version 3.2.0 available at https://cran.rstudio.com
-## car :
-##  Version 3.0-0 installed in C:/Users/josie/OneDrive/Documents/R/win-library/3.5 
-##  Version 3.0-2 available at https://cran.rstudio.com
-## carData :
-##  Version 3.0-1 installed in C:/Users/josie/OneDrive/Documents/R/win-library/3.5 
-##  Version 3.0-2 available at https://cran.rstudio.com
-## caTools :
-##  Version 1.17.1.1 installed in C:/Users/josie/OneDrive/Documents/R/win-library/3.5 
-##  Version 1.17.1.2 available at https://cran.rstudio.com
-## cli :
-##  Version 1.0.0 installed in C:/Users/josie/OneDrive/Documents/R/win-library/3.5 
-##  Version 1.1.0 available at https://cran.rstudio.com
-## clipr :
-##  Version 0.4.1 installed in C:/Users/josie/OneDrive/Documents/R/win-library/3.5 
-##  Version 0.5.0 available at https://cran.rstudio.com
-## coda :
-##  Version 0.19-1 installed in C:/Users/josie/OneDrive/Documents/R/win-library/3.5 
-##  Version 0.19-2 available at https://cran.rstudio.com
 ## cancelled by user</code></pre>
 <p>The <code>library()</code> function lists currently loaded packages.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>()</code></pre></div>
@@ -575,58 +647,60 @@ listObject</code></pre></div>
 ##  [40] &quot;ends_with&quot;         &quot;everything&quot;        &quot;filter&quot;           
 ##  [43] &quot;filter_&quot;           &quot;group_by&quot;          &quot;group_by_&quot;        
 ##  [46] &quot;groups&quot;            &quot;last&quot;              &quot;matches&quot;          
-##  [49] &quot;mutate&quot;            &quot;mutate_&quot;           &quot;num_range&quot;        
-##  [52] &quot;one_of&quot;            &quot;recode&quot;            &quot;rename&quot;           
-##  [55] &quot;rename_&quot;           &quot;select&quot;            &quot;select_&quot;          
-##  [58] &quot;slice&quot;             &quot;slice_&quot;            &quot;starts_with&quot;      
-##  [61] &quot;summarise&quot;         &quot;summarise_&quot;        &quot;syms&quot;             
-##  [64] &quot;transmute&quot;         &quot;transmute_&quot;        &quot;ungroup&quot;          
-##  [67] &quot;%&gt;%&quot;               &quot;reduce&quot;            &quot;%&gt;%&quot;              
-##  [70] &quot;expand&quot;            &quot;add_row&quot;           &quot;as_data_frame&quot;    
-##  [73] &quot;as_tibble&quot;         &quot;data_frame&quot;        &quot;data_frame_&quot;      
-##  [76] &quot;frame_data&quot;        &quot;glimpse&quot;           &quot;lst&quot;              
-##  [79] &quot;lst_&quot;              &quot;tbl_sum&quot;           &quot;tibble&quot;           
-##  [82] &quot;tribble&quot;           &quot;trunc_mat&quot;         &quot;type_sum&quot;         
-##  [85] &quot;arrow&quot;             &quot;enexpr&quot;            &quot;enexprs&quot;          
-##  [88] &quot;enquo&quot;             &quot;enquos&quot;            &quot;ensym&quot;            
-##  [91] &quot;ensyms&quot;            &quot;expr&quot;              &quot;last_plot&quot;        
-##  [94] &quot;quo&quot;               &quot;quo_name&quot;          &quot;quos&quot;             
-##  [97] &quot;stat&quot;              &quot;sym&quot;               &quot;syms&quot;             
-## [100] &quot;unit&quot;              &quot;vars&quot;              &quot;%+%&quot;              
-## [103] &quot;alpha&quot;             &quot;logit&quot;             &quot;rescale&quot;          
-## [106] &quot;sim&quot;               &quot;smiths&quot;            &quot;logit&quot;            
-## [109] &quot;recode&quot;            &quot;some&quot;              &quot;coef&quot;             
-## [112] &quot;coefficients&quot;      &quot;contr.sum&quot;         &quot;contr.treatment&quot;  
-## [115] &quot;contrasts&quot;         &quot;contrasts&lt;-&quot;       &quot;cov2cor&quot;          
-## [118] &quot;df&quot;                &quot;df.residual&quot;       &quot;filter&quot;           
-## [121] &quot;fitted&quot;            &quot;lag&quot;               &quot;predict&quot;          
-## [124] &quot;residuals&quot;         &quot;toeplitz&quot;          &quot;update&quot;           
-## [127] &quot;vcov&quot;              &quot;image&quot;             &quot;layout&quot;           
-## [130] &quot;plot&quot;              &quot;head&quot;              &quot;prompt&quot;           
-## [133] &quot;tail&quot;              &quot;npk&quot;               &quot;Arith&quot;            
-## [136] &quot;cbind2&quot;            &quot;coerce&quot;            &quot;Compare&quot;          
-## [139] &quot;initialize&quot;        &quot;kronecker&quot;         &quot;Logic&quot;            
-## [142] &quot;Math&quot;              &quot;Math2&quot;             &quot;Ops&quot;              
-## [145] &quot;rbind2&quot;            &quot;show&quot;              &quot;Summary&quot;          
-## [148] &quot;%in%&quot;              &quot;all.equal&quot;         &quot;as.array&quot;         
-## [151] &quot;as.factor&quot;         &quot;as.matrix&quot;         &quot;as.ordered&quot;       
-## [154] &quot;body&lt;-&quot;            &quot;chol&quot;              &quot;chol2inv&quot;         
-## [157] &quot;colMeans&quot;          &quot;colSums&quot;           &quot;crossprod&quot;        
-## [160] &quot;det&quot;               &quot;determinant&quot;       &quot;diag&quot;             
-## [163] &quot;diag&lt;-&quot;            &quot;diff&quot;              &quot;drop&quot;             
-## [166] &quot;F&quot;                 &quot;formals&lt;-&quot;         &quot;format&quot;           
-## [169] &quot;I&quot;                 &quot;intersect&quot;         &quot;isSymmetric&quot;      
-## [172] &quot;kronecker&quot;         &quot;labels&quot;            &quot;mean&quot;             
-## [175] &quot;merge&quot;             &quot;norm&quot;              &quot;Position&quot;         
-## [178] &quot;print&quot;             &quot;qr&quot;                &quot;qr.coef&quot;          
-## [181] &quot;qr.fitted&quot;         &quot;qr.Q&quot;              &quot;qr.qty&quot;           
-## [184] &quot;qr.qy&quot;             &quot;qr.R&quot;              &quot;qr.resid&quot;         
-## [187] &quot;rcond&quot;             &quot;row.names&quot;         &quot;rowMeans&quot;         
-## [190] &quot;rowSums&quot;           &quot;sample&quot;            &quot;setdiff&quot;          
-## [193] &quot;setequal&quot;          &quot;solve&quot;             &quot;subset&quot;           
-## [196] &quot;summary&quot;           &quot;t&quot;                 &quot;tcrossprod&quot;       
-## [199] &quot;union&quot;             &quot;unique&quot;            &quot;unname&quot;           
-## [202] &quot;which&quot;             &quot;within&quot;            &quot;zapsmall&quot;</code></pre>
+##  [49] &quot;mutate&quot;            &quot;mutate_&quot;           &quot;n&quot;                
+##  [52] &quot;num_range&quot;         &quot;one_of&quot;            &quot;recode&quot;           
+##  [55] &quot;rename&quot;            &quot;rename_&quot;           &quot;select&quot;           
+##  [58] &quot;select_&quot;           &quot;slice&quot;             &quot;slice_&quot;           
+##  [61] &quot;starts_with&quot;       &quot;summarise&quot;         &quot;summarise_&quot;       
+##  [64] &quot;syms&quot;              &quot;transmute&quot;         &quot;transmute_&quot;       
+##  [67] &quot;ungroup&quot;           &quot;%&gt;%&quot;               &quot;reduce&quot;           
+##  [70] &quot;%&gt;%&quot;               &quot;expand&quot;            &quot;add_row&quot;          
+##  [73] &quot;as_data_frame&quot;     &quot;as_tibble&quot;         &quot;data_frame&quot;       
+##  [76] &quot;data_frame_&quot;       &quot;frame_data&quot;        &quot;glimpse&quot;          
+##  [79] &quot;lst&quot;               &quot;lst_&quot;              &quot;tbl_sum&quot;          
+##  [82] &quot;tibble&quot;            &quot;tribble&quot;           &quot;trunc_mat&quot;        
+##  [85] &quot;type_sum&quot;          &quot;alpha&quot;             &quot;arrow&quot;            
+##  [88] &quot;enexpr&quot;            &quot;enexprs&quot;           &quot;enquo&quot;            
+##  [91] &quot;enquos&quot;            &quot;ensym&quot;             &quot;ensyms&quot;           
+##  [94] &quot;expr&quot;              &quot;last_plot&quot;         &quot;quo&quot;              
+##  [97] &quot;quo_name&quot;          &quot;quos&quot;              &quot;stat&quot;             
+## [100] &quot;sym&quot;               &quot;syms&quot;              &quot;unit&quot;             
+## [103] &quot;vars&quot;              &quot;%+%&quot;               &quot;alpha&quot;            
+## [106] &quot;logit&quot;             &quot;rescale&quot;           &quot;sim&quot;              
+## [109] &quot;smiths&quot;            &quot;logit&quot;             &quot;recode&quot;           
+## [112] &quot;some&quot;              &quot;coef&quot;              &quot;coefficients&quot;     
+## [115] &quot;contr.sum&quot;         &quot;contr.treatment&quot;   &quot;contrasts&quot;        
+## [118] &quot;contrasts&lt;-&quot;       &quot;cov2cor&quot;           &quot;df&quot;               
+## [121] &quot;df.residual&quot;       &quot;filter&quot;            &quot;fitted&quot;           
+## [124] &quot;lag&quot;               &quot;predict&quot;           &quot;resid&quot;            
+## [127] &quot;residuals&quot;         &quot;toeplitz&quot;          &quot;update&quot;           
+## [130] &quot;vcov&quot;              &quot;image&quot;             &quot;layout&quot;           
+## [133] &quot;plot&quot;              &quot;head&quot;              &quot;prompt&quot;           
+## [136] &quot;tail&quot;              &quot;npk&quot;               &quot;Arith&quot;            
+## [139] &quot;cbind2&quot;            &quot;coerce&quot;            &quot;Compare&quot;          
+## [142] &quot;initialize&quot;        &quot;kronecker&quot;         &quot;Logic&quot;            
+## [145] &quot;Math&quot;              &quot;Math2&quot;             &quot;Ops&quot;              
+## [148] &quot;rbind2&quot;            &quot;show&quot;              &quot;Summary&quot;          
+## [151] &quot;%in%&quot;              &quot;all.equal&quot;         &quot;as.array&quot;         
+## [154] &quot;as.factor&quot;         &quot;as.matrix&quot;         &quot;as.ordered&quot;       
+## [157] &quot;body&lt;-&quot;            &quot;chol&quot;              &quot;chol2inv&quot;         
+## [160] &quot;colMeans&quot;          &quot;colSums&quot;           &quot;crossprod&quot;        
+## [163] &quot;det&quot;               &quot;determinant&quot;       &quot;diag&quot;             
+## [166] &quot;diag&lt;-&quot;            &quot;diff&quot;              &quot;drop&quot;             
+## [169] &quot;F&quot;                 &quot;formals&lt;-&quot;         &quot;format&quot;           
+## [172] &quot;I&quot;                 &quot;intersect&quot;         &quot;isSymmetric&quot;      
+## [175] &quot;kronecker&quot;         &quot;labels&quot;            &quot;length&quot;           
+## [178] &quot;mean&quot;              &quot;merge&quot;             &quot;norm&quot;             
+## [181] &quot;Position&quot;          &quot;print&quot;             &quot;qr&quot;               
+## [184] &quot;qr.coef&quot;           &quot;qr.fitted&quot;         &quot;qr.Q&quot;             
+## [187] &quot;qr.qty&quot;            &quot;qr.qy&quot;             &quot;qr.R&quot;             
+## [190] &quot;qr.resid&quot;          &quot;rcond&quot;             &quot;row.names&quot;        
+## [193] &quot;rowMeans&quot;          &quot;rowSums&quot;           &quot;sample&quot;           
+## [196] &quot;setdiff&quot;           &quot;setequal&quot;          &quot;solve&quot;            
+## [199] &quot;sub&quot;               &quot;subset&quot;            &quot;summary&quot;          
+## [202] &quot;t&quot;                 &quot;tcrossprod&quot;        &quot;union&quot;            
+## [205] &quot;unique&quot;            &quot;unname&quot;            &quot;which&quot;            
+## [208] &quot;within&quot;            &quot;zapsmall&quot;</code></pre>
 <p>The <code>detach()</code> function detaches packages and is an alternative method to resolve conflicts. Supplying the <code>unload = TRUE</code> argument within the <code>detach()</code> function will unload the package. For example, to resolve the <code>recode()</code> function conflict between <code>car</code> and <code>memisc</code>, the memisc package can be detached and unloaded as follows: <code>detach(package:memisc, unload = TRUE)</code>.</p>
 </div>
 </div>

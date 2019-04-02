@@ -45,6 +45,7 @@ The upper-right quadrant contains the __Environment__ and __History__ tabs. The 
 
 Finally, the lower-right quadrant holds a number of helpful navigation tabs. The "Files" tab displays your hard drive's own file directory for easy access. The "Plots" tab will show the plots and visualzations you have created in your current R session. The "Packages" tabs shows a list of all the packages currently installed, as well as an indication of whther or not that are loaded in the current session. The "Help" tab is, unsurprisingly, the help menu.
 
+Until you are comfortable writing and executing code to analyze data, the RStudio interface can seem intimidating. Remember - since these are open source software, there are plenty of resources online to help as well. A "cheat sheet" for the RStudio IDE can be found [here](https://resources.rstudio.com/rstudio-cheatsheets/rstudio-ide-cheat-sheet).
 
 ## R Markdown
 

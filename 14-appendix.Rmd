@@ -1,6 +1,8 @@
 # Appendix: Guide to Data Visualization
 
-Throughout these labs, we have created numerous high quality data visualizations using the class data sets. While you can always use the code we have created there - which may even help refresh your memory on the data analysis skills you've learned - this guide is designed to be a quick, additional resource for the creation and customization of data visualizations.
+Throughout these labs, we have created numerous high quality data visualizations using the class data sets. While you can always use the code we have created there - which may even help refresh your memory on the data analysis skills you've learned - this guide is designed to be a quick, additional resource for the creation and customization of data visualizations using the Tidyverse and `ggplot2`. 
+
+__Note:__ While this quick guide is hopefully helpful, it is by no means complete. Remember that R and the Tidyverse are open source; you can always find help online, such as this [Data Visualization Cheat Sheet](https://resources.rstudio.com/rstudio-cheatsheets/data-visualization-2-1-cheat-sheet) from RStudio.
 
 ## Deciding Which Visualization to Use
 
