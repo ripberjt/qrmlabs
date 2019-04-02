@@ -1,0 +1,57 @@
+# Introduction to R, RStudio, and R Markdown
+
+In these labs and the corresponding textbook, we will use the `R` programming language to learn statistical concepts and analyze real-world data. Before we dive into the details, this lab will provide an introduction to the `R` language, RStudio, and R Markdown - as well as how the three interact. 
+
+To put it simply - `R` is the actual programming language, RStudio is a convenient interface in which to use it, and R Markdown is a specific type of file format designed to produce documents that include both code _and_ text.
+
+## Introduction to R, the language
+
+`R` itself is a language and environment for statistical computing and graphics, which operates as an integrated suite of software facilities for data manipulation, calculation, and graphical display. It includes:
+
+- an effective data handling and storage facility,
+- a suite of operators for calculations,
+- a large, coherent, integrated collection of intermediate tools for data analysis,
+- graphical facilities for data analysis and display, either on-screen or on hardcopy, and
+- a well-developed, simple and effective programming language
+
+`R` is a powerful and effective tool for computing, statistics and analysis, and producing data visualizations. However, many applications exist that can do these or similar things. `R` has a number of benefits that make it particularly useful, though. 
+
+### Benefits of R
+
+First, `R` is both __open source__ and __free__. This allows you to take the tool and the skills you've learned with you wherever you go; you are not dependent on your employer to buy or have a license of a particular software. This is especially relevant as many other software with similar functionality often cost hundreds, if not thousands, of dollars for a single license. 
+
+The open source nature of `R` has also resulted in a robust set of users across a wide variety of disciplines who are constantly updating and revising the language. R therefore has some of the most up-to-date and innovative functionality and methods available to its users, should they know where to look. 
+
+### Packages
+
+Within `R`, these functions and tools are often implemented as packages. Packages allow advanced users of R to contribute statistical methods and computing tools to the general users of `R`. These packages are reviewed and vetted before being made available for public use; they are often frequently updated as well. In the first lab, we will install some basic packages that are frequently used throughout the course.
+
+## RSudio
+
+RStudio is an integrated development environment (IDE) that makes `R` a bit more user-friendly. While it is not the only way to use `R`, it provides a helpful and intuitive interface for writing and editing code, as well as creating documents and reports. It is not, however, a requirement for using the `R` language.
+
+Additionally, it is important to note that RStudio is an entirely separate piece of software - it will need to be downloaded separately from `R`. 
+
+
+### Navigating RStudio
+
+As you can see, the RStudio interface is primarily composed of 4 quadrants.
+
+In the upper-left corner is the source pane. This is the primarily location where most of your work will take place. You will write and edit collections of code - or R Scripts - here. When working in the source pane, your code will not compile untl you tell it to run; this allows you the flexibility to work at your own pace, as well as to save your work.
+
+In the lower-left corner is the console, or the command window. The console is the powerhouse of the software; this is where `R` actually evaluates code. While you can type code directly into the console and receive immediate results, it is advisable to stick to the source pane while you are learning how to use R. Running code in the source pane will automatically produce output in the console pane.
+
+The upper-right quadrant contains the Environment and History tabs. The Environment tab displays a list of all the data objects that you havae defined in your current R session, as well as some basic details about the data (such as the number of observations and variables in each).
+
+Finally, the lower-right quadrant holds a number of helpful navigation tabs. The "Files" tab displays your hard drive's own file directory for easy access. The "Plots" tab will show the plots and visualzations you have created in your current R session. The "Packages" tabs shows a list of all the packages currently installed, as well as an indication of whther or not that are loaded in the current session. The "Help" tab is, unsurprisingly, the help menu.
+
+
+## R Markdown
+
+Markdown is a tool for converting plain text into formatted text. R Markdown utilizes the markdown syntax in order to combine formatted text with code in a single document.
+
+Within RStudio, R Markdown is a specific type of file format for making dynamic documents. It allows you to simultanesouly
+  1. save and execute code, and
+  2. produce high quality documents that include both code and text
+
+For the purposes of our labs, R Markdown allows us to include code chunks and the text that helps explain them in an easy-to-read manner. For your own use, R Markdown will allow you to write documents and reports that include traditional formatted text, as well as the data visualizations you make in class, and present them both together in a high quality professional document.

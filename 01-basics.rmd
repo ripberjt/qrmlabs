@@ -1,4 +1,4 @@
-# Introduction and Basics
+# Basics of R
 
 This chapter serves as a primer to `R` by introducing the basics. It is advised to follow the lab via the `.rmd` file within RStudio rather than solely the compiled PDF. This way, students can experiment with code in the "code blocks" provided. __Note:__ In text R code is displayed in a `fixed-width` font. 
 
