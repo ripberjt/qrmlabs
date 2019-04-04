@@ -2,20 +2,104 @@
 
 Throughout these labs, we have created numerous high quality data visualizations using the class data sets. While you can always use the code we have created there - which may even help refresh your memory on the data analysis skills you've learned - this guide is designed to be a quick, additional resource for the creation and customization of data visualizations using the Tidyverse and `ggplot2`. 
 
-__Note:__ While this quick guide is hopefully helpful, it is by no means complete. Remember that R and the Tidyverse are open source; you can always find help online, such as this [Data Visualization Cheat Sheet](https://resources.rstudio.com/rstudio-cheatsheets/data-visualization-2-1-cheat-sheet) from RStudio.
+__Note:__ While this quick guide is hopefully helpful, it is by no means complete. Remember that R and the Tidyverse packages are open source; you can always find help online, such as this [Data Visualization Cheat Sheet](https://resources.rstudio.com/rstudio-cheatsheets/data-visualization-2-1-cheat-sheet) from RStudio.
+
 
 ## Deciding Which Visualization to Use
 
-Remember - the type of data you are using _matters_. 
+Remember - the type of data you are using _matters_ for what kind of plot you make. 
+
+### For Exploring a Single Variable {-}
+For __continuous__ data, you may often be interested in producing 
+  - density curves (geom_density), or 
+  - histograms (geom_histogram).
+
+For __discrete__ data, you will likely be using a bar plot (geom_bar or geom_col).
+
+### For Displaying Two Variables {-}
+With a __continuous__ x and a __continuous__ y, you have numerous options available. The mot common include:
+  - a scatter plot (geom_point + geom_jitter), and 
+  - a function curve(geom_smooth)
+  
+With a __discrete__ x variable and a __continuous__ y variable, you might produce:
+  - a bar plot (geom_bar or geom_col),
+  - a box blot (geom_boxplot), or
+  - a violin plot (geom_violin)
+  
+__Note:__ While these are not your only options, they are some of the most commonly used (and match what we've covered in the labs!)
 
 ## Adding Labels
+There are numerous ways to add titles and labels to your plot. The simplest (and most consistent with these labs) is to use the functions:
+
+xlab("X-Axis Title"),
+ylab("Y-Axis Title"), and
+ggtitle("Plot Title")
 
 ## Scale and Limits
+You may also want to change the range of values that appear on either axis, as well as the number and nature of data breaks. 
 
-## Confidence Intervals
+For continuous data, you can use the functions:
+  - scale_x_continuous(), and
+  - scale_y_continuous()
+In these functions, you can specify the number of breaks, as well as what their labels should be. For example,
+
+```{r }
+scale_x_continuous(breaks=c(1:7),
+                     labels = c("Very Liberal", "2", "3", "4", "5",
+                                "6", "Very Conservative"))
+```
+
+## Visualizing Error
+
+Often, you will need to include a representation of estimated error in your data visualizations. The primary ways to do this are through confidence intervals or error bars. 
+
+### Confidence Intervals {-}
+
+To add confidence intervals to your function lines, you can use the geom_ribbon() function.
+The arguments for this function are:
+
+geom_ribbon(aes(), )
+
+To include a 95% confidence interval, your code might include something like:
+```{r }
+geom_ribbon(aes(ymin = .fitted - 1.96 * .se.fit, 
+              ymax = .fitted + 1.96 * .se.fit), alpha = 0.2)
+```
+
+### Error Bars {-}
+
+Some plots require error bars, rather than confidence intervals. To include error bars on your plot, you can use the geom_errorbar() function. The necessary arguments include:
+
+geom_errorbar()
+
 
 ## Adding Color
 
 ## Creating a Legend
 
 ## Using Themes
+
+Outside of the basic plot elements pertaining to your data, you can still further customize your plots by using themes. 
+
+A complete guide to the existing `ggplot2` themes is available [here](https://ggplot2.tidyverse.org/reference/ggtheme.html). These primarily control the non-data display elements, which include the background shading and internal lines of the plot. Different themes may be best suited for different kinds of projects; you can even tweak the premade themes by adjusting their arguments.
+
+Finally, you can create and save your own custom theme for future use!
+
+## Putting it All Together
+
+Here, we havae created three plots to provide an example of how these graphical elements might all interact. There are an infinite number of ways you might use these (and more) elements to customize your own data visualizations. Have fun with it!
+
+```{r example1}
+
+
+```
+
+```{r example2}
+
+
+```
+
+```{r example3}
+
+
+```
