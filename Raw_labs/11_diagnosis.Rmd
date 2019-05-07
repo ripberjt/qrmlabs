@@ -1,0 +1,435 @@
+---
+title: 'Lab Eleven: Diagnosing and Addressing Problems in Linear Regression'
+output: pdf_document
+always_allow_html: yes
+---
+
+This lab helps us understand how to diagnose and address potential problems in OLS regression. In the last lab, we addressed OLS assumptions of normality of residuals, linearity, and multicollinearity. This lab addresses outliers and heteroscedasticity and also provides a refresher on exploring and visualizing your data. The following packages are required for this lab: 
+
+1. tidyverse
+2. psych
+3. car
+5. stargazer
+6. reshape2
+7. stargazer
+8. MASS
+9. plotly
+10. sandwich
+11. broom
+
+```{r 11_setup, include=FALSE, message=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(psych)
+library(car)
+library(stargazer)
+library(reshape2)
+library(stargazer)
+library(MASS)
+library(plotly)
+library(sandwich)
+library(broom)
+ds <- read_csv("https://github.com/ripberjt/qrmlabs/raw/master/imdb_2014.csv")
+options(scipen = 999)
+```
+
+## Introduction to the Data
+
+For this lab we will use a data set that contains information on movies from the IMDB website. The initial data set contains almost 60,000 observations, so we will filter the data to make it a little smaller:
+
+```{r 11_int, echo=TRUE}
+ds <- filter(ds, year>=1995 & votes>1000 & Short!=1) %>% dplyr::select(rating, length, budget,
+                                                                votes, title, year) %>%
+  na.omit()
+```
+
+Now explore the data. Start with examining the structure of the data set:
+
+```{r 11_int2, echo=TRUE}
+str(ds)
+```
+
+Look at the first five observations in the data set:
+
+```{r 11_int3, echo=TRUE}
+head(ds)
+```
+
+To make analysis easier, we can name each row by the title of the movie:
+
+```{r 11_int4, echo=TRUE}
+row.names(ds) <- ds$title
+```
+
+Now look at the first observations:
+
+```{r 11_int5, echo=TRUE}
+head(ds)
+```
+
+Explore some descriptive statistics:
+
+```{r 11_int6, echo=TRUE}
+describe(ds)
+```
+
+We will want to start by cleaning up a couple variables. First, we can scale the budget variable by millions of dollars, scale votes by thousands, and factor the year variable:
+
+```{r 11_int7, echo=TRUE}
+ds %>%
+  mutate(budget_1m = budget/1000000,
+         votes_1k = votes/1000,
+         f.year = factor(year)) -> ds
+```
+
+The next step should be to look at the univariate distributions. Create histograms for the length, budget, user ratings, and votes variables. First you'll need to melt the data:
+
+```{r 11_int8, echo=TRUE}
+melt.ds <- melt(ds, measure.vars = c("length", "budget_1m", "rating", "votes_1k"))
+ggplot(melt.ds, aes(value)) +
+  geom_histogram(fill="#0000FF") +
+  facet_wrap(~variable, scale="free")
+```
+
+Now let's look at the bivariate plots for the relationship between length, budget, votes, and rating. This is where we might find potential outliers. Build each visualization and then use `ggplotly()` to create an interactive interface that will allow you to identify individual observations. 
+
+```{r 11_int9, echo=TRUE}
+vote <- ggplot(ds, aes(votes_1k, rating, label = title)) +
+  geom_point(color = "#0000FF50") +
+  geom_smooth(method = "loess", se = FALSE, color = "green") +
+  geom_smooth(method = "lm", se = FALSE, color = "red") +
+  ggtitle("# of Votes and Rating")
+ggplotly(vote)
+
+```
+
+```{r 11_int10, echo=TRUE}
+length <- ggplot(ds, aes(length, rating, label = title)) +
+  geom_point(color = "#0000FF50") +
+  geom_smooth(method = "loess", se = FALSE, color = "green") +
+  geom_smooth(method = "lm", se = FALSE, color = "red") +
+  ggtitle("Length and Rating")
+ggplotly(length)
+
+```
+
+```{r 11_int11, echo=TRUE}
+budget <- ggplot(ds, aes(budget_1m, rating, label = title)) +
+  geom_point(color = "#0000FF50") +
+  geom_smooth(method = "loess", se = FALSE, color = "green") +
+  geom_smooth(method = "lm", se = FALSE, color = "red") +
+  ggtitle("Budget and Rating")
+ggplotly(budget)
+
+```
+
+## Outliers
+
+The next step is to construct a model:
+
+```{r 11_int12, echo=TRUE}
+fit1 <- lm(rating ~ length + budget_1m + votes_1k, data = ds)
+stargazer(fit1, type = "text", single.row = TRUE)
+```
+
+Normally we are primarily interested in how this model explains our data. For this section, we are more interested in the observations that are not explained by this model. Let's identify some outliers. First create predicted ratings based on our model:
+
+```{r 11_out, echo=TRUE}
+ds$predicted_rating <- predict(fit1)
+```
+
+One simple way to find some possible outliers is to use the `outlierTest()` function:
+
+```{r 11_out2, echo=TRUE}
+outlierTest(fit1)
+```
+
+We see four potential outliers... let's compare their predicted rating based on their budget, length, and number of votes, to their actual rating:
+
+```{r 11_out3, echo=TRUE}
+ds["From Justin to Kelly",c("rating", "predicted_rating")]
+ds["You Got Served",c("rating", "predicted_rating")]
+ds["Werewolf",c("rating", "predicted_rating")]
+ds["Glitter",c("rating", "predicted_rating")]
+```
+
+We can see that there is a large discrepancy between these movies' ratings and their predicted ratings. 
+
+There are a variety of ways to visually inspect outliers. Let's start with an influence plot:
+
+```{r 11_out4, echo=TRUE}
+influencePlot(fit1)
+```
+
+An influence plot shows the residuals by their hat-values. This identifies the Matrix and the first Lord of the Rings as potential outliers, so let's compare their ratings to predicted ratings:
+
+```{r 11_out5, echo=TRUE}
+ds["Lord of the Rings: The Fellowship of the Ring, The",c("rating", "predicted_rating")]
+ds["Matrix, The",c("rating", "predicted_rating")]
+```
+
+These movies are flagged outliers for a different reason than the movies we found earlier. These two movies are rated high, but their predicted ratings are even higher (above the maximum possible value of 10).
+
+Another way to examine outliers is to look at the DFBetas. DFBetas measure the influence of case `i` on the `j` estimated coefficients. Put another way, measuring DFBetas asks how many standard errors a particular beta changes when case `i` is removed. The rule of thumb is if the absolute value of a DFBETA is greater than 2 divided by the square root of n, there could be cause for concern. Let's calculate that value:
+
+```{r 11_out6, echo=TRUE}
+df <- 2/sqrt(1261)
+df
+```
+
+We can find the DFBetas easily:
+
+```{r 11_out7, echo=TRUE}
+dfbs.fit1 <- dfbetas(fit1)
+head(dfbs.fit1)
+```
+
+With a large data set, listing every DFBeta value is not efficient. Instead, we should plot the DFBetas with lines at the calculated value. We will use the `identify()` function to mark specific observations. Each of the coefficients will have its own plot. __Note:__ The `windows()` (or `quartz()`) function does not knit with RMarkdown; however, the function is used to build the plot on the screen as you follow along within the RMD document. 
+
+```{r 11_out8, echo=TRUE, error=TRUE}
+windows()
+plot(dfbs.fit1[,"length"])
+abline(h = c(2/sqrt(1261), -2/sqrt(1261)), lty = 2, col = "red")
+identify(dfbs.fit1[,"length"],labels = ds$title)
+
+```
+
+
+```{r 11_out9, echo=TRUE, error=TRUE}
+windows()
+plot(dfbs.fit1[,"budget_1m"])
+abline(h = c(2/sqrt(1261), -2/sqrt(1261)), lty = 2, col = "red")
+identify(dfbs.fit1[,"budget_1m"],labels = ds$title)
+
+```
+
+```{r 11_out10, echo=TRUE, error=TRUE}
+windows()
+plot(dfbs.fit1[,"votes_1k"])
+abline(h = c(2/sqrt(1261), -2/sqrt(1261)), lty = 2, col = "red")
+identify(dfbs.fit1[,"votes_1k"],labels = ds$title)
+
+```
+
+All of the diagnostics so far indicate that there are outliers to address. There are a few ways to deal with this: First, you can keep them in the model. This is a perfectly viable method, especially if you don't have a technical or theoretical reason to remove them. Another method of dealing with outliers is to omit them and re-run the model. Let's look at the outliers identified by the outlier test again:
+
+```{r 11_out11, echo=TRUE}
+outlierTest(fit1)
+```
+
+Omit these using the following operator. Essentially this tells R not to include the rows with the titles of the outlier movies. 
+
+```{r 11_out12, echo=TRUE}
+ds.omit <- ds[ !(ds$title %in% c("From Justin to Kelly", "You Got Served", "Werewolf", "Glitter")),]
+```
+
+Next make a new model with the `ds.omit` data:
+
+```{r 11_out13, echo=TRUE}
+fit.omit <- lm(rating ~ length + budget_1m + votes_1k, data = ds.omit)
+```
+
+Compare the two models side by side:
+
+```{r 11_out14, echo=TRUE}
+stargazer(fit1, fit.omit, type = "text", single.row = TRUE)
+```
+
+Notice the minimal changes. The omitted observations changed 3 of the four coefficients, and increased the adjusted R squared value. 
+
+Another option when dealing with outliers is to use robust regression, which weights the observations based on influence. Make a new model using robust regression using the `rlm()` function. There are two methods, "M" and "MM", and both should be evaluated to determine which model best represents your needs.
+
+```{r 11_out15, echo=TRUE}
+fit.m <- rlm(rating ~ length + budget_1m + votes_1k, data = ds, method = "M")
+fit.mm <- rlm(rating ~ length + budget_1m + votes_1k, data = ds, method = "MM")
+```
+
+Compare the four models:
+
+```{r 11_out16, echo=TRUE}
+stargazer(fit1, fit.omit, fit.m, fit.mm, type = "text",single.row = TRUE)
+```
+
+The biggest difference here is the residual standard error for the robust models is quite a bit lower. There are also differences in the coefficients. With outliers, there is not a one-size-fits-all solution. Let your theory contribute to what solution you use. 
+
+## Heteroscedasticity
+
+One of the key assumptions of OLS is homoscedasticity (constant error variance). One way to check for this is by making a spread level plot, which allows us to see the spread of the residuals:
+
+```{r 11_het, echo=TRUE}
+spreadLevelPlot(fit1)
+```
+
+There does not appear to be constant spread of residuals, which could indicate a problem with heteroscedasticity. We can further investigate this by doing a Non-constant Variance Test. This tests the null hypothesis that error variance changes (heteroscedasticity). That is, if you fail to reject the null there exists heteroscedasticity:
+
+```{r 11_het2, echo=TRUE}
+ncvTest(fit1)
+```
+
+Based on the test and visualization, it is clear there is an issue with heteroscedasticity. There are a couple ways to deal with heteroscedasticity. One method is robust standard errors. Robust standard errors don't change the beta estimates, but rather affect the value of the standard errors, which improve the p-values accuracy. To use robust standard errors for the model:
+
+```{r 11_het3, echo=TRUE}
+se.fit1 <- fit1 %>% vcov() %>% diag() %>% sqrt()
+vcov.fit1 <- vcovHC(fit1, method = "white1",type = "HC1")
+rse.fit1 <- vcov.fit1 %>% diag() %>% sqrt()
+```
+
+Now compare the original model to the model using robust standard errors. Use `se=list(se.fit1,rse.fit1)` for R to use the original standard errors for the first model and robust for the second.
+
+```{r 11_het4, echo=TRUE}
+stargazer(fit1, fit1, type = "text", single.row = TRUE, se = list(se.fit1, rse.fit1))
+```
+
+## Revisiting Linearity
+
+Let's revisit addressing the assumption of linearity by constructing the residual plots that we made in the last lab. Recall that these are made by using `augment()` to predict values and calculate residuals, melt the data into long form and identify the independent variables and fitted values are your measure variables, then pipe it all into `ggplot2` and use `facet_wrap()` to create a visualization for each variable. 
+
+```{r 11_lin, echo=TRUE}
+fit1 %>%
+  augment() %>%
+  melt(measure.vars = c("length", "budget_1m", "votes_1k", ".fitted")) %>%
+  ggplot(., aes(value, .std.resid)) +
+  geom_point(shape=1) +
+  geom_smooth(method = loess) +
+  geom_hline(yintercept = 0) +
+  facet_wrap(~variable, scales = "free")
+
+```
+
+There appears to be a linearity problem. The budget graphics appears to be the most linear, and the others suggest non-linear relationships. Let's examine some more information about the variables:
+
+```{r 11_lin2, echo=TRUE}
+describe(ds$length)
+describe(ds$budget_1m)
+describe(ds$votes_1k)
+```
+
+There is skew for all three variables, so let's respecify the model by using the log of each variable, then create the same visualization as before:
+
+```{r 11_lin3, echo=TRUE}
+fit.log <- lm(rating ~ log(length) + log(budget_1m) + log(votes_1k), data = ds)
+fit.log %>%
+  augment() %>% 
+  melt(measure.vars = c("log.length.", "log.budget_1m.", "log.votes_1k.", ".fitted")) %>%
+ggplot(., aes(value, .std.resid)) +
+  geom_point(shape = 1) +
+  geom_smooth(aes(value, .std.resid), method = "loess") +
+  geom_hline(yintercept = 0) +
+  facet_wrap(~variable, scales = "free")
+```
+
+This method fixed some problems and created new ones. The votes graphic suggests a more linear relationship, but problems persist. Perhaps a polynomial model is more appropriate. Let's square every IV in the next model:
+
+```{r 11_lin4, echo=TRUE}
+fit.poly <- lm(rating ~ poly(length, 2) + poly(budget_1m, 2) + poly(votes_1k, 2), data = ds)
+```
+
+Compare the last three models:
+
+```{r 11_lin5, echo=TRUE}
+stargazer(fit1, fit.log, fit.poly, single.row = TRUE, type = "text")
+```
+
+The log model has the highest adjusted R squared and lowest residual standard error. 
+
+### Normality 
+Let's look at the normality of the residuals for the models:
+
+```{r 11_norm, echo=TRUE}
+ds %>%
+  mutate(fit1.r = residuals(fit1)) ->ds
+
+ggplot(ds,aes(fit1.r)) +
+  geom_density() +
+  stat_function(fun = dnorm, args = list(mean = mean(ds$fit1.r), 
+                                         sd = sd(ds$fit1.r)), color = "red") +
+  ggtitle("First Linear Model")
+```
+
+```{r 11_norm2, echo=TRUE}
+ds %>%
+  mutate(log.r = residuals(fit.log)) -> ds
+ggplot(ds, aes(log.r)) +
+  geom_density() +
+  stat_function(fun = dnorm, args = list(mean = mean(ds$log.r),
+                                         sd = sd(ds$log.r)), color = "red") +
+  ggtitle("Log Linear Model")
+
+```
+
+```{r 11_norm3, echo=TRUE}
+ds %>%
+  mutate(poly.r = residuals(fit.poly)) -> ds
+
+ggplot(ds, aes(poly.r)) +
+  geom_density() +
+  stat_function(fun = dnorm, args = list(mean = mean(ds$poly.r),
+                                         sd = sd(ds$poly.r)), color="red") +
+  ggtitle("Polynomial Model")
+
+```
+
+The log model has the highest adjusted R squared value, the lowest residual standard error, and its residuals appear to approximate the normal distribution better than the other two models. Let's use it to make predictions and create visualizations. 
+
+First create predicted values for movie ratings by holding all IVs constant at their means except one at at time, using the `augment()` function. Then use `mutate()` to calculate the upper and lower bounds of the confidence interval. Create separate data frames for length, budget, and votes.
+
+```{r 11_pred, echo=TRUE}
+df.length <- fit.log %>%
+  augment(newdata = data.frame(length = 89:134,
+                               budget_1m = mean(ds$budget_1m),
+                               votes_1k = mean(ds$votes_1k))) %>%
+  mutate(upper = .fitted + 1.96 * .se.fit,
+         lower = .fitted - 1.96 * .se.fit)
+
+df.budget <- fit.log %>% 
+  augment(newdata = data.frame(length = mean(ds$length),
+                               budget_1m = 5:80,
+                               votes_1k = mean(ds$votes_1k))) %>%
+  mutate(upper = .fitted + 1.96 * .se.fit,
+         lower = .fitted - 1.96 * .se.fit)
+
+df.votes <- fit.log %>% 
+  augment(newdata = data.frame(length = mean(ds$length),
+                                        budget_1m = mean(ds$budget_1m),
+                                        votes_1k = 1.645:25.964)) %>%
+  mutate(upper = .fitted + 1.96 * .se.fit,
+         lower = .fitted - 1.96 * .se.fit)
+```
+
+Now make the visualization for each data frame~
+
+```{r 11_pred3, echo=TRUE}
+ggplot(df.length, aes(length, .fitted)) +
+  geom_line(size = 1, color = "royalblue") +
+  geom_ribbon(aes(ymin = lower, ymax = upper), alpha = .2) +
+  coord_cartesian(ylim = c(4:8), xlim = c(89:134)) +
+  ggtitle("Movie Length and Rating") +
+  xlab("Length") +
+  ylab("Rating") +
+  theme_bw()
+```
+
+Now do the same for thse next two IVs:
+
+
+```{r 11_pred5, echo=TRUE}
+ggplot(df.votes, aes(votes_1k, .fitted)) +
+  geom_line(size = 1, color = "royalblue") +
+  geom_ribbon(aes(ymin = lower, ymax = upper), alpha = .2) +
+  ggtitle("IMDB Votes and Rating") +
+  xlab("Votes (Thousands)") +
+  ylab("Rating") +
+  theme_bw()
+  
+```
+
+```{r 11_pred6, echo=TRUE}
+ggplot(df.budget, aes(budget_1m, .fitted)) +
+  geom_line(size = 1, color = "royalblue") +
+  geom_ribbon(aes(ymin = lower, ymax = upper), alpha = .2) +
+  ggtitle("Movie Budget and Rating") +
+  xlab("Budget (Millions)") +
+  ylab("Rating") +
+  theme_bw()
+  
+```
