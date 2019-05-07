@@ -270,13 +270,20 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="14.3" data-path="statistical-simulations.html"><a href="statistical-simulations.html#zelig-with-non-zelig-models"><i class="fa fa-check"></i><b>14.3</b> Zelig with non-Zelig Models:</a></li>
 </ul></li>
 <li class="chapter" data-level="15" data-path="appendix-guide-to-data-visualization.html"><a href="appendix-guide-to-data-visualization.html"><i class="fa fa-check"></i><b>15</b> Appendix: Guide to Data Visualization</a><ul>
-<li class="chapter" data-level="15.1" data-path="appendix-guide-to-data-visualization.html"><a href="appendix-guide-to-data-visualization.html#deciding-which-visualization-to-use"><i class="fa fa-check"></i><b>15.1</b> Deciding Which Visualization to Use</a></li>
+<li class="chapter" data-level="15.1" data-path="appendix-guide-to-data-visualization.html"><a href="appendix-guide-to-data-visualization.html#deciding-which-visualization-to-use"><i class="fa fa-check"></i><b>15.1</b> Deciding Which Visualization to Use</a><ul>
+<li class="chapter" data-level="" data-path="appendix-guide-to-data-visualization.html"><a href="appendix-guide-to-data-visualization.html#for-exploring-a-single-variable"><i class="fa fa-check"></i>For Exploring a Single Variable</a></li>
+<li class="chapter" data-level="" data-path="appendix-guide-to-data-visualization.html"><a href="appendix-guide-to-data-visualization.html#for-displaying-two-or-more-variables"><i class="fa fa-check"></i>For Displaying Two (or more) Variables</a></li>
+</ul></li>
 <li class="chapter" data-level="15.2" data-path="appendix-guide-to-data-visualization.html"><a href="appendix-guide-to-data-visualization.html#adding-labels"><i class="fa fa-check"></i><b>15.2</b> Adding Labels</a></li>
 <li class="chapter" data-level="15.3" data-path="appendix-guide-to-data-visualization.html"><a href="appendix-guide-to-data-visualization.html#scale-and-limits"><i class="fa fa-check"></i><b>15.3</b> Scale and Limits</a></li>
-<li class="chapter" data-level="15.4" data-path="appendix-guide-to-data-visualization.html"><a href="appendix-guide-to-data-visualization.html#confidence-intervals-1"><i class="fa fa-check"></i><b>15.4</b> Confidence Intervals</a></li>
+<li class="chapter" data-level="15.4" data-path="appendix-guide-to-data-visualization.html"><a href="appendix-guide-to-data-visualization.html#visualizing-error"><i class="fa fa-check"></i><b>15.4</b> Visualizing Error</a><ul>
+<li class="chapter" data-level="" data-path="appendix-guide-to-data-visualization.html"><a href="appendix-guide-to-data-visualization.html#confidence-intervals-1"><i class="fa fa-check"></i>Confidence Intervals</a></li>
+<li class="chapter" data-level="" data-path="appendix-guide-to-data-visualization.html"><a href="appendix-guide-to-data-visualization.html#error-bars"><i class="fa fa-check"></i>Error Bars</a></li>
+</ul></li>
 <li class="chapter" data-level="15.5" data-path="appendix-guide-to-data-visualization.html"><a href="appendix-guide-to-data-visualization.html#adding-color"><i class="fa fa-check"></i><b>15.5</b> Adding Color</a></li>
-<li class="chapter" data-level="15.6" data-path="appendix-guide-to-data-visualization.html"><a href="appendix-guide-to-data-visualization.html#creating-a-legend"><i class="fa fa-check"></i><b>15.6</b> Creating a Legend</a></li>
+<li class="chapter" data-level="15.6" data-path="appendix-guide-to-data-visualization.html"><a href="appendix-guide-to-data-visualization.html#position-adjustments"><i class="fa fa-check"></i><b>15.6</b> Position Adjustments</a></li>
 <li class="chapter" data-level="15.7" data-path="appendix-guide-to-data-visualization.html"><a href="appendix-guide-to-data-visualization.html#using-themes"><i class="fa fa-check"></i><b>15.7</b> Using Themes</a></li>
+<li class="chapter" data-level="15.8" data-path="appendix-guide-to-data-visualization.html"><a href="appendix-guide-to-data-visualization.html#putting-it-all-together"><i class="fa fa-check"></i><b>15.8</b> Putting it All Together</a></li>
 </ul></li>
 </ul>
 
@@ -297,29 +304,230 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
             <section class="normal" id="section-">
 <div id="appendix-guide-to-data-visualization" class="section level1">
 <h1><span class="header-section-number">15</span> Appendix: Guide to Data Visualization</h1>
-<p>Throughout these labs, we have created numerous high quality data visualizations using the class data sets. While you can always use the code we have created there - which may even help refresh your memory on the data analysis skills you’ve learned - this guide is designed to be a quick, additional resource for the creation and customization of data visualizations using the Tidyverse and <code>ggplot2</code>.</p>
-<p><strong>Note:</strong> While this quick guide is hopefully helpful, it is by no means complete. Remember that R and the Tidyverse are open source; you can always find help online, such as this <a href="https://resources.rstudio.com/rstudio-cheatsheets/data-visualization-2-1-cheat-sheet">Data Visualization Cheat Sheet</a> from RStudio.</p>
+<p>Throughout these labs, we have created numerous high quality data visualizations using our class data sets. While you can always use the code we have created there - it may even help refresh your memory on the data analysis skills you’ve learned - this guide is designed to be a quick, additional resource for the creation and customization of data visualizations using the Tidyverse and <code>ggplot2</code>.</p>
+<p>These examples will use the class dataset to demonstrate how to add and customize elements of your data visualizations.</p>
+<p><strong>Note:</strong> While this quick guide is hopefully helpful, it is by no means complete. Remember that R and the Tidyverse packages are open source; you can always find help online, such as this <a href="https://resources.rstudio.com/rstudio-cheatsheets/data-visualization-2-1-cheat-sheet">Data Visualization Cheat Sheet</a> from RStudio.</p>
 <div id="deciding-which-visualization-to-use" class="section level2">
 <h2><span class="header-section-number">15.1</span> Deciding Which Visualization to Use</h2>
-<p>Remember - the type of data you are using <em>matters</em>.</p>
+<p>Remember - the type of data you are using <em>matters</em> for what kind of plot you make.</p>
+<div id="for-exploring-a-single-variable" class="section level3 unnumbered">
+<h3>For Exploring a Single Variable</h3>
+<p>When you are first exploring your data, it is often helpful to visualize a single variable.</p>
+<p>For <strong>continuous</strong> data, you may be interested in producing</p>
+<ul>
+<li>density curves (geom_density), or</li>
+<li>histograms (geom_histogram).</li>
+</ul>
+<p>For <strong>discrete</strong> data, you will likely be using a bar plot (geom_bar or geom_col).</p>
+</div>
+<div id="for-displaying-two-or-more-variables" class="section level3 unnumbered">
+<h3>For Displaying Two (or more) Variables</h3>
+<p>After you get a feel for your data, you are likely then interested in visualizing their relationships. These examples are geared towards two variables (one x and one y), but you can always add more!</p>
+<p>With a <strong>continuous</strong> x and a <strong>continuous</strong> y, you have numerous options available. The most common include:</p>
+<ul>
+<li>a scatter plot (geom_point + geom_jitter), and</li>
+<li>a function curve(geom_line or geom_smooth)</li>
+</ul>
+<p>With a <strong>discrete</strong> x variable and a <strong>continuous</strong> y variable, you might produce:</p>
+<ul>
+<li>a bar plot (geom_bar or geom_col),</li>
+<li>a box blot (geom_boxplot), or</li>
+<li>a violin plot (geom_violin)</li>
+</ul>
+<p><strong>Note:</strong> While these are not your only options, they are some of the most commonly used (and match what we’ve covered in these labs!)</p>
+<p>Once you have the basic plot made, the customization can begin. Below, we’ll cover how to add labels and titles, scale your axes, visualize error, add color, and using a theme.</p>
+</div>
 </div>
 <div id="adding-labels" class="section level2">
 <h2><span class="header-section-number">15.2</span> Adding Labels</h2>
+<p>There are numerous ways to add titles and labels to your plot. The simplest is to use the functions:</p>
+<p><span class="math inline">\(+\)</span> xlab(“X-Axis Title”), <span class="math inline">\(+\)</span> ylab(“Y-Axis Title”), and <span class="math inline">\(+\)</span> ggtitle(“Plot Title”)</p>
 </div>
 <div id="scale-and-limits" class="section level2">
 <h2><span class="header-section-number">15.3</span> Scale and Limits</h2>
+<p>You may also want to change the range of values that appear on either axis, as well as the number and nature of data breaks.</p>
+<p>To set limits on the range of data that appears in your plot, you can use the function:</p>
+<p><span class="math inline">\(+\)</span> coord_cartesian(ylim =, xlim =)</p>
+<p>In essence, this allows you to “zoom in” on your data by specify the range of the x and y axes.</p>
+<p>You may also want to change the number and nature of the breaks along your axes. For continuous data, you can use the functions: <span class="math inline">\(+\)</span> scale_x_continuous(breaks =, labels = c()), and <span class="math inline">\(+\)</span> scale_y_continuous(breaks =, labels = c())</p>
+<p><strong>Note:</strong> For discrete data, you will use these functions in the same way: <span class="math inline">\(+\)</span> scale_x_discrete() <span class="math inline">\(+\)</span> scale_y_discrete()</p>
 </div>
-<div id="confidence-intervals-1" class="section level2">
-<h2><span class="header-section-number">15.4</span> Confidence Intervals</h2>
+<div id="visualizing-error" class="section level2">
+<h2><span class="header-section-number">15.4</span> Visualizing Error</h2>
+<p>Often, you will need to include a representation of estimated error in your data visualizations. The primary ways to do this are through confidence intervals or error bars.</p>
+<div id="confidence-intervals-1" class="section level3 unnumbered">
+<h3>Confidence Intervals</h3>
+<p>To add confidence intervals to your function lines, you can use the geom_ribbon() function. The arguments for this function are:</p>
+<p><span class="math inline">\(+\)</span> geom_line() <span class="math inline">\(+\)</span> geom_ribbon(aes(ymin =, ymax =), alpha = )</p>
+<p><strong>Note:</strong> Specifying the alpha value here changes how opaque the confidence interval is.</p>
+</div>
+<div id="error-bars" class="section level3 unnumbered">
+<h3>Error Bars</h3>
+<p>With a discrete point, you will need error bars rather than confidence intervals. To include error bars on your plot, you can use the geom_errorbar() function. The necessary arguments include:</p>
+<p><span class="math inline">\(+\)</span> geom_errorbar(aes(ymin, ymax), width =)</p>
+<p><strong>Note:</strong> Prior to using either of these functions, it helps to add the upper and lower limits of your confidence interval to your data frame. This can be done via the mutate function.</p>
+</div>
 </div>
 <div id="adding-color" class="section level2">
 <h2><span class="header-section-number">15.5</span> Adding Color</h2>
+<p>Adding color to your plots helps you distinguish between variables and categories. In the <code>ggplot</code> aesthetic, setting a variable to “color” or “fill” will automatically produce predefined color variations. However, these won’t always make sense with your data and you may want to specify your own.</p>
+<p><strong>Note:</strong> <code>R</code> allows you to use HEX color codes for customization. <a href="http://colorbrewer2.org/#type=sequential&amp;scheme=BuGn&amp;n=3">Color Brewer 2</a> is a great tool for picking out colors.</p>
+<p>For setting the color of an individual variable, you can add the argument within the geom you are using. Here you will specify the desired color, rather than the variable. Remember that you use “color” for points and lines, and “fill” for columns and bars. For example,</p>
+<p><span class="math inline">\(+\)</span> geom_point(color = “blue”), or <span class="math inline">\(+\)</span> geom_col(fill = “red”)</p>
+<p><strong>Note:</strong> You can also specify the size and alpha here, too.</p>
+<p>You may also want to add multiple colors to a plot. These functions allow yoou to specify your own mappings from levels in the data to color values.</p>
+<p><span class="math inline">\(+\)</span> scale_colour_manual(values = c()) <span class="math inline">\(+\)</span> scale_fill_manual(values = c())</p>
 </div>
-<div id="creating-a-legend" class="section level2">
-<h2><span class="header-section-number">15.6</span> Creating a Legend</h2>
+<div id="position-adjustments" class="section level2">
+<h2><span class="header-section-number">15.6</span> Position Adjustments</h2>
+<p>When using multiple variables, you may often want to adjust their placement on the graph. Below are some common position adjustments you can use.</p>
+<ul>
+<li>Arrange elements side by side</li>
+</ul>
+<p><span class="math inline">\(+\)</span> geom_bar(position = “dodge”)</p>
+<ul>
+<li>Stack elements on top of each other</li>
+</ul>
+<p><span class="math inline">\(+\)</span> geom_bar(position = “stack”) or, <span class="math inline">\(+\)</span> geom_bar(position = “fill”)</p>
+<p><strong>Note:</strong> “Fill” normalizes the height of the bars, while “stack” does not</p>
+<ul>
+<li>Move labels away from data points</li>
+</ul>
+<p><span class="math inline">\(+\)</span> geom_label(position = “nudge”)</p>
 </div>
 <div id="using-themes" class="section level2">
 <h2><span class="header-section-number">15.7</span> Using Themes</h2>
+<p>Outside of the basic plot elements pertaining to your data, you can still further customize your plots by using themes.</p>
+<p>A complete guide to the existing <code>ggplot2</code> themes is available <a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">here</a>. These primarily control the non-data display elements, which include the background shading and internal lines of the plot. Different themes may be best suited for different kinds of projects; you can even tweak the premade themes by adjusting their arguments.</p>
+<p>Additionally, you can create and save your own custom theme for future use! Here is an example of a custom theme:</p>
+<pre><code> theme_custom &lt;- theme_minimal() + 
+  theme(plot.title = element_text(family=&quot;serif&quot;,
+                                  face = &quot;bold&quot;,
+                                  hjust = .5,
+                                  size = 15),
+        axis.title = element_text(family = &quot;serif&quot;,
+                                  face = &quot;bold&quot;,
+                                  size=15),
+        axis.text = element_text(family = &quot;serif&quot;,
+                                 face = &quot;bold&quot;,
+                                 color = &quot;black&quot;),
+        panel.grid = element_line(color = &quot;grey75&quot;),
+        legend.background = element_rect(color = &quot;grey94&quot;,
+                                         fill = &quot;grey94&quot;),
+        legend.text = element_text(family = &quot;serif&quot;,
+                                   face = &quot;bold&quot;,
+                                   size = 9),
+        legend.title = element_text(family = &quot;serif&quot;,
+                                    face = &quot;bold&quot;,
+                                    size = 9),
+        legend.title.align = .5)</code></pre>
+</div>
+<div id="putting-it-all-together" class="section level2">
+<h2><span class="header-section-number">15.8</span> Putting it All Together</h2>
+<p>Below, we have created three plots to provide an example of how these visual elements might all interact.</p>
+<p>First, we will establish a subset of the class dataset to use for the examples.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#create the model</span>
+lm1 &lt;-<span class="st"> </span><span class="kw">lm</span>(glbcc_risk <span class="op">~</span><span class="st"> </span>party <span class="op">+</span><span class="st"> </span>f.gender, <span class="dt">data =</span> sub.ds)
+lm1 <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">augment</span>(<span class="dt">newdata =</span> <span class="kw">data.frame</span>(<span class="dt">party =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">2</span>,
+                               <span class="dt">f.gender =</span> <span class="st">&quot;Men&quot;</span>)) -&gt;<span class="st"> </span>fit1.m
+lm1 <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">augment</span>(<span class="dt">newdata =</span> <span class="kw">data.frame</span>(<span class="dt">party =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">2</span>,
+                               <span class="dt">f.gender =</span> <span class="st">&quot;Women&quot;</span>)) -&gt;<span class="st"> </span>fit1.w
+
+fit1.df &lt;-<span class="st"> </span><span class="kw">full_join</span>(fit1.m, fit1.w)</code></pre></div>
+<pre><code>## Joining, by = c(&quot;party&quot;, &quot;f.gender&quot;, &quot;.fitted&quot;, &quot;.se.fit&quot;)</code></pre>
+<pre><code>## Warning: Column `f.gender` joining factors with different levels, coercing
+## to character vector</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#visualize the model</span>
+<span class="kw">ggplot</span>(fit1.df, <span class="kw">aes</span>(party, .fitted, <span class="dt">color =</span> f.gender)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">stat =</span> <span class="st">&quot;identity&quot;</span>, <span class="dt">position =</span> <span class="kw">position_dodge</span>(<span class="dt">width =</span> <span class="dv">0</span>))  <span class="op">+</span>
+<span class="st">  </span><span class="kw">scale_x_continuous</span>(<span class="dt">breaks =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">2</span>, <span class="dt">labels =</span> <span class="kw">c</span>(<span class="st">&quot;Democrat&quot;</span>, <span class="st">&quot;Republican&quot;</span>)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_errorbar</span>(<span class="kw">aes</span>(<span class="dt">ymin =</span> .fitted <span class="op">-</span><span class="st"> </span><span class="fl">1.96</span> <span class="op">*</span><span class="st"> </span>.se.fit, 
+                    <span class="dt">ymax =</span> .fitted <span class="op">+</span><span class="st"> </span><span class="fl">1.96</span> <span class="op">*</span><span class="st"> </span>.se.fit), <span class="dt">width =</span> <span class="fl">0.25</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">scale_colour_manual</span>(<span class="dt">name=</span><span class="st">&quot;&quot;</span>,  <span class="dt">values =</span><span class="kw">c</span>(<span class="st">&quot;#468499&quot;</span>, <span class="st">&quot;#f6546a&quot;</span>)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">ylab</span>(<span class="st">&quot;Perceived Risk of Climate Change&quot;</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;Party Affiliation&quot;</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">ggtitle</span>(<span class="st">&quot;Climate Change Risk By Gender and Party&quot;</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">labs</span>(<span class="dt">color=</span><span class="st">&quot;Gender&quot;</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">scale_fill_discrete</span>(<span class="dt">guide=</span><span class="ot">FALSE</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">theme_minimal</span>()</code></pre></div>
+<p><img src="_main_files/figure-html/14_ex1-1.png" width="672" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#creating the model</span>
+lm2 &lt;-<span class="st"> </span><span class="kw">lm</span>(glbcc_risk <span class="op">~</span><span class="st"> </span>wtr_comm <span class="op">+</span><span class="st"> </span>f.gender, sub.ds)
+lm2 <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">augment</span>(<span class="dt">newdata =</span> <span class="kw">data.frame</span>(<span class="dt">wtr_comm =</span> <span class="dv">0</span><span class="op">:</span><span class="dv">10</span>,
+                               <span class="dt">f.gender =</span> <span class="st">&quot;Women&quot;</span>)) -&gt;<span class="st"> </span>fit2.w
+lm2 <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">augment</span>(<span class="dt">newdata =</span> <span class="kw">data.frame</span>(<span class="dt">wtr_comm =</span> <span class="dv">0</span><span class="op">:</span><span class="dv">10</span>,
+                               <span class="dt">f.gender =</span> <span class="st">&quot;Men&quot;</span>)) -&gt;<span class="st"> </span>fit2.m
+fit2.df &lt;-<span class="st"> </span><span class="kw">full_join</span>(fit2.w, fit2.m)</code></pre></div>
+<pre><code>## Joining, by = c(&quot;wtr_comm&quot;, &quot;f.gender&quot;, &quot;.fitted&quot;, &quot;.se.fit&quot;)</code></pre>
+<pre><code>## Warning: Column `f.gender` joining factors with different levels, coercing
+## to character vector</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">fit2.df &lt;-<span class="st"> </span>fit2.df <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">up =</span> .fitted <span class="op">+</span><span class="st"> </span><span class="fl">1.96</span> <span class="op">*</span><span class="st"> </span>.se.fit,
+         <span class="dt">low =</span> .fitted <span class="op">-</span><span class="st"> </span><span class="fl">1.96</span> <span class="op">*</span><span class="st"> </span>.se.fit)
+
+<span class="co">#visualizing the model</span>
+fit2.df <span class="op">%&gt;%</span>
+<span class="kw">ggplot</span>(., <span class="kw">aes</span>(<span class="dt">x =</span> wtr_comm, <span class="dt">y =</span> .fitted, <span class="dt">color =</span> f.gender)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_line</span>() <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_ribbon</span>(<span class="kw">aes</span>(<span class="dt">ymin =</span> low, <span class="dt">ymax =</span> up, <span class="dt">fill =</span> f.gender), <span class="dt">alpha =</span> .<span class="dv">3</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">coord_cartesian</span>(<span class="dt">ylim =</span> <span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">9</span>), <span class="dt">xlim =</span> <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">5</span>)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">scale_x_continuous</span>(<span class="dt">breaks=</span><span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span> ,<span class="dv">3</span> ,<span class="dv">4</span> ,<span class="dv">5</span>), <span class="dt">labels=</span><span class="kw">c</span>(<span class="st">&quot;Definitely No&quot;</span>, 
+                                                       <span class="st">&quot;Probably No&quot;</span>, <span class="st">&quot;Unsure&quot;</span>,
+                                                       <span class="st">&quot;Probably Yes&quot;</span>, <span class="st">&quot;Definitely Yes&quot;</span>)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">theme</span>(<span class="dt">legend.position =</span> <span class="st">&quot;bottom&quot;</span>, <span class="dt">legend.direction =</span> <span class="st">&quot;horizontal&quot;</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">ggtitle</span>(<span class="st">&quot;Concern for Water Supply and Climate Change&quot;</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;Considers Water Supply Adequate&quot;</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">ylab</span>(<span class="st">&quot;Perceived Climate Change Risk&quot;</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">labs</span>(<span class="dt">color=</span><span class="st">&quot;Gender&quot;</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">scale_fill_discrete</span>(<span class="dt">guide=</span><span class="ot">FALSE</span>)</code></pre></div>
+<p><img src="_main_files/figure-html/14_ex2-1.png" width="672" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">lm3 &lt;-<span class="st"> </span><span class="kw">lm</span>(glbwrm_risk_fed_mgmt <span class="op">~</span><span class="st"> </span>ideol <span class="op">*</span><span class="st"> </span>glbcc_risk, <span class="dt">data =</span> sub.ds)
+lm3 <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">augment</span>(<span class="dt">newdata =</span> <span class="kw">data.frame</span>(<span class="dt">ideol =</span> <span class="dv">1</span>, <span class="dt">glbcc_risk =</span> <span class="kw">seq</span>(<span class="dv">1</span>, <span class="dv">10</span>, <span class="dv">1</span>))) -&gt;<span class="st"> </span>id1
+lm3 <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">augment</span>(<span class="dt">newdata =</span> <span class="kw">data.frame</span>(<span class="dt">ideol =</span> <span class="dv">2</span>, <span class="dt">glbcc_risk =</span> <span class="kw">seq</span>(<span class="dv">1</span>, <span class="dv">10</span>, <span class="dv">1</span>))) -&gt;<span class="st"> </span>id2
+lm3 <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">augment</span>(<span class="dt">newdata =</span> <span class="kw">data.frame</span>(<span class="dt">ideol =</span> <span class="dv">3</span>, <span class="dt">glbcc_risk =</span> <span class="kw">seq</span>(<span class="dv">1</span>, <span class="dv">10</span>, <span class="dv">1</span>))) -&gt;<span class="st"> </span>id3
+lm3 <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">augment</span>(<span class="dt">newdata =</span> <span class="kw">data.frame</span>(<span class="dt">ideol =</span> <span class="dv">4</span>, <span class="dt">glbcc_risk =</span> <span class="kw">seq</span>(<span class="dv">1</span>, <span class="dv">10</span>, <span class="dv">1</span>))) -&gt;<span class="st"> </span>id4
+lm3 <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">augment</span>(<span class="dt">newdata =</span> <span class="kw">data.frame</span>(<span class="dt">ideol =</span> <span class="dv">5</span>, <span class="dt">glbcc_risk =</span> <span class="kw">seq</span>(<span class="dv">1</span>, <span class="dv">10</span>, <span class="dv">1</span>))) -&gt;<span class="st"> </span>id5
+lm3 <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">augment</span>(<span class="dt">newdata =</span> <span class="kw">data.frame</span>(<span class="dt">ideol =</span> <span class="dv">6</span>, <span class="dt">glbcc_risk =</span> <span class="kw">seq</span>(<span class="dv">1</span>, <span class="dv">10</span>, <span class="dv">1</span>))) -&gt;<span class="st"> </span>id6
+lm3 <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">augment</span>(<span class="dt">newdata =</span> <span class="kw">data.frame</span>(<span class="dt">ideol =</span> <span class="dv">7</span>, <span class="dt">glbcc_risk =</span> <span class="kw">seq</span>(<span class="dv">1</span>, <span class="dv">10</span>, <span class="dv">1</span>))) -&gt;<span class="st"> </span>id7
+<span class="kw">full_join</span>(id1, id2) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">full_join</span>(., id3) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">full_join</span>(., id4) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">full_join</span>(., id5) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">full_join</span>(., id6) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">full_join</span>(., id7) -&gt;<span class="st"> </span>fit3.df</code></pre></div>
+<pre><code>## Joining, by = c(&quot;ideol&quot;, &quot;glbcc_risk&quot;, &quot;.fitted&quot;, &quot;.se.fit&quot;)
+## Joining, by = c(&quot;ideol&quot;, &quot;glbcc_risk&quot;, &quot;.fitted&quot;, &quot;.se.fit&quot;)
+## Joining, by = c(&quot;ideol&quot;, &quot;glbcc_risk&quot;, &quot;.fitted&quot;, &quot;.se.fit&quot;)
+## Joining, by = c(&quot;ideol&quot;, &quot;glbcc_risk&quot;, &quot;.fitted&quot;, &quot;.se.fit&quot;)
+## Joining, by = c(&quot;ideol&quot;, &quot;glbcc_risk&quot;, &quot;.fitted&quot;, &quot;.se.fit&quot;)
+## Joining, by = c(&quot;ideol&quot;, &quot;glbcc_risk&quot;, &quot;.fitted&quot;, &quot;.se.fit&quot;)</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#create a color scale</span>
+col_scale&lt;-<span class="kw">colorRampPalette</span>(<span class="kw">c</span>(<span class="st">&quot;#0200bd50&quot;</span>,<span class="st">&quot;#FF000050&quot;</span>))(<span class="dv">7</span>)
+
+<span class="co">#visualizing the model</span>
+<span class="kw">ggplot</span>(fit3.df, <span class="kw">aes</span>(glbcc_risk, .fitted, <span class="dt">color =</span> <span class="kw">as.factor</span>(ideol))) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_line</span>(<span class="dt">size =</span> <span class="dv">2</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">scale_color_manual</span>(<span class="dt">values =</span> <span class="kw">c</span>(col_scale[<span class="dv">1</span>], col_scale[<span class="dv">2</span>], col_scale[<span class="dv">3</span>],
+                       col_scale[<span class="dv">4</span>], col_scale[<span class="dv">5</span>], col_scale[<span class="dv">6</span>], col_scale[<span class="dv">7</span>]),
+                     <span class="dt">labels =</span> <span class="kw">c</span>(<span class="st">&quot;1&quot;</span>, <span class="st">&quot;2&quot;</span>, <span class="st">&quot;3&quot;</span>, <span class="st">&quot;4&quot;</span>, <span class="st">&quot;5&quot;</span>, <span class="st">&quot;6&quot;</span>, <span class="st">&quot;7&quot;</span>),
+                     <span class="dt">name =</span> <span class="st">&quot;Ideology&quot;</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">ggtitle</span>(<span class="st">&quot;Federal Climate Change Management by Ideology&quot;</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;Climate Change Risk&quot;</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">ylab</span>(<span class="st">&quot;Preferred Level of Federal Involvement&quot;</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">theme_bw</span>()</code></pre></div>
+<p><img src="_main_files/figure-html/14_ex3-1.png" width="672" /></p>
+<p>There are an infinite number of ways you might use these (and more) elements to customize your own data visualizations. Have fun with it!</p>
 
 </div>
 </div>

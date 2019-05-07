@@ -270,13 +270,20 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="14.3" data-path="statistical-simulations.html"><a href="statistical-simulations.html#zelig-with-non-zelig-models"><i class="fa fa-check"></i><b>14.3</b> Zelig with non-Zelig Models:</a></li>
 </ul></li>
 <li class="chapter" data-level="15" data-path="appendix-guide-to-data-visualization.html"><a href="appendix-guide-to-data-visualization.html"><i class="fa fa-check"></i><b>15</b> Appendix: Guide to Data Visualization</a><ul>
-<li class="chapter" data-level="15.1" data-path="appendix-guide-to-data-visualization.html"><a href="appendix-guide-to-data-visualization.html#deciding-which-visualization-to-use"><i class="fa fa-check"></i><b>15.1</b> Deciding Which Visualization to Use</a></li>
+<li class="chapter" data-level="15.1" data-path="appendix-guide-to-data-visualization.html"><a href="appendix-guide-to-data-visualization.html#deciding-which-visualization-to-use"><i class="fa fa-check"></i><b>15.1</b> Deciding Which Visualization to Use</a><ul>
+<li class="chapter" data-level="" data-path="appendix-guide-to-data-visualization.html"><a href="appendix-guide-to-data-visualization.html#for-exploring-a-single-variable"><i class="fa fa-check"></i>For Exploring a Single Variable</a></li>
+<li class="chapter" data-level="" data-path="appendix-guide-to-data-visualization.html"><a href="appendix-guide-to-data-visualization.html#for-displaying-two-or-more-variables"><i class="fa fa-check"></i>For Displaying Two (or more) Variables</a></li>
+</ul></li>
 <li class="chapter" data-level="15.2" data-path="appendix-guide-to-data-visualization.html"><a href="appendix-guide-to-data-visualization.html#adding-labels"><i class="fa fa-check"></i><b>15.2</b> Adding Labels</a></li>
 <li class="chapter" data-level="15.3" data-path="appendix-guide-to-data-visualization.html"><a href="appendix-guide-to-data-visualization.html#scale-and-limits"><i class="fa fa-check"></i><b>15.3</b> Scale and Limits</a></li>
-<li class="chapter" data-level="15.4" data-path="appendix-guide-to-data-visualization.html"><a href="appendix-guide-to-data-visualization.html#confidence-intervals-1"><i class="fa fa-check"></i><b>15.4</b> Confidence Intervals</a></li>
+<li class="chapter" data-level="15.4" data-path="appendix-guide-to-data-visualization.html"><a href="appendix-guide-to-data-visualization.html#visualizing-error"><i class="fa fa-check"></i><b>15.4</b> Visualizing Error</a><ul>
+<li class="chapter" data-level="" data-path="appendix-guide-to-data-visualization.html"><a href="appendix-guide-to-data-visualization.html#confidence-intervals-1"><i class="fa fa-check"></i>Confidence Intervals</a></li>
+<li class="chapter" data-level="" data-path="appendix-guide-to-data-visualization.html"><a href="appendix-guide-to-data-visualization.html#error-bars"><i class="fa fa-check"></i>Error Bars</a></li>
+</ul></li>
 <li class="chapter" data-level="15.5" data-path="appendix-guide-to-data-visualization.html"><a href="appendix-guide-to-data-visualization.html#adding-color"><i class="fa fa-check"></i><b>15.5</b> Adding Color</a></li>
-<li class="chapter" data-level="15.6" data-path="appendix-guide-to-data-visualization.html"><a href="appendix-guide-to-data-visualization.html#creating-a-legend"><i class="fa fa-check"></i><b>15.6</b> Creating a Legend</a></li>
+<li class="chapter" data-level="15.6" data-path="appendix-guide-to-data-visualization.html"><a href="appendix-guide-to-data-visualization.html#position-adjustments"><i class="fa fa-check"></i><b>15.6</b> Position Adjustments</a></li>
 <li class="chapter" data-level="15.7" data-path="appendix-guide-to-data-visualization.html"><a href="appendix-guide-to-data-visualization.html#using-themes"><i class="fa fa-check"></i><b>15.7</b> Using Themes</a></li>
+<li class="chapter" data-level="15.8" data-path="appendix-guide-to-data-visualization.html"><a href="appendix-guide-to-data-visualization.html#putting-it-all-together"><i class="fa fa-check"></i><b>15.8</b> Putting it All Together</a></li>
 </ul></li>
 </ul>
 
@@ -334,7 +341,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 ##  Shapiro-Wilk normality test
 ## 
 ## data:  random
-## W = 0.99811, p-value = 0.3308</code></pre>
+## W = 0.9976, p-value = 0.1513</code></pre>
 <p>The Shapiro-Wilk test p-value is greater than <span class="math inline">\(\alpha\)</span> = 0.05, therefore failing to reject <span class="math inline">\(H_0\)</span> concluding the data are normally distributed. Again, this is expected given the <code>random</code> object was created via the <code>rnorm()</code> function.</p>
 </div>
 <div id="testing-normality" class="section level3">

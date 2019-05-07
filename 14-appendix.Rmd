@@ -14,6 +14,7 @@ Remember - the type of data you are using _matters_ for what kind of plot you ma
 When you are first exploring your data, it is often helpful to visualize a single variable.
 
 For __continuous__ data, you may be interested in producing 
+
   - density curves (geom_density), or 
   - histograms (geom_histogram).
 
@@ -23,10 +24,12 @@ For __discrete__ data, you will likely be using a bar plot (geom_bar or geom_col
 After you get a feel for your data, you are likely then interested in visualizing their relationships. These examples are geared towards two variables (one x and one y), but you can always add more!
 
 With a __continuous__ x and a __continuous__ y, you have numerous options available. The most common include:
+
   - a scatter plot (geom_point + geom_jitter), and 
   - a function curve(geom_line or geom_smooth)
   
 With a __discrete__ x variable and a __continuous__ y variable, you might produce:
+
   - a bar plot (geom_bar or geom_col),
   - a box blot (geom_boxplot), or
   - a violin plot (geom_violin)
@@ -38,26 +41,26 @@ Once you have the basic plot made, the customization can begin. Below, we'll cov
 ## Adding Labels
 There are numerous ways to add titles and labels to your plot. The simplest is to use the functions:
 
-  + xlab("X-Axis Title"),
-  + ylab("Y-Axis Title"), and
-  + ggtitle("Plot Title")
+  $+$ xlab("X-Axis Title"),
+  $+$ ylab("Y-Axis Title"), and
+  $+$ ggtitle("Plot Title")
 
 ## Scale and Limits
 You may also want to change the range of values that appear on either axis, as well as the number and nature of data breaks. 
 
 To set limits on the range of data that appears in your plot, you can use the function:
 
-  + coord_cartesian(ylim =, xlim =)
+  $+$ coord_cartesian(ylim =, xlim =)
 
 In essence, this allows you to "zoom in" on your data by specify the range of the x and y axes.
 
 You may also want to change the number and nature of the breaks along your axes. For continuous data, you can use the functions:
-  + scale_x_continuous(breaks =, labels = c()), and
-  + scale_y_continuous(breaks =, labels = c())
+  $+$ scale_x_continuous(breaks =, labels = c()), and
+  $+$ scale_y_continuous(breaks =, labels = c())
 
 __Note:__ For discrete data, you will use these functions in the same way:
-  + scale_x_discrete()
-  + scale_y_discrete()
+  $+$ scale_x_discrete()
+  $+$ scale_y_discrete()
 
 ## Visualizing Error
 
@@ -68,7 +71,7 @@ Often, you will need to include a representation of estimated error in your data
 To add confidence intervals to your function lines, you can use the geom_ribbon() function.
 The arguments for this function are:
 
-  + geom_line() + geom_ribbon(aes(ymin =, ymax =), alpha = )
+  $+$ geom_line() $+$ geom_ribbon(aes(ymin =, ymax =), alpha = )
 
 __Note:__ Specifying the alpha value here changes how opaque the confidence interval is.
 
@@ -76,7 +79,7 @@ __Note:__ Specifying the alpha value here changes how opaque the confidence inte
 
 With a discrete point, you will need error bars rather than confidence intervals. To include error bars on your plot, you can use the geom_errorbar() function. The necessary arguments include:
 
-  + geom_errorbar(aes(ymin, ymax), width =)
+  $+$ geom_errorbar(aes(ymin, ymax), width =)
 
 __Note:__ Prior to using either of these functions, it helps to add the upper and lower limits of your confidence interval to your data frame. This can be done via the mutate function.
 
@@ -88,33 +91,33 @@ __Note:__ `R` allows you to use HEX color codes for customization. [Color Brewer
 
 For setting the color of an individual variable, you can add the argument within the geom you are using. Here you will specify the desired color, rather than the variable. Remember that you use "color" for points and lines, and "fill" for columns and bars. For example,
 
-  + geom_point(color = "blue"), or
-  + geom_col(fill = "red")
+  $+$ geom_point(color = "blue"), or
+  $+$ geom_col(fill = "red")
 
 __Note:__ You can also specify the size and alpha here, too.
 
 You may also want to add multiple colors to a plot. These functions allow yoou to specify your own mappings from levels in the data to color values.
 
-  + scale_colour_manual(values = c())
-  + scale_fill_manual(values = c())
+  $+$ scale_colour_manual(values = c())
+  $+$ scale_fill_manual(values = c())
 
 ## Position Adjustments
 When using multiple variables, you may often want to adjust their placement on the graph. Below are some common position adjustments you can use.
 
 - Arrange elements side by side
 
-  + geom_bar(position = "dodge")
+  $+$ geom_bar(position = "dodge")
 
 - Stack elements on top of each other
 
-  + geom_bar(position = "stack") or,
-  + geom_bar(position = "fill")
+  $+$ geom_bar(position = "stack") or,
+  $+$ geom_bar(position = "fill")
   
 __Note:__ "Fill" normalizes the height of the bars, while "stack" does not
 
 - Move labels away from data points
 
-  + geom_label(position = "nudge")
+  $+$ geom_label(position = "nudge")
 
 ## Using Themes
 
@@ -150,7 +153,7 @@ Additionally, you can create and save your own custom theme for future use! Here
 
 Below, we have created three plots to provide an example of how these visual elements might all interact.
 
-First, we will establish a sub dataset to use for the examples.
+First, we will establish a subset of the class dataset to use for the examples.
 ```{r 14_subset, echo = FALSE}
 ds %>%
   dplyr::select("glbcc_risk", "wtr_comm", "ideol", "gender", "party", "glbwrm_risk_fed_mgmt") %>%
