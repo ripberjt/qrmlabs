@@ -5,6 +5,9 @@ account: josiesmith
 server: bookdown.org
 hostUrl: https://bookdown.org/__api__
 appId: 2567
-bundleId: 10102
+bundleId: 10107
 url: https://bookdown.org/josiesmith/labbook/
-when: 1557415413.23989
+when: 1557419046.90183
+asMultiple: FALSE
+asStatic: FALSE
+ignoredFiles: 00-intro.Rmd|01-basics.rmd|02-describing.Rmd|03-visualizing.Rmd|04-foundations.Rmd|05-inference.Rmd|07-bivariate.Rmd|08-multivariate.Rmd|09-categorical.Rmd|10-nonlinear.Rmd|11-diagnosis.Rmd|12-logistic.Rmd|13-simulations.Rmd|14-appendix.Rmd|Class Data Set Factored.csv|Class Data Set.csv|Democracy Timeseries Data January 2009 Excel2007.xlsx|imdb_2014.csv|README.md|Rplots.pdf|_book|_bookdown_files|Legacy|Raw_labs

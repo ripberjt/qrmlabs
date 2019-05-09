@@ -19,7 +19,7 @@ Where `x` and `y` are two random variables, `i` is each observation (row), and `
 
 ### Covariance by Hand 
 
-To find covariance by hand, let's construct a hypothetical data set with variables x and y. We only give each variable three values so that the calculation will be shorter:
+To find covariance by hand, let's construct a hypothetical data set with variables x and y. We only give each variable three values so that the calculation will be shorter.
 
 ```{r 6_cov, echo=TRUE}
 x <- c(25, 27, 29)
