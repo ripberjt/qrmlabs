@@ -347,66 +347,7 @@ object1</code></pre></div>
 <p><strong>Try this!</strong> Create a new object below; you can name it almost anything!</p>
 <p>R includes various functions for managing created objects. The <code>ls()</code> function lists all existing objects.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ls</span>()</code></pre></div>
-<pre><code>##   [1] &quot;A&quot;                     &quot;A.inverse&quot;            
-##   [3] &quot;aic.logit2&quot;            &quot;b&quot;                    
-##   [5] &quot;B&quot;                     &quot;Bhi&quot;                  
-##   [7] &quot;Blow&quot;                  &quot;by1&quot;                  
-##   [9] &quot;dat&quot;                   &quot;data&quot;                 
-##  [11] &quot;df&quot;                    &quot;df.ols1&quot;              
-##  [13] &quot;df1&quot;                   &quot;df2&quot;                  
-##  [15] &quot;df2.ols1&quot;              &quot;df3&quot;                  
-##  [17] &quot;df4&quot;                   &quot;df5&quot;                  
-##  [19] &quot;ds&quot;                    &quot;ds.small&quot;             
-##  [21] &quot;ds.temp&quot;               &quot;ds200&quot;                
-##  [23] &quot;e&quot;                     &quot;ESS&quot;                  
-##  [25] &quot;ESS.mod1&quot;              &quot;ESS.mod2&quot;             
-##  [27] &quot;F&quot;                     &quot;G&quot;                    
-##  [29] &quot;glbcc.table&quot;           &quot;I&quot;                    
-##  [31] &quot;ideology.prime&quot;        &quot;log.data&quot;             
-##  [33] &quot;log.df&quot;                &quot;logit0&quot;               
-##  [35] &quot;logit1&quot;                &quot;logit2&quot;               
-##  [37] &quot;meanF&quot;                 &quot;meanM&quot;                
-##  [39] &quot;mod&quot;                   &quot;n.total&quot;              
-##  [41] &quot;nF&quot;                    &quot;nM&quot;                   
-##  [43] &quot;object1&quot;               &quot;OLS_env&quot;              
-##  [45] &quot;ols1&quot;                  &quot;ols2&quot;                 
-##  [47] &quot;ols2.resids&quot;           &quot;ols3&quot;                 
-##  [49] &quot;ols3.resids&quot;           &quot;ols4&quot;                 
-##  [51] &quot;output.1&quot;              &quot;output.2&quot;             
-##  [53] &quot;p&quot;                     &quot;p1&quot;                   
-##  [55] &quot;p2&quot;                    &quot;p3&quot;                   
-##  [57] &quot;p4&quot;                    &quot;packages&quot;             
-##  [59] &quot;pkg&quot;                   &quot;plotdb&quot;               
-##  [61] &quot;pseudoR2&quot;              &quot;r&quot;                    
-##  [63] &quot;R2&quot;                    &quot;rbyR&quot;                 
-##  [65] &quot;robust.se&quot;             &quot;rskttest&quot;             
-##  [67] &quot;RSS&quot;                   &quot;RSS.mod1&quot;             
-##  [69] &quot;RSS.mod2&quot;              &quot;RSSideol&quot;             
-##  [71] &quot;s3d&quot;                   &quot;sdF&quot;                  
-##  [73] &quot;sdM&quot;                   &quot;sdX&quot;                  
-##  [75] &quot;sdY&quot;                   &quot;Se&quot;                   
-##  [77] &quot;SEa&quot;                   &quot;SEb&quot;                  
-##  [79] &quot;seD&quot;                   &quot;seF&quot;                  
-##  [81] &quot;SEideol&quot;               &quot;seM&quot;                  
-##  [83] &quot;sl&quot;                    &quot;Sx&quot;                   
-##  [85] &quot;Sxy&quot;                   &quot;Sy&quot;                   
-##  [87] &quot;t&quot;                     &quot;TSS&quot;                  
-##  [89] &quot;TSSx&quot;                  &quot;v2.glbcc.table&quot;       
-##  [91] &quot;v3.glbcc.table&quot;        &quot;x&quot;                    
-##  [93] &quot;X&quot;                     &quot;x.m.xbar&quot;             
-##  [95] &quot;X.prime&quot;               &quot;X.prime.X&quot;            
-##  [97] &quot;X.prime.X.inv&quot;         &quot;X.prime.X.inv.X.prime&quot;
-##  [99] &quot;x1&quot;                    &quot;x2&quot;                   
-## [101] &quot;x3&quot;                    &quot;x4&quot;                   
-## [103] &quot;x5&quot;                    &quot;xbar&quot;                 
-## [105] &quot;y&quot;                     &quot;y.df&quot;                 
-## [107] &quot;y.df2&quot;                 &quot;y.hat&quot;                
-## [109] &quot;y.m.ybar&quot;              &quot;y1&quot;                   
-## [111] &quot;y2&quot;                    &quot;y3&quot;                   
-## [113] &quot;y4&quot;                    &quot;y5&quot;                   
-## [115] &quot;ybar&quot;                  &quot;yhl&quot;                  
-## [117] &quot;yl&quot;                    &quot;z&quot;                    
-## [119] &quot;z5&quot;</code></pre>
+<pre><code>## [1] &quot;ds&quot;       &quot;object1&quot;  &quot;packages&quot; &quot;pkg&quot;</code></pre>
 <p>The <code>rm()</code> function removes existing objects.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">rm</span>(object1)</code></pre></div>
 <p>There is no strict convention for naming objects; however, there are best practices:</p>
@@ -454,27 +395,7 @@ object.One</code></pre></div>
 <h3><span class="header-section-number">2.3.1</span> Object Types</h3>
 <p>Object types are improtant in R and the type of an object is contingent on the attribute stored by the object. For example, an object storing characters (e.g., “blue”) has a different type than an object storing a number (e.g., 1). Use of R functions is contingent on the type of objects. For example, functions like <code>mean()</code> work only for objects containing numbers. The R <code>str()</code> function describes the structure of objects and functions.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">str</span>(mean)</code></pre></div>
-<pre><code>## Formal class &#39;standardGeneric&#39; [package &quot;methods&quot;] with 8 slots
-##   ..@ .Data     :function (x, ...)  
-##   ..@ generic   : chr &quot;mean&quot;
-##   .. ..- attr(*, &quot;package&quot;)= chr &quot;base&quot;
-##   ..@ package   : chr &quot;base&quot;
-##   ..@ group     : list()
-##   ..@ valueClass: chr(0) 
-##   ..@ signature : chr &quot;x&quot;
-##   ..@ default   :Formal class &#39;derivedDefaultMethod&#39; [package &quot;methods&quot;] with 4 slots
-##   .. .. ..@ .Data  :function (x, ...)  
-##   .. .. ..@ target :Formal class &#39;signature&#39; [package &quot;methods&quot;] with 3 slots
-##   .. .. .. .. ..@ .Data  : chr &quot;ANY&quot;
-##   .. .. .. .. ..@ names  : chr &quot;x&quot;
-##   .. .. .. .. ..@ package: chr &quot;methods&quot;
-##   .. .. ..@ defined:Formal class &#39;signature&#39; [package &quot;methods&quot;] with 3 slots
-##   .. .. .. .. ..@ .Data  : chr &quot;ANY&quot;
-##   .. .. .. .. ..@ names  : chr &quot;x&quot;
-##   .. .. .. .. ..@ package: chr &quot;methods&quot;
-##   .. .. ..@ generic: chr &quot;mean&quot;
-##   .. .. .. ..- attr(*, &quot;package&quot;)= chr &quot;base&quot;
-##   ..@ skeleton  : language (new(&quot;derivedDefaultMethod&quot;, .Data = function (x, ...)  UseMethod(&quot;mean&quot;), target = new(&quot;signature&quot;, .Data = &quot;ANY| __truncated__ ...</code></pre>
+<pre><code>## function (x, ...)</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">str</span>(object.One)</code></pre></div>
 <pre><code>##  num 20</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">str</span>(cars)</code></pre></div>
@@ -500,12 +421,12 @@ listObject</code></pre></div>
 ## [1] 1
 ## 
 ## [[3]]
-## [1] 1200.629</code></pre>
+## [1] FALSE</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">str</span>(listObject)</code></pre></div>
 <pre><code>## List of 3
 ##  $ : chr &quot;your name&quot;
 ##  $ : num 1
-##  $ : num 1201</code></pre>
+##  $ : logi FALSE</code></pre>
 <p><strong>Note:</strong> The structure of the list object consists of a character, a number, and a logic (True/False).</p>
 </div>
 </div>
@@ -533,11 +454,6 @@ listObject</code></pre></div>
 <span class="kw">library</span>(Rcpp)
 <span class="kw">library</span>(rmarkdown)
 <span class="kw">library</span>(knitr)</code></pre></div>
-<pre><code>## 
-## Attaching package: &#39;knitr&#39;</code></pre>
-<pre><code>## The following object is masked from &#39;package:skimr&#39;:
-## 
-##     kable</code></pre>
 <p><strong>Note:</strong> The <code>memisc</code> package contains object/package conflicts with the <code>car</code> package for the <code>recode</code> object. A conflict occurs when two packages contain objects (e.g., functions) of the same name. A conflict will not prevent loading packages; however, use of a specific package’s object requires an explicit call to the desired parent package. For example, to use the <code>recode()</code> function from <code>car</code>, the <code>car::recode(variable)</code> statement will explicitly call <code>recode()</code> from the <code>car</code> package. Vice versa, <code>memisc::recode()</code> will explicitly call <code>recode()</code> from the <code>memisc</code> package.</p>
 </div>
 <div id="updating-packages" class="section level3">
@@ -566,63 +482,65 @@ listObject</code></pre></div>
 ##  [28] &quot;kable&quot;             &quot;logit&quot;             &quot;recode&quot;           
 ##  [31] &quot;%&gt;%&quot;               &quot;%&gt;%&quot;               &quot;%&gt;%&quot;              
 ##  [34] &quot;reduce&quot;            &quot;some&quot;              &quot;%&gt;%&quot;              
-##  [37] &quot;expand&quot;            &quot;smiths&quot;            &quot;logit&quot;            
-##  [40] &quot;rescale&quot;           &quot;sim&quot;               &quot;%&gt;%&quot;              
-##  [43] &quot;add_row&quot;           &quot;arrange&quot;           &quot;arrange_&quot;         
-##  [46] &quot;as_data_frame&quot;     &quot;as_tibble&quot;         &quot;collect&quot;          
-##  [49] &quot;contains&quot;          &quot;data_frame&quot;        &quot;data_frame_&quot;      
-##  [52] &quot;distinct&quot;          &quot;distinct_&quot;         &quot;do&quot;               
-##  [55] &quot;do_&quot;               &quot;ends_with&quot;         &quot;everything&quot;       
-##  [58] &quot;filter&quot;            &quot;filter_&quot;           &quot;frame_data&quot;       
-##  [61] &quot;glimpse&quot;           &quot;group_by&quot;          &quot;group_by_&quot;        
-##  [64] &quot;groups&quot;            &quot;last&quot;              &quot;lst&quot;              
-##  [67] &quot;lst_&quot;              &quot;matches&quot;           &quot;mutate&quot;           
-##  [70] &quot;mutate_&quot;           &quot;num_range&quot;         &quot;one_of&quot;           
-##  [73] &quot;recode&quot;            &quot;rename&quot;            &quot;rename_&quot;          
-##  [76] &quot;select&quot;            &quot;select_&quot;           &quot;slice&quot;            
-##  [79] &quot;slice_&quot;            &quot;starts_with&quot;       &quot;summarise&quot;        
-##  [82] &quot;summarise_&quot;        &quot;syms&quot;              &quot;tbl_sum&quot;          
-##  [85] &quot;tibble&quot;            &quot;transmute&quot;         &quot;transmute_&quot;       
-##  [88] &quot;tribble&quot;           &quot;trunc_mat&quot;         &quot;type_sum&quot;         
-##  [91] &quot;ungroup&quot;           &quot;%+%&quot;               &quot;alpha&quot;            
-##  [94] &quot;arrow&quot;             &quot;enexpr&quot;            &quot;enexprs&quot;          
-##  [97] &quot;enquo&quot;             &quot;enquos&quot;            &quot;ensym&quot;            
-## [100] &quot;ensyms&quot;            &quot;expr&quot;              &quot;last_plot&quot;        
-## [103] &quot;quo&quot;               &quot;quo_name&quot;          &quot;quos&quot;             
-## [106] &quot;stat&quot;              &quot;sym&quot;               &quot;syms&quot;             
-## [109] &quot;unit&quot;              &quot;vars&quot;              &quot;coef&quot;             
-## [112] &quot;coefficients&quot;      &quot;contr.sum&quot;         &quot;contr.treatment&quot;  
-## [115] &quot;contrasts&quot;         &quot;contrasts&lt;-&quot;       &quot;cov2cor&quot;          
-## [118] &quot;df&quot;                &quot;df.residual&quot;       &quot;filter&quot;           
-## [121] &quot;fitted&quot;            &quot;lag&quot;               &quot;predict&quot;          
-## [124] &quot;residuals&quot;         &quot;toeplitz&quot;          &quot;update&quot;           
-## [127] &quot;vcov&quot;              &quot;image&quot;             &quot;layout&quot;           
-## [130] &quot;plot&quot;              &quot;data&quot;              &quot;head&quot;             
-## [133] &quot;prompt&quot;            &quot;tail&quot;              &quot;npk&quot;              
-## [136] &quot;Arith&quot;             &quot;cbind2&quot;            &quot;coerce&quot;           
-## [139] &quot;Compare&quot;           &quot;initialize&quot;        &quot;kronecker&quot;        
-## [142] &quot;Logic&quot;             &quot;Math&quot;              &quot;Math2&quot;            
-## [145] &quot;Ops&quot;               &quot;rbind2&quot;            &quot;show&quot;             
-## [148] &quot;Summary&quot;           &quot;%in%&quot;              &quot;all.equal&quot;        
-## [151] &quot;as.array&quot;          &quot;as.Date&quot;           &quot;as.Date.numeric&quot;  
-## [154] &quot;as.factor&quot;         &quot;as.matrix&quot;         &quot;as.ordered&quot;       
-## [157] &quot;body&lt;-&quot;            &quot;chol&quot;              &quot;chol2inv&quot;         
-## [160] &quot;colMeans&quot;          &quot;colSums&quot;           &quot;crossprod&quot;        
-## [163] &quot;det&quot;               &quot;determinant&quot;       &quot;diag&quot;             
-## [166] &quot;diag&lt;-&quot;            &quot;diff&quot;              &quot;drop&quot;             
-## [169] &quot;F&quot;                 &quot;formals&lt;-&quot;         &quot;format&quot;           
-## [172] &quot;I&quot;                 &quot;intersect&quot;         &quot;isSymmetric&quot;      
-## [175] &quot;kronecker&quot;         &quot;labels&quot;            &quot;mean&quot;             
-## [178] &quot;merge&quot;             &quot;norm&quot;              &quot;Position&quot;         
-## [181] &quot;print&quot;             &quot;qr&quot;                &quot;qr.coef&quot;          
-## [184] &quot;qr.fitted&quot;         &quot;qr.Q&quot;              &quot;qr.qty&quot;           
-## [187] &quot;qr.qy&quot;             &quot;qr.R&quot;              &quot;qr.resid&quot;         
-## [190] &quot;rcond&quot;             &quot;row.names&quot;         &quot;rowMeans&quot;         
-## [193] &quot;rowSums&quot;           &quot;sample&quot;            &quot;setdiff&quot;          
-## [196] &quot;setequal&quot;          &quot;solve&quot;             &quot;subset&quot;           
-## [199] &quot;summary&quot;           &quot;t&quot;                 &quot;tcrossprod&quot;       
-## [202] &quot;union&quot;             &quot;unique&quot;            &quot;unname&quot;           
-## [205] &quot;which&quot;             &quot;within&quot;            &quot;zapsmall&quot;</code></pre>
+##  [37] &quot;expand&quot;            &quot;smiths&quot;            &quot;alpha&quot;            
+##  [40] &quot;logit&quot;             &quot;rescale&quot;           &quot;sim&quot;              
+##  [43] &quot;%&gt;%&quot;               &quot;add_row&quot;           &quot;arrange&quot;          
+##  [46] &quot;arrange_&quot;          &quot;as_data_frame&quot;     &quot;as_tibble&quot;        
+##  [49] &quot;collect&quot;           &quot;contains&quot;          &quot;data_frame&quot;       
+##  [52] &quot;data_frame_&quot;       &quot;distinct&quot;          &quot;distinct_&quot;        
+##  [55] &quot;do&quot;                &quot;do_&quot;               &quot;ends_with&quot;        
+##  [58] &quot;everything&quot;        &quot;filter&quot;            &quot;filter_&quot;          
+##  [61] &quot;frame_data&quot;        &quot;glimpse&quot;           &quot;group_by&quot;         
+##  [64] &quot;group_by_&quot;         &quot;groups&quot;            &quot;last&quot;             
+##  [67] &quot;lst&quot;               &quot;lst_&quot;              &quot;matches&quot;          
+##  [70] &quot;mutate&quot;            &quot;mutate_&quot;           &quot;n&quot;                
+##  [73] &quot;num_range&quot;         &quot;one_of&quot;            &quot;recode&quot;           
+##  [76] &quot;rename&quot;            &quot;rename_&quot;           &quot;select&quot;           
+##  [79] &quot;select_&quot;           &quot;slice&quot;             &quot;slice_&quot;           
+##  [82] &quot;starts_with&quot;       &quot;summarise&quot;         &quot;summarise_&quot;       
+##  [85] &quot;syms&quot;              &quot;tbl_sum&quot;           &quot;tibble&quot;           
+##  [88] &quot;transmute&quot;         &quot;transmute_&quot;        &quot;tribble&quot;          
+##  [91] &quot;trunc_mat&quot;         &quot;type_sum&quot;          &quot;ungroup&quot;          
+##  [94] &quot;%+%&quot;               &quot;alpha&quot;             &quot;arrow&quot;            
+##  [97] &quot;enexpr&quot;            &quot;enexprs&quot;           &quot;enquo&quot;            
+## [100] &quot;enquos&quot;            &quot;ensym&quot;             &quot;ensyms&quot;           
+## [103] &quot;expr&quot;              &quot;last_plot&quot;         &quot;quo&quot;              
+## [106] &quot;quo_name&quot;          &quot;quos&quot;              &quot;stat&quot;             
+## [109] &quot;sym&quot;               &quot;syms&quot;              &quot;unit&quot;             
+## [112] &quot;vars&quot;              &quot;coef&quot;              &quot;coefficients&quot;     
+## [115] &quot;contr.sum&quot;         &quot;contr.treatment&quot;   &quot;contrasts&quot;        
+## [118] &quot;contrasts&lt;-&quot;       &quot;cov2cor&quot;           &quot;df&quot;               
+## [121] &quot;df.residual&quot;       &quot;filter&quot;            &quot;fitted&quot;           
+## [124] &quot;lag&quot;               &quot;predict&quot;           &quot;resid&quot;            
+## [127] &quot;residuals&quot;         &quot;toeplitz&quot;          &quot;update&quot;           
+## [130] &quot;vcov&quot;              &quot;image&quot;             &quot;layout&quot;           
+## [133] &quot;plot&quot;              &quot;data&quot;              &quot;head&quot;             
+## [136] &quot;prompt&quot;            &quot;tail&quot;              &quot;npk&quot;              
+## [139] &quot;Arith&quot;             &quot;cbind2&quot;            &quot;coerce&quot;           
+## [142] &quot;Compare&quot;           &quot;initialize&quot;        &quot;kronecker&quot;        
+## [145] &quot;Logic&quot;             &quot;Math&quot;              &quot;Math2&quot;            
+## [148] &quot;Ops&quot;               &quot;rbind2&quot;            &quot;show&quot;             
+## [151] &quot;Summary&quot;           &quot;%in%&quot;              &quot;all.equal&quot;        
+## [154] &quot;as.array&quot;          &quot;as.Date&quot;           &quot;as.Date.numeric&quot;  
+## [157] &quot;as.factor&quot;         &quot;as.matrix&quot;         &quot;as.ordered&quot;       
+## [160] &quot;body&lt;-&quot;            &quot;chol&quot;              &quot;chol2inv&quot;         
+## [163] &quot;colMeans&quot;          &quot;colSums&quot;           &quot;crossprod&quot;        
+## [166] &quot;det&quot;               &quot;determinant&quot;       &quot;diag&quot;             
+## [169] &quot;diag&lt;-&quot;            &quot;diff&quot;              &quot;drop&quot;             
+## [172] &quot;F&quot;                 &quot;formals&lt;-&quot;         &quot;format&quot;           
+## [175] &quot;I&quot;                 &quot;intersect&quot;         &quot;isSymmetric&quot;      
+## [178] &quot;kronecker&quot;         &quot;labels&quot;            &quot;length&quot;           
+## [181] &quot;mean&quot;              &quot;merge&quot;             &quot;norm&quot;             
+## [184] &quot;Position&quot;          &quot;print&quot;             &quot;qr&quot;               
+## [187] &quot;qr.coef&quot;           &quot;qr.fitted&quot;         &quot;qr.Q&quot;             
+## [190] &quot;qr.qty&quot;            &quot;qr.qy&quot;             &quot;qr.R&quot;             
+## [193] &quot;qr.resid&quot;          &quot;rcond&quot;             &quot;row.names&quot;        
+## [196] &quot;rowMeans&quot;          &quot;rowSums&quot;           &quot;sample&quot;           
+## [199] &quot;setdiff&quot;           &quot;setequal&quot;          &quot;solve&quot;            
+## [202] &quot;sub&quot;               &quot;subset&quot;            &quot;summary&quot;          
+## [205] &quot;t&quot;                 &quot;tcrossprod&quot;        &quot;union&quot;            
+## [208] &quot;unique&quot;            &quot;unname&quot;            &quot;which&quot;            
+## [211] &quot;within&quot;            &quot;zapsmall&quot;</code></pre>
 <p>The <code>detach()</code> function detaches packages and is an alternative method to resolve conflicts. Supplying the <code>unload = TRUE</code> argument within the <code>detach()</code> function will unload the package. For example, to resolve the <code>recode()</code> function conflict between <code>car</code> and <code>memisc</code>, the memisc package can be detached and unloaded as follows: <code>detach(package:memisc, unload = TRUE)</code>.</p>
 </div>
 </div>
