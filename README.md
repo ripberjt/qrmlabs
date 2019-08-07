@@ -1,5 +1,7 @@
 # Lab Guide to Quantitative Research Methods in Political Science, Public Policy & Public Administration
 
+Joe Ripberger, Cody Adams, Alex Davis, and Josie Davis 
+
 ## Preface
 This book is a companion to _Quantitative Research Methods for Political Science, Public Policy and Public Administration (With Applications in R): 3rd Edition_, an open-source text book that is available here: https://hdl.handle.net/11244/52244. It grew from our experiences teaching introductory and intermediate quantitative methods classes for graduate students in Political Science and Public Policy at the University of Oklahoma. We teach these courses using aformat that pairs seminars on theory and statistics withexercises that focus on applications in `R`. We use the text book to motivate seminars and this book to guide exercises. The book is written in `R Markdown` and `bookdown`. While a "complete" copy of the book is available, we suggest that students and instructors use the "raw" `.Rmd` files forexercises. These materials ara available in our `GitHub` repository (https://github.com/ripberjt/qrmlabs). 
 
