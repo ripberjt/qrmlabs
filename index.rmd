@@ -1,15 +1,16 @@
 --- 
 title: "Lab Guide to Quantitative Research Methods in Political Science, Public Policy & Public Administration."
-author: Joe Ripberger, Cody Adams, Alex Davis, and Josie Davis
 site: bookdown::bookdown_site
 output: bookdown::gitbook #bookdown::pdf_book
 book_filename: "labbook"
 always_allow_html: yes
 language:
   ui:
-    chapter_name: "Chapter "
+    chapter_name: "Chapter"
 delete_merged_file: true
 ---
+
+Joe Ripberger, Cody Adams, Alex Davis, and Josie Davis
 
 # Preface {-}
 
