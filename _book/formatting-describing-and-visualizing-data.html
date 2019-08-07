@@ -5,11 +5,11 @@
 
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>3 Formatting, Describing, and Visualizing Data | Lab Guide to Quantitative Research Methods in Political Science, Public Policy &amp; Public Administration.</title>
-  <meta name="description" content="3 Formatting, Describing, and Visualizing Data | Lab Guide to Quantitative Research Methods in Political Science, Public Policy &amp; Public Administration.">
-  <meta name="generator" content="bookdown  and GitBook 2.6.7">
+  <title>Lab Guide to Quantitative Research Methods in Political Science, Public Policy &amp; Public Administration.</title>
+  <meta name="description" content="Lab Guide to Quantitative Research Methods in Political Science, Public Policy &amp; Public Administration.">
+  <meta name="generator" content="bookdown 0.7 and GitBook 2.6.7">
 
-  <meta property="og:title" content="3 Formatting, Describing, and Visualizing Data | Lab Guide to Quantitative Research Methods in Political Science, Public Policy &amp; Public Administration." />
+  <meta property="og:title" content="Lab Guide to Quantitative Research Methods in Political Science, Public Policy &amp; Public Administration." />
   <meta property="og:type" content="book" />
   
   
@@ -17,11 +17,12 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="3 Formatting, Describing, and Visualizing Data | Lab Guide to Quantitative Research Methods in Political Science, Public Policy &amp; Public Administration." />
+  <meta name="twitter:title" content="Lab Guide to Quantitative Research Methods in Political Science, Public Policy &amp; Public Administration." />
   
   
   
 
+<meta name="author" content="Joseph Ripberger, Cody Adams, Alex Davis, and Josie Davis">
 
 
 
@@ -34,7 +35,6 @@
 <link rel="next" href="visualizing-data-probability-the-normal-distribution-and-z-scores.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
-<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
@@ -46,13 +46,13 @@
 
 
 
-<script src="libs/htmlwidgets-1.2/htmlwidgets.js"></script>
-<script src="libs/plotly-binding-4.8.0/plotly.js"></script>
+<script src="libs/htmlwidgets-1.3/htmlwidgets.js"></script>
+<script src="libs/plotly-binding-4.7.1/plotly.js"></script>
 <script src="libs/typedarray-0.1/typedarray.min.js"></script>
 <link href="libs/crosstalk-1.0.0/css/crosstalk.css" rel="stylesheet" />
 <script src="libs/crosstalk-1.0.0/js/crosstalk.min.js"></script>
-<link href="libs/plotly-htmlwidgets-css-1.39.2/plotly-htmlwidgets.css" rel="stylesheet" />
-<script src="libs/plotly-main-1.39.2/plotly-latest.min.js"></script>
+<link href="libs/plotlyjs-1.29.2/plotly-htmlwidgets.css" rel="stylesheet" />
+<script src="libs/plotlyjs-1.29.2/plotly-latest.min.js"></script>
 
 
 <style type="text/css">
@@ -810,7 +810,7 @@ three &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="d
 <span class="st">  </span><span class="kw">group_by</span>(gender, ideol) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">summarize</span>(<span class="dt">mean_glbcc_cert =</span> <span class="kw">mean</span>(glbcc_cert))</code></pre></div>
 <pre><code>## # A tibble: 14 x 3
-## # Groups:   gender [?]
+## # Groups:   gender [2]
 ##    gender ideol mean_glbcc_cert
 ##     &lt;int&gt; &lt;int&gt;           &lt;dbl&gt;
 ##  1      0     1            9.22
@@ -835,12 +835,12 @@ three &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="d
 <span class="st">  </span><span class="kw">glimpse</span>()</code></pre></div>
 <pre><code>## Observations: 2,276
 ## Variables: 6
-## $ gender     &lt;int&gt; 1, 1, 0, 0, 0, 0, 1, 0, 0, 1, 1, 0, 1, 1, 1, 1, 1, ...
-## $ age        &lt;int&gt; 50, 58, 52, 40, 44, 60, 67, 66, 44, 46, 39, 51, 25,...
-## $ income     &lt;dbl&gt; 160000, 45000, 40000, 55000, 33000, 40000, 50000, 2...
-## $ education  &lt;int&gt; 4, 4, 6, 4, 4, 6, 6, 6, 6, 4, 5, 5, 2, 6, 1, 6, 2, ...
-## $ ideol      &lt;int&gt; 6, 3, 6, 4, 4, 2, 4, 7, 3, 7, 4, 6, 4, 3, 6, 2, 2, ...
-## $ glbcc_cert &lt;int&gt; 6, 10, 6, 0, 5, 5, 1, 8, 7, 9, 6, 4, 6, 7, 7, 8, 10...</code></pre>
+## $ gender     &lt;int&gt; 1, 1, 0, 0, 0, 0, 1, 0, 0, 1, 1, 0, 1, 1, 1, 1, 1, 0,…
+## $ age        &lt;int&gt; 50, 58, 52, 40, 44, 60, 67, 66, 44, 46, 39, 51, 25, 7…
+## $ income     &lt;dbl&gt; 160000, 45000, 40000, 55000, 33000, 40000, 50000, 250…
+## $ education  &lt;int&gt; 4, 4, 6, 4, 4, 6, 6, 6, 6, 4, 5, 5, 2, 6, 1, 6, 2, 4,…
+## $ ideol      &lt;int&gt; 6, 3, 6, 4, 4, 2, 4, 7, 3, 7, 4, 6, 4, 3, 6, 2, 2, 4,…
+## $ glbcc_cert &lt;int&gt; 6, 10, 6, 0, 5, 5, 1, 8, 7, 9, 6, 4, 6, 7, 7, 8, 10, …</code></pre>
 <p>In the previous section we used <code>summarize()</code> to get breakdowns of ceratin variables. If you wanted to get diagnostics on all the variables in your data, use the <code>skim()</code> function from the <code>skimr</code> package:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ds.sub <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">skim</span>()</code></pre></div>
@@ -848,7 +848,7 @@ three &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="d
 ##  n obs: 2276 
 ##  n variables: 6 
 ## 
-## -- Variable type:integer -------------------------------------------------------
+## ── Variable type:integer ────────────────────────────────────────────────────────────────────────────────────────────────────────────
 ##    variable missing complete    n  mean    sd p0   p25 p50 p75 p100
 ##         age       0     2276 2276 60.11 14.09 18 51.75  62  70   99
 ##   education       0     2276 2276  5.09  1.81  1  4      6   6    8
@@ -856,17 +856,17 @@ three &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="d
 ##  glbcc_cert       0     2276 2276  6.63  2.71  0  5      7   9   10
 ##       ideol       0     2276 2276  4.64  1.74  1  4      5   6    7
 ##      hist
-##  &lt;U+2581&gt;&lt;U+2582&gt;&lt;U+2583&gt;&lt;U+2586&gt;&lt;U+2587&gt;&lt;U+2586&gt;&lt;U+2582&gt;&lt;U+2581&gt;
-##  &lt;U+2581&gt;&lt;U+2583&gt;&lt;U+2582&gt;&lt;U+2586&gt;&lt;U+2582&gt;&lt;U+2587&gt;&lt;U+2585&gt;&lt;U+2582&gt;
-##  &lt;U+2587&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2586&gt;
-##  &lt;U+2582&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2586&gt;&lt;U+2583&gt;&lt;U+2583&gt;&lt;U+2585&gt;&lt;U+2587&gt;
-##  &lt;U+2582&gt;&lt;U+2583&gt;&lt;U+2582&gt;&lt;U+2586&gt;&lt;U+2581&gt;&lt;U+2583&gt;&lt;U+2587&gt;&lt;U+2585&gt;
+##  ▁▂▃▆▇▆▂▁
+##  ▁▃▂▆▂▇▅▂
+##  ▇▁▁▁▁▁▁▆
+##  ▂▁▁▆▃▃▅▇
+##  ▂▃▂▆▁▃▇▅
 ## 
-## -- Variable type:numeric -------------------------------------------------------
+## ── Variable type:numeric ────────────────────────────────────────────────────────────────────────────────────────────────────────────
 ##  variable missing complete    n    mean       sd    p0   p25   p50   p75
 ##    income       0     2276 2276 70597.7 59850.38 10000 35000 59000 90000
 ##    p100     hist
-##  900000 &lt;U+2587&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2581&gt;</code></pre>
+##  900000 ▇▁▁▁▁▁▁▁</code></pre>
 <p>This provides loads of useful incormation, including summary statistics and a histogram showing the rough distribution of the data. As demonstrated in teh previous section, you can combine different tidyverse functions together in order to maximize efficiency. For example, combining <code>group_by()</code> and <code>skim()</code> provide breakdowns of all the variables by gender:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ds.sub <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">group_by</span>(gender) <span class="op">%&gt;%</span>
@@ -876,7 +876,7 @@ three &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="d
 ##  n variables: 6 
 ##  group variables: gender 
 ## 
-## -- Variable type:integer -------------------------------------------------------
+## ── Variable type:integer ────────────────────────────────────────────────────────────────────────────────────────────────────────────
 ##  gender   variable missing complete    n  mean    sd p0 p25 p50 p75 p100
 ##       0        age       0     1337 1337 59.73 14.66 18  50  61  71   94
 ##       0  education       0     1337 1337  4.98  1.77  1   4   6   6    8
@@ -887,22 +887,22 @@ three &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="d
 ##       1 glbcc_cert       0      939  939  6.84  2.69  0   5   7   9   10
 ##       1      ideol       0      939  939  4.79  1.74  1   4   5   6    7
 ##      hist
-##  &lt;U+2581&gt;&lt;U+2582&gt;&lt;U+2583&gt;&lt;U+2586&gt;&lt;U+2587&gt;&lt;U+2587&gt;&lt;U+2583&gt;&lt;U+2581&gt;
-##  &lt;U+2581&gt;&lt;U+2583&gt;&lt;U+2581&gt;&lt;U+2586&gt;&lt;U+2582&gt;&lt;U+2587&gt;&lt;U+2585&gt;&lt;U+2581&gt;
-##  &lt;U+2582&gt;&lt;U+2581&gt;&lt;U+2582&gt;&lt;U+2587&gt;&lt;U+2583&gt;&lt;U+2583&gt;&lt;U+2585&gt;&lt;U+2587&gt;
-##  &lt;U+2582&gt;&lt;U+2583&gt;&lt;U+2582&gt;&lt;U+2587&gt;&lt;U+2581&gt;&lt;U+2583&gt;&lt;U+2587&gt;&lt;U+2583&gt;
-##  &lt;U+2581&gt;&lt;U+2582&gt;&lt;U+2582&gt;&lt;U+2586&gt;&lt;U+2587&gt;&lt;U+2585&gt;&lt;U+2582&gt;&lt;U+2581&gt;
-##  &lt;U+2581&gt;&lt;U+2583&gt;&lt;U+2582&gt;&lt;U+2585&gt;&lt;U+2582&gt;&lt;U+2587&gt;&lt;U+2585&gt;&lt;U+2583&gt;
-##  &lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2583&gt;&lt;U+2582&gt;&lt;U+2583&gt;&lt;U+2583&gt;&lt;U+2587&gt;
-##  &lt;U+2581&gt;&lt;U+2582&gt;&lt;U+2582&gt;&lt;U+2585&gt;&lt;U+2581&gt;&lt;U+2583&gt;&lt;U+2587&gt;&lt;U+2583&gt;
+##  ▁▂▃▆▇▇▃▁
+##  ▁▃▁▆▂▇▅▁
+##  ▂▁▂▇▃▃▅▇
+##  ▂▃▂▇▁▃▇▃
+##  ▁▂▂▆▇▅▂▁
+##  ▁▃▂▅▂▇▅▃
+##  ▁▁▁▃▂▃▃▇
+##  ▁▂▂▅▁▃▇▃
 ## 
-## -- Variable type:numeric -------------------------------------------------------
+## ── Variable type:numeric ────────────────────────────────────────────────────────────────────────────────────────────────────────────
 ##  gender variable missing complete    n     mean       sd    p0   p25   p50
 ##       0   income       0     1337 1337 63597.58 51485.97 10000 30000 50000
 ##       1   income       0      939  939 80564.86 68869.39 10000 40000 67000
 ##     p75   p100     hist
-##   80000 750000 &lt;U+2587&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2581&gt;
-##  100000 900000 &lt;U+2587&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2581&gt;</code></pre>
+##   80000 750000 ▇▁▁▁▁▁▁▁
+##  100000 900000 ▇▁▁▁▁▁▁▁</code></pre>
 <p>There are a variety of operators that can be used when working with your data. These Boolean operators assist with building data subsets in R:</p>
 <ol style="list-style-type: decimal">
 <li><span class="math inline">\(&lt;\)</span> less than</li>
@@ -938,6 +938,8 @@ three &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="d
 <p>A simple way to find the mode is to use the <code>count</code> verb from the <code>tidyverse</code>. Use <code>count</code> to find the mode of the factored political party variable:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ds <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">count</span>(f.party.<span class="dv">2</span>)</code></pre></div>
+<pre><code>## Warning: Factor `f.party.2` contains implicit NA, consider using
+## `forcats::fct_explicit_na`</code></pre>
 <pre><code>## # A tibble: 4 x 2
 ##   f.party.2     n
 ##   &lt;fct&gt;     &lt;int&gt;
@@ -948,6 +950,8 @@ three &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="d
 <p>Including <code>sort = TRUE</code> will tell R to sort the values in descending order, putting the modal value first:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ds <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">count</span>(f.party.<span class="dv">2</span>, <span class="dt">sort =</span> <span class="ot">TRUE</span>)</code></pre></div>
+<pre><code>## Warning: Factor `f.party.2` contains implicit NA, consider using
+## `forcats::fct_explicit_na`</code></pre>
 <pre><code>## # A tibble: 4 x 2
 ##   f.party.2     n
 ##   &lt;fct&gt;     &lt;int&gt;
@@ -959,6 +963,8 @@ three &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="d
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ds <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">count</span>(f.party.<span class="dv">2</span>) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">mutate</span>(<span class="dt">percent =</span> n <span class="op">/</span><span class="st"> </span><span class="kw">sum</span>(n))</code></pre></div>
+<pre><code>## Warning: Factor `f.party.2` contains implicit NA, consider using
+## `forcats::fct_explicit_na`</code></pre>
 <pre><code>## # A tibble: 4 x 3
 ##   f.party.2     n percent
 ##   &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt;
@@ -1043,6 +1049,8 @@ three &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="d
                             <span class="st">&quot;Master&#39;s degree&quot;</span>, <span class="st">&quot;PhD/JD/MD&quot;</span>))
 ds <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">count</span>(f.education)</code></pre></div>
+<pre><code>## Warning: Factor `f.education` contains implicit NA, consider using
+## `forcats::fct_explicit_na`</code></pre>
 <pre><code>## # A tibble: 9 x 2
 ##   f.education              n
 ##   &lt;fct&gt;                &lt;int&gt;
@@ -1058,6 +1066,8 @@ ds <span class="op">%&gt;%</span>
 <p>Including the <code>sort = TRUE</code> argument can return the modal education level.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ds <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">count</span>(f.education, <span class="dt">sort =</span> <span class="ot">TRUE</span>)</code></pre></div>
+<pre><code>## Warning: Factor `f.education` contains implicit NA, consider using
+## `forcats::fct_explicit_na`</code></pre>
 <pre><code>## # A tibble: 9 x 2
 ##   f.education              n
 ##   &lt;fct&gt;                &lt;int&gt;
@@ -1113,14 +1123,14 @@ ds <span class="op">%&gt;%</span>
 ##  8    72    71
 ##  9    57    70
 ## 10    63    69
-## # ... with 68 more rows</code></pre>
+## # … with 68 more rows</code></pre>
 <p>The modal value is 65.</p>
 <p>A histogram is the appropriate visualization for interval data. Histograms returns values on a continuous scale as opposed to individual values. To make a histogram, follow the same basic steps as before, but this time use <code>geom_histogram()</code> instead. `</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(ds, <span class="kw">aes</span>(age)) <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_histogram</span>() </code></pre></div>
 <pre><code>## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
 <p><img src="_main_files/figure-html/2_hist-1.png" width="384" style="display: block; margin: auto;" /></p>
-<p>To look at the density distribution, use <code>geom_density()</code>.</p>
+<p>To look at the density distribution, use <code>geom_density()</code></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(ds, <span class="kw">aes</span>(age)) <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_density</span>()</code></pre></div>
 <p><img src="_main_files/figure-html/2_dens-1.png" width="384" style="display: block; margin: auto;" /></p>
@@ -1161,7 +1171,7 @@ gitbook.start({
 "google": false,
 "linkedin": false,
 "weibo": false,
-"instapaper": false,
+"instapper": false,
 "vk": false,
 "all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
 },
@@ -1171,10 +1181,6 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": null,
-"text": null
-},
-"history": {
 "link": null,
 "text": null
 },
@@ -1192,7 +1198,7 @@ gitbook.start({
     var script = document.createElement("script");
     script.type = "text/javascript";
     var src = "";
-    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (src === "" || src === "true") src = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
     if (location.protocol !== "file:" && /^https?:/.test(src))
       src = src.replace(/^https?:/, '');
     script.src = src;
