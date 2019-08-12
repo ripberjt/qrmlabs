@@ -348,16 +348,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Where, the hat implies the coefficients are estimates from data.</p>
 <p>This lab focuses on the ordinary least squares method to find <span class="math inline">\(\hat{\alpha}\)</span> and <span class="math inline">\(\hat{\beta}\)</span> such that if given a value of <code>x</code> you can return an estimate of y (<span class="math inline">\(\hat{y}\)</span>).</p>
 <p>To demonstrate, we will explore the relationship between ideology and concern for natural resources. The first step is to subset the variables of interest absent of NA values:</p>
-<div class="sourceCode" id="cb393"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb393-1" data-line-number="1">ds <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb393-2" data-line-number="2"><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">select</span>(<span class="st">&quot;ideol&quot;</span>, <span class="st">&quot;cncrn_natres&quot;</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb393-3" data-line-number="3"><span class="st">  </span><span class="kw">na.omit</span>() -&gt;<span class="st"> </span>ds.sub</a></code></pre></div>
+<div class="sourceCode" id="cb402"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb402-1" data-line-number="1">ds <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb402-2" data-line-number="2"><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">select</span>(<span class="st">&quot;ideol&quot;</span>, <span class="st">&quot;cncrn_natres&quot;</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb402-3" data-line-number="3"><span class="st">  </span><span class="kw">na.omit</span>() -&gt;<span class="st"> </span>ds.sub</a></code></pre></div>
 <p>Reviewing the variables is an important first step:</p>
-<div class="sourceCode" id="cb394"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb394-1" data-line-number="1"><span class="kw">describe</span>(ds.sub<span class="op">$</span>ideol)</a></code></pre></div>
+<div class="sourceCode" id="cb403"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb403-1" data-line-number="1"><span class="kw">describe</span>(ds.sub<span class="op">$</span>ideol)</a></code></pre></div>
 <pre><code>##    vars    n mean   sd median trimmed  mad min max range  skew kurtosis
 ## X1    1 2508 4.65 1.73      5    4.75 1.48   1   7     6 -0.45     -0.8
 ##      se
 ## X1 0.03</code></pre>
-<div class="sourceCode" id="cb396"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb396-1" data-line-number="1"><span class="kw">describe</span>(ds.sub<span class="op">$</span>cncrn_natres)</a></code></pre></div>
+<div class="sourceCode" id="cb405"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb405-1" data-line-number="1"><span class="kw">describe</span>(ds.sub<span class="op">$</span>cncrn_natres)</a></code></pre></div>
 <pre><code>##    vars    n mean   sd median trimmed  mad min max range  skew kurtosis
 ## X1    1 2508 7.57 2.22      8    7.82 2.97   0  10    10 -0.88     0.38
 ##      se
@@ -368,29 +368,29 @@ IV: Concern for natural resources</p>
 <p>We need to find <span class="math inline">\(\hat{\alpha}\)</span> and <span class="math inline">\(\hat{\beta}\)</span> to develop the estimated bivariate regression model. Our first step is to find <span class="math inline">\(\hat{\beta}\)</span>. Recall the formula for <span class="math inline">\(\hat{\beta}\)</span> is:</p>
 <p><span class="math display">\[\hat{\beta}=\frac{cov(x,y)}{var(x)}\]</span></p>
 <p>First create <code>x</code> and <code>y</code> variables to make the calculations simpler, with <code>x</code> being the independent variable and <code>y</code> being the dependent variable:</p>
-<div class="sourceCode" id="cb398"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb398-1" data-line-number="1">ds.sub<span class="op">$</span>x &lt;-<span class="st"> </span>ds.sub<span class="op">$</span>ideol</a>
-<a class="sourceLine" id="cb398-2" data-line-number="2">ds.sub<span class="op">$</span>y &lt;-<span class="st"> </span>ds.sub<span class="op">$</span>cncrn_natres</a></code></pre></div>
+<div class="sourceCode" id="cb407"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb407-1" data-line-number="1">ds.sub<span class="op">$</span>x &lt;-<span class="st"> </span>ds.sub<span class="op">$</span>ideol</a>
+<a class="sourceLine" id="cb407-2" data-line-number="2">ds.sub<span class="op">$</span>y &lt;-<span class="st"> </span>ds.sub<span class="op">$</span>cncrn_natres</a></code></pre></div>
 <p>Next we calculate the cov(x,y) for the numerator and var(x) for the denominator:</p>
-<div class="sourceCode" id="cb399"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb399-1" data-line-number="1">r &lt;-<span class="st"> </span><span class="kw">cor</span>(ds.sub<span class="op">$</span>x, ds.sub<span class="op">$</span>y)</a>
-<a class="sourceLine" id="cb399-2" data-line-number="2">cov.xy &lt;-<span class="st"> </span><span class="kw">cov</span>(ds.sub<span class="op">$</span>x, ds.sub<span class="op">$</span>y, <span class="dt">use =</span> <span class="st">&quot;complete.obs&quot;</span>)</a>
-<a class="sourceLine" id="cb399-3" data-line-number="3">var.x &lt;-<span class="st"> </span><span class="kw">var</span>(ds.sub<span class="op">$</span>x, <span class="dt">na.rm =</span> T)</a></code></pre></div>
+<div class="sourceCode" id="cb408"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb408-1" data-line-number="1">r &lt;-<span class="st"> </span><span class="kw">cor</span>(ds.sub<span class="op">$</span>x, ds.sub<span class="op">$</span>y)</a>
+<a class="sourceLine" id="cb408-2" data-line-number="2">cov.xy &lt;-<span class="st"> </span><span class="kw">cov</span>(ds.sub<span class="op">$</span>x, ds.sub<span class="op">$</span>y, <span class="dt">use =</span> <span class="st">&quot;complete.obs&quot;</span>)</a>
+<a class="sourceLine" id="cb408-3" data-line-number="3">var.x &lt;-<span class="st"> </span><span class="kw">var</span>(ds.sub<span class="op">$</span>x, <span class="dt">na.rm =</span> T)</a></code></pre></div>
 <p>Finally, to calculate <span class="math inline">\(\hat{\beta}\)</span>:</p>
-<div class="sourceCode" id="cb400"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb400-1" data-line-number="1">beta.hat &lt;-<span class="st"> </span>cov.xy <span class="op">/</span><span class="st"> </span>var.x</a></code></pre></div>
+<div class="sourceCode" id="cb409"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb409-1" data-line-number="1">beta.hat &lt;-<span class="st"> </span>cov.xy <span class="op">/</span><span class="st"> </span>var.x</a></code></pre></div>
 <p>Now that we have <span class="math inline">\(\hat{\beta}\)</span>, we can calculate <span class="math inline">\(\hat{\alpha}\)</span> Recall the formula for calculating <span class="math inline">\(\hat{\alpha}\)</span>:</p>
 <p><span class="math display">\[\hat{\alpha}=\bar{y} - \hat{\beta}\bar{x}\]</span></p>
 <p>Calculate <span class="math inline">\(\bar{y}\)</span> and <span class="math inline">\(\bar{x}\)</span> from the sample data:</p>
-<div class="sourceCode" id="cb401"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb401-1" data-line-number="1">ybar &lt;-<span class="st"> </span><span class="kw">mean</span>(ds.sub<span class="op">$</span>y, <span class="dt">na.rm =</span> T)</a>
-<a class="sourceLine" id="cb401-2" data-line-number="2">xbar &lt;-<span class="st"> </span><span class="kw">mean</span>(ds.sub<span class="op">$</span>x, <span class="dt">na.rm =</span> T)</a></code></pre></div>
+<div class="sourceCode" id="cb410"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb410-1" data-line-number="1">ybar &lt;-<span class="st"> </span><span class="kw">mean</span>(ds.sub<span class="op">$</span>y, <span class="dt">na.rm =</span> T)</a>
+<a class="sourceLine" id="cb410-2" data-line-number="2">xbar &lt;-<span class="st"> </span><span class="kw">mean</span>(ds.sub<span class="op">$</span>x, <span class="dt">na.rm =</span> T)</a></code></pre></div>
 <p>Use <span class="math inline">\(\bar{y}\)</span>, <span class="math inline">\(\bar{x}\)</span>, and <span class="math inline">\(\hat{\beta}\)</span> to calculate <span class="math inline">\(\hat{\alpha}\)</span>:</p>
-<div class="sourceCode" id="cb402"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb402-1" data-line-number="1">alpha.hat &lt;-<span class="st"> </span>ybar <span class="op">-</span><span class="st"> </span>beta.hat <span class="op">*</span><span class="st"> </span>xbar</a></code></pre></div>
+<div class="sourceCode" id="cb411"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb411-1" data-line-number="1">alpha.hat &lt;-<span class="st"> </span>ybar <span class="op">-</span><span class="st"> </span>beta.hat <span class="op">*</span><span class="st"> </span>xbar</a></code></pre></div>
 <p>Take a look at our calculated <span class="math inline">\(\hat{\alpha}\)</span> and <span class="math inline">\(\hat{\beta}\)</span>:</p>
-<div class="sourceCode" id="cb403"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb403-1" data-line-number="1">alpha.hat</a></code></pre></div>
+<div class="sourceCode" id="cb412"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb412-1" data-line-number="1">alpha.hat</a></code></pre></div>
 <pre><code>## [1] 8.815973</code></pre>
-<div class="sourceCode" id="cb405"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb405-1" data-line-number="1">beta.hat</a></code></pre></div>
+<div class="sourceCode" id="cb414"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb414-1" data-line-number="1">beta.hat</a></code></pre></div>
 <pre><code>## [1] -0.2687128</code></pre>
 <p>Now create some predicted values of y, concern for natural resources, based on our estimated regression model:</p>
-<div class="sourceCode" id="cb407"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb407-1" data-line-number="1">yhat &lt;-<span class="st"> </span>alpha.hat <span class="op">+</span><span class="st"> </span>beta.hat <span class="op">*</span><span class="st"> </span>ds.sub<span class="op">$</span>x</a>
-<a class="sourceLine" id="cb407-2" data-line-number="2"><span class="kw">head</span>(yhat) <span class="co"># Returns the first 5 values</span></a></code></pre></div>
+<div class="sourceCode" id="cb416"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb416-1" data-line-number="1">yhat &lt;-<span class="st"> </span>alpha.hat <span class="op">+</span><span class="st"> </span>beta.hat <span class="op">*</span><span class="st"> </span>ds.sub<span class="op">$</span>x</a>
+<a class="sourceLine" id="cb416-2" data-line-number="2"><span class="kw">head</span>(yhat) <span class="co"># Returns the first 5 values</span></a></code></pre></div>
 <pre><code>## [1] 7.203696 8.009834 7.203696 7.741122 7.741122 8.278547</code></pre>
 <p>To draw inference using the estimated regression model we need to understand how <code>x</code> helps us understand <code>y</code>. More formally, we explore this relationship by evaluating the residuals associated to the coefficients <span class="math inline">\(\hat{\alpha}\)</span> and <span class="math inline">\(\hat{\beta}\)</span>. We are interested in whether the coefficients are statistically different than zero.</p>
 <p>-<span class="math inline">\(H_0\)</span>: <span class="math inline">\(\beta\)</span> = 0<br />
@@ -398,40 +398,40 @@ IV: Concern for natural resources</p>
 <p>Put simply, if the coefficient <span class="math inline">\(\hat{\beta}\)</span> is zero, than that is to say that no value of x helps us understand y (<span class="math inline">\(0*x=0\)</span>).</p>
 <p>If we assume the residuals follow a normal distribution, then we can calculate the t-statistic to examine the coefficient’s statistical significance.</p>
 <p>Recall that residuals are the differences in the observed values of the data and the predicted values of the estimated regression model. We can calculate residuals by subtracting the <span class="math inline">\(\hat{y}\)</span> values we just calculated from the <code>y</code> values:</p>
-<div class="sourceCode" id="cb409"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb409-1" data-line-number="1">res &lt;-<span class="st"> </span>ds.sub<span class="op">$</span>y <span class="op">-</span><span class="st"> </span>yhat</a></code></pre></div>
+<div class="sourceCode" id="cb418"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb418-1" data-line-number="1">res &lt;-<span class="st"> </span>ds.sub<span class="op">$</span>y <span class="op">-</span><span class="st"> </span>yhat</a></code></pre></div>
 <p>Now that we have the residuals, we need to calculate the residual standard error, which measures the spread of observations around the regression line we just calculated. We also need to know the residual standard error so that we can find the standard errors for the regression coefficients, which are then used to calculate the t scores of the coefficients. To calculate the residual standard error we need to find:</p>
 <ol style="list-style-type: decimal">
 <li>The residual sum of squares</li>
 <li>The degrees of freedom for our model</li>
 </ol>
-<div class="sourceCode" id="cb410"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb410-1" data-line-number="1">res.sqr &lt;-<span class="st"> </span>res<span class="op">^</span><span class="dv">2</span></a>
-<a class="sourceLine" id="cb410-2" data-line-number="2">RSS &lt;-<span class="st"> </span><span class="kw">sum</span>(res.sqr, <span class="dt">na.rm=</span>T)</a></code></pre></div>
+<div class="sourceCode" id="cb419"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb419-1" data-line-number="1">res.sqr &lt;-<span class="st"> </span>res<span class="op">^</span><span class="dv">2</span></a>
+<a class="sourceLine" id="cb419-2" data-line-number="2">RSS &lt;-<span class="st"> </span><span class="kw">sum</span>(res.sqr, <span class="dt">na.rm=</span>T)</a></code></pre></div>
 <p>Now we need to calculate the degrees of freedom. In this case, we have the intercept and the ideology variable, so we subtract two. Since we subset our data to remove all missing observations, we know the n size for x and y are the same:</p>
-<div class="sourceCode" id="cb411"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb411-1" data-line-number="1">df &lt;-<span class="st"> </span><span class="kw">length</span>(ds.sub<span class="op">$</span>y) <span class="op">-</span><span class="st"> </span><span class="dv">2</span></a>
-<a class="sourceLine" id="cb411-2" data-line-number="2">df</a></code></pre></div>
+<div class="sourceCode" id="cb420"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb420-1" data-line-number="1">df &lt;-<span class="st"> </span><span class="kw">length</span>(ds.sub<span class="op">$</span>y) <span class="op">-</span><span class="st"> </span><span class="dv">2</span></a>
+<a class="sourceLine" id="cb420-2" data-line-number="2">df</a></code></pre></div>
 <pre><code>## [1] 2506</code></pre>
 <p>With the residual sum of squares and the degrees of freedom, we have what we need to find the residual standard error:</p>
-<div class="sourceCode" id="cb413"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb413-1" data-line-number="1">RSE &lt;-<span class="st"> </span><span class="kw">sqrt</span>(RSS <span class="op">/</span><span class="st"> </span>df)</a>
-<a class="sourceLine" id="cb413-2" data-line-number="2">RSE</a></code></pre></div>
+<div class="sourceCode" id="cb422"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb422-1" data-line-number="1">RSE &lt;-<span class="st"> </span><span class="kw">sqrt</span>(RSS <span class="op">/</span><span class="st"> </span>df)</a>
+<a class="sourceLine" id="cb422-2" data-line-number="2">RSE</a></code></pre></div>
 <pre><code>## [1] 2.167453</code></pre>
 <p>With the residual standard error, we can now start to calculate the standard errors for our coefficients: <span class="math inline">\(\hat{\alpha}\)</span> and <span class="math inline">\(\hat{\beta}\)</span> (ideology). To calculate these, we need to find the total sum of squares of the independent variable, x:</p>
-<div class="sourceCode" id="cb415"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb415-1" data-line-number="1">TSSx &lt;-<span class="st"> </span><span class="kw">sum</span>((ds.sub<span class="op">$</span>x <span class="op">-</span><span class="st"> </span>xbar)<span class="op">^</span><span class="dv">2</span>)</a>
-<a class="sourceLine" id="cb415-2" data-line-number="2">TSSx</a></code></pre></div>
+<div class="sourceCode" id="cb424"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb424-1" data-line-number="1">TSSx &lt;-<span class="st"> </span><span class="kw">sum</span>((ds.sub<span class="op">$</span>x <span class="op">-</span><span class="st"> </span>xbar)<span class="op">^</span><span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb424-2" data-line-number="2">TSSx</a></code></pre></div>
 <pre><code>## [1] 7520.929</code></pre>
 <p>Now that we have the total sum of squares for the independent variable, we can find the standard errors of our coefficients:</p>
-<div class="sourceCode" id="cb417"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb417-1" data-line-number="1">SEB &lt;-<span class="st"> </span>RSE <span class="op">/</span><span class="st"> </span><span class="kw">sqrt</span>(TSSx)</a>
-<a class="sourceLine" id="cb417-2" data-line-number="2">SEB</a></code></pre></div>
+<div class="sourceCode" id="cb426"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb426-1" data-line-number="1">SEB &lt;-<span class="st"> </span>RSE <span class="op">/</span><span class="st"> </span><span class="kw">sqrt</span>(TSSx)</a>
+<a class="sourceLine" id="cb426-2" data-line-number="2">SEB</a></code></pre></div>
 <pre><code>## [1] 0.02499274</code></pre>
 <p>For the standard error of <span class="math inline">\(\hat{\alpha}\)</span>, the calculation is different:</p>
-<div class="sourceCode" id="cb419"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb419-1" data-line-number="1">SEA &lt;-<span class="st"> </span>RSE <span class="op">*</span><span class="st"> </span><span class="kw">sqrt</span>((<span class="dv">1</span> <span class="op">/</span><span class="st"> </span><span class="dv">2508</span>)<span class="op">+</span>(xbar<span class="op">^</span><span class="dv">2</span> <span class="op">/</span><span class="st"> </span>TSSx))</a>
-<a class="sourceLine" id="cb419-2" data-line-number="2">SEA</a></code></pre></div>
+<div class="sourceCode" id="cb428"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb428-1" data-line-number="1">SEA &lt;-<span class="st"> </span>RSE <span class="op">*</span><span class="st"> </span><span class="kw">sqrt</span>((<span class="dv">1</span> <span class="op">/</span><span class="st"> </span><span class="dv">2508</span>)<span class="op">+</span>(xbar<span class="op">^</span><span class="dv">2</span> <span class="op">/</span><span class="st"> </span>TSSx))</a>
+<a class="sourceLine" id="cb428-2" data-line-number="2">SEA</a></code></pre></div>
 <pre><code>## [1] 0.1240024</code></pre>
 <p>With the standard errors calculated, we can now find the corresponding t-statistics:</p>
-<div class="sourceCode" id="cb421"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb421-1" data-line-number="1">t.B &lt;-<span class="st"> </span>beta.hat <span class="op">/</span><span class="st"> </span>SEB</a>
-<a class="sourceLine" id="cb421-2" data-line-number="2">t.B</a></code></pre></div>
+<div class="sourceCode" id="cb430"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb430-1" data-line-number="1">t.B &lt;-<span class="st"> </span>beta.hat <span class="op">/</span><span class="st"> </span>SEB</a>
+<a class="sourceLine" id="cb430-2" data-line-number="2">t.B</a></code></pre></div>
 <pre><code>## [1] -10.75163</code></pre>
-<div class="sourceCode" id="cb423"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb423-1" data-line-number="1">t.A &lt;-<span class="st"> </span>alpha.hat <span class="op">/</span><span class="st"> </span>SEA</a>
-<a class="sourceLine" id="cb423-2" data-line-number="2">t.A</a></code></pre></div>
+<div class="sourceCode" id="cb432"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb432-1" data-line-number="1">t.A &lt;-<span class="st"> </span>alpha.hat <span class="op">/</span><span class="st"> </span>SEA</a>
+<a class="sourceLine" id="cb432-2" data-line-number="2">t.A</a></code></pre></div>
 <pre><code>## [1] 71.0952</code></pre>
 <p>These t-statistics tell us how many standard deviations the coefficients are away from 0.</p>
 <div id="calculating-goodness-of-fit" class="section level3">
@@ -443,16 +443,16 @@ IV: Concern for natural resources</p>
 <li>The explained sum of squares.</li>
 </ol>
 <p>We already have the residual sum of squares. We found it by taking the sum of the residuals squared. Earlier we calculated the total sum of squares for our independent variable, x, but now we need to find the total sum of squares for our dependent variable, y.</p>
-<div class="sourceCode" id="cb425"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb425-1" data-line-number="1">TSS &lt;-<span class="st"> </span><span class="kw">sum</span>((ds.sub<span class="op">$</span>y <span class="op">-</span><span class="st"> </span>ybar)<span class="op">^</span><span class="dv">2</span>)</a>
-<a class="sourceLine" id="cb425-2" data-line-number="2">TSS</a></code></pre></div>
+<div class="sourceCode" id="cb434"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb434-1" data-line-number="1">TSS &lt;-<span class="st"> </span><span class="kw">sum</span>((ds.sub<span class="op">$</span>y <span class="op">-</span><span class="st"> </span>ybar)<span class="op">^</span><span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb434-2" data-line-number="2">TSS</a></code></pre></div>
 <pre><code>## [1] 12315.88</code></pre>
 <p>Now that we have the residual sum of squares and the total sum of squares, we can find the explained sum of squares. The explained sum of squares tells us how much of the variance of the dependent variable is accounted for by our model.</p>
-<div class="sourceCode" id="cb427"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb427-1" data-line-number="1">ESS &lt;-<span class="st"> </span>TSS <span class="op">-</span><span class="st"> </span>RSS</a>
-<a class="sourceLine" id="cb427-2" data-line-number="2">ESS</a></code></pre></div>
+<div class="sourceCode" id="cb436"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb436-1" data-line-number="1">ESS &lt;-<span class="st"> </span>TSS <span class="op">-</span><span class="st"> </span>RSS</a>
+<a class="sourceLine" id="cb436-2" data-line-number="2">ESS</a></code></pre></div>
 <pre><code>## [1] 543.0606</code></pre>
 <p><span class="math inline">\(R^2\)</span> is found by dividing the explained sum of squares by the total sum of squares:</p>
-<div class="sourceCode" id="cb429"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb429-1" data-line-number="1">r.sqr &lt;-<span class="st"> </span>ESS <span class="op">/</span><span class="st"> </span>TSS</a>
-<a class="sourceLine" id="cb429-2" data-line-number="2">r.sqr</a></code></pre></div>
+<div class="sourceCode" id="cb438"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb438-1" data-line-number="1">r.sqr &lt;-<span class="st"> </span>ESS <span class="op">/</span><span class="st"> </span>TSS</a>
+<a class="sourceLine" id="cb438-2" data-line-number="2">r.sqr</a></code></pre></div>
 <pre><code>## [1] 0.04409434</code></pre>
 <p>4% of the variability of the data is explained by the estimated regression model.</p>
 <div id="adjusted-r-squared" class="section level4">
@@ -460,8 +460,8 @@ IV: Concern for natural resources</p>
 <p>There is a slightly more accurate measure of model fit, though, known as adjusted R squared. Adjusted R squared addresses some problems that are inherent in the R squared calculation, like the realtiy that R squared tends to increase as you add more predictors to your model, even if it’s more due to chance than actual predicting power. Adjusted R squared addresses this issue by penalizing the model for an increased number of predictors. Use this formula to find adjusted R squared</p>
 <p><span class="math display">\[1-\frac{(1-R^{2})(n-1)}{n-k-1}\]</span></p>
 <p>where k is the number of predictors in our model, not including the intercept(A). We can actually find this pretty simply. Recall that we are working with an n size of 2508. Our k value is 1, becuase we only have one predictor in the model (ideology). Find the adjusted R squared value:</p>
-<div class="sourceCode" id="cb431"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb431-1" data-line-number="1">adj.r2 &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">-</span>(((<span class="dv">1</span> <span class="op">-</span><span class="st"> </span>r.sqr) <span class="op">*</span><span class="st"> </span>(<span class="dv">2508</span> <span class="op">-</span><span class="st"> </span><span class="dv">1</span>)) <span class="op">/</span><span class="st"> </span>(<span class="dv">2508</span> <span class="op">-</span><span class="st"> </span><span class="dv">1</span> <span class="op">-</span><span class="st"> </span><span class="dv">1</span>))</a>
-<a class="sourceLine" id="cb431-2" data-line-number="2">adj.r2</a></code></pre></div>
+<div class="sourceCode" id="cb440"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb440-1" data-line-number="1">adj.r2 &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">-</span>(((<span class="dv">1</span> <span class="op">-</span><span class="st"> </span>r.sqr) <span class="op">*</span><span class="st"> </span>(<span class="dv">2508</span> <span class="op">-</span><span class="st"> </span><span class="dv">1</span>)) <span class="op">/</span><span class="st"> </span>(<span class="dv">2508</span> <span class="op">-</span><span class="st"> </span><span class="dv">1</span> <span class="op">-</span><span class="st"> </span><span class="dv">1</span>))</a>
+<a class="sourceLine" id="cb440-2" data-line-number="2">adj.r2</a></code></pre></div>
 <pre><code>## [1] 0.04371289</code></pre>
 </div>
 </div>
@@ -470,9 +470,9 @@ IV: Concern for natural resources</p>
 <p>To check our work in the previous steps we will employ the native R functions for linear models: <code>lm()</code>. We provide the observed y and x values from data as an argument, separated by a tilda in the following format:
 <code>lm(y ~ x)</code></p>
 <p>To demonstrate with the <code>cncrn_natres</code> and <code>ideol</code> variables:</p>
-<div class="sourceCode" id="cb433"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb433-1" data-line-number="1">model &lt;-<span class="st"> </span><span class="kw">lm</span>(ds.sub<span class="op">$</span>cncrn_natres <span class="op">~</span><span class="st"> </span>ds.sub<span class="op">$</span>ideol)</a></code></pre></div>
+<div class="sourceCode" id="cb442"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb442-1" data-line-number="1">model &lt;-<span class="st"> </span><span class="kw">lm</span>(ds.sub<span class="op">$</span>cncrn_natres <span class="op">~</span><span class="st"> </span>ds.sub<span class="op">$</span>ideol)</a></code></pre></div>
 <p>Further, the <code>summary()</code> function will provide results of our model, including t-statistics and <span class="math inline">\(R^2\)</span> values:</p>
-<div class="sourceCode" id="cb434"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb434-1" data-line-number="1"><span class="kw">summary</span>(model)</a></code></pre></div>
+<div class="sourceCode" id="cb443"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb443-1" data-line-number="1"><span class="kw">summary</span>(model)</a></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = ds.sub$cncrn_natres ~ ds.sub$ideol)
@@ -492,11 +492,11 @@ IV: Concern for natural resources</p>
 ## Multiple R-squared:  0.04409,    Adjusted R-squared:  0.04371 
 ## F-statistic: 115.6 on 1 and 2506 DF,  p-value: &lt; 0.00000000000000022</code></pre>
 <p>Let’s compare to our coefficients, residual standard error, coefficient standard errors, t scores, r squared, and adjusted r squared:</p>
-<div class="sourceCode" id="cb436"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb436-1" data-line-number="1">stats &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">name =</span> <span class="kw">c</span>(<span class="st">&quot;Intercept&quot;</span>, <span class="st">&quot;Beta&quot;</span>, <span class="st">&quot;RSE&quot;</span>, <span class="st">&quot;IntSE&quot;</span>, <span class="st">&quot;BetaSE&quot;</span>, <span class="st">&quot;IntT&quot;</span>,</a>
-<a class="sourceLine" id="cb436-2" data-line-number="2">                             <span class="st">&quot;BetaT&quot;</span>, <span class="st">&quot;Rsqr&quot;</span>, <span class="st">&quot;AdjRsqr&quot;</span>),</a>
-<a class="sourceLine" id="cb436-3" data-line-number="3">                    <span class="dt">values =</span> <span class="kw">c</span>(alpha.hat, beta.hat, RSE, SEA, SEB, t.A, t.B,</a>
-<a class="sourceLine" id="cb436-4" data-line-number="4">                             r.sqr, adj.r2))</a>
-<a class="sourceLine" id="cb436-5" data-line-number="5">stats</a></code></pre></div>
+<div class="sourceCode" id="cb445"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb445-1" data-line-number="1">stats &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">name =</span> <span class="kw">c</span>(<span class="st">&quot;Intercept&quot;</span>, <span class="st">&quot;Beta&quot;</span>, <span class="st">&quot;RSE&quot;</span>, <span class="st">&quot;IntSE&quot;</span>, <span class="st">&quot;BetaSE&quot;</span>, <span class="st">&quot;IntT&quot;</span>,</a>
+<a class="sourceLine" id="cb445-2" data-line-number="2">                             <span class="st">&quot;BetaT&quot;</span>, <span class="st">&quot;Rsqr&quot;</span>, <span class="st">&quot;AdjRsqr&quot;</span>),</a>
+<a class="sourceLine" id="cb445-3" data-line-number="3">                    <span class="dt">values =</span> <span class="kw">c</span>(alpha.hat, beta.hat, RSE, SEA, SEB, t.A, t.B,</a>
+<a class="sourceLine" id="cb445-4" data-line-number="4">                             r.sqr, adj.r2))</a>
+<a class="sourceLine" id="cb445-5" data-line-number="5">stats</a></code></pre></div>
 <pre><code>##        name       values
 ## 1 Intercept   8.81597293
 ## 2      Beta  -0.26871281
@@ -512,39 +512,39 @@ IV: Concern for natural resources</p>
 <div id="bivariate-regression-in-r" class="section level2">
 <h2><span class="header-section-number">8.2</span> Bivariate Regression in R</h2>
 <p>Suppose you are interested in the relationship between ideology and opinions about how much of Oklahoma’s electricity should come from renewable sources. The class data set includes these variables as <code>ideol</code> and <code>okelec_renew</code>. A new subset data set is created with these variables, absent missing observations, to develop an estimated regression model:</p>
-<div class="sourceCode" id="cb438"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb438-1" data-line-number="1">sub.ds &lt;-<span class="st"> </span>ds <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb438-2" data-line-number="2"><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">select</span>(<span class="st">&quot;okelec_renew&quot;</span>, <span class="st">&quot;ideol&quot;</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb438-3" data-line-number="3"><span class="st">  </span><span class="kw">na.omit</span>()</a></code></pre></div>
+<div class="sourceCode" id="cb447"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb447-1" data-line-number="1">sub.ds &lt;-<span class="st"> </span>ds <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb447-2" data-line-number="2"><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">select</span>(<span class="st">&quot;okelec_renew&quot;</span>, <span class="st">&quot;ideol&quot;</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb447-3" data-line-number="3"><span class="st">  </span><span class="kw">na.omit</span>()</a></code></pre></div>
 <p>The <code>okelec_renew</code> variable is new to us, so we should examine its structure:</p>
-<div class="sourceCode" id="cb439"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb439-1" data-line-number="1"><span class="kw">str</span>(sub.ds<span class="op">$</span>okelec_renew)</a></code></pre></div>
+<div class="sourceCode" id="cb448"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb448-1" data-line-number="1"><span class="kw">str</span>(sub.ds<span class="op">$</span>okelec_renew)</a></code></pre></div>
 <pre><code>##  Factor w/ 63 levels &quot;0&quot;,&quot;1&quot;,&quot;10&quot;,&quot;100&quot;,..: 20 42 32 42 54 42 20 13 53 4 ...</code></pre>
 <p>The variable appears to be a factor, which needs to be coerced as a numeric type. Recall the <code>as.numeric()</code> function:</p>
-<div class="sourceCode" id="cb441"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb441-1" data-line-number="1">sub.ds <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb441-2" data-line-number="2"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">renew =</span> <span class="kw">as.numeric</span>(okelec_renew)) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb441-3" data-line-number="3"><span class="st">  </span><span class="kw">drop_na</span>() -&gt;<span class="st"> </span>sub.ds</a></code></pre></div>
+<div class="sourceCode" id="cb450"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb450-1" data-line-number="1">sub.ds <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb450-2" data-line-number="2"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">renew =</span> <span class="kw">as.numeric</span>(okelec_renew)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb450-3" data-line-number="3"><span class="st">  </span><span class="kw">drop_na</span>() -&gt;<span class="st"> </span>sub.ds</a></code></pre></div>
 <p>Reassess the structure to ensure it is numeric:</p>
-<div class="sourceCode" id="cb442"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb442-1" data-line-number="1"><span class="kw">str</span>(sub.ds<span class="op">$</span>renew)</a></code></pre></div>
+<div class="sourceCode" id="cb451"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb451-1" data-line-number="1"><span class="kw">str</span>(sub.ds<span class="op">$</span>renew)</a></code></pre></div>
 <pre><code>##  num [1:2524] 20 42 32 42 54 42 20 13 53 4 ...</code></pre>
 <p>With the variable now numeric, examine it using the <code>describe()</code> function:</p>
-<div class="sourceCode" id="cb444"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb444-1" data-line-number="1"><span class="kw">describe</span>(sub.ds<span class="op">$</span>renew)</a></code></pre></div>
+<div class="sourceCode" id="cb453"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb453-1" data-line-number="1"><span class="kw">describe</span>(sub.ds<span class="op">$</span>renew)</a></code></pre></div>
 <pre><code>##    vars    n  mean    sd median trimmed   mad min max range  skew kurtosis
 ## X1    1 2524 32.56 15.94     34   33.03 20.76   1  63    62 -0.18    -0.96
 ##      se
 ## X1 0.32</code></pre>
 <p>Before proceeding, we should formalize a hypothesis. Perhaps we hypothesize that conservatives want a lower percentage of renewable energy than liberals. Using renewable energy as a function of ideology, we further specify our hypothesis as a more conservative ideology corresponds to a decrease preference for renewable energy. The null hypothesis is there is no difference in preference among ideologies.</p>
 <p>First we examine the normality of both variables. Create a histogram and overlay it with a normal distribution curve, with the correct mean and standard deviation.:</p>
-<div class="sourceCode" id="cb446"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb446-1" data-line-number="1"><span class="kw">ggplot</span>(sub.ds, <span class="kw">aes</span>(renew)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb446-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_histogram</span>(<span class="kw">aes</span>(<span class="dt">y=</span> ..density.. ), <span class="dt">bins =</span> <span class="dv">20</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb446-3" data-line-number="3"><span class="st">  </span><span class="kw">stat_function</span>(<span class="dt">fun =</span> dnorm, <span class="dt">args =</span> <span class="kw">list</span>(<span class="dt">mean =</span> <span class="kw">mean</span>(sub.ds<span class="op">$</span>renew),</a>
-<a class="sourceLine" id="cb446-4" data-line-number="4">                                         <span class="dt">sd =</span> <span class="kw">sd</span>(sub.ds<span class="op">$</span>renew)))</a></code></pre></div>
+<div class="sourceCode" id="cb455"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb455-1" data-line-number="1"><span class="kw">ggplot</span>(sub.ds, <span class="kw">aes</span>(renew)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb455-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_histogram</span>(<span class="kw">aes</span>(<span class="dt">y=</span> ..density.. ), <span class="dt">bins =</span> <span class="dv">20</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb455-3" data-line-number="3"><span class="st">  </span><span class="kw">stat_function</span>(<span class="dt">fun =</span> dnorm, <span class="dt">args =</span> <span class="kw">list</span>(<span class="dt">mean =</span> <span class="kw">mean</span>(sub.ds<span class="op">$</span>renew),</a>
+<a class="sourceLine" id="cb455-4" data-line-number="4">                                         <span class="dt">sd =</span> <span class="kw">sd</span>(sub.ds<span class="op">$</span>renew)))</a></code></pre></div>
 <p><img src="_main_files/figure-html/7_7br6-1.png" width="672" /></p>
-<div class="sourceCode" id="cb447"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb447-1" data-line-number="1"><span class="kw">ggplot</span>(sub.ds, <span class="kw">aes</span>(ideol)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb447-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_histogram</span>(<span class="kw">aes</span>(<span class="dt">y =</span> ..density..), <span class="dt">bins =</span> <span class="dv">7</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb447-3" data-line-number="3"><span class="st">  </span><span class="kw">stat_function</span>(<span class="dt">fun =</span> dnorm, <span class="dt">args =</span> <span class="kw">list</span>(<span class="dt">mean =</span> <span class="kw">mean</span>(sub.ds<span class="op">$</span>ideol), <span class="dt">sd =</span> <span class="kw">sd</span>(sub.ds<span class="op">$</span>ideol)))</a></code></pre></div>
+<div class="sourceCode" id="cb456"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb456-1" data-line-number="1"><span class="kw">ggplot</span>(sub.ds, <span class="kw">aes</span>(ideol)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb456-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_histogram</span>(<span class="kw">aes</span>(<span class="dt">y =</span> ..density..), <span class="dt">bins =</span> <span class="dv">7</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb456-3" data-line-number="3"><span class="st">  </span><span class="kw">stat_function</span>(<span class="dt">fun =</span> dnorm, <span class="dt">args =</span> <span class="kw">list</span>(<span class="dt">mean =</span> <span class="kw">mean</span>(sub.ds<span class="op">$</span>ideol), <span class="dt">sd =</span> <span class="kw">sd</span>(sub.ds<span class="op">$</span>ideol)))</a></code></pre></div>
 <p><img src="_main_files/figure-html/7_7br7-1.png" width="672" /></p>
 <p>Now construct the model:</p>
-<div class="sourceCode" id="cb448"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb448-1" data-line-number="1">model1 &lt;-<span class="st"> </span><span class="kw">lm</span>(sub.ds<span class="op">$</span>renew <span class="op">~</span><span class="st"> </span>sub.ds<span class="op">$</span>ideol)</a>
-<a class="sourceLine" id="cb448-2" data-line-number="2"><span class="kw">summary</span>(model1)</a></code></pre></div>
+<div class="sourceCode" id="cb457"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb457-1" data-line-number="1">model1 &lt;-<span class="st"> </span><span class="kw">lm</span>(sub.ds<span class="op">$</span>renew <span class="op">~</span><span class="st"> </span>sub.ds<span class="op">$</span>ideol)</a>
+<a class="sourceLine" id="cb457-2" data-line-number="2"><span class="kw">summary</span>(model1)</a></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = sub.ds$renew ~ sub.ds$ideol)
@@ -565,14 +565,14 @@ IV: Concern for natural resources</p>
 ## F-statistic: 191.8 on 1 and 2522 DF,  p-value: &lt; 0.00000000000000022</code></pre>
 <p>Based on the results, ideology helps us understand preference for renewable energy. Further examination of the coefficient for <code>ideol</code> yields an estimate value of -2.45. This is interpreted as a -2.45 unit decrease in renewable energy preference for each unit increase in ideology. That is, an increase on the ideology scale (1 “liberal” to 7 “conservative”) results in a reduction in preference for renewable energy.</p>
 <p>We should always visualize a relationship that we’re trying to convey. Start by constructing a scatter plot and adding a regression line:</p>
-<div class="sourceCode" id="cb450"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb450-1" data-line-number="1"><span class="kw">ggplot</span>(sub.ds, <span class="kw">aes</span>(<span class="dt">x =</span> ideol, <span class="dt">y =</span> renew)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb450-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">shape =</span> <span class="dv">1</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb450-3" data-line-number="3"><span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> lm) <span class="op">+</span></a>
-<a class="sourceLine" id="cb450-4" data-line-number="4"><span class="st">  </span><span class="kw">geom_jitter</span>(<span class="dt">shape =</span> <span class="dv">1</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb459"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb459-1" data-line-number="1"><span class="kw">ggplot</span>(sub.ds, <span class="kw">aes</span>(<span class="dt">x =</span> ideol, <span class="dt">y =</span> renew)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb459-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">shape =</span> <span class="dv">1</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb459-3" data-line-number="3"><span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> lm) <span class="op">+</span></a>
+<a class="sourceLine" id="cb459-4" data-line-number="4"><span class="st">  </span><span class="kw">geom_jitter</span>(<span class="dt">shape =</span> <span class="dv">1</span>)</a></code></pre></div>
 <p><img src="_main_files/figure-html/7_7br9-1.png" width="672" /></p>
 <p>Sometimes it is more beneficial when visualizing the relationship to plot the regression line without first showing the scatter plot. To do this with ggplot2, simply do not include the <code>geom_point()</code> or <code>geom_jitter()</code> functions in the visualization.</p>
-<div class="sourceCode" id="cb451"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb451-1" data-line-number="1"><span class="kw">ggplot</span>(sub.ds, <span class="kw">aes</span>(<span class="dt">x =</span> ideol, <span class="dt">y =</span> renew)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb451-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> lm) </a></code></pre></div>
+<div class="sourceCode" id="cb460"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb460-1" data-line-number="1"><span class="kw">ggplot</span>(sub.ds, <span class="kw">aes</span>(<span class="dt">x =</span> ideol, <span class="dt">y =</span> renew)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb460-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> lm) </a></code></pre></div>
 <p><img src="_main_files/figure-html/7_7br10-1.png" width="672" /></p>
 </div>
 <div id="the-residuals" class="section level2">
@@ -584,35 +584,35 @@ IV: Concern for natural resources</p>
 <li>Errors are normally distributed</li>
 </ol>
 <p>To look at the residual values for the estimated regression model, use the <code>names()</code> function:</p>
-<div class="sourceCode" id="cb452"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb452-1" data-line-number="1"><span class="kw">names</span>(model)</a></code></pre></div>
+<div class="sourceCode" id="cb461"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb461-1" data-line-number="1"><span class="kw">names</span>(model)</a></code></pre></div>
 <pre><code>##  [1] &quot;coefficients&quot;  &quot;residuals&quot;     &quot;effects&quot;       &quot;rank&quot;         
 ##  [5] &quot;fitted.values&quot; &quot;assign&quot;        &quot;qr&quot;            &quot;df.residual&quot;  
 ##  [9] &quot;xlevels&quot;       &quot;call&quot;          &quot;terms&quot;         &quot;model&quot;</code></pre>
 <p>In R we can examine the distribution of the residuals relatively simply. First assign the residuals to an object:</p>
-<div class="sourceCode" id="cb454"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb454-1" data-line-number="1">resid &lt;-<span class="st"> </span>model<span class="op">$</span>residuals</a></code></pre></div>
+<div class="sourceCode" id="cb463"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb463-1" data-line-number="1">resid &lt;-<span class="st"> </span>model<span class="op">$</span>residuals</a></code></pre></div>
 <p>Now plot a histogram of the residuals, adding a normal density curve with the mean and standard deviation of our residuals:</p>
-<div class="sourceCode" id="cb455"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb455-1" data-line-number="1"><span class="kw">ggplot</span>(model, <span class="kw">aes</span>(model<span class="op">$</span>residuals)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb455-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_histogram</span>(<span class="kw">aes</span>(<span class="dt">y =</span>  ..density..)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb455-3" data-line-number="3"><span class="st">   </span><span class="kw">stat_function</span>(<span class="dt">fun =</span> dnorm, <span class="dt">args =</span> <span class="kw">list</span>(<span class="dt">mean =</span> <span class="kw">mean</span>(model<span class="op">$</span>residuals), <span class="dt">sd =</span> <span class="kw">sd</span>(model<span class="op">$</span>residuals)))</a></code></pre></div>
+<div class="sourceCode" id="cb464"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb464-1" data-line-number="1"><span class="kw">ggplot</span>(model, <span class="kw">aes</span>(model<span class="op">$</span>residuals)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb464-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_histogram</span>(<span class="kw">aes</span>(<span class="dt">y =</span>  ..density..)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb464-3" data-line-number="3"><span class="st">   </span><span class="kw">stat_function</span>(<span class="dt">fun =</span> dnorm, <span class="dt">args =</span> <span class="kw">list</span>(<span class="dt">mean =</span> <span class="kw">mean</span>(model<span class="op">$</span>residuals), <span class="dt">sd =</span> <span class="kw">sd</span>(model<span class="op">$</span>residuals)))</a></code></pre></div>
 <pre><code>## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
 <p><img src="_main_files/figure-html/7_7res3-1.png" width="672" /></p>
 <p>We also look at a QQ plot of the residuals:</p>
-<div class="sourceCode" id="cb457"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb457-1" data-line-number="1"><span class="kw">ggplot</span>(model, <span class="kw">aes</span>(<span class="dt">sample =</span> model<span class="op">$</span>residuals)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb457-2" data-line-number="2"><span class="st">  </span><span class="kw">stat_qq</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb457-3" data-line-number="3"><span class="st">  </span><span class="kw">stat_qq_line</span>()</a></code></pre></div>
+<div class="sourceCode" id="cb466"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb466-1" data-line-number="1"><span class="kw">ggplot</span>(model, <span class="kw">aes</span>(<span class="dt">sample =</span> model<span class="op">$</span>residuals)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb466-2" data-line-number="2"><span class="st">  </span><span class="kw">stat_qq</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb466-3" data-line-number="3"><span class="st">  </span><span class="kw">stat_qq_line</span>()</a></code></pre></div>
 <p><img src="_main_files/figure-html/7_7res4-1.png" width="672" /></p>
 </div>
 <div id="comparing-models" class="section level2">
 <h2><span class="header-section-number">8.4</span> Comparing Models</h2>
 <p>Suppose you wanted to create multiple bivariate models and contrast them. This is possible using the <code>mtable()</code> function from the <code>memisc</code> package. To demonstrate, we create three models looking at the relationship between an independent variable and concern about global climate change. The three independent variables will be ideology, certainty that humans cause climate change, and age. We start by creating a subset of our data and removing missing observations:</p>
-<div class="sourceCode" id="cb458"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb458-1" data-line-number="1">sub &lt;-<span class="st"> </span>ds <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb458-2" data-line-number="2"><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">select</span>(<span class="st">&quot;glbcc_risk&quot;</span>, <span class="st">&quot;glbcc_cert&quot;</span>, <span class="st">&quot;age&quot;</span>, <span class="st">&quot;ideol&quot;</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb458-3" data-line-number="3"><span class="st">  </span><span class="kw">na.omit</span>() </a>
-<a class="sourceLine" id="cb458-4" data-line-number="4">model1 &lt;-<span class="st"> </span><span class="kw">lm</span>(sub<span class="op">$</span>glbcc_risk <span class="op">~</span><span class="st"> </span>sub<span class="op">$</span>ideol)</a>
-<a class="sourceLine" id="cb458-5" data-line-number="5">model2 &lt;-<span class="st"> </span><span class="kw">lm</span>(sub<span class="op">$</span>glbcc_risk <span class="op">~</span><span class="st"> </span>sub<span class="op">$</span>glbcc_cert)</a>
-<a class="sourceLine" id="cb458-6" data-line-number="6">model3 &lt;-<span class="st"> </span><span class="kw">lm</span>(sub<span class="op">$</span>glbcc_risk <span class="op">~</span><span class="st"> </span>sub<span class="op">$</span>age)</a></code></pre></div>
+<div class="sourceCode" id="cb467"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb467-1" data-line-number="1">sub &lt;-<span class="st"> </span>ds <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb467-2" data-line-number="2"><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">select</span>(<span class="st">&quot;glbcc_risk&quot;</span>, <span class="st">&quot;glbcc_cert&quot;</span>, <span class="st">&quot;age&quot;</span>, <span class="st">&quot;ideol&quot;</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb467-3" data-line-number="3"><span class="st">  </span><span class="kw">na.omit</span>() </a>
+<a class="sourceLine" id="cb467-4" data-line-number="4">model1 &lt;-<span class="st"> </span><span class="kw">lm</span>(sub<span class="op">$</span>glbcc_risk <span class="op">~</span><span class="st"> </span>sub<span class="op">$</span>ideol)</a>
+<a class="sourceLine" id="cb467-5" data-line-number="5">model2 &lt;-<span class="st"> </span><span class="kw">lm</span>(sub<span class="op">$</span>glbcc_risk <span class="op">~</span><span class="st"> </span>sub<span class="op">$</span>glbcc_cert)</a>
+<a class="sourceLine" id="cb467-6" data-line-number="6">model3 &lt;-<span class="st"> </span><span class="kw">lm</span>(sub<span class="op">$</span>glbcc_risk <span class="op">~</span><span class="st"> </span>sub<span class="op">$</span>age)</a></code></pre></div>
 <p>Using the <code>mtable()</code> function, we can create regression tables that compare all three of the models:</p>
-<div class="sourceCode" id="cb459"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb459-1" data-line-number="1"><span class="kw">mtable</span>(model1, model2, model3)</a></code></pre></div>
+<div class="sourceCode" id="cb468"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb468-1" data-line-number="1"><span class="kw">mtable</span>(model1, model2, model3)</a></code></pre></div>
 <pre><code>## 
 ## Calls:
 ## model1: lm(formula = sub$glbcc_risk ~ sub$ideol)
@@ -637,7 +637,7 @@ IV: Concern for natural resources</p>
 ##   Significance: *** = p &lt; 0.001; ** = p &lt; 0.01;   
 ##                 * = p &lt; 0.05</code></pre>
 <p>Alternatively, you can use the <code>stargazer()</code> function to create tables for your models. The <code>stargazer()</code> function is different in that you can specify a table created with text or with LaTex code that you can subsequently paste into a LaTex document. We’ll create a text table, but if you wanted to create a Latex table, you would use the <code>type=latex</code> argument.</p>
-<div class="sourceCode" id="cb461"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb461-1" data-line-number="1"><span class="kw">stargazer</span>(model1, model2, model3, <span class="dt">type=</span><span class="st">&quot;text&quot;</span>, <span class="dt">style=</span><span class="st">&quot;apsr&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb470"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb470-1" data-line-number="1"><span class="kw">stargazer</span>(model1, model2, model3, <span class="dt">type=</span><span class="st">&quot;text&quot;</span>, <span class="dt">style=</span><span class="st">&quot;apsr&quot;</span>)</a></code></pre></div>
 <pre><code>## 
 ## -----------------------------------------------------------------
 ##                                            glbcc_risk            
@@ -661,11 +661,11 @@ IV: Concern for natural resources</p>
 <div id="visualizing-multiple-models" class="section level3">
 <h3><span class="header-section-number">8.4.1</span> Visualizing Multiple Models</h3>
 <p>The three models can be visualized together by melting the data set into long form, with the three IVs as measure variables, then using <code>ggplot2</code> and facet wrapping by independent variable. Including <code>scales = &quot;free_x&quot;</code> inside the <code>facet_wrap()</code> function will make the visualization so that each plot has its own independent x axis but is on the same fixed y axis.</p>
-<div class="sourceCode" id="cb463"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb463-1" data-line-number="1"><span class="kw">melt</span>(sub, <span class="dt">measure.vars =</span> <span class="kw">c</span>(<span class="st">&quot;ideol&quot;</span>, <span class="st">&quot;glbcc_cert&quot;</span>, <span class="st">&quot;age&quot;</span>),</a>
-<a class="sourceLine" id="cb463-2" data-line-number="2">              <span class="dt">variable.name =</span> <span class="kw">c</span>(<span class="st">&quot;IV&quot;</span>)) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb463-3" data-line-number="3"><span class="st">  </span><span class="kw">ggplot</span>(., <span class="kw">aes</span>(value, glbcc_risk)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb463-4" data-line-number="4"><span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> lm) <span class="op">+</span></a>
-<a class="sourceLine" id="cb463-5" data-line-number="5"><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span><span class="st"> </span>IV, <span class="dt">scales =</span> <span class="st">&quot;free_x&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb472"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb472-1" data-line-number="1"><span class="kw">melt</span>(sub, <span class="dt">measure.vars =</span> <span class="kw">c</span>(<span class="st">&quot;ideol&quot;</span>, <span class="st">&quot;glbcc_cert&quot;</span>, <span class="st">&quot;age&quot;</span>),</a>
+<a class="sourceLine" id="cb472-2" data-line-number="2">              <span class="dt">variable.name =</span> <span class="kw">c</span>(<span class="st">&quot;IV&quot;</span>)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb472-3" data-line-number="3"><span class="st">  </span><span class="kw">ggplot</span>(., <span class="kw">aes</span>(value, glbcc_risk)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb472-4" data-line-number="4"><span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> lm) <span class="op">+</span></a>
+<a class="sourceLine" id="cb472-5" data-line-number="5"><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span><span class="st"> </span>IV, <span class="dt">scales =</span> <span class="st">&quot;free_x&quot;</span>)</a></code></pre></div>
 <p><img src="_main_files/figure-html/7_7vis-1.png" width="672" /></p>
 </div>
 </div>
@@ -676,34 +676,34 @@ IV: Concern for natural resources</p>
 <p>Now build a theory: We could reasonably theorize that individuals who are more concerned about water supply are also likely more concerned about climate change. There is likely a link in their head between climate change and a shortened water supply.</p>
 <p>Built on this theory, we can specify a hypothesis that individuals more concerned about climate change will be more concerned about water supply for their community. The null hypothesis is that there is no relationship between climate change concern and water concern.</p>
 <p>We create a subset of the dataset that includes out two variables and remove missing observations:</p>
-<div class="sourceCode" id="cb464"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb464-1" data-line-number="1">new.ds &lt;-<span class="st"> </span>ds <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb464-2" data-line-number="2"><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">select</span>(<span class="st">&quot;wtr_comm&quot;</span>, <span class="st">&quot;glbcc_risk&quot;</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb464-3" data-line-number="3"><span class="st">  </span><span class="kw">na.omit</span>()</a></code></pre></div>
+<div class="sourceCode" id="cb473"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb473-1" data-line-number="1">new.ds &lt;-<span class="st"> </span>ds <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb473-2" data-line-number="2"><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">select</span>(<span class="st">&quot;wtr_comm&quot;</span>, <span class="st">&quot;glbcc_risk&quot;</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb473-3" data-line-number="3"><span class="st">  </span><span class="kw">na.omit</span>()</a></code></pre></div>
 <p>Now examine the variables:</p>
-<div class="sourceCode" id="cb465"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb465-1" data-line-number="1"><span class="kw">describe</span>(new.ds<span class="op">$</span>wtr_comm)</a></code></pre></div>
+<div class="sourceCode" id="cb474"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb474-1" data-line-number="1"><span class="kw">describe</span>(new.ds<span class="op">$</span>wtr_comm)</a></code></pre></div>
 <pre><code>##    vars    n mean   sd median trimmed  mad min max range  skew kurtosis
 ## X1    1 2524 3.21 1.03      3    3.24 1.48   1   5     4 -0.34    -0.68
 ##      se
 ## X1 0.02</code></pre>
-<div class="sourceCode" id="cb467"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb467-1" data-line-number="1"><span class="kw">describe</span>(new.ds<span class="op">$</span>glbcc_risk)</a></code></pre></div>
+<div class="sourceCode" id="cb476"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb476-1" data-line-number="1"><span class="kw">describe</span>(new.ds<span class="op">$</span>glbcc_risk)</a></code></pre></div>
 <pre><code>##    vars    n mean   sd median trimmed  mad min max range  skew kurtosis
 ## X1    1 2524 5.95 3.07      6    6.14 2.97   0  10    10 -0.32    -0.93
 ##      se
 ## X1 0.06</code></pre>
 <p>Note that the climate change risk variable goes from 0 to 10 and the water supply concern variable ranges from 1 to 5, with 1 being definitely no (the supplies of water are NOT enough) and 5 being definitely yes.</p>
 <p>Now visualize the normality of the variables:</p>
-<div class="sourceCode" id="cb469"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb469-1" data-line-number="1"><span class="kw">ggplot</span>(new.ds, <span class="kw">aes</span>(wtr_comm)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb469-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_density</span>(<span class="dt">adjust =</span> <span class="dv">3</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb469-3" data-line-number="3"><span class="st">  </span><span class="kw">stat_function</span>(<span class="dt">fun =</span> dnorm, <span class="dt">args =</span> <span class="kw">list</span>(<span class="dt">mean =</span> <span class="kw">mean</span>(new.ds<span class="op">$</span>wtr_comm), <span class="dt">sd =</span> <span class="kw">sd</span>(new.ds<span class="op">$</span>wtr_comm)), <span class="dt">color =</span> <span class="st">&quot;blue&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb478"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb478-1" data-line-number="1"><span class="kw">ggplot</span>(new.ds, <span class="kw">aes</span>(wtr_comm)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb478-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_density</span>(<span class="dt">adjust =</span> <span class="dv">3</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb478-3" data-line-number="3"><span class="st">  </span><span class="kw">stat_function</span>(<span class="dt">fun =</span> dnorm, <span class="dt">args =</span> <span class="kw">list</span>(<span class="dt">mean =</span> <span class="kw">mean</span>(new.ds<span class="op">$</span>wtr_comm), <span class="dt">sd =</span> <span class="kw">sd</span>(new.ds<span class="op">$</span>wtr_comm)), <span class="dt">color =</span> <span class="st">&quot;blue&quot;</span>)</a></code></pre></div>
 <p><img src="_main_files/figure-html/7_7hyp4-1.png" width="672" /></p>
-<div class="sourceCode" id="cb470"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb470-1" data-line-number="1"><span class="kw">ggplot</span>(new.ds, <span class="kw">aes</span>(glbcc_risk)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb470-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_density</span>(<span class="dt">adjust =</span> <span class="dv">3</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb470-3" data-line-number="3"><span class="st">  </span><span class="kw">stat_function</span>(<span class="dt">fun =</span> dnorm, <span class="dt">args =</span> <span class="kw">list</span>(<span class="dt">mean =</span> <span class="kw">mean</span>(new.ds<span class="op">$</span>glbcc_risk), <span class="dt">sd =</span> <span class="kw">sd</span>(new.ds<span class="op">$</span>glbcc_risk)), <span class="dt">color =</span> <span class="st">&quot;blue&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb479"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb479-1" data-line-number="1"><span class="kw">ggplot</span>(new.ds, <span class="kw">aes</span>(glbcc_risk)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb479-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_density</span>(<span class="dt">adjust =</span> <span class="dv">3</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb479-3" data-line-number="3"><span class="st">  </span><span class="kw">stat_function</span>(<span class="dt">fun =</span> dnorm, <span class="dt">args =</span> <span class="kw">list</span>(<span class="dt">mean =</span> <span class="kw">mean</span>(new.ds<span class="op">$</span>glbcc_risk), <span class="dt">sd =</span> <span class="kw">sd</span>(new.ds<span class="op">$</span>glbcc_risk)), <span class="dt">color =</span> <span class="st">&quot;blue&quot;</span>)</a></code></pre></div>
 <p><img src="_main_files/figure-html/7_7hyp5-1.png" width="672" /></p>
 <p>Next, create the model. Recall that the dependent variable is concern for water supply and the independent variable is climate change risk.</p>
-<div class="sourceCode" id="cb471"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb471-1" data-line-number="1">lm1 &lt;-<span class="st"> </span><span class="kw">lm</span>(new.ds<span class="op">$</span>wtr_comm <span class="op">~</span><span class="st"> </span>new.ds<span class="op">$</span>glbcc_risk)</a></code></pre></div>
+<div class="sourceCode" id="cb480"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb480-1" data-line-number="1">lm1 &lt;-<span class="st"> </span><span class="kw">lm</span>(new.ds<span class="op">$</span>wtr_comm <span class="op">~</span><span class="st"> </span>new.ds<span class="op">$</span>glbcc_risk)</a></code></pre></div>
 <p>Now examine and interpret the results:</p>
-<div class="sourceCode" id="cb472"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb472-1" data-line-number="1"><span class="kw">summary</span>(lm1)</a></code></pre></div>
+<div class="sourceCode" id="cb481"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb481-1" data-line-number="1"><span class="kw">summary</span>(lm1)</a></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = new.ds$wtr_comm ~ new.ds$glbcc_risk)
@@ -724,21 +724,21 @@ IV: Concern for natural resources</p>
 ## F-statistic:   193 on 1 and 2522 DF,  p-value: &lt; 0.00000000000000022</code></pre>
 <p>The independent variable coefficient is about -.09, with a corresponding p-value <span class="math inline">\(\approx\)</span> 0. This is interpreted as a one unit change in climate change risk corresponds with a -0.09 unit change in water supply concern. Remember that the water supply variable goes from 1 (there is definitely not enough water) to 5 (there definitely is enough water). These findings suggest that an individual more concerned about climate change is also more concerned about water supply.</p>
 <p>We examine the normality of the residuals:</p>
-<div class="sourceCode" id="cb474"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb474-1" data-line-number="1"><span class="kw">ggplot</span>(lm1, <span class="kw">aes</span>(lm1<span class="op">$</span>residuals)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb474-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_density</span>(<span class="dt">adjust =</span> <span class="dv">3</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb474-3" data-line-number="3"><span class="st">  </span><span class="kw">stat_function</span>(<span class="dt">fun =</span> dnorm, <span class="dt">args =</span> <span class="kw">list</span>(<span class="dt">mean =</span> <span class="kw">mean</span>(lm1<span class="op">$</span>residuals), <span class="dt">sd =</span> <span class="kw">sd</span>(lm1<span class="op">$</span>residuals)), <span class="dt">color =</span> <span class="st">&quot;blue&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb483"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb483-1" data-line-number="1"><span class="kw">ggplot</span>(lm1, <span class="kw">aes</span>(lm1<span class="op">$</span>residuals)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb483-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_density</span>(<span class="dt">adjust =</span> <span class="dv">3</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb483-3" data-line-number="3"><span class="st">  </span><span class="kw">stat_function</span>(<span class="dt">fun =</span> dnorm, <span class="dt">args =</span> <span class="kw">list</span>(<span class="dt">mean =</span> <span class="kw">mean</span>(lm1<span class="op">$</span>residuals), <span class="dt">sd =</span> <span class="kw">sd</span>(lm1<span class="op">$</span>residuals)), <span class="dt">color =</span> <span class="st">&quot;blue&quot;</span>)</a></code></pre></div>
 <p><img src="_main_files/figure-html/7_7hyp8-1.png" width="672" /></p>
 <p>Now build a good visualization that would be worthy of a paper:</p>
-<div class="sourceCode" id="cb475"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb475-1" data-line-number="1"><span class="kw">ggplot</span>(new.ds, <span class="kw">aes</span>(wtr_comm, glbcc_risk)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb475-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> lm) <span class="op">+</span></a>
-<a class="sourceLine" id="cb475-3" data-line-number="3"><span class="st">  </span><span class="kw">coord_cartesian</span>(<span class="dt">ylim =</span> <span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">9</span>), <span class="dt">xlim =</span> <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">5</span>)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb475-4" data-line-number="4"><span class="st">  </span><span class="kw">ggtitle</span>(<span class="st">&quot;Concern for Water and Climate Change&quot;</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb475-5" data-line-number="5"><span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;Considers Water Supply Adequate&quot;</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb475-6" data-line-number="6"><span class="st">  </span><span class="kw">ylab</span>(<span class="st">&quot;Perceived Climate Change Risk&quot;</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb475-7" data-line-number="7"><span class="st">  </span><span class="kw">scale_x_continuous</span>(<span class="dt">breaks=</span><span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span> ,<span class="dv">3</span> ,<span class="dv">4</span> ,<span class="dv">5</span>), <span class="dt">labels=</span><span class="kw">c</span>(<span class="st">&quot;Definitely No&quot;</span>, </a>
-<a class="sourceLine" id="cb475-8" data-line-number="8">                                                       <span class="st">&quot;Probably No&quot;</span>, <span class="st">&quot;Unsure&quot;</span>,</a>
-<a class="sourceLine" id="cb475-9" data-line-number="9">                                                       <span class="st">&quot;Probably Yes&quot;</span>, <span class="st">&quot;Definitely Yes&quot;</span>)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb475-10" data-line-number="10"><span class="st">  </span><span class="kw">theme_bw</span>()</a></code></pre></div>
+<div class="sourceCode" id="cb484"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb484-1" data-line-number="1"><span class="kw">ggplot</span>(new.ds, <span class="kw">aes</span>(wtr_comm, glbcc_risk)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb484-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> lm) <span class="op">+</span></a>
+<a class="sourceLine" id="cb484-3" data-line-number="3"><span class="st">  </span><span class="kw">coord_cartesian</span>(<span class="dt">ylim =</span> <span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">9</span>), <span class="dt">xlim =</span> <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">5</span>)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb484-4" data-line-number="4"><span class="st">  </span><span class="kw">ggtitle</span>(<span class="st">&quot;Concern for Water and Climate Change&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb484-5" data-line-number="5"><span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;Considers Water Supply Adequate&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb484-6" data-line-number="6"><span class="st">  </span><span class="kw">ylab</span>(<span class="st">&quot;Perceived Climate Change Risk&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb484-7" data-line-number="7"><span class="st">  </span><span class="kw">scale_x_continuous</span>(<span class="dt">breaks=</span><span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span> ,<span class="dv">3</span> ,<span class="dv">4</span> ,<span class="dv">5</span>), <span class="dt">labels=</span><span class="kw">c</span>(<span class="st">&quot;Definitely No&quot;</span>, </a>
+<a class="sourceLine" id="cb484-8" data-line-number="8">                                                       <span class="st">&quot;Probably No&quot;</span>, <span class="st">&quot;Unsure&quot;</span>,</a>
+<a class="sourceLine" id="cb484-9" data-line-number="9">                                                       <span class="st">&quot;Probably Yes&quot;</span>, <span class="st">&quot;Definitely Yes&quot;</span>)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb484-10" data-line-number="10"><span class="st">  </span><span class="kw">theme_bw</span>()</a></code></pre></div>
 <p><img src="_main_files/figure-html/7_7hyp9-1.png" width="672" /></p>
 <p>Our findings support that individuals less concerned about climate change are also less concerned about their community’s water supply.</p>
 

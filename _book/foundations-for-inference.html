@@ -341,11 +341,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2><span class="header-section-number">5.1</span> Testing for Normality</h2>
 <p>Lab three introduced the basics of normal distributions. Much of the statistical work done is built on the condition of data that follows a normal distribution. Inspecting data for normality is done via numerous methods.</p>
 <p>Recall the <code>rnorm()</code> function to generate random values that follow a normal distribution given specified parameters. The following <code>random</code> object will consist of 1000 random values given <span class="math inline">\(\mu\)</span> = 50 and <span class="math inline">\(\sigma\)</span> = 5:</p>
-<div class="sourceCode" id="cb200"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb200-1" data-line-number="1">random &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">1000</span>, <span class="dt">mean =</span> <span class="dv">50</span>, <span class="dt">sd =</span> <span class="dv">5</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb202"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb202-1" data-line-number="1">random &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">1000</span>, <span class="dt">mean =</span> <span class="dv">50</span>, <span class="dt">sd =</span> <span class="dv">5</span>)</a></code></pre></div>
 <p>Visualizing data is an important first step to inspecting data for normality. The previous lab introduced density plots, box plots, and QQ plots as means of visualizing data and their relationships to a normal distribution. Recall that the QQ plot graphs the quantiles of data against quantiles of a normal distribution, given the <span class="math inline">\(\mu\)</span> and <span class="math inline">\(\sigma\)</span> of the data.</p>
-<div class="sourceCode" id="cb201"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb201-1" data-line-number="1"><span class="kw">ggplot</span>(<span class="kw">as.data.frame</span>(random), <span class="kw">aes</span>(<span class="dt">sample =</span> random)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb201-2" data-line-number="2"><span class="st">  </span><span class="kw">stat_qq</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb201-3" data-line-number="3"><span class="st">  </span><span class="kw">stat_qq_line</span>()</a></code></pre></div>
+<div class="sourceCode" id="cb203"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb203-1" data-line-number="1"><span class="kw">ggplot</span>(<span class="kw">as.data.frame</span>(random), <span class="kw">aes</span>(<span class="dt">sample =</span> random)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb203-2" data-line-number="2"><span class="st">  </span><span class="kw">stat_qq</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb203-3" data-line-number="3"><span class="st">  </span><span class="kw">stat_qq_line</span>()</a></code></pre></div>
 <p><img src="_main_files/figure-html/4_qq-1.png" width="672" /></p>
 <p>The QQ plot of the <code>random</code> object demonstrates the data closely follows a normal distribution. This is expected given the <code>random</code> object was created via the <code>rnorm()</code> function. <strong>Note:</strong> Visualizing data for normality is an informal approach to inspecting for normality. Various empirical methods exist to test whether data follows a normal distribution, the most popular of which are:</p>
 <ol style="list-style-type: decimal">
@@ -361,7 +361,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p><span class="math inline">\(H_0\)</span>: The data are normally distributed<br />
 <span class="math inline">\(H_1\)</span>: The data are not normally distributed</p>
 <p><strong>Note:</strong> The Shapiro-Wilk test for normality is a statistical test that provides a p-value of the test statistic, <code>W</code>. This lab will focus on the p-value approach for statistical tests, using an <span class="math inline">\(\alpha\)</span> value of 0.05 as the desired significance level.</p>
-<div class="sourceCode" id="cb202"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb202-1" data-line-number="1"><span class="kw">shapiro.test</span>(random)</a></code></pre></div>
+<div class="sourceCode" id="cb204"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb204-1" data-line-number="1"><span class="kw">shapiro.test</span>(random)</a></code></pre></div>
 <pre><code>## 
 ##  Shapiro-Wilk normality test
 ## 
@@ -372,25 +372,25 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="testing-normality" class="section level3">
 <h3><span class="header-section-number">5.1.2</span> Testing Normality</h3>
 <p>R provides data pertaining to Yellowstone National Park’s Old Faithful geyser in the <code>faithful</code> object. Old Faithful eruptions are recorded as duration, in minutes, between events. First, the <code>describe()</code> function provides valuable information for the <code>eruptions</code> variable in the <code>faithful</code> object.</p>
-<div class="sourceCode" id="cb204"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb204-1" data-line-number="1"><span class="kw">describe</span>(faithful<span class="op">$</span>eruptions)</a></code></pre></div>
+<div class="sourceCode" id="cb206"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb206-1" data-line-number="1"><span class="kw">describe</span>(faithful<span class="op">$</span>eruptions)</a></code></pre></div>
 <pre><code>##    vars   n mean   sd median trimmed  mad min max range  skew kurtosis
 ## X1    1 272 3.49 1.14      4    3.53 0.95 1.6 5.1   3.5 -0.41    -1.51
 ##      se
 ## X1 0.07</code></pre>
 <p>Comparing the <code>eruptions</code> data to a normal distribution, given <span class="math inline">\(\mu\)</span> and <span class="math inline">\(\sigma\)</span> from the <code>eruptions</code> data, is available via the <em>geom_density()</em> and <em>stat_function()</em> functions.</p>
-<div class="sourceCode" id="cb206"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb206-1" data-line-number="1"><span class="kw">ggplot</span>(faithful, <span class="kw">aes</span>(eruptions)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb206-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_density</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb206-3" data-line-number="3"><span class="st">  </span><span class="kw">stat_function</span>(<span class="dt">fun =</span> dnorm, <span class="dt">args =</span> <span class="kw">list</span>(<span class="dt">mean =</span> <span class="kw">mean</span>(faithful<span class="op">$</span>eruptions), </a>
-<a class="sourceLine" id="cb206-4" data-line-number="4">                                         <span class="dt">sd =</span> <span class="kw">sd</span>(faithful<span class="op">$</span>eruptions)), <span class="dt">color =</span> <span class="st">&quot;blue&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb208"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb208-1" data-line-number="1"><span class="kw">ggplot</span>(faithful, <span class="kw">aes</span>(eruptions)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb208-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_density</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb208-3" data-line-number="3"><span class="st">  </span><span class="kw">stat_function</span>(<span class="dt">fun =</span> dnorm, <span class="dt">args =</span> <span class="kw">list</span>(<span class="dt">mean =</span> <span class="kw">mean</span>(faithful<span class="op">$</span>eruptions), </a>
+<a class="sourceLine" id="cb208-4" data-line-number="4">                                         <span class="dt">sd =</span> <span class="kw">sd</span>(faithful<span class="op">$</span>eruptions)), <span class="dt">color =</span> <span class="st">&quot;blue&quot;</span>)</a></code></pre></div>
 <p><img src="_main_files/figure-html/4_faith2-1.png" width="672" /></p>
 <p>The black line represents the <code>eruptions</code> data, and the blue line represents the normal distribution given the <span class="math inline">\(\mu\)</span> and <span class="math inline">\(\sigma\)</span> values of <code>eruptions</code>. <strong>Note:</strong> The <code>eruptions</code> data appears bimodal, and does not fit the normal distribution model given the parameters calculated via the <code>eruptions</code> data.</p>
 <p>The <code>eruptions</code> data is further examined using QQ plots via the <code>qqPlot()</code> function:</p>
-<div class="sourceCode" id="cb207"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb207-1" data-line-number="1"><span class="kw">ggplot</span>(faithful, <span class="kw">aes</span>(<span class="dt">sample =</span> eruptions)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb207-2" data-line-number="2"><span class="st">  </span><span class="kw">stat_qq</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb207-3" data-line-number="3"><span class="st">  </span><span class="kw">stat_qq_line</span>()</a></code></pre></div>
+<div class="sourceCode" id="cb209"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb209-1" data-line-number="1"><span class="kw">ggplot</span>(faithful, <span class="kw">aes</span>(<span class="dt">sample =</span> eruptions)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb209-2" data-line-number="2"><span class="st">  </span><span class="kw">stat_qq</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb209-3" data-line-number="3"><span class="st">  </span><span class="kw">stat_qq_line</span>()</a></code></pre></div>
 <p><img src="_main_files/figure-html/4_faith4-1.png" width="672" /></p>
 <p>Most of the points in the QQ plot fall outside the region defined by the dashed lines, further suggesting the <code>eruptions</code> data is likely not normally distributed. Lastly, a Shapiro-Wilk test can confirm whether the <code>eruptions</code> data is normally distributed:</p>
-<div class="sourceCode" id="cb208"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb208-1" data-line-number="1"><span class="kw">shapiro.test</span>(faithful<span class="op">$</span>eruptions)</a></code></pre></div>
+<div class="sourceCode" id="cb210"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb210-1" data-line-number="1"><span class="kw">shapiro.test</span>(faithful<span class="op">$</span>eruptions)</a></code></pre></div>
 <pre><code>## 
 ##  Shapiro-Wilk normality test
 ## 
@@ -398,24 +398,24 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## W = 0.84592, p-value = 0.0000000000000009036</code></pre>
 <p>The Shapiro-Wilk test p-value is less than <span class="math inline">\(\alpha\)</span> = 0.05, leading to reject <span class="math inline">\(H_0\)</span>: data are normally distributed. In conclusion, the <code>eruptions</code> data is not normally distributed. <strong>Note:</strong> The visual plots are likely enough to confirm the <code>eruptions</code> data are not normally distributed.</p>
 <p>The <code>MacdonellDF</code> variable within the <code>HistData</code> package consists of finger length data. Again, visualizing the data for normality is performed via various methods. A box plot is generated for the <code>MacdonellDF</code> data:</p>
-<div class="sourceCode" id="cb210"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb210-1" data-line-number="1"><span class="kw">ggplot</span>(MacdonellDF, <span class="kw">aes</span>(<span class="dt">x =</span> <span class="st">&quot;&quot;</span>, <span class="dt">y =</span> finger)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb210-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_boxplot</span>()</a></code></pre></div>
+<div class="sourceCode" id="cb212"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb212-1" data-line-number="1"><span class="kw">ggplot</span>(MacdonellDF, <span class="kw">aes</span>(<span class="dt">x =</span> <span class="st">&quot;&quot;</span>, <span class="dt">y =</span> finger)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb212-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_boxplot</span>()</a></code></pre></div>
 <p><img src="_main_files/figure-html/4_f-1.png" width="672" /></p>
 <p>The box plot appears balanced, indicating normality. Generating a density plot should show the distribution of <code>MacdonellDF</code> variable as similar to the projected normal distribution given the <span class="math inline">\(\mu\)</span> and <span class="math inline">\(\sigma\)</span> parameters of the <code>MacdonellDF</code> variable.</p>
-<div class="sourceCode" id="cb211"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb211-1" data-line-number="1"><span class="kw">ggplot</span>(MacdonellDF, <span class="kw">aes</span>(finger)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb211-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_density</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb211-3" data-line-number="3"><span class="st">  </span><span class="kw">stat_function</span>(<span class="dt">fun =</span> <span class="st">&quot;dnorm&quot;</span>, <span class="dt">args =</span> <span class="kw">list</span>(<span class="dt">mean =</span> <span class="kw">mean</span>(MacdonellDF<span class="op">$</span>finger), </a>
-<a class="sourceLine" id="cb211-4" data-line-number="4">                                                       <span class="dt">sd =</span> <span class="kw">sd</span>(MacdonellDF<span class="op">$</span>finger)),</a>
-<a class="sourceLine" id="cb211-5" data-line-number="5">                <span class="dt">color =</span> <span class="st">&quot;red&quot;</span>, <span class="dt">size =</span> <span class="fl">1.5</span>,</a>
-<a class="sourceLine" id="cb211-6" data-line-number="6">                <span class="dt">alpha =</span> <span class="fl">.3</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb213"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb213-1" data-line-number="1"><span class="kw">ggplot</span>(MacdonellDF, <span class="kw">aes</span>(finger)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb213-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_density</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb213-3" data-line-number="3"><span class="st">  </span><span class="kw">stat_function</span>(<span class="dt">fun =</span> <span class="st">&quot;dnorm&quot;</span>, <span class="dt">args =</span> <span class="kw">list</span>(<span class="dt">mean =</span> <span class="kw">mean</span>(MacdonellDF<span class="op">$</span>finger), </a>
+<a class="sourceLine" id="cb213-4" data-line-number="4">                                                       <span class="dt">sd =</span> <span class="kw">sd</span>(MacdonellDF<span class="op">$</span>finger)),</a>
+<a class="sourceLine" id="cb213-5" data-line-number="5">                <span class="dt">color =</span> <span class="st">&quot;red&quot;</span>, <span class="dt">size =</span> <span class="fl">1.5</span>,</a>
+<a class="sourceLine" id="cb213-6" data-line-number="6">                <span class="dt">alpha =</span> <span class="fl">.3</span>)</a></code></pre></div>
 <p><img src="_main_files/figure-html/4_f2-1.png" width="672" /></p>
 <p>Additionally, a QQ plot:</p>
-<div class="sourceCode" id="cb212"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb212-1" data-line-number="1"><span class="kw">ggplot</span>(MacdonellDF, <span class="kw">aes</span>(<span class="dt">sample =</span> finger)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb212-2" data-line-number="2"><span class="st">  </span><span class="kw">stat_qq</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb212-3" data-line-number="3"><span class="st">  </span><span class="kw">stat_qq_line</span>()</a></code></pre></div>
+<div class="sourceCode" id="cb214"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb214-1" data-line-number="1"><span class="kw">ggplot</span>(MacdonellDF, <span class="kw">aes</span>(<span class="dt">sample =</span> finger)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb214-2" data-line-number="2"><span class="st">  </span><span class="kw">stat_qq</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb214-3" data-line-number="3"><span class="st">  </span><span class="kw">stat_qq_line</span>()</a></code></pre></div>
 <p><img src="_main_files/figure-html/4_f3-1.png" width="672" /></p>
 <p>The visualizations all suggest the data is normally distributed; however, a Shapiro-Wilk test is still useful to test for normality.</p>
-<div class="sourceCode" id="cb213"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb213-1" data-line-number="1"><span class="kw">shapiro.test</span>(MacdonellDF<span class="op">$</span>finger)</a></code></pre></div>
+<div class="sourceCode" id="cb215"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb215-1" data-line-number="1"><span class="kw">shapiro.test</span>(MacdonellDF<span class="op">$</span>finger)</a></code></pre></div>
 <pre><code>## 
 ##  Shapiro-Wilk normality test
 ## 
@@ -432,10 +432,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>Sample: <span class="math inline">\(\frac{s}{\sqrt{n}}\)</span></li>
 </ul>
 <p>R does not provide a single purpose function to calculate the standard error. As a result, the following demonstrates the previous formula to calculate the standard error:</p>
-<div class="sourceCode" id="cb215"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb215-1" data-line-number="1"><span class="kw">sd</span>(ds<span class="op">$</span>age, <span class="dt">na.rm =</span> T)<span class="op">/</span><span class="kw">sqrt</span>(<span class="kw">length</span>(ds<span class="op">$</span>age) <span class="op">-</span><span class="st"> </span><span class="kw">sum</span>(<span class="kw">is.na</span>(ds<span class="op">$</span>age)))</a></code></pre></div>
+<div class="sourceCode" id="cb217"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb217-1" data-line-number="1"><span class="kw">sd</span>(ds<span class="op">$</span>age, <span class="dt">na.rm =</span> T)<span class="op">/</span><span class="kw">sqrt</span>(<span class="kw">length</span>(ds<span class="op">$</span>age) <span class="op">-</span><span class="st"> </span><span class="kw">sum</span>(<span class="kw">is.na</span>(ds<span class="op">$</span>age)))</a></code></pre></div>
 <pre><code>## [1] 0.2815446</code></pre>
 <p>Alternatively, the <code>describe()</code> function includes the standard error statistic for a given variable, as follows:</p>
-<div class="sourceCode" id="cb217"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb217-1" data-line-number="1"><span class="kw">describe</span>(ds<span class="op">$</span>age)</a></code></pre></div>
+<div class="sourceCode" id="cb219"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb219-1" data-line-number="1"><span class="kw">describe</span>(ds<span class="op">$</span>age)</a></code></pre></div>
 <pre><code>##    vars    n  mean    sd median trimmed   mad min max range  skew kurtosis
 ## X1    1 2547 60.37 14.21     62   61.01 13.34  18  99    81 -0.39    -0.24
 ##      se
@@ -458,28 +458,28 @@ or</p>
 <p>Put simply, the confidence interval is the sample mean plus/minus the product of the z-score and standard error.</p>
 <p>Using the <code>age</code> variable within the <code>ds</code> data set, the a 95% confidence interval is calculated as follows:</p>
 <p>First calculate the mean:</p>
-<div class="sourceCode" id="cb219"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb219-1" data-line-number="1"><span class="kw">mean</span>(ds<span class="op">$</span>age, <span class="dt">na.rm =</span> T)</a></code></pre></div>
+<div class="sourceCode" id="cb221"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb221-1" data-line-number="1"><span class="kw">mean</span>(ds<span class="op">$</span>age, <span class="dt">na.rm =</span> T)</a></code></pre></div>
 <pre><code>## [1] 60.36749</code></pre>
 <p>Second, find the standard error:</p>
-<div class="sourceCode" id="cb221"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb221-1" data-line-number="1"><span class="kw">describe</span>(ds<span class="op">$</span>age)<span class="op">$</span>se <span class="co"># this is a way to pull the standard error out without having to look at everything else</span></a></code></pre></div>
+<div class="sourceCode" id="cb223"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb223-1" data-line-number="1"><span class="kw">describe</span>(ds<span class="op">$</span>age)<span class="op">$</span>se <span class="co"># this is a way to pull the standard error out without having to look at everything else</span></a></code></pre></div>
 <pre><code>## [1] 0.2815446</code></pre>
 <p>Given a 95% confidence interval, the z-score is 1.96. The upper bound of the confidence interval is calculated as follows:</p>
-<div class="sourceCode" id="cb223"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb223-1" data-line-number="1"><span class="fl">60.38</span> <span class="op">+</span><span class="st"> </span><span class="fl">1.96</span> <span class="op">*</span><span class="st"> </span><span class="fl">0.28</span></a></code></pre></div>
+<div class="sourceCode" id="cb225"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb225-1" data-line-number="1"><span class="fl">60.38</span> <span class="op">+</span><span class="st"> </span><span class="fl">1.96</span> <span class="op">*</span><span class="st"> </span><span class="fl">0.28</span></a></code></pre></div>
 <pre><code>## [1] 60.9288</code></pre>
 <p>The lower bound of the confidence interval is calculated as follows:</p>
-<div class="sourceCode" id="cb225"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb225-1" data-line-number="1"><span class="fl">60.38</span> <span class="op">-</span><span class="st"> </span><span class="fl">1.96</span> <span class="op">*</span><span class="st"> </span><span class="fl">0.28</span></a></code></pre></div>
+<div class="sourceCode" id="cb227"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb227-1" data-line-number="1"><span class="fl">60.38</span> <span class="op">-</span><span class="st"> </span><span class="fl">1.96</span> <span class="op">*</span><span class="st"> </span><span class="fl">0.28</span></a></code></pre></div>
 <pre><code>## [1] 59.8312</code></pre>
 <p>With 95% confidence, the population mean of <code>age</code> is between 59.83 and 60.93 (rounded).</p>
 <p>Increasing confidence will increase the interval of the confidence interval. For example, the z-score associated to 99% is 2.58, so the confidence interval for 99% is calculated as follows:</p>
-<div class="sourceCode" id="cb227"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb227-1" data-line-number="1">age.se &lt;-<span class="st"> </span><span class="kw">describe</span>(ds<span class="op">$</span>age)<span class="op">$</span>se</a></code></pre></div>
+<div class="sourceCode" id="cb229"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb229-1" data-line-number="1">age.se &lt;-<span class="st"> </span><span class="kw">describe</span>(ds<span class="op">$</span>age)<span class="op">$</span>se</a></code></pre></div>
 <p><strong>Note:</strong> The standard error of the <code>age</code> variable was stored as to the <code>age.se</code> object via specifying only to return the standard error from the <code>describe()</code> function. Using the <code>se</code> object simplifies the confidence interval calculation as exemplified:</p>
-<div class="sourceCode" id="cb228"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb228-1" data-line-number="1"><span class="kw">mean</span>(ds<span class="op">$</span>age, <span class="dt">na.rm =</span> T) <span class="op">+</span><span class="st"> </span><span class="fl">2.58</span> <span class="op">*</span><span class="st"> </span>age.se</a></code></pre></div>
+<div class="sourceCode" id="cb230"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb230-1" data-line-number="1"><span class="kw">mean</span>(ds<span class="op">$</span>age, <span class="dt">na.rm =</span> T) <span class="op">+</span><span class="st"> </span><span class="fl">2.58</span> <span class="op">*</span><span class="st"> </span>age.se</a></code></pre></div>
 <pre><code>## [1] 61.09388</code></pre>
-<div class="sourceCode" id="cb230"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb230-1" data-line-number="1"><span class="kw">mean</span>(ds<span class="op">$</span>age, <span class="dt">na.rm =</span> T) <span class="op">-</span><span class="st"> </span><span class="fl">2.58</span> <span class="op">*</span><span class="st"> </span>age.se</a></code></pre></div>
+<div class="sourceCode" id="cb232"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb232-1" data-line-number="1"><span class="kw">mean</span>(ds<span class="op">$</span>age, <span class="dt">na.rm =</span> T) <span class="op">-</span><span class="st"> </span><span class="fl">2.58</span> <span class="op">*</span><span class="st"> </span>age.se</a></code></pre></div>
 <pre><code>## [1] 59.64111</code></pre>
 <p>With 99% confidence, the population mean of <code>age</code> is between 59.64 and 61.09. This interval is larger than the interval calculated for 95% confidence.</p>
 <p>Alternatively, the <code>t.test()</code> function in R provides the 95% confidence interval for a given variable.</p>
-<div class="sourceCode" id="cb232"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb232-1" data-line-number="1"><span class="kw">t.test</span>(ds<span class="op">$</span>age)</a></code></pre></div>
+<div class="sourceCode" id="cb234"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb234-1" data-line-number="1"><span class="kw">t.test</span>(ds<span class="op">$</span>age)</a></code></pre></div>
 <pre><code>## 
 ##  One Sample t-test
 ## 
@@ -498,7 +498,7 @@ or</p>
 </ul>
 <p>Note the returned p-value of the previous <code>t.test()</code> performed is less than <span class="math inline">\(\alpha\)</span> = 0.05; therefore, the null hypothesis is rejected. That is, given the sample data, with 95% confidence the <span class="math inline">\(\mu\)</span> is not zero.</p>
 <p>To explain a different way, using the same variable, but with a defined <span class="math inline">\(\mu\)</span> of 50, the <code>t.test()</code> function can test whether <span class="math inline">\(\mu\)</span> is 50.</p>
-<div class="sourceCode" id="cb234"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb234-1" data-line-number="1"><span class="kw">t.test</span>(ds<span class="op">$</span>age, <span class="dt">mu =</span> <span class="dv">50</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb236"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb236-1" data-line-number="1"><span class="kw">t.test</span>(ds<span class="op">$</span>age, <span class="dt">mu =</span> <span class="dv">50</span>)</a></code></pre></div>
 <pre><code>## 
 ##  One Sample t-test
 ## 
@@ -511,7 +511,7 @@ or</p>
 ## mean of x 
 ##  60.36749</code></pre>
 <p>The same result occurs: the null hypothesis is rejected. Once again, the <code>t.test()</code> function is employed to test whether <span class="math inline">\(\mu\)</span> = 60:</p>
-<div class="sourceCode" id="cb236"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb236-1" data-line-number="1"><span class="kw">t.test</span>(ds<span class="op">$</span>age, <span class="dt">mu =</span> <span class="dv">60</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb238"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb238-1" data-line-number="1"><span class="kw">t.test</span>(ds<span class="op">$</span>age, <span class="dt">mu =</span> <span class="dv">60</span>)</a></code></pre></div>
 <pre><code>## 
 ##  One Sample t-test
 ## 
@@ -531,12 +531,12 @@ or</p>
 <li>Calculate the p-value associated with <span class="math inline">\(H_0\)</span></li>
 </ol>
 <p>Objects are employed to simplify the calculation:</p>
-<div class="sourceCode" id="cb238"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb238-1" data-line-number="1">xbar &lt;-<span class="st"> </span><span class="kw">mean</span>(ds<span class="op">$</span>age, <span class="dt">na.rm =</span> T)</a>
-<a class="sourceLine" id="cb238-2" data-line-number="2">a &lt;-<span class="st"> </span><span class="dv">60</span></a>
-<a class="sourceLine" id="cb238-3" data-line-number="3">s &lt;-<span class="st"> </span><span class="kw">sd</span>(ds<span class="op">$</span>age, <span class="dt">na.rm =</span> T)</a>
-<a class="sourceLine" id="cb238-4" data-line-number="4">n &lt;-<span class="st"> </span><span class="dv">2547</span></a></code></pre></div>
+<div class="sourceCode" id="cb240"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb240-1" data-line-number="1">xbar &lt;-<span class="st"> </span><span class="kw">mean</span>(ds<span class="op">$</span>age, <span class="dt">na.rm =</span> T)</a>
+<a class="sourceLine" id="cb240-2" data-line-number="2">a &lt;-<span class="st"> </span><span class="dv">60</span></a>
+<a class="sourceLine" id="cb240-3" data-line-number="3">s &lt;-<span class="st"> </span><span class="kw">sd</span>(ds<span class="op">$</span>age, <span class="dt">na.rm =</span> T)</a>
+<a class="sourceLine" id="cb240-4" data-line-number="4">n &lt;-<span class="st"> </span><span class="dv">2547</span></a></code></pre></div>
 <p>The p-value for if the population mean <span class="math inline">\(\neq\)</span> 60:</p>
-<div class="sourceCode" id="cb239"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb239-1" data-line-number="1"><span class="dv">2</span> <span class="op">*</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">-</span><span class="st"> </span><span class="kw">pnorm</span>(xbar, <span class="dt">mean =</span> a, <span class="dt">sd =</span> s<span class="op">/</span><span class="kw">sqrt</span>(n)))</a></code></pre></div>
+<div class="sourceCode" id="cb241"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb241-1" data-line-number="1"><span class="dv">2</span> <span class="op">*</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">-</span><span class="st"> </span><span class="kw">pnorm</span>(xbar, <span class="dt">mean =</span> a, <span class="dt">sd =</span> s<span class="op">/</span><span class="kw">sqrt</span>(n)))</a></code></pre></div>
 <pre><code>## [1] 0.1918016</code></pre>
 <p>The p-value of 0.191 is greater than <span class="math inline">\(\alpha\)</span> = 0.05; therefore, failing to reject <span class="math inline">\(H_0\)</span>: <span class="math inline">\(\mu\)</span> = 60.</p>
 </div>
@@ -551,20 +551,20 @@ or</p>
 <li>t statistic</li>
 </ol>
 <p>To demonstrate, the following tests whether the population mean is 58 for the given data by defining the above parameters:</p>
-<div class="sourceCode" id="cb241"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb241-1" data-line-number="1">nAge &lt;-<span class="st"> </span><span class="kw">length</span>(ds<span class="op">$</span>age) <span class="op">-</span><span class="st"> </span><span class="kw">sum</span>(<span class="kw">is.na</span>(ds<span class="op">$</span>age))</a>
-<a class="sourceLine" id="cb241-2" data-line-number="2">sdAge &lt;-<span class="st"> </span><span class="kw">sd</span>(ds<span class="op">$</span>age, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>) <span class="co"># Standard deviation of age</span></a>
-<a class="sourceLine" id="cb241-3" data-line-number="3">seAge &lt;-<span class="st"> </span>sdAge<span class="op">/</span>(<span class="kw">sqrt</span>(nAge)) <span class="co"># Standard error of age</span></a>
-<a class="sourceLine" id="cb241-4" data-line-number="4">meanAge &lt;-<span class="st"> </span><span class="kw">mean</span>(ds<span class="op">$</span>age, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb243"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb243-1" data-line-number="1">nAge &lt;-<span class="st"> </span><span class="kw">length</span>(ds<span class="op">$</span>age) <span class="op">-</span><span class="st"> </span><span class="kw">sum</span>(<span class="kw">is.na</span>(ds<span class="op">$</span>age))</a>
+<a class="sourceLine" id="cb243-2" data-line-number="2">sdAge &lt;-<span class="st"> </span><span class="kw">sd</span>(ds<span class="op">$</span>age, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>) <span class="co"># Standard deviation of age</span></a>
+<a class="sourceLine" id="cb243-3" data-line-number="3">seAge &lt;-<span class="st"> </span>sdAge<span class="op">/</span>(<span class="kw">sqrt</span>(nAge)) <span class="co"># Standard error of age</span></a>
+<a class="sourceLine" id="cb243-4" data-line-number="4">meanAge &lt;-<span class="st"> </span><span class="kw">mean</span>(ds<span class="op">$</span>age, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
 <p>To calculate the t statistic, the population mean is subtracted from the sample mean, and divided by the standard error as follows:</p>
-<div class="sourceCode" id="cb242"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb242-1" data-line-number="1">t_value &lt;-<span class="st"> </span>(meanAge <span class="op">-</span><span class="st"> </span><span class="dv">58</span>)<span class="op">/</span>seAge   </a>
-<a class="sourceLine" id="cb242-2" data-line-number="2">t_value</a></code></pre></div>
+<div class="sourceCode" id="cb244"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb244-1" data-line-number="1">t_value &lt;-<span class="st"> </span>(meanAge <span class="op">-</span><span class="st"> </span><span class="dv">58</span>)<span class="op">/</span>seAge   </a>
+<a class="sourceLine" id="cb244-2" data-line-number="2">t_value</a></code></pre></div>
 <pre><code>## [1] 8.408938</code></pre>
 <p>To calculate the two-sided p value under the t distribution:</p>
-<div class="sourceCode" id="cb244"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb244-1" data-line-number="1"><span class="dv">2</span> <span class="op">*</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">-</span><span class="st"> </span><span class="kw">pt</span>(<span class="kw">abs</span>(t_value), <span class="dt">df =</span> nAge <span class="op">-</span><span class="st"> </span><span class="dv">1</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb246"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb246-1" data-line-number="1"><span class="dv">2</span> <span class="op">*</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">-</span><span class="st"> </span><span class="kw">pt</span>(<span class="kw">abs</span>(t_value), <span class="dt">df =</span> nAge <span class="op">-</span><span class="st"> </span><span class="dv">1</span>))</a></code></pre></div>
 <pre><code>## [1] 0</code></pre>
 <p>The returned p-value is less than <span class="math inline">\(\alpha\)</span> = 0.05, rejecting <span class="math inline">\(H_0\)</span>: <span class="math inline">\(\mu\)</span> = 60. Put another way, <span class="math inline">\(H_1\)</span>:<br />
 <span class="math inline">\(\mu \neq 60\)</span>.</p>
-<div class="sourceCode" id="cb246"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb246-1" data-line-number="1"><span class="kw">t.test</span>(ds<span class="op">$</span>age, <span class="dt">mu =</span> <span class="dv">58</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb248"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb248-1" data-line-number="1"><span class="kw">t.test</span>(ds<span class="op">$</span>age, <span class="dt">mu =</span> <span class="dv">58</span>)</a></code></pre></div>
 <pre><code>## 
 ##  One Sample t-test
 ## 

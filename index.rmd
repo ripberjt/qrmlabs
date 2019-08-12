@@ -5,7 +5,7 @@ site: bookdown::bookdown_site
 output: 
   bookdown::gitbook:
   # bookdown::pdf_book:
-  #   latex_engine: xelatex 
+  #   latex_engine: xelatex
 book_filename: "labbook"
 always_allow_html: yes
 language:
