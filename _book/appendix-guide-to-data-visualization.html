@@ -21,6 +21,7 @@
   
   
 
+<meta name="author" content="Joseph Ripberger, Cody Adams, Alex Davis, and Josie Davis" />
 
 
 
@@ -337,21 +338,27 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="for-exploring-a-single-variable" class="section level3 unnumbered">
 <h3>For Exploring a Single Variable</h3>
 <p>When you are first exploring your data, it is often helpful to visualize a single variable.</p>
-<p>For <strong>continuous</strong> data, you may be interested in producing
-- density curves (geom_density), or
-- histograms (geom_histogram).</p>
+<p>For <strong>continuous</strong> data, you may be interested in producing</p>
+<ul>
+<li>density curves (geom_density), or</li>
+<li>histograms (geom_histogram).</li>
+</ul>
 <p>For <strong>discrete</strong> data, you will likely be using a bar plot (geom_bar or geom_col).</p>
 </div>
 <div id="for-displaying-two-or-more-variables" class="section level3 unnumbered">
 <h3>For Displaying Two (or more) Variables</h3>
 <p>After you get a feel for your data, you are likely then interested in visualizing their relationships. These examples are geared towards two variables (one x and one y), but you can always add more!</p>
-<p>With a <strong>continuous</strong> x and a <strong>continuous</strong> y, you have numerous options available. The most common include:
-- a scatter plot (geom_point + geom_jitter), and
-- a function curve(geom_line or geom_smooth)</p>
-<p>With a <strong>discrete</strong> x variable and a <strong>continuous</strong> y variable, you might produce:
-- a bar plot (geom_bar or geom_col),
-- a box blot (geom_boxplot), or
-- a violin plot (geom_violin)</p>
+<p>With a <strong>continuous</strong> x and a <strong>continuous</strong> y, you have numerous options available. The most common include:</p>
+<ul>
+<li>a scatter plot (geom_point + geom_jitter), and</li>
+<li>a function curve(geom_line or geom_smooth)</li>
+</ul>
+<p>With a <strong>discrete</strong> x variable and a <strong>continuous</strong> y variable, you might produce:</p>
+<ul>
+<li>a bar plot (geom_bar or geom_col),</li>
+<li>a box blot (geom_boxplot), or</li>
+<li>a violin plot (geom_violin)</li>
+</ul>
 <p><strong>Note:</strong> While these are not your only options, they are some of the most commonly used (and match what we’ve covered in these labs!)</p>
 <p>Once you have the basic plot made, the customization can begin. Below, we’ll cover how to add labels and titles, scale your axes, visualize error, add color, and using a theme.</p>
 </div>
@@ -359,26 +366,22 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="adding-labels" class="section level2">
 <h2><span class="header-section-number">15.2</span> Adding Labels</h2>
 <p>There are numerous ways to add titles and labels to your plot. The simplest is to use the functions:</p>
-<ul>
-<li>xlab(“X-Axis Title”),</li>
-<li>ylab(“Y-Axis Title”), and</li>
-<li>ggtitle(“Plot Title”)</li>
-</ul>
+<p><span class="math inline">\(+\)</span> xlab(“X-Axis Title”),
+<span class="math inline">\(+\)</span> ylab(“Y-Axis Title”), and
+<span class="math inline">\(+\)</span> ggtitle(“Plot Title”)</p>
 </div>
 <div id="scale-and-limits" class="section level2">
 <h2><span class="header-section-number">15.3</span> Scale and Limits</h2>
 <p>You may also want to change the range of values that appear on either axis, as well as the number and nature of data breaks.</p>
 <p>To set limits on the range of data that appears in your plot, you can use the function:</p>
-<ul>
-<li>coord_cartesian(ylim =, xlim =)</li>
-</ul>
+<p><span class="math inline">\(+\)</span> coord_cartesian(ylim =, xlim =)</p>
 <p>In essence, this allows you to “zoom in” on your data by specify the range of the x and y axes.</p>
 <p>You may also want to change the number and nature of the breaks along your axes. For continuous data, you can use the functions:
-+ scale_x_continuous(breaks =, labels = c()), and
-+ scale_y_continuous(breaks =, labels = c())</p>
+<span class="math inline">\(+\)</span> scale_x_continuous(breaks =, labels = c()), and
+<span class="math inline">\(+\)</span> scale_y_continuous(breaks =, labels = c())</p>
 <p><strong>Note:</strong> For discrete data, you will use these functions in the same way:
-+ scale_x_discrete()
-+ scale_y_discrete()</p>
+<span class="math inline">\(+\)</span> scale_x_discrete()
+<span class="math inline">\(+\)</span> scale_y_discrete()</p>
 </div>
 <div id="visualizing-error" class="section level2">
 <h2><span class="header-section-number">15.4</span> Visualizing Error</h2>
@@ -387,17 +390,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h3>Confidence Intervals</h3>
 <p>To add confidence intervals to your function lines, you can use the geom_ribbon() function.
 The arguments for this function are:</p>
-<ul>
-<li>geom_line() + geom_ribbon(aes(ymin =, ymax =), alpha = )</li>
-</ul>
+<p><span class="math inline">\(+\)</span> geom_line() <span class="math inline">\(+\)</span> geom_ribbon(aes(ymin =, ymax =), alpha = )</p>
 <p><strong>Note:</strong> Specifying the alpha value here changes how opaque the confidence interval is.</p>
 </div>
 <div id="error-bars" class="section level3 unnumbered">
 <h3>Error Bars</h3>
 <p>With a discrete point, you will need error bars rather than confidence intervals. To include error bars on your plot, you can use the geom_errorbar() function. The necessary arguments include:</p>
-<ul>
-<li>geom_errorbar(aes(ymin, ymax), width =)</li>
-</ul>
+<p><span class="math inline">\(+\)</span> geom_errorbar(aes(ymin, ymax), width =)</p>
 <p><strong>Note:</strong> Prior to using either of these functions, it helps to add the upper and lower limits of your confidence interval to your data frame. This can be done via the mutate function.</p>
 </div>
 </div>
@@ -406,37 +405,27 @@ The arguments for this function are:</p>
 <p>Adding color to your plots helps you distinguish between variables and categories. In the <code>ggplot</code> aesthetic, setting a variable to “color” or “fill” will automatically produce predefined color variations. However, these won’t always make sense with your data and you may want to specify your own.</p>
 <p><strong>Note:</strong> <code>R</code> allows you to use HEX color codes for customization. <a href="http://colorbrewer2.org/#type=sequential&amp;scheme=BuGn&amp;n=3">Color Brewer 2</a> is a great tool for picking out colors.</p>
 <p>For setting the color of an individual variable, you can add the argument within the geom you are using. Here you will specify the desired color, rather than the variable. Remember that you use “color” for points and lines, and “fill” for columns and bars. For example,</p>
-<ul>
-<li>geom_point(color = “blue”), or</li>
-<li>geom_col(fill = “red”)</li>
-</ul>
+<p><span class="math inline">\(+\)</span> geom_point(color = “blue”), or
+<span class="math inline">\(+\)</span> geom_col(fill = “red”)</p>
 <p><strong>Note:</strong> You can also specify the size and alpha here, too.</p>
 <p>You may also want to add multiple colors to a plot. These functions allow yoou to specify your own mappings from levels in the data to color values.</p>
-<ul>
-<li>scale_colour_manual(values = c())</li>
-<li>scale_fill_manual(values = c())</li>
-</ul>
+<p><span class="math inline">\(+\)</span> scale_colour_manual(values = c())
+<span class="math inline">\(+\)</span> scale_fill_manual(values = c())</p>
 </div>
 <div id="position-adjustments" class="section level2">
 <h2><span class="header-section-number">15.6</span> Position Adjustments</h2>
 <p>When using multiple variables, you may often want to adjust their placement on the graph. Below are some common position adjustments you can use.</p>
 <ul>
 <li><p>Arrange elements side by side</p>
-<ul>
-<li>geom_bar(position = “dodge”)</li>
-</ul></li>
+<p><span class="math inline">\(+\)</span> geom_bar(position = “dodge”)</p></li>
 <li><p>Stack elements on top of each other</p>
-<ul>
-<li>geom_bar(position = “stack”) or,</li>
-<li>geom_bar(position = “fill”)</li>
-</ul></li>
+<p><span class="math inline">\(+\)</span> geom_bar(position = “stack”) or,
+<span class="math inline">\(+\)</span> geom_bar(position = “fill”)</p></li>
 </ul>
 <p><strong>Note:</strong> “Fill” normalizes the height of the bars, while “stack” does not</p>
 <ul>
 <li><p>Move labels away from data points</p>
-<ul>
-<li>geom_label(position = “nudge”)</li>
-</ul></li>
+<p><span class="math inline">\(+\)</span> geom_label(position = “nudge”)</p></li>
 </ul>
 </div>
 <div id="using-themes" class="section level2">
@@ -469,107 +458,107 @@ The arguments for this function are:</p>
 <div id="putting-it-all-together" class="section level2">
 <h2><span class="header-section-number">15.8</span> Putting it All Together</h2>
 <p>Below, we have created three plots to provide an example of how these visual elements might all interact.</p>
-<p>First, we will establish a sub dataset to use for the examples.</p>
-<div class="sourceCode" id="cb928"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb928-1" data-line-number="1"><span class="co">#create the model</span></a>
-<a class="sourceLine" id="cb928-2" data-line-number="2">lm1 &lt;-<span class="st"> </span><span class="kw">lm</span>(glbcc_risk <span class="op">~</span><span class="st"> </span>party <span class="op">+</span><span class="st"> </span>f.gender, <span class="dt">data =</span> sub.ds)</a>
-<a class="sourceLine" id="cb928-3" data-line-number="3">lm1 <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb928-4" data-line-number="4"><span class="st">  </span><span class="kw">augment</span>(<span class="dt">newdata =</span> <span class="kw">data.frame</span>(<span class="dt">party =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">2</span>,</a>
-<a class="sourceLine" id="cb928-5" data-line-number="5">                               <span class="dt">f.gender =</span> <span class="st">&quot;Men&quot;</span>)) -&gt;<span class="st"> </span>fit1.m</a>
-<a class="sourceLine" id="cb928-6" data-line-number="6">lm1 <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb928-7" data-line-number="7"><span class="st">  </span><span class="kw">augment</span>(<span class="dt">newdata =</span> <span class="kw">data.frame</span>(<span class="dt">party =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">2</span>,</a>
-<a class="sourceLine" id="cb928-8" data-line-number="8">                               <span class="dt">f.gender =</span> <span class="st">&quot;Women&quot;</span>)) -&gt;<span class="st"> </span>fit1.w</a>
-<a class="sourceLine" id="cb928-9" data-line-number="9"></a>
-<a class="sourceLine" id="cb928-10" data-line-number="10">fit1.df &lt;-<span class="st"> </span><span class="kw">full_join</span>(fit1.m, fit1.w)</a></code></pre></div>
+<p>First, we will establish a subset of the class dataset to use for the examples.</p>
+<div class="sourceCode" id="cb917"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb917-1" data-line-number="1"><span class="co">#create the model</span></a>
+<a class="sourceLine" id="cb917-2" data-line-number="2">lm1 &lt;-<span class="st"> </span><span class="kw">lm</span>(glbcc_risk <span class="op">~</span><span class="st"> </span>party <span class="op">+</span><span class="st"> </span>f.gender, <span class="dt">data =</span> sub.ds)</a>
+<a class="sourceLine" id="cb917-3" data-line-number="3">lm1 <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb917-4" data-line-number="4"><span class="st">  </span><span class="kw">augment</span>(<span class="dt">newdata =</span> <span class="kw">data.frame</span>(<span class="dt">party =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">2</span>,</a>
+<a class="sourceLine" id="cb917-5" data-line-number="5">                               <span class="dt">f.gender =</span> <span class="st">&quot;Men&quot;</span>)) -&gt;<span class="st"> </span>fit1.m</a>
+<a class="sourceLine" id="cb917-6" data-line-number="6">lm1 <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb917-7" data-line-number="7"><span class="st">  </span><span class="kw">augment</span>(<span class="dt">newdata =</span> <span class="kw">data.frame</span>(<span class="dt">party =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">2</span>,</a>
+<a class="sourceLine" id="cb917-8" data-line-number="8">                               <span class="dt">f.gender =</span> <span class="st">&quot;Women&quot;</span>)) -&gt;<span class="st"> </span>fit1.w</a>
+<a class="sourceLine" id="cb917-9" data-line-number="9"></a>
+<a class="sourceLine" id="cb917-10" data-line-number="10">fit1.df &lt;-<span class="st"> </span><span class="kw">full_join</span>(fit1.m, fit1.w)</a></code></pre></div>
 <pre><code>## Joining, by = c(&quot;party&quot;, &quot;f.gender&quot;, &quot;.fitted&quot;, &quot;.se.fit&quot;)</code></pre>
 <pre><code>## Warning: Column `f.gender` joining factors with different levels, coercing
 ## to character vector</code></pre>
-<div class="sourceCode" id="cb931"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb931-1" data-line-number="1"><span class="co">#visualize the model</span></a>
-<a class="sourceLine" id="cb931-2" data-line-number="2"><span class="kw">ggplot</span>(fit1.df, <span class="kw">aes</span>(party, .fitted, <span class="dt">color =</span> f.gender)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb931-3" data-line-number="3"><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">stat =</span> <span class="st">&quot;identity&quot;</span>, <span class="dt">position =</span> <span class="kw">position_dodge</span>(<span class="dt">width =</span> <span class="dv">0</span>))  <span class="op">+</span></a>
-<a class="sourceLine" id="cb931-4" data-line-number="4"><span class="st">  </span><span class="kw">scale_x_continuous</span>(<span class="dt">breaks =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">2</span>, <span class="dt">labels =</span> <span class="kw">c</span>(<span class="st">&quot;Democrat&quot;</span>, <span class="st">&quot;Republican&quot;</span>)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb931-5" data-line-number="5"><span class="st">  </span><span class="kw">geom_errorbar</span>(<span class="kw">aes</span>(<span class="dt">ymin =</span> .fitted <span class="op">-</span><span class="st"> </span><span class="fl">1.96</span> <span class="op">*</span><span class="st"> </span>.se.fit, </a>
-<a class="sourceLine" id="cb931-6" data-line-number="6">                    <span class="dt">ymax =</span> .fitted <span class="op">+</span><span class="st"> </span><span class="fl">1.96</span> <span class="op">*</span><span class="st"> </span>.se.fit), <span class="dt">width =</span> <span class="fl">0.25</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb931-7" data-line-number="7"><span class="st">  </span><span class="kw">scale_colour_manual</span>(<span class="dt">name=</span><span class="st">&quot;&quot;</span>,  <span class="dt">values =</span><span class="kw">c</span>(<span class="st">&quot;#468499&quot;</span>, <span class="st">&quot;#f6546a&quot;</span>)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb931-8" data-line-number="8"><span class="st">  </span><span class="kw">ylab</span>(<span class="st">&quot;Perceived Risk of Climate Change&quot;</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb931-9" data-line-number="9"><span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;Party Affiliation&quot;</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb931-10" data-line-number="10"><span class="st">  </span><span class="kw">ggtitle</span>(<span class="st">&quot;Climate Change Risk By Gender and Party&quot;</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb931-11" data-line-number="11"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">color=</span><span class="st">&quot;Gender&quot;</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb931-12" data-line-number="12"><span class="st">  </span><span class="kw">scale_fill_discrete</span>(<span class="dt">guide=</span><span class="ot">FALSE</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb931-13" data-line-number="13"><span class="st">  </span><span class="kw">theme_minimal</span>()</a></code></pre></div>
+<div class="sourceCode" id="cb920"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb920-1" data-line-number="1"><span class="co">#visualize the model</span></a>
+<a class="sourceLine" id="cb920-2" data-line-number="2"><span class="kw">ggplot</span>(fit1.df, <span class="kw">aes</span>(party, .fitted, <span class="dt">color =</span> f.gender)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb920-3" data-line-number="3"><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">stat =</span> <span class="st">&quot;identity&quot;</span>, <span class="dt">position =</span> <span class="kw">position_dodge</span>(<span class="dt">width =</span> <span class="dv">0</span>))  <span class="op">+</span></a>
+<a class="sourceLine" id="cb920-4" data-line-number="4"><span class="st">  </span><span class="kw">scale_x_continuous</span>(<span class="dt">breaks =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">2</span>, <span class="dt">labels =</span> <span class="kw">c</span>(<span class="st">&quot;Democrat&quot;</span>, <span class="st">&quot;Republican&quot;</span>)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb920-5" data-line-number="5"><span class="st">  </span><span class="kw">geom_errorbar</span>(<span class="kw">aes</span>(<span class="dt">ymin =</span> .fitted <span class="op">-</span><span class="st"> </span><span class="fl">1.96</span> <span class="op">*</span><span class="st"> </span>.se.fit, </a>
+<a class="sourceLine" id="cb920-6" data-line-number="6">                    <span class="dt">ymax =</span> .fitted <span class="op">+</span><span class="st"> </span><span class="fl">1.96</span> <span class="op">*</span><span class="st"> </span>.se.fit), <span class="dt">width =</span> <span class="fl">0.25</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb920-7" data-line-number="7"><span class="st">  </span><span class="kw">scale_colour_manual</span>(<span class="dt">name=</span><span class="st">&quot;&quot;</span>,  <span class="dt">values =</span><span class="kw">c</span>(<span class="st">&quot;#468499&quot;</span>, <span class="st">&quot;#f6546a&quot;</span>)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb920-8" data-line-number="8"><span class="st">  </span><span class="kw">ylab</span>(<span class="st">&quot;Perceived Risk of Climate Change&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb920-9" data-line-number="9"><span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;Party Affiliation&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb920-10" data-line-number="10"><span class="st">  </span><span class="kw">ggtitle</span>(<span class="st">&quot;Climate Change Risk By Gender and Party&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb920-11" data-line-number="11"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">color=</span><span class="st">&quot;Gender&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb920-12" data-line-number="12"><span class="st">  </span><span class="kw">scale_fill_discrete</span>(<span class="dt">guide=</span><span class="ot">FALSE</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb920-13" data-line-number="13"><span class="st">  </span><span class="kw">theme_minimal</span>()</a></code></pre></div>
 <p><img src="_main_files/figure-html/14_ex1-1.png" width="672" /></p>
-<div class="sourceCode" id="cb932"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb932-1" data-line-number="1"><span class="co">#creating the model</span></a>
-<a class="sourceLine" id="cb932-2" data-line-number="2">lm2 &lt;-<span class="st"> </span><span class="kw">lm</span>(glbcc_risk <span class="op">~</span><span class="st"> </span>wtr_comm <span class="op">+</span><span class="st"> </span>f.gender, sub.ds)</a>
-<a class="sourceLine" id="cb932-3" data-line-number="3">lm2 <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb932-4" data-line-number="4"><span class="st">  </span><span class="kw">augment</span>(<span class="dt">newdata =</span> <span class="kw">data.frame</span>(<span class="dt">wtr_comm =</span> <span class="dv">0</span><span class="op">:</span><span class="dv">10</span>,</a>
-<a class="sourceLine" id="cb932-5" data-line-number="5">                               <span class="dt">f.gender =</span> <span class="st">&quot;Women&quot;</span>)) -&gt;<span class="st"> </span>fit2.w</a>
-<a class="sourceLine" id="cb932-6" data-line-number="6">lm2 <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb932-7" data-line-number="7"><span class="st">  </span><span class="kw">augment</span>(<span class="dt">newdata =</span> <span class="kw">data.frame</span>(<span class="dt">wtr_comm =</span> <span class="dv">0</span><span class="op">:</span><span class="dv">10</span>,</a>
-<a class="sourceLine" id="cb932-8" data-line-number="8">                               <span class="dt">f.gender =</span> <span class="st">&quot;Men&quot;</span>)) -&gt;<span class="st"> </span>fit2.m</a>
-<a class="sourceLine" id="cb932-9" data-line-number="9">fit2.df &lt;-<span class="st"> </span><span class="kw">full_join</span>(fit2.w, fit2.m)</a></code></pre></div>
+<div class="sourceCode" id="cb921"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb921-1" data-line-number="1"><span class="co">#creating the model</span></a>
+<a class="sourceLine" id="cb921-2" data-line-number="2">lm2 &lt;-<span class="st"> </span><span class="kw">lm</span>(glbcc_risk <span class="op">~</span><span class="st"> </span>wtr_comm <span class="op">+</span><span class="st"> </span>f.gender, sub.ds)</a>
+<a class="sourceLine" id="cb921-3" data-line-number="3">lm2 <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb921-4" data-line-number="4"><span class="st">  </span><span class="kw">augment</span>(<span class="dt">newdata =</span> <span class="kw">data.frame</span>(<span class="dt">wtr_comm =</span> <span class="dv">0</span><span class="op">:</span><span class="dv">10</span>,</a>
+<a class="sourceLine" id="cb921-5" data-line-number="5">                               <span class="dt">f.gender =</span> <span class="st">&quot;Women&quot;</span>)) -&gt;<span class="st"> </span>fit2.w</a>
+<a class="sourceLine" id="cb921-6" data-line-number="6">lm2 <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb921-7" data-line-number="7"><span class="st">  </span><span class="kw">augment</span>(<span class="dt">newdata =</span> <span class="kw">data.frame</span>(<span class="dt">wtr_comm =</span> <span class="dv">0</span><span class="op">:</span><span class="dv">10</span>,</a>
+<a class="sourceLine" id="cb921-8" data-line-number="8">                               <span class="dt">f.gender =</span> <span class="st">&quot;Men&quot;</span>)) -&gt;<span class="st"> </span>fit2.m</a>
+<a class="sourceLine" id="cb921-9" data-line-number="9">fit2.df &lt;-<span class="st"> </span><span class="kw">full_join</span>(fit2.w, fit2.m)</a></code></pre></div>
 <pre><code>## Joining, by = c(&quot;wtr_comm&quot;, &quot;f.gender&quot;, &quot;.fitted&quot;, &quot;.se.fit&quot;)</code></pre>
 <pre><code>## Warning: Column `f.gender` joining factors with different levels, coercing
 ## to character vector</code></pre>
-<div class="sourceCode" id="cb935"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb935-1" data-line-number="1">fit2.df &lt;-<span class="st"> </span>fit2.df <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb935-2" data-line-number="2"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">up =</span> .fitted <span class="op">+</span><span class="st"> </span><span class="fl">1.96</span> <span class="op">*</span><span class="st"> </span>.se.fit,</a>
-<a class="sourceLine" id="cb935-3" data-line-number="3">         <span class="dt">low =</span> .fitted <span class="op">-</span><span class="st"> </span><span class="fl">1.96</span> <span class="op">*</span><span class="st"> </span>.se.fit)</a>
-<a class="sourceLine" id="cb935-4" data-line-number="4"></a>
-<a class="sourceLine" id="cb935-5" data-line-number="5"><span class="co">#visualizing the model</span></a>
-<a class="sourceLine" id="cb935-6" data-line-number="6">fit2.df <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb935-7" data-line-number="7"><span class="kw">ggplot</span>(., <span class="kw">aes</span>(<span class="dt">x =</span> wtr_comm, <span class="dt">y =</span> .fitted, <span class="dt">color =</span> f.gender)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb935-8" data-line-number="8"><span class="st">  </span><span class="kw">geom_line</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb935-9" data-line-number="9"><span class="st">  </span><span class="kw">geom_ribbon</span>(<span class="kw">aes</span>(<span class="dt">ymin =</span> low, <span class="dt">ymax =</span> up, <span class="dt">fill =</span> f.gender), <span class="dt">alpha =</span> <span class="fl">.3</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb935-10" data-line-number="10"><span class="st">  </span><span class="kw">coord_cartesian</span>(<span class="dt">ylim =</span> <span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">9</span>), <span class="dt">xlim =</span> <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">5</span>)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb935-11" data-line-number="11"><span class="st">  </span><span class="kw">scale_x_continuous</span>(<span class="dt">breaks=</span><span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span> ,<span class="dv">3</span> ,<span class="dv">4</span> ,<span class="dv">5</span>), <span class="dt">labels=</span><span class="kw">c</span>(<span class="st">&quot;Definitely No&quot;</span>, </a>
-<a class="sourceLine" id="cb935-12" data-line-number="12">                                                       <span class="st">&quot;Probably No&quot;</span>, <span class="st">&quot;Unsure&quot;</span>,</a>
-<a class="sourceLine" id="cb935-13" data-line-number="13">                                                       <span class="st">&quot;Probably Yes&quot;</span>, <span class="st">&quot;Definitely Yes&quot;</span>)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb935-14" data-line-number="14"><span class="st">  </span><span class="kw">theme</span>(<span class="dt">legend.position =</span> <span class="st">&quot;bottom&quot;</span>, <span class="dt">legend.direction =</span> <span class="st">&quot;horizontal&quot;</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb935-15" data-line-number="15"><span class="st">  </span><span class="kw">ggtitle</span>(<span class="st">&quot;Concern for Water Supply and Climate Change&quot;</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb935-16" data-line-number="16"><span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;Considers Water Supply Adequate&quot;</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb935-17" data-line-number="17"><span class="st">  </span><span class="kw">ylab</span>(<span class="st">&quot;Perceived Climate Change Risk&quot;</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb935-18" data-line-number="18"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">color=</span><span class="st">&quot;Gender&quot;</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb935-19" data-line-number="19"><span class="st">  </span><span class="kw">scale_fill_discrete</span>(<span class="dt">guide=</span><span class="ot">FALSE</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb924"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb924-1" data-line-number="1">fit2.df &lt;-<span class="st"> </span>fit2.df <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb924-2" data-line-number="2"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">up =</span> .fitted <span class="op">+</span><span class="st"> </span><span class="fl">1.96</span> <span class="op">*</span><span class="st"> </span>.se.fit,</a>
+<a class="sourceLine" id="cb924-3" data-line-number="3">         <span class="dt">low =</span> .fitted <span class="op">-</span><span class="st"> </span><span class="fl">1.96</span> <span class="op">*</span><span class="st"> </span>.se.fit)</a>
+<a class="sourceLine" id="cb924-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb924-5" data-line-number="5"><span class="co">#visualizing the model</span></a>
+<a class="sourceLine" id="cb924-6" data-line-number="6">fit2.df <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb924-7" data-line-number="7"><span class="kw">ggplot</span>(., <span class="kw">aes</span>(<span class="dt">x =</span> wtr_comm, <span class="dt">y =</span> .fitted, <span class="dt">color =</span> f.gender)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb924-8" data-line-number="8"><span class="st">  </span><span class="kw">geom_line</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb924-9" data-line-number="9"><span class="st">  </span><span class="kw">geom_ribbon</span>(<span class="kw">aes</span>(<span class="dt">ymin =</span> low, <span class="dt">ymax =</span> up, <span class="dt">fill =</span> f.gender), <span class="dt">alpha =</span> <span class="fl">.3</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb924-10" data-line-number="10"><span class="st">  </span><span class="kw">coord_cartesian</span>(<span class="dt">ylim =</span> <span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">9</span>), <span class="dt">xlim =</span> <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">5</span>)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb924-11" data-line-number="11"><span class="st">  </span><span class="kw">scale_x_continuous</span>(<span class="dt">breaks=</span><span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span> ,<span class="dv">3</span> ,<span class="dv">4</span> ,<span class="dv">5</span>), <span class="dt">labels=</span><span class="kw">c</span>(<span class="st">&quot;Definitely No&quot;</span>, </a>
+<a class="sourceLine" id="cb924-12" data-line-number="12">                                                       <span class="st">&quot;Probably No&quot;</span>, <span class="st">&quot;Unsure&quot;</span>,</a>
+<a class="sourceLine" id="cb924-13" data-line-number="13">                                                       <span class="st">&quot;Probably Yes&quot;</span>, <span class="st">&quot;Definitely Yes&quot;</span>)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb924-14" data-line-number="14"><span class="st">  </span><span class="kw">theme</span>(<span class="dt">legend.position =</span> <span class="st">&quot;bottom&quot;</span>, <span class="dt">legend.direction =</span> <span class="st">&quot;horizontal&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb924-15" data-line-number="15"><span class="st">  </span><span class="kw">ggtitle</span>(<span class="st">&quot;Concern for Water Supply and Climate Change&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb924-16" data-line-number="16"><span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;Considers Water Supply Adequate&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb924-17" data-line-number="17"><span class="st">  </span><span class="kw">ylab</span>(<span class="st">&quot;Perceived Climate Change Risk&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb924-18" data-line-number="18"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">color=</span><span class="st">&quot;Gender&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb924-19" data-line-number="19"><span class="st">  </span><span class="kw">scale_fill_discrete</span>(<span class="dt">guide=</span><span class="ot">FALSE</span>)</a></code></pre></div>
 <p><img src="_main_files/figure-html/14_ex2-1.png" width="672" /></p>
-<div class="sourceCode" id="cb936"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb936-1" data-line-number="1">lm3 &lt;-<span class="st"> </span><span class="kw">lm</span>(glbwrm_risk_fed_mgmt <span class="op">~</span><span class="st"> </span>ideol <span class="op">*</span><span class="st"> </span>glbcc_risk, <span class="dt">data =</span> sub.ds)</a>
-<a class="sourceLine" id="cb936-2" data-line-number="2">lm3 <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb936-3" data-line-number="3"><span class="st">  </span><span class="kw">augment</span>(<span class="dt">newdata =</span> <span class="kw">data.frame</span>(<span class="dt">ideol =</span> <span class="dv">1</span>, <span class="dt">glbcc_risk =</span> <span class="kw">seq</span>(<span class="dv">1</span>, <span class="dv">10</span>, <span class="dv">1</span>))) -&gt;<span class="st"> </span>id1</a>
-<a class="sourceLine" id="cb936-4" data-line-number="4">lm3 <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb936-5" data-line-number="5"><span class="st">  </span><span class="kw">augment</span>(<span class="dt">newdata =</span> <span class="kw">data.frame</span>(<span class="dt">ideol =</span> <span class="dv">2</span>, <span class="dt">glbcc_risk =</span> <span class="kw">seq</span>(<span class="dv">1</span>, <span class="dv">10</span>, <span class="dv">1</span>))) -&gt;<span class="st"> </span>id2</a>
-<a class="sourceLine" id="cb936-6" data-line-number="6">lm3 <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb936-7" data-line-number="7"><span class="st">  </span><span class="kw">augment</span>(<span class="dt">newdata =</span> <span class="kw">data.frame</span>(<span class="dt">ideol =</span> <span class="dv">3</span>, <span class="dt">glbcc_risk =</span> <span class="kw">seq</span>(<span class="dv">1</span>, <span class="dv">10</span>, <span class="dv">1</span>))) -&gt;<span class="st"> </span>id3</a>
-<a class="sourceLine" id="cb936-8" data-line-number="8">lm3 <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb936-9" data-line-number="9"><span class="st">  </span><span class="kw">augment</span>(<span class="dt">newdata =</span> <span class="kw">data.frame</span>(<span class="dt">ideol =</span> <span class="dv">4</span>, <span class="dt">glbcc_risk =</span> <span class="kw">seq</span>(<span class="dv">1</span>, <span class="dv">10</span>, <span class="dv">1</span>))) -&gt;<span class="st"> </span>id4</a>
-<a class="sourceLine" id="cb936-10" data-line-number="10">lm3 <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb936-11" data-line-number="11"><span class="st">  </span><span class="kw">augment</span>(<span class="dt">newdata =</span> <span class="kw">data.frame</span>(<span class="dt">ideol =</span> <span class="dv">5</span>, <span class="dt">glbcc_risk =</span> <span class="kw">seq</span>(<span class="dv">1</span>, <span class="dv">10</span>, <span class="dv">1</span>))) -&gt;<span class="st"> </span>id5</a>
-<a class="sourceLine" id="cb936-12" data-line-number="12">lm3 <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb936-13" data-line-number="13"><span class="st">  </span><span class="kw">augment</span>(<span class="dt">newdata =</span> <span class="kw">data.frame</span>(<span class="dt">ideol =</span> <span class="dv">6</span>, <span class="dt">glbcc_risk =</span> <span class="kw">seq</span>(<span class="dv">1</span>, <span class="dv">10</span>, <span class="dv">1</span>))) -&gt;<span class="st"> </span>id6</a>
-<a class="sourceLine" id="cb936-14" data-line-number="14">lm3 <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb936-15" data-line-number="15"><span class="st">  </span><span class="kw">augment</span>(<span class="dt">newdata =</span> <span class="kw">data.frame</span>(<span class="dt">ideol =</span> <span class="dv">7</span>, <span class="dt">glbcc_risk =</span> <span class="kw">seq</span>(<span class="dv">1</span>, <span class="dv">10</span>, <span class="dv">1</span>))) -&gt;<span class="st"> </span>id7</a>
-<a class="sourceLine" id="cb936-16" data-line-number="16"><span class="kw">full_join</span>(id1, id2) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb936-17" data-line-number="17"><span class="st">  </span><span class="kw">full_join</span>(., id3) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb936-18" data-line-number="18"><span class="st">  </span><span class="kw">full_join</span>(., id4) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb936-19" data-line-number="19"><span class="st">  </span><span class="kw">full_join</span>(., id5) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb936-20" data-line-number="20"><span class="st">  </span><span class="kw">full_join</span>(., id6) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb936-21" data-line-number="21"><span class="st">  </span><span class="kw">full_join</span>(., id7) -&gt;<span class="st"> </span>fit3.df</a></code></pre></div>
+<div class="sourceCode" id="cb925"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb925-1" data-line-number="1">lm3 &lt;-<span class="st"> </span><span class="kw">lm</span>(glbwrm_risk_fed_mgmt <span class="op">~</span><span class="st"> </span>ideol <span class="op">*</span><span class="st"> </span>glbcc_risk, <span class="dt">data =</span> sub.ds)</a>
+<a class="sourceLine" id="cb925-2" data-line-number="2">lm3 <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb925-3" data-line-number="3"><span class="st">  </span><span class="kw">augment</span>(<span class="dt">newdata =</span> <span class="kw">data.frame</span>(<span class="dt">ideol =</span> <span class="dv">1</span>, <span class="dt">glbcc_risk =</span> <span class="kw">seq</span>(<span class="dv">1</span>, <span class="dv">10</span>, <span class="dv">1</span>))) -&gt;<span class="st"> </span>id1</a>
+<a class="sourceLine" id="cb925-4" data-line-number="4">lm3 <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb925-5" data-line-number="5"><span class="st">  </span><span class="kw">augment</span>(<span class="dt">newdata =</span> <span class="kw">data.frame</span>(<span class="dt">ideol =</span> <span class="dv">2</span>, <span class="dt">glbcc_risk =</span> <span class="kw">seq</span>(<span class="dv">1</span>, <span class="dv">10</span>, <span class="dv">1</span>))) -&gt;<span class="st"> </span>id2</a>
+<a class="sourceLine" id="cb925-6" data-line-number="6">lm3 <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb925-7" data-line-number="7"><span class="st">  </span><span class="kw">augment</span>(<span class="dt">newdata =</span> <span class="kw">data.frame</span>(<span class="dt">ideol =</span> <span class="dv">3</span>, <span class="dt">glbcc_risk =</span> <span class="kw">seq</span>(<span class="dv">1</span>, <span class="dv">10</span>, <span class="dv">1</span>))) -&gt;<span class="st"> </span>id3</a>
+<a class="sourceLine" id="cb925-8" data-line-number="8">lm3 <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb925-9" data-line-number="9"><span class="st">  </span><span class="kw">augment</span>(<span class="dt">newdata =</span> <span class="kw">data.frame</span>(<span class="dt">ideol =</span> <span class="dv">4</span>, <span class="dt">glbcc_risk =</span> <span class="kw">seq</span>(<span class="dv">1</span>, <span class="dv">10</span>, <span class="dv">1</span>))) -&gt;<span class="st"> </span>id4</a>
+<a class="sourceLine" id="cb925-10" data-line-number="10">lm3 <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb925-11" data-line-number="11"><span class="st">  </span><span class="kw">augment</span>(<span class="dt">newdata =</span> <span class="kw">data.frame</span>(<span class="dt">ideol =</span> <span class="dv">5</span>, <span class="dt">glbcc_risk =</span> <span class="kw">seq</span>(<span class="dv">1</span>, <span class="dv">10</span>, <span class="dv">1</span>))) -&gt;<span class="st"> </span>id5</a>
+<a class="sourceLine" id="cb925-12" data-line-number="12">lm3 <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb925-13" data-line-number="13"><span class="st">  </span><span class="kw">augment</span>(<span class="dt">newdata =</span> <span class="kw">data.frame</span>(<span class="dt">ideol =</span> <span class="dv">6</span>, <span class="dt">glbcc_risk =</span> <span class="kw">seq</span>(<span class="dv">1</span>, <span class="dv">10</span>, <span class="dv">1</span>))) -&gt;<span class="st"> </span>id6</a>
+<a class="sourceLine" id="cb925-14" data-line-number="14">lm3 <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb925-15" data-line-number="15"><span class="st">  </span><span class="kw">augment</span>(<span class="dt">newdata =</span> <span class="kw">data.frame</span>(<span class="dt">ideol =</span> <span class="dv">7</span>, <span class="dt">glbcc_risk =</span> <span class="kw">seq</span>(<span class="dv">1</span>, <span class="dv">10</span>, <span class="dv">1</span>))) -&gt;<span class="st"> </span>id7</a>
+<a class="sourceLine" id="cb925-16" data-line-number="16"><span class="kw">full_join</span>(id1, id2) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb925-17" data-line-number="17"><span class="st">  </span><span class="kw">full_join</span>(., id3) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb925-18" data-line-number="18"><span class="st">  </span><span class="kw">full_join</span>(., id4) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb925-19" data-line-number="19"><span class="st">  </span><span class="kw">full_join</span>(., id5) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb925-20" data-line-number="20"><span class="st">  </span><span class="kw">full_join</span>(., id6) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb925-21" data-line-number="21"><span class="st">  </span><span class="kw">full_join</span>(., id7) -&gt;<span class="st"> </span>fit3.df</a></code></pre></div>
 <pre><code>## Joining, by = c(&quot;ideol&quot;, &quot;glbcc_risk&quot;, &quot;.fitted&quot;, &quot;.se.fit&quot;)
 ## Joining, by = c(&quot;ideol&quot;, &quot;glbcc_risk&quot;, &quot;.fitted&quot;, &quot;.se.fit&quot;)
 ## Joining, by = c(&quot;ideol&quot;, &quot;glbcc_risk&quot;, &quot;.fitted&quot;, &quot;.se.fit&quot;)
 ## Joining, by = c(&quot;ideol&quot;, &quot;glbcc_risk&quot;, &quot;.fitted&quot;, &quot;.se.fit&quot;)
 ## Joining, by = c(&quot;ideol&quot;, &quot;glbcc_risk&quot;, &quot;.fitted&quot;, &quot;.se.fit&quot;)
 ## Joining, by = c(&quot;ideol&quot;, &quot;glbcc_risk&quot;, &quot;.fitted&quot;, &quot;.se.fit&quot;)</code></pre>
-<div class="sourceCode" id="cb938"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb938-1" data-line-number="1"><span class="co">#create a color scale</span></a>
-<a class="sourceLine" id="cb938-2" data-line-number="2">col_scale&lt;-<span class="kw">colorRampPalette</span>(<span class="kw">c</span>(<span class="st">&quot;#0200bd50&quot;</span>,<span class="st">&quot;#FF000050&quot;</span>))(<span class="dv">7</span>)</a>
-<a class="sourceLine" id="cb938-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb938-4" data-line-number="4"><span class="co">#visualizing the model</span></a>
-<a class="sourceLine" id="cb938-5" data-line-number="5"><span class="kw">ggplot</span>(fit3.df, <span class="kw">aes</span>(glbcc_risk, .fitted, <span class="dt">color =</span> <span class="kw">as.factor</span>(ideol))) <span class="op">+</span></a>
-<a class="sourceLine" id="cb938-6" data-line-number="6"><span class="st">  </span><span class="kw">geom_line</span>(<span class="dt">size =</span> <span class="dv">2</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb938-7" data-line-number="7"><span class="st">  </span><span class="kw">scale_color_manual</span>(<span class="dt">values =</span> <span class="kw">c</span>(col_scale[<span class="dv">1</span>], col_scale[<span class="dv">2</span>], col_scale[<span class="dv">3</span>],</a>
-<a class="sourceLine" id="cb938-8" data-line-number="8">                       col_scale[<span class="dv">4</span>], col_scale[<span class="dv">5</span>], col_scale[<span class="dv">6</span>], col_scale[<span class="dv">7</span>]),</a>
-<a class="sourceLine" id="cb938-9" data-line-number="9">                     <span class="dt">labels =</span> <span class="kw">c</span>(<span class="st">&quot;1&quot;</span>, <span class="st">&quot;2&quot;</span>, <span class="st">&quot;3&quot;</span>, <span class="st">&quot;4&quot;</span>, <span class="st">&quot;5&quot;</span>, <span class="st">&quot;6&quot;</span>, <span class="st">&quot;7&quot;</span>),</a>
-<a class="sourceLine" id="cb938-10" data-line-number="10">                     <span class="dt">name =</span> <span class="st">&quot;Ideology&quot;</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb938-11" data-line-number="11"><span class="st">  </span><span class="kw">ggtitle</span>(<span class="st">&quot;Federal Climate Change Management by Ideology&quot;</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb938-12" data-line-number="12"><span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;Climate Change Risk&quot;</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb938-13" data-line-number="13"><span class="st">  </span><span class="kw">ylab</span>(<span class="st">&quot;Preferred Level of Federal Involvement&quot;</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb938-14" data-line-number="14"><span class="st">  </span><span class="kw">theme_bw</span>()</a></code></pre></div>
+<div class="sourceCode" id="cb927"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb927-1" data-line-number="1"><span class="co">#create a color scale</span></a>
+<a class="sourceLine" id="cb927-2" data-line-number="2">col_scale&lt;-<span class="kw">colorRampPalette</span>(<span class="kw">c</span>(<span class="st">&quot;#0200bd50&quot;</span>,<span class="st">&quot;#FF000050&quot;</span>))(<span class="dv">7</span>)</a>
+<a class="sourceLine" id="cb927-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb927-4" data-line-number="4"><span class="co">#visualizing the model</span></a>
+<a class="sourceLine" id="cb927-5" data-line-number="5"><span class="kw">ggplot</span>(fit3.df, <span class="kw">aes</span>(glbcc_risk, .fitted, <span class="dt">color =</span> <span class="kw">as.factor</span>(ideol))) <span class="op">+</span></a>
+<a class="sourceLine" id="cb927-6" data-line-number="6"><span class="st">  </span><span class="kw">geom_line</span>(<span class="dt">size =</span> <span class="dv">2</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb927-7" data-line-number="7"><span class="st">  </span><span class="kw">scale_color_manual</span>(<span class="dt">values =</span> <span class="kw">c</span>(col_scale[<span class="dv">1</span>], col_scale[<span class="dv">2</span>], col_scale[<span class="dv">3</span>],</a>
+<a class="sourceLine" id="cb927-8" data-line-number="8">                       col_scale[<span class="dv">4</span>], col_scale[<span class="dv">5</span>], col_scale[<span class="dv">6</span>], col_scale[<span class="dv">7</span>]),</a>
+<a class="sourceLine" id="cb927-9" data-line-number="9">                     <span class="dt">labels =</span> <span class="kw">c</span>(<span class="st">&quot;1&quot;</span>, <span class="st">&quot;2&quot;</span>, <span class="st">&quot;3&quot;</span>, <span class="st">&quot;4&quot;</span>, <span class="st">&quot;5&quot;</span>, <span class="st">&quot;6&quot;</span>, <span class="st">&quot;7&quot;</span>),</a>
+<a class="sourceLine" id="cb927-10" data-line-number="10">                     <span class="dt">name =</span> <span class="st">&quot;Ideology&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb927-11" data-line-number="11"><span class="st">  </span><span class="kw">ggtitle</span>(<span class="st">&quot;Federal Climate Change Management by Ideology&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb927-12" data-line-number="12"><span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;Climate Change Risk&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb927-13" data-line-number="13"><span class="st">  </span><span class="kw">ylab</span>(<span class="st">&quot;Preferred Level of Federal Involvement&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb927-14" data-line-number="14"><span class="st">  </span><span class="kw">theme_bw</span>()</a></code></pre></div>
 <p><img src="_main_files/figure-html/14_ex3-1.png" width="672" /></p>
 <p>There are an infinite number of ways you might use these (and more) elements to customize your own data visualizations. Have fun with it!</p>
 
@@ -618,7 +607,7 @@ gitbook.start({
 "link": null,
 "text": null
 },
-"download": null,
+"download": ["_main.pdf"],
 "toc": {
 "collapse": "subsection"
 }

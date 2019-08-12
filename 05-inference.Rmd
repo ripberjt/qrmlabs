@@ -254,9 +254,10 @@ ds %>%
 We need to compare variances for Democrats and Republicans on their risk perception of climate change. First use `skim()` to take a look at some summary statistics by political party.
 
 ```{r 5_ind2, echo=TRUE}
-ds %>%
-  group_by(f.part) %>%
-  skim(glbcc_risk) 
+# skim_with(numeric = list(hist = NULL))
+# ds %>%
+#   group_by(f.part) %>%
+#   skim(glbcc_risk) 
 ```
 
 The Levene test is used to test if the difference in variances is statistically significant. Similar to previously discussed hypotheses, the Levene tests the following hypotheses:
