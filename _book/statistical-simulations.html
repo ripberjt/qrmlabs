@@ -1,15 +1,14 @@
 <!DOCTYPE html>
-<html >
-
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
 <head>
 
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Lab Guide to Quantitative Research Methods in Political Science, Public Policy &amp; Public Administration.</title>
-  <meta name="description" content="Lab Guide to Quantitative Research Methods in Political Science, Public Policy &amp; Public Administration.">
-  <meta name="generator" content="bookdown 0.7 and GitBook 2.6.7">
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>14 Statistical Simulations | Lab Guide to Quantitative Research Methods in Political Science, Public Policy &amp; Public Administration.</title>
+  <meta name="description" content="14 Statistical Simulations | Lab Guide to Quantitative Research Methods in Political Science, Public Policy &amp; Public Administration." />
+  <meta name="generator" content="bookdown 0.12 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Lab Guide to Quantitative Research Methods in Political Science, Public Policy &amp; Public Administration." />
+  <meta property="og:title" content="14 Statistical Simulations | Lab Guide to Quantitative Research Methods in Political Science, Public Policy &amp; Public Administration." />
   <meta property="og:type" content="book" />
   
   
@@ -17,24 +16,24 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Lab Guide to Quantitative Research Methods in Political Science, Public Policy &amp; Public Administration." />
+  <meta name="twitter:title" content="14 Statistical Simulations | Lab Guide to Quantitative Research Methods in Political Science, Public Policy &amp; Public Administration." />
   
   
   
 
-<meta name="author" content="Joseph Ripberger, Cody Adams, Alex Davis, and Josie Davis">
 
 
 
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
 <link rel="prev" href="logistic-regression.html">
 <link rel="next" href="appendix-guide-to-data-visualization.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
@@ -47,50 +46,75 @@
 
 
 <script src="libs/htmlwidgets-1.3/htmlwidgets.js"></script>
-<script src="libs/plotly-binding-4.7.1/plotly.js"></script>
+<script src="libs/plotly-binding-4.9.0/plotly.js"></script>
 <script src="libs/typedarray-0.1/typedarray.min.js"></script>
 <link href="libs/crosstalk-1.0.0/css/crosstalk.css" rel="stylesheet" />
 <script src="libs/crosstalk-1.0.0/js/crosstalk.min.js"></script>
-<link href="libs/plotlyjs-1.29.2/plotly-htmlwidgets.css" rel="stylesheet" />
-<script src="libs/plotlyjs-1.29.2/plotly-latest.min.js"></script>
+<link href="libs/plotly-htmlwidgets-css-1.46.1/plotly-htmlwidgets.css" rel="stylesheet" />
+<script src="libs/plotly-main-1.46.1/plotly-latest.min.js"></script>
 
 
 <style type="text/css">
-div.sourceCode { overflow-x: auto; }
-table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
-  margin: 0; padding: 0; vertical-align: baseline; border: none; }
-table.sourceCode { width: 100%; line-height: 100%; }
-td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
-td.sourceCode { padding-left: 5px; }
-code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code > span.dt { color: #902000; } /* DataType */
-code > span.dv { color: #40a070; } /* DecVal */
-code > span.bn { color: #40a070; } /* BaseN */
-code > span.fl { color: #40a070; } /* Float */
-code > span.ch { color: #4070a0; } /* Char */
-code > span.st { color: #4070a0; } /* String */
-code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code > span.ot { color: #007020; } /* Other */
-code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code > span.fu { color: #06287e; } /* Function */
-code > span.er { color: #ff0000; font-weight: bold; } /* Error */
-code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-code > span.cn { color: #880000; } /* Constant */
-code > span.sc { color: #4070a0; } /* SpecialChar */
-code > span.vs { color: #4070a0; } /* VerbatimString */
-code > span.ss { color: #bb6688; } /* SpecialString */
-code > span.im { } /* Import */
-code > span.va { color: #19177c; } /* Variable */
-code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code > span.op { color: #666666; } /* Operator */
-code > span.bu { } /* BuiltIn */
-code > span.ex { } /* Extension */
-code > span.pp { color: #bc7a00; } /* Preprocessor */
-code > span.at { color: #7d9029; } /* Attribute */
-code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
 </head>
@@ -325,14 +349,14 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </ol>
 <p>As the lab progresses, we will amend the steps, but these are almost always a good place to start.</p>
 <p>First create a subset of data and remove missing observations.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ds.sub &lt;-<span class="st"> </span>ds <span class="op">%&gt;%</span>
-<span class="st">  </span>dplyr<span class="op">::</span><span class="kw">select</span>(<span class="st">&quot;footage&quot;</span>, <span class="st">&quot;income&quot;</span>, <span class="st">&quot;education&quot;</span>, <span class="st">&quot;age&quot;</span>) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">na.omit</span>()</code></pre></div>
+<div class="sourceCode" id="cb866"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb866-1" data-line-number="1">ds.sub &lt;-<span class="st"> </span>ds <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb866-2" data-line-number="2"><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">select</span>(<span class="st">&quot;footage&quot;</span>, <span class="st">&quot;income&quot;</span>, <span class="st">&quot;education&quot;</span>, <span class="st">&quot;age&quot;</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb866-3" data-line-number="3"><span class="st">  </span><span class="kw">na.omit</span>()</a></code></pre></div>
 <p>Use OLS regression to look at the relationship between square footage of a home (DV) and the IVs income, age, and education. First we use <code>zelig()</code> to specify the model, indicate <code>model=&quot;ls&quot;</code>. For the income variable use logged income. As we’ve shown many times throughout the lab, the income variable has a skew.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ds.sub<span class="op">$</span>log.inc &lt;-<span class="st"> </span><span class="kw">log</span>(ds.sub<span class="op">$</span>income)
-ols1 &lt;-<span class="st"> </span><span class="kw">zelig</span>(footage <span class="op">~</span><span class="st"> </span>log.inc <span class="op">+</span><span class="st"> </span>age <span class="op">+</span><span class="st"> </span>education, <span class="dt">data =</span> ds.sub, <span class="dt">model =</span> <span class="st">&quot;ls&quot;</span>, <span class="dt">cite =</span> <span class="ot">FALSE</span>)</code></pre></div>
+<div class="sourceCode" id="cb867"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb867-1" data-line-number="1">ds.sub<span class="op">$</span>log.inc &lt;-<span class="st"> </span><span class="kw">log</span>(ds.sub<span class="op">$</span>income)</a>
+<a class="sourceLine" id="cb867-2" data-line-number="2">ols1 &lt;-<span class="st"> </span><span class="kw">zelig</span>(footage <span class="op">~</span><span class="st"> </span>log.inc <span class="op">+</span><span class="st"> </span>age <span class="op">+</span><span class="st"> </span>education, <span class="dt">data =</span> ds.sub, <span class="dt">model =</span> <span class="st">&quot;ls&quot;</span>, <span class="dt">cite =</span> <span class="ot">FALSE</span>)</a></code></pre></div>
 <p>Just like any other model, we look at the results using the usual methods. Let’s start with <code>summary()</code>:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summary</span>(ols1)</code></pre></div>
+<div class="sourceCode" id="cb868"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb868-1" data-line-number="1"><span class="kw">summary</span>(ols1)</a></code></pre></div>
 <pre><code>## Model: 
 ## 
 ## Call:
@@ -355,14 +379,14 @@ ols1 &lt;-<span class="st"> </span><span class="kw">zelig</span>(footage <span c
 ## 
 ## Next step: Use &#39;setx&#39; method</code></pre>
 <p>As we could have guessed, increased income corresponds with increased square footage, as does age and education. Let’s further explore education and square footage while holding logged income and age at their means. First take a look at the education variable:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">table</span>(ds.sub<span class="op">$</span>education)</code></pre></div>
+<div class="sourceCode" id="cb870"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb870-1" data-line-number="1"><span class="kw">table</span>(ds.sub<span class="op">$</span>education)</a></code></pre></div>
 <pre><code>## 
 ##   1   2   3   4   5   6   7   8 
 ##  24 270 110 456 180 653 406 137</code></pre>
 <p>According to the code book, a 2 indicates a High School education and 6 indicates a Bachelor’s degree. We can set the x value of education to both 2 and 6, and then have Zelig run Monte Carlo simulations, creating quantities of interest that we can compare. Use <code>setx()</code> and <code>setx1()</code> to set the two x values:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ols1.ed &lt;-<span class="st"> </span><span class="kw">setx</span>(ols1, <span class="dt">education =</span> <span class="dv">2</span>)
-ols1.ed &lt;-<span class="st"> </span><span class="kw">setx1</span>(ols1.ed, <span class="dt">education =</span> <span class="dv">6</span>)
-ols1.ed</code></pre></div>
+<div class="sourceCode" id="cb872"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb872-1" data-line-number="1">ols1.ed &lt;-<span class="st"> </span><span class="kw">setx</span>(ols1, <span class="dt">education =</span> <span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb872-2" data-line-number="2">ols1.ed &lt;-<span class="st"> </span><span class="kw">setx1</span>(ols1.ed, <span class="dt">education =</span> <span class="dv">6</span>)</a>
+<a class="sourceLine" id="cb872-3" data-line-number="3">ols1.ed</a></code></pre></div>
 <pre><code>## setx:
 ##   (Intercept) log.inc  age education
 ## 1           1    10.9 59.9         2
@@ -372,8 +396,8 @@ ols1.ed</code></pre></div>
 ## 
 ## Next step: Use &#39;sim&#39; method</code></pre>
 <p>The next step is to use the <code>Zelig::sim()</code> function. This will use Monte Carlo simulations to generate quantiles of interest at each of the specified levels. In the past we might have predicted a Y value based on a model, but this will allow us to see mean, standard deviation, and more, based on 1000 simulations at each level of x.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ols.sim &lt;-<span class="st"> </span>Zelig<span class="op">::</span><span class="kw">sim</span>(ols1.ed)
-<span class="kw">summary</span>(ols.sim)</code></pre></div>
+<div class="sourceCode" id="cb874"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb874-1" data-line-number="1">ols.sim &lt;-<span class="st"> </span>Zelig<span class="op">::</span><span class="kw">sim</span>(ols1.ed)</a>
+<a class="sourceLine" id="cb874-2" data-line-number="2"><span class="kw">summary</span>(ols.sim)</a></code></pre></div>
 <pre><code>## 
 ##  sim x :
 ##  -----
@@ -396,21 +420,21 @@ ols1.ed</code></pre></div>
 ##       mean       sd      50%     2.5%    97.5%
 ## 1 131.3212 56.90982 131.8491 26.07368 241.1586</code></pre>
 <p>Next we use <code>plot()</code> to visualize the various QIs. I recommend clicking the “Show in New Window” button in the top right corner of the space below. <strong>Note:</strong> This is not visible via the knit PDF.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(ols.sim)</code></pre></div>
+<div class="sourceCode" id="cb876"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb876-1" data-line-number="1"><span class="kw">plot</span>(ols.sim)</a></code></pre></div>
 <p><img src="_main_files/figure-html/13_zel7-1.png" width="672" /></p>
 <p>We can use Zelig to simulate based on a range of values, similar to how we would sequence one independent variable when we would predict values in past labs. Let’s simulate the data for the whole range of education values, from 1 to 8. We use the pipe operator, %&gt;%, to simplify the syntax.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ols2.ed &lt;-<span class="st"> </span><span class="kw">setx</span>(ols1, <span class="dt">education=</span><span class="dv">1</span><span class="op">:</span><span class="dv">8</span>) <span class="op">%&gt;%</span>
-<span class="st">  </span>Zelig<span class="op">::</span><span class="kw">sim</span>()
-<span class="kw">plot</span>(ols2.ed)</code></pre></div>
+<div class="sourceCode" id="cb877"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb877-1" data-line-number="1">ols2.ed &lt;-<span class="st"> </span><span class="kw">setx</span>(ols1, <span class="dt">education=</span><span class="dv">1</span><span class="op">:</span><span class="dv">8</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb877-2" data-line-number="2"><span class="st">  </span>Zelig<span class="op">::</span><span class="kw">sim</span>()</a>
+<a class="sourceLine" id="cb877-3" data-line-number="3"><span class="kw">plot</span>(ols2.ed)</a></code></pre></div>
 <p><img src="_main_files/figure-html/13_zel8-1.png" width="672" /></p>
 <div id="plotting-predictions-with-zelig" class="section level3">
 <h3><span class="header-section-number">14.1.1</span> Plotting Predictions with Zelig</h3>
 <p>Zelig is useful in another way: plotting predictions. By adding only two more steps to the process, R can return a data frame of information in the tidyverse format that we plot with <code>ggplot2</code>. Let’s plot predicted values of Y, square footage of home, by each education level. We’ve got the simulated values, so use <code>zelig_qi_to_df()</code> to transform the data into a data frame, and use <code>qi_slimmer()</code> to slim the values and generate confidence intervals for each point:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ols.ed.df &lt;-<span class="st"> </span><span class="kw">zelig_qi_to_df</span>(ols2.ed) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">qi_slimmer</span>()</code></pre></div>
+<div class="sourceCode" id="cb878"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb878-1" data-line-number="1">ols.ed.df &lt;-<span class="st"> </span><span class="kw">zelig_qi_to_df</span>(ols2.ed) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb878-2" data-line-number="2"><span class="st">  </span><span class="kw">qi_slimmer</span>()</a></code></pre></div>
 <pre><code>## Slimming Expected Values . . .</code></pre>
 <p>Take a look at the new data:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ols.ed.df</code></pre></div>
+<div class="sourceCode" id="cb880"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb880-1" data-line-number="1">ols.ed.df</a></code></pre></div>
 <pre><code>##   setx_value  log.inc      age education qi_ci_min qi_ci_median qi_ci_max
 ## 1          x 10.93598 59.94007         1  1768.807     1888.237  2003.685
 ## 2          x 10.93598 59.94007         2  1823.811     1919.995  2013.536
@@ -421,24 +445,24 @@ ols1.ed</code></pre></div>
 ## 7          x 10.93598 59.94007         7  2016.014     2079.884  2145.876
 ## 8          x 10.93598 59.94007         8  2025.621     2111.976  2200.112</code></pre>
 <p>Logged income and age are held at their means, education is sequenced from 1 to 8, and there are three other groups of values. <code>Qi_ci_min</code> is the lower limit, <code>qi_ci_median</code> is the estimate, and <code>qi_ci_max</code> is the upper limit. Let’s plot them. Make sure to use <code>factor(education)</code> to treat each level separately.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(ols.ed.df, <span class="kw">aes</span>(<span class="kw">factor</span>(education), qi_ci_median)) <span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_errorbar</span>(<span class="kw">aes</span>(<span class="dt">ymin =</span> qi_ci_min, <span class="dt">ymax =</span> qi_ci_max)) <span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_point</span>()</code></pre></div>
+<div class="sourceCode" id="cb882"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb882-1" data-line-number="1"><span class="kw">ggplot</span>(ols.ed.df, <span class="kw">aes</span>(<span class="kw">factor</span>(education), qi_ci_median)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb882-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_errorbar</span>(<span class="kw">aes</span>(<span class="dt">ymin =</span> qi_ci_min, <span class="dt">ymax =</span> qi_ci_max)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb882-3" data-line-number="3"><span class="st">  </span><span class="kw">geom_point</span>()</a></code></pre></div>
 <p><img src="_main_files/figure-html/13_zel11-1.png" width="672" /></p>
 </div>
 </div>
 <div id="other-models" class="section level2">
 <h2><span class="header-section-number">14.2</span> Other Models</h2>
 <p>Zelig can be utilized for many different types of models. Let’s run through an example of logistic regression. For instance, we can run through the example we used in the last lab, predicting a vote for Trump.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ds<span class="op">$</span>trump &lt;-<span class="st"> </span>car<span class="op">::</span><span class="kw">recode</span>(ds<span class="op">$</span>vote_cand, <span class="st">&quot;0 = 1;1 = 0;else = NA;NA = NA&quot;</span>)</code></pre></div>
+<div class="sourceCode" id="cb883"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb883-1" data-line-number="1">ds<span class="op">$</span>trump &lt;-<span class="st"> </span>car<span class="op">::</span><span class="kw">recode</span>(ds<span class="op">$</span>vote_cand, <span class="st">&quot;0 = 1;1 = 0;else = NA;NA = NA&quot;</span>)</a></code></pre></div>
 <p>Subset the data and remove missing observations:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ds.sub &lt;-<span class="st"> </span>ds <span class="op">%&gt;%</span><span class="st"> </span>dplyr<span class="op">::</span><span class="kw">select</span>(<span class="st">&quot;footage&quot;</span>, <span class="st">&quot;trump&quot;</span>, <span class="st">&quot;gender&quot;</span>,
-                                <span class="st">&quot;ideol&quot;</span>, <span class="st">&quot;income&quot;</span>, <span class="st">&quot;education&quot;</span>, <span class="st">&quot;race&quot;</span>, <span class="st">&quot;age&quot;</span>) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">na.omit</span>() <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">log.inc =</span> <span class="kw">log</span>(income))</code></pre></div>
+<div class="sourceCode" id="cb884"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb884-1" data-line-number="1">ds.sub &lt;-<span class="st"> </span>ds <span class="op">%&gt;%</span><span class="st"> </span>dplyr<span class="op">::</span><span class="kw">select</span>(<span class="st">&quot;footage&quot;</span>, <span class="st">&quot;trump&quot;</span>, <span class="st">&quot;gender&quot;</span>,</a>
+<a class="sourceLine" id="cb884-2" data-line-number="2">                                <span class="st">&quot;ideol&quot;</span>, <span class="st">&quot;income&quot;</span>, <span class="st">&quot;education&quot;</span>, <span class="st">&quot;race&quot;</span>, <span class="st">&quot;age&quot;</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb884-3" data-line-number="3"><span class="st">  </span><span class="kw">na.omit</span>() <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb884-4" data-line-number="4"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">log.inc =</span> <span class="kw">log</span>(income))</a></code></pre></div>
 <p>Build a model that includes gender, ideology, logged income, education, and race. To indicate a logit model, include <code>model=&quot;logit&quot;</code>:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">z.log &lt;-<span class="st"> </span><span class="kw">zelig</span>(trump <span class="op">~</span><span class="st"> </span>gender <span class="op">+</span><span class="st"> </span>ideol <span class="op">+</span><span class="st"> </span>log.inc <span class="op">+</span><span class="st"> </span>education <span class="op">+</span><span class="st"> </span>race, <span class="dt">data =</span> ds.sub, <span class="dt">model=</span><span class="st">&quot;logit&quot;</span>, <span class="dt">cite=</span><span class="ot">FALSE</span>)
-<span class="kw">summary</span>(z.log)</code></pre></div>
+<div class="sourceCode" id="cb885"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb885-1" data-line-number="1">z.log &lt;-<span class="st"> </span><span class="kw">zelig</span>(trump <span class="op">~</span><span class="st"> </span>gender <span class="op">+</span><span class="st"> </span>ideol <span class="op">+</span><span class="st"> </span>log.inc <span class="op">+</span><span class="st"> </span>education <span class="op">+</span><span class="st"> </span>race, <span class="dt">data =</span> ds.sub, <span class="dt">model=</span><span class="st">&quot;logit&quot;</span>, <span class="dt">cite=</span><span class="ot">FALSE</span>)</a>
+<a class="sourceLine" id="cb885-2" data-line-number="2"><span class="kw">summary</span>(z.log)</a></code></pre></div>
 <pre><code>## Model: 
 ## 
 ## Call:
@@ -468,13 +492,13 @@ ols1.ed</code></pre></div>
 ## 
 ## Next step: Use &#39;setx&#39; method</code></pre>
 <p>Since we used ideology in the last lab, let’s find the predicted probabilities of voting for Trump based on education levels:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">log.out &lt;-<span class="st"> </span><span class="kw">setx</span>(z.log, <span class="dt">education =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">8</span>) <span class="op">%&gt;%</span>
-<span class="st">  </span>Zelig<span class="op">::</span><span class="kw">sim</span>() <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">zelig_qi_to_df</span>() <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">qi_slimmer</span>()</code></pre></div>
+<div class="sourceCode" id="cb887"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb887-1" data-line-number="1">log.out &lt;-<span class="st"> </span><span class="kw">setx</span>(z.log, <span class="dt">education =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">8</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb887-2" data-line-number="2"><span class="st">  </span>Zelig<span class="op">::</span><span class="kw">sim</span>() <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb887-3" data-line-number="3"><span class="st">  </span><span class="kw">zelig_qi_to_df</span>() <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb887-4" data-line-number="4"><span class="st">  </span><span class="kw">qi_slimmer</span>()</a></code></pre></div>
 <pre><code>## Slimming Expected Values . . .</code></pre>
 <p>Now take a look at the data frame:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">log.out</code></pre></div>
+<div class="sourceCode" id="cb889"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb889-1" data-line-number="1">log.out</a></code></pre></div>
 <pre><code>##   setx_value    gender    ideol  log.inc education     race qi_ci_min
 ## 1          x 0.4179357 4.695431 10.97955         1 1.320361 0.8043388
 ## 2          x 0.4179357 4.695431 10.97955         2 1.320361 0.7830302
@@ -494,34 +518,34 @@ ols1.ed</code></pre></div>
 ## 7    0.6287197 0.6782930
 ## 8    0.5758595 0.6452315</code></pre>
 <p>Next make the visualization.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(log.out, <span class="kw">aes</span>(<span class="kw">factor</span>(education), qi_ci_median))<span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_errorbar</span>(<span class="kw">aes</span>(<span class="dt">ymin =</span> qi_ci_min, <span class="dt">ymax =</span> qi_ci_max), <span class="dt">width =</span> .<span class="dv">2</span>) <span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">size =</span> <span class="dv">2</span>) <span class="op">+</span>
-<span class="st">  </span><span class="kw">ylab</span>(<span class="st">&quot;Predicted Probability of Trump Vote&quot;</span>) <span class="op">+</span>
-<span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;Education Level&quot;</span>)</code></pre></div>
+<div class="sourceCode" id="cb891"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb891-1" data-line-number="1"><span class="kw">ggplot</span>(log.out, <span class="kw">aes</span>(<span class="kw">factor</span>(education), qi_ci_median))<span class="op">+</span></a>
+<a class="sourceLine" id="cb891-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_errorbar</span>(<span class="kw">aes</span>(<span class="dt">ymin =</span> qi_ci_min, <span class="dt">ymax =</span> qi_ci_max), <span class="dt">width =</span> <span class="fl">.2</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb891-3" data-line-number="3"><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">size =</span> <span class="dv">2</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb891-4" data-line-number="4"><span class="st">  </span><span class="kw">ylab</span>(<span class="st">&quot;Predicted Probability of Trump Vote&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb891-5" data-line-number="5"><span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;Education Level&quot;</span>)</a></code></pre></div>
 <p><img src="_main_files/figure-html/13_zel17-1.png" width="672" /></p>
 <div id="ordered-logit" class="section level3">
 <h3><span class="header-section-number">14.2.1</span> Ordered Logit</h3>
 <p>Recall that in the last lab, we created an index of energy-saving activities and used ordered logit to assess the probability of individuals doing the activities based on their perceived climate change risk. Let’s revisit that model and go one step farther than we did last time. Instead of looking at predicted probabilities, we will use Zelig to simulate predicted values, actually predicting the number of energy-saving activities individuals do based on their perceived climate change risk.</p>
 <p>First create the index again:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">energy &lt;-<span class="st"> </span><span class="kw">with</span>(ds, <span class="kw">cbind</span>(enrgy_steps_lghts, enrgy_steps_heat, enrgy_steps_ac, 
-                         enrgy_steps_savappl, enrgy_steps_unplug, enrgy_steps_insul,
-                         enrgy_steps_savdoor, enrgy_steps_bulbs))
-
-ds<span class="op">$</span>s.energy &lt;-<span class="st"> </span><span class="kw">with</span>(ds, enrgy_steps_lghts <span class="op">+</span><span class="st"> </span>enrgy_steps_heat <span class="op">+</span><span class="st"> </span>enrgy_steps_ac <span class="op">+</span>
-<span class="st">                        </span>enrgy_steps_savappl <span class="op">+</span><span class="st"> </span>enrgy_steps_unplug <span class="op">+</span><span class="st"> </span>enrgy_steps_insul <span class="op">+</span>
-<span class="st">                        </span>enrgy_steps_savdoor <span class="op">+</span><span class="st"> </span>enrgy_steps_bulbs)</code></pre></div>
+<div class="sourceCode" id="cb892"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb892-1" data-line-number="1">energy &lt;-<span class="st"> </span><span class="kw">with</span>(ds, <span class="kw">cbind</span>(enrgy_steps_lghts, enrgy_steps_heat, enrgy_steps_ac, </a>
+<a class="sourceLine" id="cb892-2" data-line-number="2">                         enrgy_steps_savappl, enrgy_steps_unplug, enrgy_steps_insul,</a>
+<a class="sourceLine" id="cb892-3" data-line-number="3">                         enrgy_steps_savdoor, enrgy_steps_bulbs))</a>
+<a class="sourceLine" id="cb892-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb892-5" data-line-number="5">ds<span class="op">$</span>s.energy &lt;-<span class="st"> </span><span class="kw">with</span>(ds, enrgy_steps_lghts <span class="op">+</span><span class="st"> </span>enrgy_steps_heat <span class="op">+</span><span class="st"> </span>enrgy_steps_ac <span class="op">+</span></a>
+<a class="sourceLine" id="cb892-6" data-line-number="6"><span class="st">                        </span>enrgy_steps_savappl <span class="op">+</span><span class="st"> </span>enrgy_steps_unplug <span class="op">+</span><span class="st"> </span>enrgy_steps_insul <span class="op">+</span></a>
+<a class="sourceLine" id="cb892-7" data-line-number="7"><span class="st">                        </span>enrgy_steps_savdoor <span class="op">+</span><span class="st"> </span>enrgy_steps_bulbs)</a></code></pre></div>
 <p>Subset the data and remove missing observations:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ds.sub3 &lt;-<span class="st"> </span>ds <span class="op">%&gt;%</span>
-<span class="st">  </span>dplyr<span class="op">::</span><span class="kw">select</span>(<span class="st">&quot;s.energy&quot;</span>, <span class="st">&quot;ideol&quot;</span>, <span class="st">&quot;age&quot;</span>, <span class="st">&quot;glbcc_risk&quot;</span>) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">na.omit</span>()</code></pre></div>
+<div class="sourceCode" id="cb893"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb893-1" data-line-number="1">ds.sub3 &lt;-<span class="st"> </span>ds <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb893-2" data-line-number="2"><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">select</span>(<span class="st">&quot;s.energy&quot;</span>, <span class="st">&quot;ideol&quot;</span>, <span class="st">&quot;age&quot;</span>, <span class="st">&quot;glbcc_risk&quot;</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb893-3" data-line-number="3"><span class="st">  </span><span class="kw">na.omit</span>()</a></code></pre></div>
 <p>Create a factored version of the index:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ds.sub3<span class="op">$</span>f.energy &lt;-<span class="st"> </span><span class="kw">factor</span>(ds.sub3<span class="op">$</span>s.energy)</code></pre></div>
+<div class="sourceCode" id="cb894"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb894-1" data-line-number="1">ds.sub3<span class="op">$</span>f.energy &lt;-<span class="st"> </span><span class="kw">factor</span>(ds.sub3<span class="op">$</span>s.energy)</a></code></pre></div>
 <p>Build the model using <code>model=&quot;ologit&quot;</code>:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">logit1 &lt;-<span class="st"> </span><span class="kw">zelig</span>(f.energy <span class="op">~</span><span class="st"> </span>ideol <span class="op">+</span><span class="st"> </span>age <span class="op">+</span><span class="st"> </span>glbcc_risk, <span class="dt">data=</span>ds.sub3,
-               <span class="dt">model =</span> <span class="st">&quot;ologit&quot;</span>, <span class="dt">cite=</span><span class="ot">FALSE</span>)</code></pre></div>
+<div class="sourceCode" id="cb895"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb895-1" data-line-number="1">logit1 &lt;-<span class="st"> </span><span class="kw">zelig</span>(f.energy <span class="op">~</span><span class="st"> </span>ideol <span class="op">+</span><span class="st"> </span>age <span class="op">+</span><span class="st"> </span>glbcc_risk, <span class="dt">data=</span>ds.sub3,</a>
+<a class="sourceLine" id="cb895-2" data-line-number="2">               <span class="dt">model =</span> <span class="st">&quot;ologit&quot;</span>, <span class="dt">cite=</span><span class="ot">FALSE</span>)</a></code></pre></div>
 <p>Let’s review the results:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summary</span>(logit1)</code></pre></div>
+<div class="sourceCode" id="cb896"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb896-1" data-line-number="1"><span class="kw">summary</span>(logit1)</a></code></pre></div>
 <pre><code>## Model: 
 ## Call:
 ## z5$zelig(formula = f.energy ~ ideol + age + glbcc_risk, data = ds.sub3)
@@ -554,47 +578,47 @@ ds<span class="op">$</span>s.energy &lt;-<span class="st"> </span><span class="k
 <li>Use ggplot2 and <code>facet_wrap()</code> to create bar plots of the predicted values.</li>
 </ol>
 <p>We can do steps one and two together in one line of code by piping:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">pv.<span class="dv">0</span> &lt;-<span class="st"> </span><span class="kw">setx</span>(logit1, <span class="dt">glbcc_risk =</span> <span class="dv">0</span>) <span class="op">%&gt;%</span><span class="st"> </span>Zelig<span class="op">::</span><span class="kw">sim</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">get_qi</span>(<span class="dt">qi =</span> <span class="st">&quot;pv&quot;</span>, <span class="dt">xvalue =</span> <span class="st">&quot;x&quot;</span>)
-
-pv.<span class="dv">1</span> &lt;-<span class="st"> </span><span class="kw">setx</span>(logit1, <span class="dt">glbcc_risk =</span> <span class="dv">1</span>) <span class="op">%&gt;%</span><span class="st"> </span>Zelig<span class="op">::</span><span class="kw">sim</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">get_qi</span>(<span class="dt">qi =</span> <span class="st">&quot;pv&quot;</span>, <span class="dt">xvalue =</span> <span class="st">&quot;x&quot;</span>)
-
-pv.<span class="dv">2</span> &lt;-<span class="st"> </span><span class="kw">setx</span>(logit1, <span class="dt">glbcc_risk =</span> <span class="dv">2</span>) <span class="op">%&gt;%</span><span class="st"> </span>Zelig<span class="op">::</span><span class="kw">sim</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">get_qi</span>(<span class="dt">qi =</span> <span class="st">&quot;pv&quot;</span>, <span class="dt">xvalue =</span> <span class="st">&quot;x&quot;</span>)
-
-pv.<span class="dv">3</span> &lt;-<span class="st"> </span><span class="kw">setx</span>(logit1, <span class="dt">glbcc_risk =</span> <span class="dv">3</span>) <span class="op">%&gt;%</span><span class="st"> </span>Zelig<span class="op">::</span><span class="kw">sim</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">get_qi</span>(<span class="dt">qi =</span> <span class="st">&quot;pv&quot;</span>, <span class="dt">xvalue =</span> <span class="st">&quot;x&quot;</span>)
-
-pv.<span class="dv">4</span> &lt;-<span class="st"> </span><span class="kw">setx</span>(logit1, <span class="dt">glbcc_risk =</span> <span class="dv">4</span>) <span class="op">%&gt;%</span><span class="st"> </span>Zelig<span class="op">::</span><span class="kw">sim</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">get_qi</span>(<span class="dt">qi =</span> <span class="st">&quot;pv&quot;</span>, <span class="dt">xvalue =</span> <span class="st">&quot;x&quot;</span>)
-
-pv.<span class="dv">5</span> &lt;-<span class="st"> </span><span class="kw">setx</span>(logit1, <span class="dt">glbcc_risk =</span> <span class="dv">5</span>) <span class="op">%&gt;%</span><span class="st"> </span>Zelig<span class="op">::</span><span class="kw">sim</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">get_qi</span>(<span class="dt">qi =</span> <span class="st">&quot;pv&quot;</span>, <span class="dt">xvalue =</span> <span class="st">&quot;x&quot;</span>)
-
-pv.<span class="dv">6</span> &lt;-<span class="st"> </span><span class="kw">setx</span>(logit1, <span class="dt">glbcc_risk =</span> <span class="dv">6</span>) <span class="op">%&gt;%</span><span class="st"> </span>Zelig<span class="op">::</span><span class="kw">sim</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">get_qi</span>(<span class="dt">qi =</span> <span class="st">&quot;pv&quot;</span>, <span class="dt">xvalue =</span> <span class="st">&quot;x&quot;</span>)
-
-pv.<span class="dv">7</span> &lt;-<span class="st"> </span><span class="kw">setx</span>(logit1, <span class="dt">glbcc_risk =</span> <span class="dv">7</span>) <span class="op">%&gt;%</span><span class="st"> </span>Zelig<span class="op">::</span><span class="kw">sim</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">get_qi</span>(<span class="dt">qi =</span> <span class="st">&quot;pv&quot;</span>, <span class="dt">xvalue =</span> <span class="st">&quot;x&quot;</span>)
-
-pv.<span class="dv">8</span> &lt;-<span class="st"> </span><span class="kw">setx</span>(logit1, <span class="dt">glbcc_risk =</span> <span class="dv">8</span>) <span class="op">%&gt;%</span><span class="st"> </span>Zelig<span class="op">::</span><span class="kw">sim</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">get_qi</span>(<span class="dt">qi =</span> <span class="st">&quot;pv&quot;</span>, <span class="dt">xvalue =</span> <span class="st">&quot;x&quot;</span>)
-
-pv.<span class="dv">9</span> &lt;-<span class="st"> </span><span class="kw">setx</span>(logit1, <span class="dt">glbcc_risk =</span> <span class="dv">9</span>) <span class="op">%&gt;%</span><span class="st"> </span>Zelig<span class="op">::</span><span class="kw">sim</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">get_qi</span>(<span class="dt">qi =</span> <span class="st">&quot;pv&quot;</span>, <span class="dt">xvalue =</span> <span class="st">&quot;x&quot;</span>)
-
-pv.<span class="dv">10</span> &lt;-<span class="st"> </span><span class="kw">setx</span>(logit1, <span class="dt">glbcc_risk =</span> <span class="dv">10</span>) <span class="op">%&gt;%</span><span class="st"> </span>Zelig<span class="op">::</span><span class="kw">sim</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">get_qi</span>(<span class="dt">qi =</span> <span class="st">&quot;pv&quot;</span>, <span class="dt">xvalue =</span> <span class="st">&quot;x&quot;</span>)</code></pre></div>
+<div class="sourceCode" id="cb898"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb898-1" data-line-number="1">pv<span class="fl">.0</span> &lt;-<span class="st"> </span><span class="kw">setx</span>(logit1, <span class="dt">glbcc_risk =</span> <span class="dv">0</span>) <span class="op">%&gt;%</span><span class="st"> </span>Zelig<span class="op">::</span><span class="kw">sim</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">get_qi</span>(<span class="dt">qi =</span> <span class="st">&quot;pv&quot;</span>, <span class="dt">xvalue =</span> <span class="st">&quot;x&quot;</span>)</a>
+<a class="sourceLine" id="cb898-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb898-3" data-line-number="3">pv<span class="fl">.1</span> &lt;-<span class="st"> </span><span class="kw">setx</span>(logit1, <span class="dt">glbcc_risk =</span> <span class="dv">1</span>) <span class="op">%&gt;%</span><span class="st"> </span>Zelig<span class="op">::</span><span class="kw">sim</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">get_qi</span>(<span class="dt">qi =</span> <span class="st">&quot;pv&quot;</span>, <span class="dt">xvalue =</span> <span class="st">&quot;x&quot;</span>)</a>
+<a class="sourceLine" id="cb898-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb898-5" data-line-number="5">pv<span class="fl">.2</span> &lt;-<span class="st"> </span><span class="kw">setx</span>(logit1, <span class="dt">glbcc_risk =</span> <span class="dv">2</span>) <span class="op">%&gt;%</span><span class="st"> </span>Zelig<span class="op">::</span><span class="kw">sim</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">get_qi</span>(<span class="dt">qi =</span> <span class="st">&quot;pv&quot;</span>, <span class="dt">xvalue =</span> <span class="st">&quot;x&quot;</span>)</a>
+<a class="sourceLine" id="cb898-6" data-line-number="6"></a>
+<a class="sourceLine" id="cb898-7" data-line-number="7">pv<span class="fl">.3</span> &lt;-<span class="st"> </span><span class="kw">setx</span>(logit1, <span class="dt">glbcc_risk =</span> <span class="dv">3</span>) <span class="op">%&gt;%</span><span class="st"> </span>Zelig<span class="op">::</span><span class="kw">sim</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">get_qi</span>(<span class="dt">qi =</span> <span class="st">&quot;pv&quot;</span>, <span class="dt">xvalue =</span> <span class="st">&quot;x&quot;</span>)</a>
+<a class="sourceLine" id="cb898-8" data-line-number="8"></a>
+<a class="sourceLine" id="cb898-9" data-line-number="9">pv<span class="fl">.4</span> &lt;-<span class="st"> </span><span class="kw">setx</span>(logit1, <span class="dt">glbcc_risk =</span> <span class="dv">4</span>) <span class="op">%&gt;%</span><span class="st"> </span>Zelig<span class="op">::</span><span class="kw">sim</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">get_qi</span>(<span class="dt">qi =</span> <span class="st">&quot;pv&quot;</span>, <span class="dt">xvalue =</span> <span class="st">&quot;x&quot;</span>)</a>
+<a class="sourceLine" id="cb898-10" data-line-number="10"></a>
+<a class="sourceLine" id="cb898-11" data-line-number="11">pv<span class="fl">.5</span> &lt;-<span class="st"> </span><span class="kw">setx</span>(logit1, <span class="dt">glbcc_risk =</span> <span class="dv">5</span>) <span class="op">%&gt;%</span><span class="st"> </span>Zelig<span class="op">::</span><span class="kw">sim</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">get_qi</span>(<span class="dt">qi =</span> <span class="st">&quot;pv&quot;</span>, <span class="dt">xvalue =</span> <span class="st">&quot;x&quot;</span>)</a>
+<a class="sourceLine" id="cb898-12" data-line-number="12"></a>
+<a class="sourceLine" id="cb898-13" data-line-number="13">pv<span class="fl">.6</span> &lt;-<span class="st"> </span><span class="kw">setx</span>(logit1, <span class="dt">glbcc_risk =</span> <span class="dv">6</span>) <span class="op">%&gt;%</span><span class="st"> </span>Zelig<span class="op">::</span><span class="kw">sim</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">get_qi</span>(<span class="dt">qi =</span> <span class="st">&quot;pv&quot;</span>, <span class="dt">xvalue =</span> <span class="st">&quot;x&quot;</span>)</a>
+<a class="sourceLine" id="cb898-14" data-line-number="14"></a>
+<a class="sourceLine" id="cb898-15" data-line-number="15">pv<span class="fl">.7</span> &lt;-<span class="st"> </span><span class="kw">setx</span>(logit1, <span class="dt">glbcc_risk =</span> <span class="dv">7</span>) <span class="op">%&gt;%</span><span class="st"> </span>Zelig<span class="op">::</span><span class="kw">sim</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">get_qi</span>(<span class="dt">qi =</span> <span class="st">&quot;pv&quot;</span>, <span class="dt">xvalue =</span> <span class="st">&quot;x&quot;</span>)</a>
+<a class="sourceLine" id="cb898-16" data-line-number="16"></a>
+<a class="sourceLine" id="cb898-17" data-line-number="17">pv<span class="fl">.8</span> &lt;-<span class="st"> </span><span class="kw">setx</span>(logit1, <span class="dt">glbcc_risk =</span> <span class="dv">8</span>) <span class="op">%&gt;%</span><span class="st"> </span>Zelig<span class="op">::</span><span class="kw">sim</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">get_qi</span>(<span class="dt">qi =</span> <span class="st">&quot;pv&quot;</span>, <span class="dt">xvalue =</span> <span class="st">&quot;x&quot;</span>)</a>
+<a class="sourceLine" id="cb898-18" data-line-number="18"></a>
+<a class="sourceLine" id="cb898-19" data-line-number="19">pv<span class="fl">.9</span> &lt;-<span class="st"> </span><span class="kw">setx</span>(logit1, <span class="dt">glbcc_risk =</span> <span class="dv">9</span>) <span class="op">%&gt;%</span><span class="st"> </span>Zelig<span class="op">::</span><span class="kw">sim</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">get_qi</span>(<span class="dt">qi =</span> <span class="st">&quot;pv&quot;</span>, <span class="dt">xvalue =</span> <span class="st">&quot;x&quot;</span>)</a>
+<a class="sourceLine" id="cb898-20" data-line-number="20"></a>
+<a class="sourceLine" id="cb898-21" data-line-number="21">pv<span class="fl">.10</span> &lt;-<span class="st"> </span><span class="kw">setx</span>(logit1, <span class="dt">glbcc_risk =</span> <span class="dv">10</span>) <span class="op">%&gt;%</span><span class="st"> </span>Zelig<span class="op">::</span><span class="kw">sim</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">get_qi</span>(<span class="dt">qi =</span> <span class="st">&quot;pv&quot;</span>, <span class="dt">xvalue =</span> <span class="st">&quot;x&quot;</span>)</a></code></pre></div>
 <p>Put the predicted values into a data frame:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">pv.df &lt;-<span class="st"> </span><span class="kw">data.frame</span>(pv.<span class="dv">0</span>, pv.<span class="dv">1</span>, pv.<span class="dv">2</span>, pv.<span class="dv">3</span>, pv.<span class="dv">4</span>, pv.<span class="dv">5</span>,
-                    pv.<span class="dv">6</span>, pv.<span class="dv">7</span>, pv.<span class="dv">8</span>, pv.<span class="dv">9</span>, pv.<span class="dv">10</span>)</code></pre></div>
+<div class="sourceCode" id="cb899"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb899-1" data-line-number="1">pv.df &lt;-<span class="st"> </span><span class="kw">data.frame</span>(pv<span class="fl">.0</span>, pv<span class="fl">.1</span>, pv<span class="fl">.2</span>, pv<span class="fl">.3</span>, pv<span class="fl">.4</span>, pv<span class="fl">.5</span>,</a>
+<a class="sourceLine" id="cb899-2" data-line-number="2">                    pv<span class="fl">.6</span>, pv<span class="fl">.7</span>, pv<span class="fl">.8</span>, pv<span class="fl">.9</span>, pv<span class="fl">.10</span>)</a></code></pre></div>
 <p>Melt the data:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">pv.m &lt;-<span class="st"> </span><span class="kw">melt</span>(pv.df, <span class="dt">measure.vars =</span> <span class="kw">c</span>(<span class="st">&quot;pv.0&quot;</span>, <span class="st">&quot;pv.1&quot;</span>, <span class="st">&quot;pv.2&quot;</span>,<span class="st">&quot;pv.3&quot;</span>,<span class="st">&quot;pv.4&quot;</span>,<span class="st">&quot;pv.5&quot;</span>,
-                                     <span class="st">&quot;pv.6&quot;</span>,<span class="st">&quot;pv.7&quot;</span>,<span class="st">&quot;pv.8&quot;</span>,<span class="st">&quot;pv.9&quot;</span>,<span class="st">&quot;pv.10&quot;</span>))</code></pre></div>
+<div class="sourceCode" id="cb900"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb900-1" data-line-number="1">pv.m &lt;-<span class="st"> </span><span class="kw">melt</span>(pv.df, <span class="dt">measure.vars =</span> <span class="kw">c</span>(<span class="st">&quot;pv.0&quot;</span>, <span class="st">&quot;pv.1&quot;</span>, <span class="st">&quot;pv.2&quot;</span>,<span class="st">&quot;pv.3&quot;</span>,<span class="st">&quot;pv.4&quot;</span>,<span class="st">&quot;pv.5&quot;</span>,</a>
+<a class="sourceLine" id="cb900-2" data-line-number="2">                                     <span class="st">&quot;pv.6&quot;</span>,<span class="st">&quot;pv.7&quot;</span>,<span class="st">&quot;pv.8&quot;</span>,<span class="st">&quot;pv.9&quot;</span>,<span class="st">&quot;pv.10&quot;</span>))</a></code></pre></div>
 <p>Plot the predicted values. Remember, these are the predicted values that Zelig found by doing 1000 simulations at each level, not just one predicted value. Use <code>geom_bar()</code> to bar plots:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(pv.m, <span class="kw">aes</span>(value)) <span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_bar</span>() <span class="op">+</span>
-<span class="st">  </span><span class="kw">facet_wrap</span>( <span class="op">~</span><span class="st"> </span>variable, <span class="dt">scales =</span> <span class="st">&quot;fixed&quot;</span>) <span class="op">+</span>
-<span class="st">  </span><span class="kw">scale_x_continuous</span>(<span class="dt">breaks =</span> <span class="kw">c</span>(<span class="dv">0</span><span class="op">:</span><span class="dv">10</span>))</code></pre></div>
+<div class="sourceCode" id="cb901"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb901-1" data-line-number="1"><span class="kw">ggplot</span>(pv.m, <span class="kw">aes</span>(value)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb901-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_bar</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb901-3" data-line-number="3"><span class="st">  </span><span class="kw">facet_wrap</span>( <span class="op">~</span><span class="st"> </span>variable, <span class="dt">scales =</span> <span class="st">&quot;fixed&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb901-4" data-line-number="4"><span class="st">  </span><span class="kw">scale_x_continuous</span>(<span class="dt">breaks =</span> <span class="kw">c</span>(<span class="dv">0</span><span class="op">:</span><span class="dv">10</span>))</a></code></pre></div>
 <p><img src="_main_files/figure-html/13_ord9-1.png" width="672" /></p>
 <p>We can deduce from this visualization that the skew shifts more negative as climate change risk increases, indicating that individuals more concerned about climate change are doing more energy-saving activities.</p>
 </div>
 <div id="another-example" class="section level3">
 <h3><span class="header-section-number">14.2.2</span> Another Example</h3>
 <p>Let’s go back to the example model that regressed home square footage on logged income, age, and education. Recall the model:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ols1 &lt;-<span class="st"> </span><span class="kw">zelig</span>(footage <span class="op">~</span><span class="st"> </span>log.inc <span class="op">+</span><span class="st"> </span>age <span class="op">+</span><span class="st"> </span>education, <span class="dt">data =</span> ds.sub,
-              <span class="dt">model =</span> <span class="st">&quot;ls&quot;</span>, <span class="dt">cite =</span> <span class="ot">FALSE</span>)
-<span class="kw">summary</span>(ols1)</code></pre></div>
+<div class="sourceCode" id="cb902"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb902-1" data-line-number="1">ols1 &lt;-<span class="st"> </span><span class="kw">zelig</span>(footage <span class="op">~</span><span class="st"> </span>log.inc <span class="op">+</span><span class="st"> </span>age <span class="op">+</span><span class="st"> </span>education, <span class="dt">data =</span> ds.sub,</a>
+<a class="sourceLine" id="cb902-2" data-line-number="2">              <span class="dt">model =</span> <span class="st">&quot;ls&quot;</span>, <span class="dt">cite =</span> <span class="ot">FALSE</span>)</a>
+<a class="sourceLine" id="cb902-3" data-line-number="3"><span class="kw">summary</span>(ols1)</a></code></pre></div>
 <pre><code>## Model: 
 ## 
 ## Call:
@@ -617,18 +641,18 @@ pv.<span class="dv">10</span> &lt;-<span class="st"> </span><span class="kw">set
 ## 
 ## Next step: Use &#39;setx&#39; method</code></pre>
 <p>So far in the labs, we would often sequence one IV while holding the rest constant at their means. But that is not the only way to go about this. Perhaps you were interested in the relationship between income and square footage for people who have a Bachelor’s degree, or maybe the relationship between education and square footage for individuals with a specific income. You can hold IVs constant at values other than their means. If you do so, in it important that you make note of it and are transparent about the data you are presenting. Let’s use Zelig to generate simulations and predictions for respondents who went to college by their logged income. A Bachelor’s degree is indicated by a 6 on the education scale. We need to know the range of logged income as well:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">describe</span>(ds.sub<span class="op">$</span>log.inc)</code></pre></div>
+<div class="sourceCode" id="cb904"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb904-1" data-line-number="1"><span class="kw">describe</span>(ds.sub<span class="op">$</span>log.inc)</a></code></pre></div>
 <pre><code>##    vars    n  mean   sd median trimmed mad  min   max range  skew kurtosis
 ## X1    1 1773 10.98 0.69     11   10.99 0.7 9.21 13.71   4.5 -0.12     0.05
 ##      se
 ## X1 0.02</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">inc.out &lt;-<span class="st"> </span><span class="kw">setx</span>(ols1, <span class="dt">education=</span><span class="dv">6</span>,
-                <span class="dt">log.inc =</span> <span class="kw">seq</span>(<span class="kw">min</span>(ds.sub<span class="op">$</span>log.inc), <span class="kw">max</span>(ds.sub<span class="op">$</span>log.inc))) <span class="op">%&gt;%</span>
-<span class="st">  </span>Zelig<span class="op">::</span><span class="kw">sim</span>() <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">zelig_qi_to_df</span>() <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">qi_slimmer</span>()</code></pre></div>
+<div class="sourceCode" id="cb906"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb906-1" data-line-number="1">inc.out &lt;-<span class="st"> </span><span class="kw">setx</span>(ols1, <span class="dt">education=</span><span class="dv">6</span>,</a>
+<a class="sourceLine" id="cb906-2" data-line-number="2">                <span class="dt">log.inc =</span> <span class="kw">seq</span>(<span class="kw">min</span>(ds.sub<span class="op">$</span>log.inc), <span class="kw">max</span>(ds.sub<span class="op">$</span>log.inc))) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb906-3" data-line-number="3"><span class="st">  </span>Zelig<span class="op">::</span><span class="kw">sim</span>() <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb906-4" data-line-number="4"><span class="st">  </span><span class="kw">zelig_qi_to_df</span>() <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb906-5" data-line-number="5"><span class="st">  </span><span class="kw">qi_slimmer</span>()</a></code></pre></div>
 <pre><code>## Slimming Expected Values . . .</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">inc.out</code></pre></div>
+<div class="sourceCode" id="cb908"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb908-1" data-line-number="1">inc.out</a></code></pre></div>
 <pre><code>##   setx_value  log.inc      age education qi_ci_min qi_ci_median qi_ci_max
 ## 1          x  9.21034 60.93739         6  882.4395     1036.623  1192.488
 ## 2          x 10.21034 60.93739         6 1548.5850     1632.855  1721.080
@@ -636,18 +660,18 @@ pv.<span class="dv">10</span> &lt;-<span class="st"> </span><span class="kw">set
 ## 4          x 12.21034 60.93739         6 2713.8159     2821.148  2932.045
 ## 5          x 13.21034 60.93739         6 3230.8880     3417.201  3593.192</code></pre>
 <p>Plot the predictions:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(inc.out, <span class="kw">aes</span>(<span class="kw">factor</span>(log.inc), qi_ci_median)) <span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_errorbar</span>(<span class="kw">aes</span>(<span class="dt">ymin=</span>qi_ci_min, <span class="dt">ymax=</span>qi_ci_max),<span class="dt">width=</span>.<span class="dv">2</span>) <span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">size=</span><span class="dv">2</span>)</code></pre></div>
+<div class="sourceCode" id="cb910"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb910-1" data-line-number="1"><span class="kw">ggplot</span>(inc.out, <span class="kw">aes</span>(<span class="kw">factor</span>(log.inc), qi_ci_median)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb910-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_errorbar</span>(<span class="kw">aes</span>(<span class="dt">ymin=</span>qi_ci_min, <span class="dt">ymax=</span>qi_ci_max),<span class="dt">width=</span>.<span class="dv">2</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb910-3" data-line-number="3"><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">size=</span><span class="dv">2</span>)</a></code></pre></div>
 <p><img src="_main_files/figure-html/13_ex4-1.png" width="672" /></p>
 </div>
 </div>
 <div id="zelig-with-non-zelig-models" class="section level2">
 <h2><span class="header-section-number">14.3</span> Zelig with non-Zelig Models:</h2>
 <p>There are some models that can be specified outside of Zelig but that you can use the Zelig functions on. The complete list can be found on the Zelig website, but we can demonstrate with the <code>lm()</code> function. Here’s a classic model from our labs:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ds<span class="op">$</span>log.inc &lt;-<span class="st"> </span><span class="kw">log</span>(ds<span class="op">$</span>income)
-lm1 &lt;-<span class="st"> </span><span class="kw">lm</span>(glbcc_risk <span class="op">~</span><span class="st"> </span>glbcc_cert <span class="op">+</span><span class="st"> </span>log.inc <span class="op">+</span><span class="st"> </span>education <span class="op">+</span><span class="st"> </span>gender <span class="op">+</span><span class="st"> </span>ideol, <span class="dt">data=</span>ds)
-<span class="kw">summary</span>(lm1)</code></pre></div>
+<div class="sourceCode" id="cb911"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb911-1" data-line-number="1">ds<span class="op">$</span>log.inc &lt;-<span class="st"> </span><span class="kw">log</span>(ds<span class="op">$</span>income)</a>
+<a class="sourceLine" id="cb911-2" data-line-number="2">lm1 &lt;-<span class="st"> </span><span class="kw">lm</span>(glbcc_risk <span class="op">~</span><span class="st"> </span>glbcc_cert <span class="op">+</span><span class="st"> </span>log.inc <span class="op">+</span><span class="st"> </span>education <span class="op">+</span><span class="st"> </span>gender <span class="op">+</span><span class="st"> </span>ideol, <span class="dt">data=</span>ds)</a>
+<a class="sourceLine" id="cb911-3" data-line-number="3"><span class="kw">summary</span>(lm1)</a></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = glbcc_risk ~ glbcc_cert + log.inc + education + 
@@ -673,28 +697,28 @@ lm1 &lt;-<span class="st"> </span><span class="kw">lm</span>(glbcc_risk <span cl
 ## Multiple R-squared:  0.4192, Adjusted R-squared:  0.4179 
 ## F-statistic: 326.2 on 5 and 2260 DF,  p-value: &lt; 0.00000000000000022</code></pre>
 <p>We pass this model along to <code>setx()</code> and go from there. Let’s sequence ideology from 1 to 7:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">lm1.out &lt;-<span class="st"> </span><span class="kw">setx</span>(lm1, <span class="dt">ideol=</span><span class="dv">1</span><span class="op">:</span><span class="dv">7</span>) <span class="op">%&gt;%</span>
-<span class="st">  </span>Zelig<span class="op">::</span><span class="kw">sim</span>() <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">zelig_qi_to_df</span>() <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">qi_slimmer</span>()</code></pre></div>
+<div class="sourceCode" id="cb913"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb913-1" data-line-number="1">lm1.out &lt;-<span class="st"> </span><span class="kw">setx</span>(lm1, <span class="dt">ideol=</span><span class="dv">1</span><span class="op">:</span><span class="dv">7</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb913-2" data-line-number="2"><span class="st">  </span>Zelig<span class="op">::</span><span class="kw">sim</span>() <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb913-3" data-line-number="3"><span class="st">  </span><span class="kw">zelig_qi_to_df</span>() <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb913-4" data-line-number="4"><span class="st">  </span><span class="kw">qi_slimmer</span>()</a></code></pre></div>
 <pre><code>## to_zelig is an experimental function.
 ##   Please report issues to: https://github.com/IQSS/Zelig/issues</code></pre>
 <pre><code>## Assuming zls to convert to Zelig.</code></pre>
 <pre><code>## Slimming Expected Values . . .</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(lm1.out, <span class="kw">aes</span>(<span class="dt">x=</span><span class="kw">factor</span>(ideol), <span class="dt">y =</span> qi_ci_median)) <span class="op">+</span>
-<span class="st">    </span><span class="kw">geom_errorbar</span>(<span class="kw">aes</span>(<span class="dt">ymin =</span> qi_ci_min, <span class="dt">ymax =</span> qi_ci_max), <span class="dt">width =</span> .<span class="dv">2</span>) <span class="op">+</span>
-<span class="st">    </span><span class="kw">geom_point</span>(<span class="dt">size =</span> <span class="dv">2</span>)</code></pre></div>
+<div class="sourceCode" id="cb917"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb917-1" data-line-number="1"><span class="kw">ggplot</span>(lm1.out, <span class="kw">aes</span>(<span class="dt">x=</span><span class="kw">factor</span>(ideol), <span class="dt">y =</span> qi_ci_median)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb917-2" data-line-number="2"><span class="st">    </span><span class="kw">geom_errorbar</span>(<span class="kw">aes</span>(<span class="dt">ymin =</span> qi_ci_min, <span class="dt">ymax =</span> qi_ci_max), <span class="dt">width =</span> <span class="fl">.2</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb917-3" data-line-number="3"><span class="st">    </span><span class="kw">geom_point</span>(<span class="dt">size =</span> <span class="dv">2</span>)</a></code></pre></div>
 <p><img src="_main_files/figure-html/13_ex7-1.png" width="672" /></p>
 <p>Let’s move onto a different model that might provide some interesting findings. In a previous lab we looked the relationship between ideology and support for the candidate an individual voted for. Recall that we used polynomial terms to find a better model fit and concluded that the relationship was not strictly linear. Let’s take that question one step further and break it down by political party. Perhaps there are linear relationships when we look at candidate support by ideology and party. We use Zelig to run simulations and predict values of candidate support for each of the ideology levels based on political party.</p>
 <p>First subset the data:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">d &lt;-<span class="st"> </span><span class="kw">filter</span>(ds) <span class="op">%&gt;%</span>
-<span class="st">  </span>dplyr<span class="op">::</span><span class="kw">select</span>(<span class="st">&quot;ideol&quot;</span>, <span class="st">&quot;education&quot;</span>, <span class="st">&quot;vote_cand_spt&quot;</span>, <span class="st">&quot;income&quot;</span>, <span class="st">&quot;age&quot;</span>, <span class="st">&quot;gender&quot;</span>, <span class="st">&quot;f.party.2&quot;</span>) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">na.omit</span>() <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">log.inc =</span> <span class="kw">log</span>(income),
-         <span class="dt">f.part =</span> <span class="kw">as.factor</span>(f.party.<span class="dv">2</span>))</code></pre></div>
+<div class="sourceCode" id="cb918"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb918-1" data-line-number="1">d &lt;-<span class="st"> </span><span class="kw">filter</span>(ds) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb918-2" data-line-number="2"><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">select</span>(<span class="st">&quot;ideol&quot;</span>, <span class="st">&quot;education&quot;</span>, <span class="st">&quot;vote_cand_spt&quot;</span>, <span class="st">&quot;income&quot;</span>, <span class="st">&quot;age&quot;</span>, <span class="st">&quot;gender&quot;</span>, <span class="st">&quot;f.party.2&quot;</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb918-3" data-line-number="3"><span class="st">  </span><span class="kw">na.omit</span>() <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb918-4" data-line-number="4"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">log.inc =</span> <span class="kw">log</span>(income),</a>
+<a class="sourceLine" id="cb918-5" data-line-number="5">         <span class="dt">f.part =</span> <span class="kw">as.factor</span>(f.party<span class="fl">.2</span>))</a></code></pre></div>
 <p>Build the model:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">lm2 &lt;-<span class="st"> </span><span class="kw">lm</span>(vote_cand_spt <span class="op">~</span><span class="st"> </span>ideol <span class="op">+</span><span class="st"> </span>education <span class="op">+</span><span class="st"> </span>log.inc <span class="op">+</span><span class="st"> </span>age <span class="op">+</span><span class="st"> </span>gender <span class="op">+</span><span class="st"> </span>f.part, <span class="dt">data=</span>d)
-<span class="kw">summary</span>(lm2)</code></pre></div>
+<div class="sourceCode" id="cb919"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb919-1" data-line-number="1">lm2 &lt;-<span class="st"> </span><span class="kw">lm</span>(vote_cand_spt <span class="op">~</span><span class="st"> </span>ideol <span class="op">+</span><span class="st"> </span>education <span class="op">+</span><span class="st"> </span>log.inc <span class="op">+</span><span class="st"> </span>age <span class="op">+</span><span class="st"> </span>gender <span class="op">+</span><span class="st"> </span>f.part, <span class="dt">data=</span>d)</a>
+<a class="sourceLine" id="cb919-2" data-line-number="2"><span class="kw">summary</span>(lm2)</a></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = vote_cand_spt ~ ideol + education + log.inc + age + 
@@ -721,26 +745,26 @@ lm1 &lt;-<span class="st"> </span><span class="kw">lm</span>(glbcc_risk <span cl
 ## Multiple R-squared:  0.0445, Adjusted R-squared:  0.04106 
 ## F-statistic: 12.91 on 7 and 1941 DF,  p-value: 0.0000000000000002543</code></pre>
 <p>Within the <code>setx()</code> function we can sequence ideology from 1 to 7 and sequence the three party options, Democrats, Independents, and Republicans. Then use <code>Zelig::sim()</code>. Doing so will perform 1000 simulations for each level of ideology and each party, so 1000 for Democrats with an ideology score of 1, 1000 for Democrats with an ideology score of 2, and so on.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">lm2.out &lt;-<span class="st"> </span><span class="kw">setx</span>(lm2, <span class="dt">ideol=</span><span class="dv">1</span><span class="op">:</span><span class="dv">7</span>, <span class="dt">f.part=</span><span class="kw">c</span>(<span class="st">&quot;Dem&quot;</span>, <span class="st">&quot;Ind&quot;</span>, <span class="st">&quot;Rep&quot;</span>)) <span class="op">%&gt;%</span>
-<span class="st">  </span>Zelig<span class="op">::</span><span class="kw">sim</span>()</code></pre></div>
+<div class="sourceCode" id="cb921"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb921-1" data-line-number="1">lm2.out &lt;-<span class="st"> </span><span class="kw">setx</span>(lm2, <span class="dt">ideol=</span><span class="dv">1</span><span class="op">:</span><span class="dv">7</span>, <span class="dt">f.part=</span><span class="kw">c</span>(<span class="st">&quot;Dem&quot;</span>, <span class="st">&quot;Ind&quot;</span>, <span class="st">&quot;Rep&quot;</span>)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb921-2" data-line-number="2"><span class="st">  </span>Zelig<span class="op">::</span><span class="kw">sim</span>()</a></code></pre></div>
 <pre><code>## to_zelig is an experimental function.
 ##   Please report issues to: https://github.com/IQSS/Zelig/issues</code></pre>
 <pre><code>## Assuming zls to convert to Zelig.</code></pre>
 <p>Now get the data into tidyverse data frame form, slim the QIs:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">lm2.out &lt;-<span class="st"> </span><span class="kw">zelig_qi_to_df</span>(lm2.out) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">qi_slimmer</span>()</code></pre></div>
+<div class="sourceCode" id="cb924"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb924-1" data-line-number="1">lm2.out &lt;-<span class="st"> </span><span class="kw">zelig_qi_to_df</span>(lm2.out) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb924-2" data-line-number="2"><span class="st">  </span><span class="kw">qi_slimmer</span>()</a></code></pre></div>
 <pre><code>## Slimming Expected Values . . .</code></pre>
 <p>Next plot the results of the simulations:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(lm2.out, <span class="kw">aes</span>(<span class="kw">factor</span>(ideol), qi_ci_median, <span class="dt">color =</span> f.part)) <span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_errorbar</span>(<span class="kw">aes</span>(<span class="dt">ymin =</span> qi_ci_min, <span class="dt">ymax =</span> qi_ci_max), <span class="dt">width =</span> .<span class="dv">2</span>) <span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">size =</span> <span class="dv">2</span>) <span class="op">+</span>
-<span class="st">  </span><span class="kw">scale_color_manual</span>(<span class="dt">values =</span> <span class="kw">c</span>(<span class="st">&quot;blue&quot;</span>, <span class="st">&quot;purple&quot;</span>, <span class="st">&quot;red&quot;</span>),
-                     <span class="dt">name =</span> <span class="kw">c</span>(<span class="st">&quot;Party&quot;</span>)) <span class="op">+</span>
-<span class="st">  </span><span class="kw">facet_wrap</span>( <span class="op">~</span><span class="st"> </span>f.part, <span class="dt">scales =</span> <span class="st">&quot;fixed&quot;</span>) <span class="op">+</span>
-<span class="st">  </span><span class="kw">ggtitle</span>(<span class="st">&quot;Candidate Support by Party and Ideology&quot;</span>) <span class="op">+</span>
-<span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;Ideology&quot;</span>) <span class="op">+</span>
-<span class="st">  </span><span class="kw">ylab</span>(<span class="st">&quot;Candidate Support&quot;</span>) <span class="op">+</span>
-<span class="st">  </span><span class="kw">theme_bw</span>()</code></pre></div>
+<div class="sourceCode" id="cb926"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb926-1" data-line-number="1"><span class="kw">ggplot</span>(lm2.out, <span class="kw">aes</span>(<span class="kw">factor</span>(ideol), qi_ci_median, <span class="dt">color =</span> f.part)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb926-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_errorbar</span>(<span class="kw">aes</span>(<span class="dt">ymin =</span> qi_ci_min, <span class="dt">ymax =</span> qi_ci_max), <span class="dt">width =</span> <span class="fl">.2</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb926-3" data-line-number="3"><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">size =</span> <span class="dv">2</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb926-4" data-line-number="4"><span class="st">  </span><span class="kw">scale_color_manual</span>(<span class="dt">values =</span> <span class="kw">c</span>(<span class="st">&quot;blue&quot;</span>, <span class="st">&quot;purple&quot;</span>, <span class="st">&quot;red&quot;</span>),</a>
+<a class="sourceLine" id="cb926-5" data-line-number="5">                     <span class="dt">name =</span> <span class="kw">c</span>(<span class="st">&quot;Party&quot;</span>)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb926-6" data-line-number="6"><span class="st">  </span><span class="kw">facet_wrap</span>( <span class="op">~</span><span class="st"> </span>f.part, <span class="dt">scales =</span> <span class="st">&quot;fixed&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb926-7" data-line-number="7"><span class="st">  </span><span class="kw">ggtitle</span>(<span class="st">&quot;Candidate Support by Party and Ideology&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb926-8" data-line-number="8"><span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;Ideology&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb926-9" data-line-number="9"><span class="st">  </span><span class="kw">ylab</span>(<span class="st">&quot;Candidate Support&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb926-10" data-line-number="10"><span class="st">  </span><span class="kw">theme_bw</span>()</a></code></pre></div>
 <p><img src="_main_files/figure-html/13_ex12-1.png" width="672" /></p>
 <p>This visualization tells us some interesting information: Independents do not appear to be have as much support for the candidate they voted for, regardless of their ideology. It also appears that Democrats and Republicans follow the same trend, with more conservative Democrats tending to support the candidate they voted for a little more, and the same for Republicans.</p>
 <p>For more on Zelig, make sure to check out the website: zeligproject.org</p>
@@ -773,7 +797,7 @@ gitbook.start({
 "google": false,
 "linkedin": false,
 "weibo": false,
-"instapper": false,
+"instapaper": false,
 "vk": false,
 "all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
 },
@@ -786,7 +810,11 @@ gitbook.start({
 "link": null,
 "text": null
 },
-"download": ["_main.pdf"],
+"history": {
+"link": null,
+"text": null
+},
+"download": null,
 "toc": {
 "collapse": "subsection"
 }
@@ -799,8 +827,8 @@ gitbook.start({
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
-    var src = "";
-    if (src === "" || src === "true") src = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
     if (location.protocol !== "file:" && /^https?:/.test(src))
       src = src.replace(/^https?:/, '');
     script.src = src;

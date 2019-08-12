@@ -1,15 +1,14 @@
 <!DOCTYPE html>
-<html >
-
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
 <head>
 
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Lab Guide to Quantitative Research Methods in Political Science, Public Policy &amp; Public Administration.</title>
-  <meta name="description" content="Lab Guide to Quantitative Research Methods in Political Science, Public Policy &amp; Public Administration.">
-  <meta name="generator" content="bookdown 0.7 and GitBook 2.6.7">
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>2 Basics of R | Lab Guide to Quantitative Research Methods in Political Science, Public Policy &amp; Public Administration.</title>
+  <meta name="description" content="2 Basics of R | Lab Guide to Quantitative Research Methods in Political Science, Public Policy &amp; Public Administration." />
+  <meta name="generator" content="bookdown 0.12 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Lab Guide to Quantitative Research Methods in Political Science, Public Policy &amp; Public Administration." />
+  <meta property="og:title" content="2 Basics of R | Lab Guide to Quantitative Research Methods in Political Science, Public Policy &amp; Public Administration." />
   <meta property="og:type" content="book" />
   
   
@@ -17,24 +16,24 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Lab Guide to Quantitative Research Methods in Political Science, Public Policy &amp; Public Administration." />
+  <meta name="twitter:title" content="2 Basics of R | Lab Guide to Quantitative Research Methods in Political Science, Public Policy &amp; Public Administration." />
   
   
   
 
-<meta name="author" content="Joseph Ripberger, Cody Adams, Alex Davis, and Josie Davis">
 
 
 
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
 <link rel="prev" href="introduction-to-r-rstudio-and-r-markdown.html">
 <link rel="next" href="formatting-describing-and-visualizing-data.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
@@ -47,50 +46,75 @@
 
 
 <script src="libs/htmlwidgets-1.3/htmlwidgets.js"></script>
-<script src="libs/plotly-binding-4.7.1/plotly.js"></script>
+<script src="libs/plotly-binding-4.9.0/plotly.js"></script>
 <script src="libs/typedarray-0.1/typedarray.min.js"></script>
 <link href="libs/crosstalk-1.0.0/css/crosstalk.css" rel="stylesheet" />
 <script src="libs/crosstalk-1.0.0/js/crosstalk.min.js"></script>
-<link href="libs/plotlyjs-1.29.2/plotly-htmlwidgets.css" rel="stylesheet" />
-<script src="libs/plotlyjs-1.29.2/plotly-latest.min.js"></script>
+<link href="libs/plotly-htmlwidgets-css-1.46.1/plotly-htmlwidgets.css" rel="stylesheet" />
+<script src="libs/plotly-main-1.46.1/plotly-latest.min.js"></script>
 
 
 <style type="text/css">
-div.sourceCode { overflow-x: auto; }
-table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
-  margin: 0; padding: 0; vertical-align: baseline; border: none; }
-table.sourceCode { width: 100%; line-height: 100%; }
-td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
-td.sourceCode { padding-left: 5px; }
-code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code > span.dt { color: #902000; } /* DataType */
-code > span.dv { color: #40a070; } /* DecVal */
-code > span.bn { color: #40a070; } /* BaseN */
-code > span.fl { color: #40a070; } /* Float */
-code > span.ch { color: #4070a0; } /* Char */
-code > span.st { color: #4070a0; } /* String */
-code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code > span.ot { color: #007020; } /* Other */
-code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code > span.fu { color: #06287e; } /* Function */
-code > span.er { color: #ff0000; font-weight: bold; } /* Error */
-code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-code > span.cn { color: #880000; } /* Constant */
-code > span.sc { color: #4070a0; } /* SpecialChar */
-code > span.vs { color: #4070a0; } /* VerbatimString */
-code > span.ss { color: #bb6688; } /* SpecialString */
-code > span.im { } /* Import */
-code > span.va { color: #19177c; } /* Variable */
-code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code > span.op { color: #666666; } /* Operator */
-code > span.bu { } /* BuiltIn */
-code > span.ex { } /* Extension */
-code > span.pp { color: #bc7a00; } /* Preprocessor */
-code > span.at { color: #7d9029; } /* Attribute */
-code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
 </head>
@@ -308,20 +332,20 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <div id="r-as-a-calculator" class="section level2">
 <h2><span class="header-section-number">2.1</span> R, as a Calculator</h2>
 <p>The first thing to know about R is that it is essentially a large calculator capable of performing arithmetic:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="dv">1</span> <span class="op">+</span><span class="st"> </span><span class="dv">1</span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="dv">1</span> <span class="op">+</span><span class="st"> </span><span class="dv">1</span></a></code></pre></div>
 <pre><code>## [1] 2</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="dv">8</span> <span class="op">*</span><span class="st"> </span><span class="dv">8</span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="dv">8</span> <span class="op">*</span><span class="st"> </span><span class="dv">8</span></a></code></pre></div>
 <pre><code>## [1] 64</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="dv">2</span> <span class="op">^</span><span class="st"> </span><span class="dv">8</span> <span class="co"># exponent</span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="dv">2</span> <span class="op">^</span><span class="st"> </span><span class="dv">8</span> <span class="co"># exponent</span></a></code></pre></div>
 <pre><code>## [1] 256</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">(<span class="dv">5</span> <span class="op">+</span><span class="st"> </span><span class="dv">2</span>) <span class="op">^</span><span class="st"> </span><span class="dv">4</span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1">(<span class="dv">5</span> <span class="op">+</span><span class="st"> </span><span class="dv">2</span>) <span class="op">^</span><span class="st"> </span><span class="dv">4</span></a></code></pre></div>
 <pre><code>## [1] 2401</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="dv">5</span> <span class="op">+</span><span class="st"> </span><span class="dv">2</span> <span class="op">^</span><span class="st"> </span><span class="dv">4</span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1"><span class="dv">5</span> <span class="op">+</span><span class="st"> </span><span class="dv">2</span> <span class="op">^</span><span class="st"> </span><span class="dv">4</span></a></code></pre></div>
 <pre><code>## [1] 21</code></pre>
 <p>R also supports elementary and algebraic functions such as log and square root.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">log</span>(<span class="dv">100</span>)</code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" data-line-number="1"><span class="kw">log</span>(<span class="dv">100</span>)</a></code></pre></div>
 <pre><code>## [1] 4.60517</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">sqrt</span>(<span class="dv">49</span>)</code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" data-line-number="1"><span class="kw">sqrt</span>(<span class="dv">49</span>)</a></code></pre></div>
 <pre><code>## [1] 7</code></pre>
 <div id="order-of-operations" class="section level3">
 <h3><span class="header-section-number">2.1.1</span> Order of Operations</h3>
@@ -335,22 +359,22 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li>Subtraction</li>
 </ol>
 <p>Watch this video for a refresher on the order of operations: <a href="https://www.youtube.com/watch?v=94yAmf7GyHw" class="uri">https://www.youtube.com/watch?v=94yAmf7GyHw</a></p>
-<p><strong>Try this!</strong> Using R, solve: (5 + 1) ^ 4 / (9 - 2) ^ 3</p>
+<p><strong>Try this!</strong> Using R, solve:
+(5 + 1) ^ 4 / (9 - 2) ^ 3</p>
 </div>
 </div>
 <div id="objects" class="section level2">
 <h2><span class="header-section-number">2.2</span> Objects</h2>
 <p>R is an “object oriented” programming language. Put simply, R uses objects to store attributes. Objects are created by assigning an attibute to them via the <code>&lt;-</code> operation. You can always view the attribute of an object by typing the object name.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">object1 &lt;-<span class="st"> </span><span class="dv">10</span> <span class="op">+</span><span class="st"> </span><span class="dv">10</span> 
-object1</code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" data-line-number="1">object1 &lt;-<span class="st"> </span><span class="dv">10</span> <span class="op">+</span><span class="st"> </span><span class="dv">10</span> </a>
+<a class="sourceLine" id="cb15-2" data-line-number="2">object1</a></code></pre></div>
 <pre><code>## [1] 20</code></pre>
 <p><strong>Try this!</strong> Create a new object below; you can name it almost anything!</p>
 <p>R includes various functions for managing created objects. The <code>ls()</code> function lists all existing objects.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ls</span>()</code></pre></div>
-<pre><code>## [1] &quot;ds&quot;           &quot;listObject&quot;   &quot;object.One&quot;   &quot;Object.One&quot;  
-## [5] &quot;object1&quot;      &quot;packages&quot;     &quot;pkg&quot;          &quot;vectorObject&quot;</code></pre>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb17-1" data-line-number="1"><span class="kw">ls</span>()</a></code></pre></div>
+<pre><code>## [1] &quot;ds&quot;       &quot;object1&quot;  &quot;packages&quot; &quot;pkg&quot;</code></pre>
 <p>The <code>rm()</code> function removes existing objects.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">rm</span>(object1)</code></pre></div>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb19-1" data-line-number="1"><span class="kw">rm</span>(object1)</a></code></pre></div>
 <p>There is no strict convention for naming objects; however, there are best practices:</p>
 <ol style="list-style-type: decimal">
 <li>Avoid spaces; use <em>underscores</em>, periods, or CamelCase (or camelCase) for long object names
@@ -371,31 +395,32 @@ object1</code></pre></div>
 <li>e.g., <code>object1</code> is ok, but <code>1object</code> is not</li>
 </ul></li>
 </ol>
-<p><strong>Important:</strong> Object names are case sensitive. - e.g., <code>object.One</code> and <code>Object.One</code> refer to two separate objects</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">object.One &lt;-<span class="st"> </span><span class="dv">10</span> <span class="op">+</span><span class="st"> </span><span class="dv">10</span>
-Object.One &lt;-<span class="st"> </span><span class="dv">5</span> <span class="op">+</span><span class="st"> </span><span class="dv">5</span>
-
-object.One</code></pre></div>
+<p><strong>Important:</strong> Object names are case sensitive.
+- e.g., <code>object.One</code> and <code>Object.One</code> refer to two separate objects</p>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb20-1" data-line-number="1">object.One &lt;-<span class="st"> </span><span class="dv">10</span> <span class="op">+</span><span class="st"> </span><span class="dv">10</span></a>
+<a class="sourceLine" id="cb20-2" data-line-number="2">Object.One &lt;-<span class="st"> </span><span class="dv">5</span> <span class="op">+</span><span class="st"> </span><span class="dv">5</span></a>
+<a class="sourceLine" id="cb20-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb20-4" data-line-number="4">object.One</a></code></pre></div>
 <pre><code>## [1] 20</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">Object.One</code></pre></div>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb22-1" data-line-number="1">Object.One</a></code></pre></div>
 <pre><code>## [1] 10</code></pre>
 </div>
 <div id="functions" class="section level2">
 <h2><span class="header-section-number">2.3</span> Functions</h2>
 <p>In addition to elementary and algebraic functions, R includes functions that simplify statistical analysis. For example, the <code>mean()</code> function calculates the mean.</p>
 <p><strong>Note:</strong> Sometimes <code>na.rm = TRUE</code> is necessary within the paranetheses to instruct R to ignore missing data.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">mean</span>(cars<span class="op">$</span>dist)</code></pre></div>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb24-1" data-line-number="1"><span class="kw">mean</span>(cars<span class="op">$</span>dist)</a></code></pre></div>
 <pre><code>## [1] 42.98</code></pre>
 <p>R comes with a vairety of “built in” data sets, such as the <code>cars</code> data set, which contains some information about about cars. This data set is used below to demonstrate and/or experiment with R functions.</p>
 <p>A note about syntax: the dollar sign, <code>$</code>, is used to indicate the variable of interest relative to a data set. This is important in the case of multiple data sets that contain variables of the same name. In the previous code, R calculated the mean using the <code>dist</code> variable within the <code>cars</code> data set by specifying <code>cars$dist</code></p>
 <p>To ignore missing data when calculating the mean of <code>dist</code>, include the <code>na.rm = TRUE</code> argument within the paranetheses as follows.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">mean</span>(cars<span class="op">$</span>dist, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)</code></pre></div>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb26-1" data-line-number="1"><span class="kw">mean</span>(cars<span class="op">$</span>dist, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
 <pre><code>## [1] 42.98</code></pre>
 <p><strong>Note:</strong> The mean is exactly the same because there is no missing data in the <code>dist</code> variable.</p>
 <div id="object-types" class="section level3">
 <h3><span class="header-section-number">2.3.1</span> Object Types</h3>
 <p>Object types are improtant in R and the type of an object is contingent on the attribute stored by the object. For example, an object storing characters (e.g., “blue”) has a different type than an object storing a number (e.g., 1). Use of R functions is contingent on the type of objects. For example, functions like <code>mean()</code> work only for objects containing numbers. The R <code>str()</code> function describes the structure of objects and functions.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">str</span>(mean)</code></pre></div>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb28-1" data-line-number="1"><span class="kw">str</span>(mean)</a></code></pre></div>
 <pre><code>## Formal class &#39;standardGeneric&#39; [package &quot;methods&quot;] with 8 slots
 ##   ..@ .Data     :function (x, ...)  
 ##   ..@ generic   : chr &quot;mean&quot;
@@ -417,24 +442,24 @@ object.One</code></pre></div>
 ##   .. .. ..@ generic: chr &quot;mean&quot;
 ##   .. .. .. ..- attr(*, &quot;package&quot;)= chr &quot;base&quot;
 ##   ..@ skeleton  : language (new(&quot;derivedDefaultMethod&quot;, .Data = function (x, ...)  UseMethod(&quot;mean&quot;), target = new(&quot;signature&quot;, .Data = &quot;ANY| __truncated__ ...</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">str</span>(object.One)</code></pre></div>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb30-1" data-line-number="1"><span class="kw">str</span>(object.One)</a></code></pre></div>
 <pre><code>##  num 20</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">str</span>(cars)</code></pre></div>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb32-1" data-line-number="1"><span class="kw">str</span>(cars)</a></code></pre></div>
 <pre><code>## &#39;data.frame&#39;:    50 obs. of  2 variables:
 ##  $ speed: num  4 4 7 7 8 9 10 10 10 11 ...
 ##  $ dist : num  2 10 4 22 16 10 18 26 34 17 ...</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">str</span>(cars<span class="op">$</span>dist)</code></pre></div>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb34-1" data-line-number="1"><span class="kw">str</span>(cars<span class="op">$</span>dist)</a></code></pre></div>
 <pre><code>##  num [1:50] 2 10 4 22 16 10 18 26 34 17 ...</code></pre>
 <p>The <code>str()</code> function described <code>mean</code> as a function, <code>object.One</code> as a numeric object, the <code>cars</code> data as a data frame, etc.</p>
 <p>Previously, objects were introduced as a method of storing single attributes, either a specified value or the result of arithmetic. In addition, objects can contain a collection of data via a vector or list. In mathematics and physics, a vector is defined as a quantity of both direction and magnitude. In R, vectors are defined as a collection of data of the same type. The <code>c()</code> function creates a vector.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">vectorObject &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>)
-vectorObject</code></pre></div>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb36-1" data-line-number="1">vectorObject &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>)</a>
+<a class="sourceLine" id="cb36-2" data-line-number="2">vectorObject</a></code></pre></div>
 <pre><code>## [1] 1 2 3</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">str</span>(vectorObject)</code></pre></div>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb38-1" data-line-number="1"><span class="kw">str</span>(vectorObject)</a></code></pre></div>
 <pre><code>##  num [1:3] 1 2 3</code></pre>
 <p>Further, a list is defined as a collection of multiple data types.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">listObject &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="st">&quot;your name&quot;</span>, <span class="dv">1</span>, F)
-listObject</code></pre></div>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb40-1" data-line-number="1">listObject &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="st">&quot;your name&quot;</span>, <span class="dv">1</span>, F)</a>
+<a class="sourceLine" id="cb40-2" data-line-number="2">listObject</a></code></pre></div>
 <pre><code>## [[1]]
 ## [1] &quot;your name&quot;
 ## 
@@ -443,7 +468,7 @@ listObject</code></pre></div>
 ## 
 ## [[3]]
 ## [1] FALSE</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">str</span>(listObject)</code></pre></div>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb42-1" data-line-number="1"><span class="kw">str</span>(listObject)</a></code></pre></div>
 <pre><code>## List of 3
 ##  $ : chr &quot;your name&quot;
 ##  $ : num 1
@@ -468,13 +493,19 @@ listObject</code></pre></div>
 </div>
 <div id="loading-packages" class="section level3">
 <h3><span class="header-section-number">2.4.2</span> Loading Packages</h3>
-<p>After installation, packages must be loaded to use their functions within R. Packages are loaded via <code>library(packagename)</code>. <strong>Note:</strong> Unlike the <code>install.packages()</code> function, the <code>library()</code> function does not require quotation marks around the package name.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(car)
-<span class="kw">library</span>(psych)
-<span class="kw">library</span>(memisc) 
-<span class="kw">library</span>(Rcpp)
-<span class="kw">library</span>(rmarkdown)
-<span class="kw">library</span>(knitr)</code></pre></div>
+<p>After installation, packages must be loaded to use their functions within R. Packages are loaded via <code>library(packagename)</code>.
+<strong>Note:</strong> Unlike the <code>install.packages()</code> function, the <code>library()</code> function does not require quotation marks around the package name.</p>
+<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb44-1" data-line-number="1"><span class="kw">library</span>(car)</a>
+<a class="sourceLine" id="cb44-2" data-line-number="2"><span class="kw">library</span>(psych)</a>
+<a class="sourceLine" id="cb44-3" data-line-number="3"><span class="kw">library</span>(memisc) </a>
+<a class="sourceLine" id="cb44-4" data-line-number="4"><span class="kw">library</span>(Rcpp)</a>
+<a class="sourceLine" id="cb44-5" data-line-number="5"><span class="kw">library</span>(rmarkdown)</a>
+<a class="sourceLine" id="cb44-6" data-line-number="6"><span class="kw">library</span>(knitr)</a></code></pre></div>
+<pre><code>## 
+## Attaching package: &#39;knitr&#39;</code></pre>
+<pre><code>## The following object is masked from &#39;package:skimr&#39;:
+## 
+##     kable</code></pre>
 <p><strong>Note:</strong> The <code>memisc</code> package contains object/package conflicts with the <code>car</code> package for the <code>recode</code> object. A conflict occurs when two packages contain objects (e.g., functions) of the same name. A conflict will not prevent loading packages; however, use of a specific package’s object requires an explicit call to the desired parent package. For example, to use the <code>recode()</code> function from <code>car</code>, the <code>car::recode(variable)</code> statement will explicitly call <code>recode()</code> from the <code>car</code> package. Vice versa, <code>memisc::recode()</code> will explicitly call <code>recode()</code> from the <code>memisc</code> package.</p>
 </div>
 <div id="updating-packages" class="section level3">
@@ -482,91 +513,135 @@ listObject</code></pre></div>
 <p>Most packages are regularly updated. The <code>old.packages()</code> function compares installed packages to their latest versions online.</p>
 <p>The <code>update.packages()</code> function updates out of date packages.</p>
 <p><strong>Note:</strong> Updating packages requires consent. The <code>ask = FALSE</code> argument will skip the additional consent step to save time.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">update.packages</span>()</code></pre></div>
+<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb47-1" data-line-number="1"><span class="kw">update.packages</span>()</a></code></pre></div>
 <pre><code>## AER :
-##  Version 1.2-5 installed in /Library/Frameworks/R.framework/Versions/3.5/Resources/library 
+##  Version 1.2-6 installed in /Library/Frameworks/R.framework/Versions/3.6/Resources/library 
 ##  Version 1.2-7 available at https://cran.rstudio.com
+## anytime :
+##  Version 0.3.4 installed in /Library/Frameworks/R.framework/Versions/3.6/Resources/library 
+##  Version 0.3.5 available at https://cran.rstudio.com
+## boot :
+##  Version 1.3-22 installed in /Library/Frameworks/R.framework/Versions/3.6/Resources/library 
+##  Version 1.3-23 available at https://cran.rstudio.com
 ## cancelled by user</code></pre>
 <p>The <code>library()</code> function lists currently loaded packages.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>()</code></pre></div>
+<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb49-1" data-line-number="1"><span class="kw">library</span>()</a></code></pre></div>
 <p>As previously demonstrated, occasionally conflicts exist between packages. The <code>conflicts()</code> fubction lists conflicts between loaded packages.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">conflicts</span>()</code></pre></div>
-<pre><code>##   [1] &quot;show&quot;              &quot;show&quot;              &quot;factorize&quot;        
-##   [4] &quot;show&quot;              &quot;traceplot&quot;         &quot;sim&quot;              
-##   [7] &quot;summary&quot;           &quot;Arith&quot;             &quot;as.array&quot;         
-##  [10] &quot;coerce&quot;            &quot;Compare&quot;           &quot;format&quot;           
-##  [13] &quot;initialize&quot;        &quot;Math&quot;              &quot;Math2&quot;            
-##  [16] &quot;print&quot;             &quot;rename&quot;            &quot;show&quot;             
-##  [19] &quot;style&quot;             &quot;summary&quot;           &quot;Summary&quot;          
-##  [22] &quot;negative.binomial&quot; &quot;select&quot;            &quot;%&gt;%&quot;              
-##  [25] &quot;kable&quot;             &quot;%&gt;%&quot;               &quot;%&gt;%&quot;              
-##  [28] &quot;%&gt;%&quot;               &quot;arrange&quot;           &quot;arrange_&quot;         
-##  [31] &quot;collect&quot;           &quot;contains&quot;          &quot;distinct&quot;         
-##  [34] &quot;distinct_&quot;         &quot;do&quot;                &quot;do_&quot;              
-##  [37] &quot;ends_with&quot;         &quot;everything&quot;        &quot;filter&quot;           
-##  [40] &quot;filter_&quot;           &quot;group_by&quot;          &quot;group_by_&quot;        
-##  [43] &quot;groups&quot;            &quot;last&quot;              &quot;matches&quot;          
-##  [46] &quot;mutate&quot;            &quot;mutate_&quot;           &quot;num_range&quot;        
-##  [49] &quot;one_of&quot;            &quot;recode&quot;            &quot;rename&quot;           
-##  [52] &quot;rename_&quot;           &quot;select&quot;            &quot;select_&quot;          
-##  [55] &quot;slice&quot;             &quot;slice_&quot;            &quot;starts_with&quot;      
-##  [58] &quot;summarise&quot;         &quot;summarise_&quot;        &quot;syms&quot;             
-##  [61] &quot;transmute&quot;         &quot;transmute_&quot;        &quot;ungroup&quot;          
-##  [64] &quot;%&gt;%&quot;               &quot;reduce&quot;            &quot;%&gt;%&quot;              
-##  [67] &quot;expand&quot;            &quot;add_row&quot;           &quot;as_data_frame&quot;    
-##  [70] &quot;as_tibble&quot;         &quot;data_frame&quot;        &quot;data_frame_&quot;      
-##  [73] &quot;frame_data&quot;        &quot;glimpse&quot;           &quot;lst&quot;              
-##  [76] &quot;lst_&quot;              &quot;tbl_sum&quot;           &quot;tibble&quot;           
-##  [79] &quot;tribble&quot;           &quot;trunc_mat&quot;         &quot;type_sum&quot;         
-##  [82] &quot;arrow&quot;             &quot;enexpr&quot;            &quot;enexprs&quot;          
-##  [85] &quot;enquo&quot;             &quot;enquos&quot;            &quot;ensym&quot;            
-##  [88] &quot;ensyms&quot;            &quot;expr&quot;              &quot;last_plot&quot;        
-##  [91] &quot;quo&quot;               &quot;quo_name&quot;          &quot;quos&quot;             
-##  [94] &quot;stat&quot;              &quot;sym&quot;               &quot;syms&quot;             
-##  [97] &quot;unit&quot;              &quot;vars&quot;              &quot;%+%&quot;              
-## [100] &quot;alpha&quot;             &quot;logit&quot;             &quot;rescale&quot;          
-## [103] &quot;sim&quot;               &quot;smiths&quot;            &quot;logit&quot;            
-## [106] &quot;recode&quot;            &quot;some&quot;              &quot;coef&quot;             
-## [109] &quot;coefficients&quot;      &quot;contr.sum&quot;         &quot;contr.treatment&quot;  
-## [112] &quot;contrasts&quot;         &quot;contrasts&lt;-&quot;       &quot;cov2cor&quot;          
-## [115] &quot;df.residual&quot;       &quot;filter&quot;            &quot;fitted&quot;           
-## [118] &quot;lag&quot;               &quot;predict&quot;           &quot;residuals&quot;        
-## [121] &quot;toeplitz&quot;          &quot;update&quot;            &quot;vcov&quot;             
-## [124] &quot;image&quot;             &quot;layout&quot;            &quot;plot&quot;             
-## [127] &quot;head&quot;              &quot;prompt&quot;            &quot;tail&quot;             
-## [130] &quot;npk&quot;               &quot;Arith&quot;             &quot;cbind2&quot;           
-## [133] &quot;coerce&quot;            &quot;Compare&quot;           &quot;initialize&quot;       
-## [136] &quot;kronecker&quot;         &quot;Logic&quot;             &quot;Math&quot;             
-## [139] &quot;Math2&quot;             &quot;Ops&quot;               &quot;rbind2&quot;           
-## [142] &quot;show&quot;              &quot;Summary&quot;           &quot;%in%&quot;             
-## [145] &quot;all.equal&quot;         &quot;as.array&quot;          &quot;as.factor&quot;        
-## [148] &quot;as.matrix&quot;         &quot;as.ordered&quot;        &quot;body&lt;-&quot;           
-## [151] &quot;chol&quot;              &quot;chol2inv&quot;          &quot;colMeans&quot;         
-## [154] &quot;colSums&quot;           &quot;crossprod&quot;         &quot;det&quot;              
-## [157] &quot;determinant&quot;       &quot;diag&quot;              &quot;diag&lt;-&quot;           
-## [160] &quot;diff&quot;              &quot;drop&quot;              &quot;formals&lt;-&quot;        
-## [163] &quot;format&quot;            &quot;intersect&quot;         &quot;isSymmetric&quot;      
-## [166] &quot;kronecker&quot;         &quot;labels&quot;            &quot;mean&quot;             
-## [169] &quot;merge&quot;             &quot;norm&quot;              &quot;Position&quot;         
-## [172] &quot;print&quot;             &quot;qr&quot;                &quot;qr.coef&quot;          
-## [175] &quot;qr.fitted&quot;         &quot;qr.Q&quot;              &quot;qr.qty&quot;           
-## [178] &quot;qr.qy&quot;             &quot;qr.R&quot;              &quot;qr.resid&quot;         
-## [181] &quot;rcond&quot;             &quot;row.names&quot;         &quot;rowMeans&quot;         
-## [184] &quot;rowSums&quot;           &quot;sample&quot;            &quot;setdiff&quot;          
-## [187] &quot;setequal&quot;          &quot;solve&quot;             &quot;subset&quot;           
-## [190] &quot;summary&quot;           &quot;t&quot;                 &quot;tcrossprod&quot;       
-## [193] &quot;union&quot;             &quot;unique&quot;            &quot;unname&quot;           
-## [196] &quot;which&quot;             &quot;within&quot;            &quot;zapsmall&quot;</code></pre>
+<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb50-1" data-line-number="1"><span class="kw">conflicts</span>()</a></code></pre></div>
+<pre><code>##   [1] &quot;show&quot;                   &quot;traceplot&quot;             
+##   [3] &quot;show&quot;                   &quot;show&quot;                  
+##   [5] &quot;summary&quot;                &quot;factorize&quot;             
+##   [7] &quot;cpp_object_initializer&quot; &quot;show&quot;                  
+##   [9] &quot;plot&quot;                   &quot;sim&quot;                   
+##  [11] &quot;summary&quot;                &quot;Arith&quot;                 
+##  [13] &quot;as.array&quot;               &quot;coerce&quot;                
+##  [15] &quot;Compare&quot;                &quot;format&quot;                
+##  [17] &quot;initialize&quot;             &quot;Math&quot;                  
+##  [19] &quot;Math2&quot;                  &quot;print&quot;                 
+##  [21] &quot;rename&quot;                 &quot;show&quot;                  
+##  [23] &quot;style&quot;                  &quot;summary&quot;               
+##  [25] &quot;Summary&quot;                &quot;negative.binomial&quot;     
+##  [27] &quot;select&quot;                 &quot;densityplot&quot;           
+##  [29] &quot;%&gt;%&quot;                    &quot;filter&quot;                
+##  [31] &quot;kable&quot;                  &quot;%&gt;%&quot;                   
+##  [33] &quot;%&gt;%&quot;                    &quot;%&gt;%&quot;                   
+##  [35] &quot;arrange&quot;                &quot;arrange_&quot;              
+##  [37] &quot;collect&quot;                &quot;contains&quot;              
+##  [39] &quot;distinct&quot;               &quot;distinct_&quot;             
+##  [41] &quot;do&quot;                     &quot;do_&quot;                   
+##  [43] &quot;ends_with&quot;              &quot;everything&quot;            
+##  [45] &quot;filter&quot;                 &quot;filter_&quot;               
+##  [47] &quot;group_by&quot;               &quot;group_by_&quot;             
+##  [49] &quot;groups&quot;                 &quot;last&quot;                  
+##  [51] &quot;matches&quot;                &quot;mutate&quot;                
+##  [53] &quot;mutate_&quot;                &quot;num_range&quot;             
+##  [55] &quot;one_of&quot;                 &quot;recode&quot;                
+##  [57] &quot;rename&quot;                 &quot;rename_&quot;               
+##  [59] &quot;select&quot;                 &quot;select_&quot;               
+##  [61] &quot;slice&quot;                  &quot;slice_&quot;                
+##  [63] &quot;starts_with&quot;            &quot;summarise&quot;             
+##  [65] &quot;summarise_&quot;             &quot;syms&quot;                  
+##  [67] &quot;transmute&quot;              &quot;transmute_&quot;            
+##  [69] &quot;ungroup&quot;                &quot;%@%&quot;                   
+##  [71] &quot;%&gt;%&quot;                    &quot;reduce&quot;                
+##  [73] &quot;%&gt;%&quot;                    &quot;expand&quot;                
+##  [75] &quot;extract&quot;                &quot;add_row&quot;               
+##  [77] &quot;as_data_frame&quot;          &quot;as_tibble&quot;             
+##  [79] &quot;data_frame&quot;             &quot;data_frame_&quot;           
+##  [81] &quot;frame_data&quot;             &quot;glimpse&quot;               
+##  [83] &quot;lst&quot;                    &quot;lst_&quot;                  
+##  [85] &quot;tbl_sum&quot;                &quot;tibble&quot;                
+##  [87] &quot;tribble&quot;                &quot;trunc_mat&quot;             
+##  [89] &quot;type_sum&quot;               &quot;arrow&quot;                 
+##  [91] &quot;enexpr&quot;                 &quot;enexprs&quot;               
+##  [93] &quot;enquo&quot;                  &quot;enquos&quot;                
+##  [95] &quot;ensym&quot;                  &quot;ensyms&quot;                
+##  [97] &quot;expr&quot;                   &quot;last_plot&quot;             
+##  [99] &quot;quo&quot;                    &quot;quo_name&quot;              
+## [101] &quot;quos&quot;                   &quot;stat&quot;                  
+## [103] &quot;sym&quot;                    &quot;syms&quot;                  
+## [105] &quot;unit&quot;                   &quot;vars&quot;                  
+## [107] &quot;%+%&quot;                    &quot;alpha&quot;                 
+## [109] &quot;logit&quot;                  &quot;lookup&quot;                
+## [111] &quot;rescale&quot;                &quot;sim&quot;                   
+## [113] &quot;smiths&quot;                 &quot;logit&quot;                 
+## [115] &quot;recode&quot;                 &quot;some&quot;                  
+## [117] &quot;coef&quot;                   &quot;coefficients&quot;          
+## [119] &quot;contr.sum&quot;              &quot;contr.treatment&quot;       
+## [121] &quot;contrasts&quot;              &quot;contrasts&lt;-&quot;           
+## [123] &quot;cov2cor&quot;                &quot;df.residual&quot;           
+## [125] &quot;filter&quot;                 &quot;fitted&quot;                
+## [127] &quot;lag&quot;                    &quot;predict&quot;               
+## [129] &quot;residuals&quot;              &quot;toeplitz&quot;              
+## [131] &quot;update&quot;                 &quot;vcov&quot;                  
+## [133] &quot;image&quot;                  &quot;layout&quot;                
+## [135] &quot;plot&quot;                   &quot;head&quot;                  
+## [137] &quot;prompt&quot;                 &quot;tail&quot;                  
+## [139] &quot;npk&quot;                    &quot;Arith&quot;                 
+## [141] &quot;cbind2&quot;                 &quot;coerce&quot;                
+## [143] &quot;Compare&quot;                &quot;initialize&quot;            
+## [145] &quot;kronecker&quot;              &quot;Logic&quot;                 
+## [147] &quot;Math&quot;                   &quot;Math2&quot;                 
+## [149] &quot;Ops&quot;                    &quot;rbind2&quot;                
+## [151] &quot;show&quot;                   &quot;Summary&quot;               
+## [153] &quot;%in%&quot;                   &quot;all.equal&quot;             
+## [155] &quot;as.array&quot;               &quot;as.factor&quot;             
+## [157] &quot;as.matrix&quot;              &quot;as.ordered&quot;            
+## [159] &quot;body&lt;-&quot;                 &quot;chol&quot;                  
+## [161] &quot;chol2inv&quot;               &quot;colMeans&quot;              
+## [163] &quot;colSums&quot;                &quot;crossprod&quot;             
+## [165] &quot;det&quot;                    &quot;determinant&quot;           
+## [167] &quot;diag&quot;                   &quot;diag&lt;-&quot;                
+## [169] &quot;diff&quot;                   &quot;drop&quot;                  
+## [171] &quot;formals&lt;-&quot;              &quot;format&quot;                
+## [173] &quot;intersect&quot;              &quot;isSymmetric&quot;           
+## [175] &quot;kronecker&quot;              &quot;labels&quot;                
+## [177] &quot;mean&quot;                   &quot;merge&quot;                 
+## [179] &quot;norm&quot;                   &quot;Position&quot;              
+## [181] &quot;print&quot;                  &quot;qr&quot;                    
+## [183] &quot;qr.coef&quot;                &quot;qr.fitted&quot;             
+## [185] &quot;qr.Q&quot;                   &quot;qr.qty&quot;                
+## [187] &quot;qr.qy&quot;                  &quot;qr.R&quot;                  
+## [189] &quot;qr.resid&quot;               &quot;rcond&quot;                 
+## [191] &quot;row.names&quot;              &quot;rowMeans&quot;              
+## [193] &quot;rowSums&quot;                &quot;sample&quot;                
+## [195] &quot;setdiff&quot;                &quot;setequal&quot;              
+## [197] &quot;solve&quot;                  &quot;subset&quot;                
+## [199] &quot;summary&quot;                &quot;t&quot;                     
+## [201] &quot;tcrossprod&quot;             &quot;union&quot;                 
+## [203] &quot;unique&quot;                 &quot;unname&quot;                
+## [205] &quot;which&quot;                  &quot;within&quot;                
+## [207] &quot;zapsmall&quot;</code></pre>
 <p>The <code>detach()</code> function detaches packages and is an alternative method to resolve conflicts. Supplying the <code>unload = TRUE</code> argument within the <code>detach()</code> function will unload the package. For example, to resolve the <code>recode()</code> function conflict between <code>car</code> and <code>memisc</code>, the memisc package can be detached and unloaded as follows: <code>detach(package:memisc, unload = TRUE)</code>.</p>
 </div>
 </div>
 <div id="r-help" class="section level2">
 <h2><span class="header-section-number">2.5</span> R Help</h2>
 <p>R includes a help function to assist with functions, accessible by including a <code>?</code> prior to the function name.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">? mean</code></pre></div>
+<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb52-1" data-line-number="1">? mean</a></code></pre></div>
 <p><strong>Note:</strong> The help documentation will display in the bottom right quadrant of RStudio. Alternatively, typing the function name into the help search bar will yield a similar result.</p>
 <p>To search all of R documentation for help about a function, use <code>??</code>.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">?? mean</code></pre></div>
+<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb53-1" data-line-number="1">?? mean</a></code></pre></div>
 <p><strong>Note:</strong> Google is a valuable tool for finding help. Large communities like StackExchange provide answers and explanations to common issues in R. At times, a particular problem may seem unique, but someone else has almost certainly had the same problem and the solution likely can be found online.</p>
 </div>
 <div id="setting-a-working-directory" class="section level2">
@@ -582,7 +657,7 @@ listObject</code></pre></div>
 <li>Select the working directory.</li>
 </ol>
 <p>The <code>getwd()</code> function returns the set working directory.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">getwd</span>()</code></pre></div>
+<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb54-1" data-line-number="1"><span class="kw">getwd</span>()</a></code></pre></div>
 <pre><code>## [1] &quot;/Users/josephripberger/Documents/GitHub/qrmlabs&quot;</code></pre>
 </div>
 <div id="importing-your-data" class="section level2">
@@ -621,7 +696,7 @@ gitbook.start({
 "google": false,
 "linkedin": false,
 "weibo": false,
-"instapper": false,
+"instapaper": false,
 "vk": false,
 "all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
 },
@@ -634,7 +709,11 @@ gitbook.start({
 "link": null,
 "text": null
 },
-"download": ["_main.pdf"],
+"history": {
+"link": null,
+"text": null
+},
+"download": null,
 "toc": {
 "collapse": "subsection"
 }
@@ -647,8 +726,8 @@ gitbook.start({
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
-    var src = "";
-    if (src === "" || src === "true") src = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
     if (location.protocol !== "file:" && /^https?:/.test(src))
       src = src.replace(/^https?:/, '');
     script.src = src;

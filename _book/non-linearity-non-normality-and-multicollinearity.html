@@ -1,15 +1,14 @@
 <!DOCTYPE html>
-<html >
-
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
 <head>
 
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Lab Guide to Quantitative Research Methods in Political Science, Public Policy &amp; Public Administration.</title>
-  <meta name="description" content="Lab Guide to Quantitative Research Methods in Political Science, Public Policy &amp; Public Administration.">
-  <meta name="generator" content="bookdown 0.7 and GitBook 2.6.7">
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>11 Non-linearity, Non-normality, and Multicollinearity | Lab Guide to Quantitative Research Methods in Political Science, Public Policy &amp; Public Administration.</title>
+  <meta name="description" content="11 Non-linearity, Non-normality, and Multicollinearity | Lab Guide to Quantitative Research Methods in Political Science, Public Policy &amp; Public Administration." />
+  <meta name="generator" content="bookdown 0.12 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Lab Guide to Quantitative Research Methods in Political Science, Public Policy &amp; Public Administration." />
+  <meta property="og:title" content="11 Non-linearity, Non-normality, and Multicollinearity | Lab Guide to Quantitative Research Methods in Political Science, Public Policy &amp; Public Administration." />
   <meta property="og:type" content="book" />
   
   
@@ -17,24 +16,24 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Lab Guide to Quantitative Research Methods in Political Science, Public Policy &amp; Public Administration." />
+  <meta name="twitter:title" content="11 Non-linearity, Non-normality, and Multicollinearity | Lab Guide to Quantitative Research Methods in Political Science, Public Policy &amp; Public Administration." />
   
   
   
 
-<meta name="author" content="Joseph Ripberger, Cody Adams, Alex Davis, and Josie Davis">
 
 
 
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
 <link rel="prev" href="categorical-explanatory-variables-dummy-variables-and-interactions.html">
 <link rel="next" href="diagnosing-and-addressing-problems-in-linear-regression.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
@@ -47,50 +46,75 @@
 
 
 <script src="libs/htmlwidgets-1.3/htmlwidgets.js"></script>
-<script src="libs/plotly-binding-4.7.1/plotly.js"></script>
+<script src="libs/plotly-binding-4.9.0/plotly.js"></script>
 <script src="libs/typedarray-0.1/typedarray.min.js"></script>
 <link href="libs/crosstalk-1.0.0/css/crosstalk.css" rel="stylesheet" />
 <script src="libs/crosstalk-1.0.0/js/crosstalk.min.js"></script>
-<link href="libs/plotlyjs-1.29.2/plotly-htmlwidgets.css" rel="stylesheet" />
-<script src="libs/plotlyjs-1.29.2/plotly-latest.min.js"></script>
+<link href="libs/plotly-htmlwidgets-css-1.46.1/plotly-htmlwidgets.css" rel="stylesheet" />
+<script src="libs/plotly-main-1.46.1/plotly-latest.min.js"></script>
 
 
 <style type="text/css">
-div.sourceCode { overflow-x: auto; }
-table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
-  margin: 0; padding: 0; vertical-align: baseline; border: none; }
-table.sourceCode { width: 100%; line-height: 100%; }
-td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
-td.sourceCode { padding-left: 5px; }
-code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code > span.dt { color: #902000; } /* DataType */
-code > span.dv { color: #40a070; } /* DecVal */
-code > span.bn { color: #40a070; } /* BaseN */
-code > span.fl { color: #40a070; } /* Float */
-code > span.ch { color: #4070a0; } /* Char */
-code > span.st { color: #4070a0; } /* String */
-code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code > span.ot { color: #007020; } /* Other */
-code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code > span.fu { color: #06287e; } /* Function */
-code > span.er { color: #ff0000; font-weight: bold; } /* Error */
-code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-code > span.cn { color: #880000; } /* Constant */
-code > span.sc { color: #4070a0; } /* SpecialChar */
-code > span.vs { color: #4070a0; } /* VerbatimString */
-code > span.ss { color: #bb6688; } /* SpecialString */
-code > span.im { } /* Import */
-code > span.va { color: #19177c; } /* Variable */
-code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code > span.op { color: #666666; } /* Operator */
-code > span.bu { } /* BuiltIn */
-code > span.ex { } /* Extension */
-code > span.pp { color: #bc7a00; } /* Preprocessor */
-code > span.at { color: #7d9029; } /* Attribute */
-code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
 </head>
@@ -319,27 +343,27 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <div id="exploring-non-linearity" class="section level3">
 <h3><span class="header-section-number">11.1.1</span> Exploring Non-linearity</h3>
 <p>A critical assumption of OLS is that the relationship between variables is linear in their functional form, therefore it is imperative to inspect whether a model consist of non-linear relationships between variables of interest. As the book describes, regression diagnostics is largely an art. To demonstrate, suppose you want to examine the relationship between ideology and candidate support in the 2016 presidential election. The survey associated with the class data set asked respondents to indicate on a scale of 1 to 5 the level of support they have for the candidate they voted for in the 2016 presidential election. We will start by exploring data in preparation for a linear regression model:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">sub &lt;-<span class="st"> </span>ds <span class="op">%&gt;%</span>
-<span class="st">  </span>dplyr<span class="op">::</span><span class="kw">select</span>(<span class="st">&quot;vote_cand_spt&quot;</span>, <span class="st">&quot;ideol&quot;</span>,<span class="st">&quot;education&quot;</span>,
-                                    <span class="st">&quot;income&quot;</span>, <span class="st">&quot;age&quot;</span>, <span class="st">&quot;gender&quot;</span>, <span class="st">&quot;f.gender&quot;</span>,
-                                    <span class="st">&quot;glbcc_cert&quot;</span>, <span class="st">&quot;f.party&quot;</span>, <span class="st">&quot;glbcc_risk&quot;</span>,
-                                    <span class="st">&quot;cncrn_econ&quot;</span>) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">na.omit</span>()</code></pre></div>
+<div class="sourceCode" id="cb635"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb635-1" data-line-number="1">sub &lt;-<span class="st"> </span>ds <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb635-2" data-line-number="2"><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">select</span>(<span class="st">&quot;vote_cand_spt&quot;</span>, <span class="st">&quot;ideol&quot;</span>,<span class="st">&quot;education&quot;</span>,</a>
+<a class="sourceLine" id="cb635-3" data-line-number="3">                                    <span class="st">&quot;income&quot;</span>, <span class="st">&quot;age&quot;</span>, <span class="st">&quot;gender&quot;</span>, <span class="st">&quot;f.gender&quot;</span>,</a>
+<a class="sourceLine" id="cb635-4" data-line-number="4">                                    <span class="st">&quot;glbcc_cert&quot;</span>, <span class="st">&quot;f.party&quot;</span>, <span class="st">&quot;glbcc_risk&quot;</span>,</a>
+<a class="sourceLine" id="cb635-5" data-line-number="5">                                    <span class="st">&quot;cncrn_econ&quot;</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb635-6" data-line-number="6"><span class="st">  </span><span class="kw">na.omit</span>()</a></code></pre></div>
 <p>Now examine the candidate support variable:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">psych<span class="op">::</span><span class="kw">describe</span>(sub<span class="op">$</span>vote_cand_spt)</code></pre></div>
+<div class="sourceCode" id="cb636"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb636-1" data-line-number="1">psych<span class="op">::</span><span class="kw">describe</span>(sub<span class="op">$</span>vote_cand_spt)</a></code></pre></div>
 <pre><code>##    vars    n mean   sd median trimmed  mad min max range  skew kurtosis
 ## X1    1 1980 3.56 1.15      4    3.65 1.48   1   5     4 -0.45    -0.52
 ##      se
 ## X1 0.03</code></pre>
 <p>Now a table:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">table</span>(sub<span class="op">$</span>vote_cand_spt)</code></pre></div>
+<div class="sourceCode" id="cb638"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb638-1" data-line-number="1"><span class="kw">table</span>(sub<span class="op">$</span>vote_cand_spt)</a></code></pre></div>
 <pre><code>## 
 ##   1   2   3   4   5 
 ## 117 209 600 560 494</code></pre>
 <p>We can see that the modal value is 3, a response indicating moderate support for the candidate the respondent voted for. We also observe a negative skew indicating more responses in the higher values.</p>
 <p>Next build the linear regression model:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">model &lt;-<span class="st"> </span><span class="kw">lm</span>(vote_cand_spt <span class="op">~</span><span class="st"> </span>ideol <span class="op">+</span><span class="st"> </span>education <span class="op">+</span><span class="st"> </span>income <span class="op">+</span><span class="st"> </span>age <span class="op">+</span><span class="st"> </span>gender, <span class="dt">data =</span> sub)
-<span class="kw">summary</span>(model)</code></pre></div>
+<div class="sourceCode" id="cb640"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb640-1" data-line-number="1">model &lt;-<span class="st"> </span><span class="kw">lm</span>(vote_cand_spt <span class="op">~</span><span class="st"> </span>ideol <span class="op">+</span><span class="st"> </span>education <span class="op">+</span><span class="st"> </span>income <span class="op">+</span><span class="st"> </span>age <span class="op">+</span><span class="st"> </span>gender, <span class="dt">data =</span> sub)</a>
+<a class="sourceLine" id="cb640-2" data-line-number="2"><span class="kw">summary</span>(model)</a></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = vote_cand_spt ~ ideol + education + income + age + 
@@ -370,9 +394,9 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li>Visualize the relationship between the residuals and IVs simultaneously using <code>facet_wrap()</code>.</li>
 </ol>
 <p>First the residuals and fitted values. Use <code>head()</code> to look at the first five observations in the data frame:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">model <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">augment</span>() -&gt;<span class="st"> </span>m.df
-<span class="kw">head</span>(m.df)</code></pre></div>
+<div class="sourceCode" id="cb642"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb642-1" data-line-number="1">model <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb642-2" data-line-number="2"><span class="st">  </span><span class="kw">augment</span>() -&gt;<span class="st"> </span>m.df</a>
+<a class="sourceLine" id="cb642-3" data-line-number="3"><span class="kw">head</span>(m.df)</a></code></pre></div>
 <pre><code>## # A tibble: 6 x 14
 ##   .rownames vote_cand_spt ideol education income   age gender .fitted
 ##   &lt;chr&gt;             &lt;int&gt; &lt;int&gt;     &lt;int&gt;  &lt;dbl&gt; &lt;int&gt;  &lt;int&gt;   &lt;dbl&gt;
@@ -385,10 +409,10 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 ## # … with 6 more variables: .se.fit &lt;dbl&gt;, .resid &lt;dbl&gt;, .hat &lt;dbl&gt;,
 ## #   .sigma &lt;dbl&gt;, .cooksd &lt;dbl&gt;, .std.resid &lt;dbl&gt;</code></pre>
 <p>Now we need to melt the data into rows with unique id-variable combinations.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">m.df <span class="op">%&gt;%</span>
-<span class="kw">melt</span>(<span class="dt">measure.vars =</span> <span class="kw">c</span>(<span class="st">&quot;ideol&quot;</span>, <span class="st">&quot;education&quot;</span>, <span class="st">&quot;income&quot;</span>, <span class="st">&quot;age&quot;</span>,
-                                       <span class="st">&quot;gender&quot;</span>, <span class="st">&quot;.fitted&quot;</span>)) -&gt;<span class="st"> </span>m.df
-<span class="kw">head</span>(m.df)</code></pre></div>
+<div class="sourceCode" id="cb644"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb644-1" data-line-number="1">m.df <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb644-2" data-line-number="2"><span class="kw">melt</span>(<span class="dt">measure.vars =</span> <span class="kw">c</span>(<span class="st">&quot;ideol&quot;</span>, <span class="st">&quot;education&quot;</span>, <span class="st">&quot;income&quot;</span>, <span class="st">&quot;age&quot;</span>,</a>
+<a class="sourceLine" id="cb644-3" data-line-number="3">                                       <span class="st">&quot;gender&quot;</span>, <span class="st">&quot;.fitted&quot;</span>)) -&gt;<span class="st"> </span>m.df</a>
+<a class="sourceLine" id="cb644-4" data-line-number="4"><span class="kw">head</span>(m.df)</a></code></pre></div>
 <pre><code>##   .rownames vote_cand_spt    .se.fit     .resid        .hat   .sigma
 ## 1         1             5 0.06292522  1.5085812 0.003078242 1.133935
 ## 2         2             2 0.05491383 -1.5284394 0.002344319 1.133922
@@ -404,17 +428,17 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 ## 5 0.00006696004 -0.4353802    ideol     2
 ## 6 0.00004732953  0.4118630    ideol     4</code></pre>
 <p>The next step is to plot the residuals by the values of the independent variables. We’re going to use <code>geom_smooth()</code> to create a loess line that approximates the spread of our data, and we will use <code>geom_hline()</code> to plot a horizontal line at 0. Then we will use <code>facet_wrap()</code> to tell R to create different plots for each independent variable of the model:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(m.df, <span class="kw">aes</span>(value, .std.resid)) <span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">shape =</span> <span class="dv">1</span>) <span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_smooth</span>(<span class="kw">aes</span>(value, .std.resid), <span class="dt">method =</span> <span class="st">&quot;loess&quot;</span>) <span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_hline</span>(<span class="dt">yintercept =</span> <span class="dv">0</span>) <span class="op">+</span>
-<span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span>variable, <span class="dt">scales =</span> <span class="st">&quot;free_x&quot;</span>)</code></pre></div>
+<div class="sourceCode" id="cb646"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb646-1" data-line-number="1"><span class="kw">ggplot</span>(m.df, <span class="kw">aes</span>(value, .std.resid)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb646-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">shape =</span> <span class="dv">1</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb646-3" data-line-number="3"><span class="st">  </span><span class="kw">geom_smooth</span>(<span class="kw">aes</span>(value, .std.resid), <span class="dt">method =</span> <span class="st">&quot;loess&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb646-4" data-line-number="4"><span class="st">  </span><span class="kw">geom_hline</span>(<span class="dt">yintercept =</span> <span class="dv">0</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb646-5" data-line-number="5"><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span>variable, <span class="dt">scales =</span> <span class="st">&quot;free_x&quot;</span>)</a></code></pre></div>
 <p><img src="_main_files/figure-html/10_lin4-1.png" width="672" /></p>
 <p>We can see there are some potential non-linear relationships; for instance, the ideology variable. The next step is to consider adding an exponent the ideology variable. <strong>Note:</strong> We want to avoid over fitting our model to the data. Therefore it is important to have an understanding of why you are including an exponent.</p>
 <p>For example, when thinking about how ideology might influence candidate support, you could imagine this might be an instance when a quadratic model would be appropriate. Think about it: it wouldn’t make sense to theorize that the more conservative an individual, the more enthusiastic they were for the candidate they voted for (regardless of who the candidate was), but it <strong>does</strong> make sense to theorize that the more ideologically extreme an individual is (very liberal or very conservative) the more they supported the candidate they voted for. Perhaps the moderates voting in the 2016 election felt left our or alienated by the polarized political environment, and therefore might have had less support for the candidate they voted for.</p>
 <p>With this in mind, let’s build a new model to include ideology as a squared term. <strong>Note:</strong> The syntax to use a polynomial is: <code>poly(var,# of powers)</code>. The <code>poly</code> function creates an independent variable for each of the powers as required to create orthogonal power terms. Let’s construct the model:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">pol &lt;-<span class="st"> </span><span class="kw">lm</span>(vote_cand_spt <span class="op">~</span><span class="st"> </span><span class="kw">poly</span>(ideol,<span class="dv">2</span>) <span class="op">+</span><span class="st"> </span>education <span class="op">+</span><span class="st"> </span>income <span class="op">+</span><span class="st"> </span>age <span class="op">+</span><span class="st"> </span>gender, <span class="dt">data =</span> sub)
-<span class="kw">summary</span>(pol)</code></pre></div>
+<div class="sourceCode" id="cb647"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb647-1" data-line-number="1">pol &lt;-<span class="st"> </span><span class="kw">lm</span>(vote_cand_spt <span class="op">~</span><span class="st"> </span><span class="kw">poly</span>(ideol,<span class="dv">2</span>) <span class="op">+</span><span class="st"> </span>education <span class="op">+</span><span class="st"> </span>income <span class="op">+</span><span class="st"> </span>age <span class="op">+</span><span class="st"> </span>gender, <span class="dt">data =</span> sub)</a>
+<a class="sourceLine" id="cb647-2" data-line-number="2"><span class="kw">summary</span>(pol)</a></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = vote_cand_spt ~ poly(ideol, 2) + education + income + 
@@ -448,7 +472,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 ## Multiple R-squared:  0.1064, Adjusted R-squared:  0.1036 
 ## F-statistic: 39.13 on 6 and 1973 DF,  p-value: &lt; 0.00000000000000022</code></pre>
 <p>We see that our squared ideology term is statistically significant, but the coefficient may not provide us an intuitive interpretation. Before visualizing the model, it may be helpful to compare the new model to the previous, via the <code>anova()</code> function, to compare their fit to the data:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">anova</span>(model, pol)</code></pre></div>
+<div class="sourceCode" id="cb649"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb649-1" data-line-number="1"><span class="kw">anova</span>(model, pol)</a></code></pre></div>
 <pre><code>## Analysis of Variance Table
 ## 
 ## Model 1: vote_cand_spt ~ ideol + education + income + age + gender
@@ -459,7 +483,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
 <p>The significant p-value for the second line implies the second model is a better fit. We can also compare the adjusted <span class="math inline">\(R^2\)</span> values:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">stargazer</span>(model, pol, <span class="dt">single.row =</span> <span class="ot">TRUE</span>, <span class="dt">type =</span> <span class="st">&quot;text&quot;</span>)</code></pre></div>
+<div class="sourceCode" id="cb651"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb651-1" data-line-number="1"><span class="kw">stargazer</span>(model, pol, <span class="dt">single.row =</span> <span class="ot">TRUE</span>, <span class="dt">type =</span> <span class="st">&quot;text&quot;</span>)</a></code></pre></div>
 <pre><code>## 
 ## ====================================================================
 ##                                   Dependent variable:               
@@ -485,8 +509,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 ## Note:                                    *p&lt;0.1; **p&lt;0.05; ***p&lt;0.01</code></pre>
 <p>The coefficients for the individual variables in the quadratic model are statistically significant, suggesting they help us understand our dependent variable. Let’s move onto the visualization. Since ideology is our variable of interest, we will visualize the relationship between ideology and candidate support while holding the other variables constant at their means.</p>
 <p>Start by looking at a scatter plot. To assist we need to jitter the data because ideology is a discrete variable:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(sub, <span class="kw">aes</span>(ideol, vote_cand_spt)) <span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_jitter</span>(<span class="dt">shape =</span> <span class="dv">1</span>) </code></pre></div>
+<div class="sourceCode" id="cb653"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb653-1" data-line-number="1"><span class="kw">ggplot</span>(sub, <span class="kw">aes</span>(ideol, vote_cand_spt)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb653-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_jitter</span>(<span class="dt">shape =</span> <span class="dv">1</span>) </a></code></pre></div>
 <p><img src="_main_files/figure-html/10_poly5-1.png" width="672" /></p>
 <p>Now add the regression line and confidence interval. To do this we will:</p>
 <ol style="list-style-type: decimal">
@@ -495,30 +519,30 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li>Visualize.</li>
 </ol>
 <p>First: predict. We are going to sequence ideology from 1 to 7 by 0.1 instead of by 1 to produce a smoother line:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">pol <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">augment</span>(<span class="dt">newdata =</span> <span class="kw">data.frame</span>(<span class="dt">ideol =</span> <span class="kw">seq</span>(<span class="dv">1</span>,<span class="dv">7</span>,.<span class="dv">1</span>),
-                               <span class="dt">education =</span> <span class="kw">mean</span>(sub<span class="op">$</span>education),
-                               <span class="dt">income =</span> <span class="kw">mean</span>(sub<span class="op">$</span>income),
-                               <span class="dt">age =</span> <span class="kw">mean</span>(sub<span class="op">$</span>age),
-                               <span class="dt">gender=</span> <span class="kw">mean</span>(sub<span class="op">$</span>gender))) -&gt;<span class="st"> </span>pol.df</code></pre></div>
+<div class="sourceCode" id="cb654"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb654-1" data-line-number="1">pol <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb654-2" data-line-number="2"><span class="st">  </span><span class="kw">augment</span>(<span class="dt">newdata =</span> <span class="kw">data.frame</span>(<span class="dt">ideol =</span> <span class="kw">seq</span>(<span class="dv">1</span>,<span class="dv">7</span>,.<span class="dv">1</span>),</a>
+<a class="sourceLine" id="cb654-3" data-line-number="3">                               <span class="dt">education =</span> <span class="kw">mean</span>(sub<span class="op">$</span>education),</a>
+<a class="sourceLine" id="cb654-4" data-line-number="4">                               <span class="dt">income =</span> <span class="kw">mean</span>(sub<span class="op">$</span>income),</a>
+<a class="sourceLine" id="cb654-5" data-line-number="5">                               <span class="dt">age =</span> <span class="kw">mean</span>(sub<span class="op">$</span>age),</a>
+<a class="sourceLine" id="cb654-6" data-line-number="6">                               <span class="dt">gender=</span> <span class="kw">mean</span>(sub<span class="op">$</span>gender))) -&gt;<span class="st"> </span>pol.df</a></code></pre></div>
 <p>Now create the upper and lower limits of the confidence interval:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">pol.df <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">upper =</span> .fitted <span class="op">+</span><span class="st"> </span><span class="fl">1.96</span> <span class="op">*</span><span class="st"> </span>.se.fit,
-         <span class="dt">lower =</span> .fitted <span class="op">-</span><span class="st"> </span><span class="fl">1.96</span> <span class="op">*</span><span class="st"> </span>.se.fit) -&gt;<span class="st"> </span>pol.df</code></pre></div>
+<div class="sourceCode" id="cb655"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb655-1" data-line-number="1">pol.df <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb655-2" data-line-number="2"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">upper =</span> .fitted <span class="op">+</span><span class="st"> </span><span class="fl">1.96</span> <span class="op">*</span><span class="st"> </span>.se.fit,</a>
+<a class="sourceLine" id="cb655-3" data-line-number="3">         <span class="dt">lower =</span> .fitted <span class="op">-</span><span class="st"> </span><span class="fl">1.96</span> <span class="op">*</span><span class="st"> </span>.se.fit) -&gt;<span class="st"> </span>pol.df</a></code></pre></div>
 <p>The next step is to visualize. Use <code>geom_line()</code> to create the line, and <code>geom_ribbon()</code> to create the confidence interval. For practice, let’s label the axes and add a title.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(pol.df, <span class="kw">aes</span>(ideol, .fitted)) <span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_line</span>(<span class="dt">size =</span> <span class="dv">1</span>, <span class="dt">color =</span> <span class="st">&quot;dodgerblue&quot;</span>) <span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_ribbon</span>(<span class="kw">aes</span>(<span class="dt">ymin =</span> lower, <span class="dt">ymax =</span> upper), <span class="dt">fill =</span> <span class="st">&quot;dodgerblue&quot;</span>, <span class="dt">alpha =</span> .<span class="dv">5</span>) <span class="op">+</span>
-<span class="st">  </span><span class="kw">coord_cartesian</span>(<span class="dt">ylim =</span> <span class="kw">c</span>(<span class="dv">2</span><span class="op">:</span><span class="dv">5</span>), <span class="dt">xlim =</span> <span class="kw">c</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">7</span>)) <span class="op">+</span>
-<span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;Ideology&quot;</span>) <span class="op">+</span>
-<span class="st">  </span><span class="kw">ylab</span>(<span class="st">&quot;Support for Candidate&quot;</span>) <span class="op">+</span>
-<span class="st">  </span><span class="kw">ggtitle</span>(<span class="st">&quot;Ideology and Support for Candidate&quot;</span>) <span class="op">+</span>
-<span class="st">  </span><span class="kw">theme_bw</span>()</code></pre></div>
+<div class="sourceCode" id="cb656"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb656-1" data-line-number="1"><span class="kw">ggplot</span>(pol.df, <span class="kw">aes</span>(ideol, .fitted)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb656-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_line</span>(<span class="dt">size =</span> <span class="dv">1</span>, <span class="dt">color =</span> <span class="st">&quot;dodgerblue&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb656-3" data-line-number="3"><span class="st">  </span><span class="kw">geom_ribbon</span>(<span class="kw">aes</span>(<span class="dt">ymin =</span> lower, <span class="dt">ymax =</span> upper), <span class="dt">fill =</span> <span class="st">&quot;dodgerblue&quot;</span>, <span class="dt">alpha =</span> <span class="fl">.5</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb656-4" data-line-number="4"><span class="st">  </span><span class="kw">coord_cartesian</span>(<span class="dt">ylim =</span> <span class="kw">c</span>(<span class="dv">2</span><span class="op">:</span><span class="dv">5</span>), <span class="dt">xlim =</span> <span class="kw">c</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">7</span>)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb656-5" data-line-number="5"><span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;Ideology&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb656-6" data-line-number="6"><span class="st">  </span><span class="kw">ylab</span>(<span class="st">&quot;Support for Candidate&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb656-7" data-line-number="7"><span class="st">  </span><span class="kw">ggtitle</span>(<span class="st">&quot;Ideology and Support for Candidate&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb656-8" data-line-number="8"><span class="st">  </span><span class="kw">theme_bw</span>()</a></code></pre></div>
 <p><img src="_main_files/figure-html/10_poly9-1.png" width="672" /></p>
 <p>This visualization shows the relationship specified in our theory: that the relationship between ideology and candidate support is quadratic, where more ideologically extreme individuals have more support for the candidate they voted for than moderates.</p>
 <p>Let’s use an example where a cubed exponent would be appropriate. A very common model we’ve used has been exploring the relationship between ideology and climate change risk. Perhaps the relationship between the two is not best described linearly. Let’s first make a model we’ve looked at many times before:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">lm1 &lt;-<span class="st"> </span><span class="kw">lm</span>(glbcc_risk <span class="op">~</span><span class="st"> </span>age <span class="op">+</span><span class="st"> </span>gender <span class="op">+</span><span class="st"> </span>ideol <span class="op">+</span><span class="st"> </span>education, <span class="dt">data =</span> sub)
-<span class="kw">summary</span>(lm1)</code></pre></div>
+<div class="sourceCode" id="cb657"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb657-1" data-line-number="1">lm1 &lt;-<span class="st"> </span><span class="kw">lm</span>(glbcc_risk <span class="op">~</span><span class="st"> </span>age <span class="op">+</span><span class="st"> </span>gender <span class="op">+</span><span class="st"> </span>ideol <span class="op">+</span><span class="st"> </span>education, <span class="dt">data =</span> sub)</a>
+<a class="sourceLine" id="cb657-2" data-line-number="2"><span class="kw">summary</span>(lm1)</a></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = glbcc_risk ~ age + gender + ideol + education, data = sub)
@@ -541,19 +565,19 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 ## Multiple R-squared:  0.3796, Adjusted R-squared:  0.3784 
 ## F-statistic: 302.1 on 4 and 1975 DF,  p-value: &lt; 0.00000000000000022</code></pre>
 <p>Now plot the residuals by the independent variables:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">lm1 <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">augment</span>() <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">melt</span>(<span class="dt">measure.vars =</span> <span class="kw">c</span>(<span class="st">&quot;ideol&quot;</span>, <span class="st">&quot;education&quot;</span>, <span class="st">&quot;age&quot;</span>,
-                        <span class="st">&quot;gender&quot;</span>, <span class="st">&quot;.fitted&quot;</span>)) <span class="op">%&gt;%</span>
-<span class="kw">ggplot</span>(., <span class="kw">aes</span>(value, .std.resid)) <span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">shape =</span> <span class="dv">1</span>) <span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_smooth</span>(<span class="kw">aes</span>(value, .std.resid), <span class="dt">method =</span> <span class="st">&quot;loess&quot;</span>) <span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_hline</span>(<span class="dt">yintercept =</span> <span class="dv">0</span>) <span class="op">+</span>
-<span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span>variable, <span class="dt">scales =</span> <span class="st">&quot;free_x&quot;</span>)</code></pre></div>
+<div class="sourceCode" id="cb659"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb659-1" data-line-number="1">lm1 <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb659-2" data-line-number="2"><span class="st">  </span><span class="kw">augment</span>() <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb659-3" data-line-number="3"><span class="st">  </span><span class="kw">melt</span>(<span class="dt">measure.vars =</span> <span class="kw">c</span>(<span class="st">&quot;ideol&quot;</span>, <span class="st">&quot;education&quot;</span>, <span class="st">&quot;age&quot;</span>,</a>
+<a class="sourceLine" id="cb659-4" data-line-number="4">                        <span class="st">&quot;gender&quot;</span>, <span class="st">&quot;.fitted&quot;</span>)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb659-5" data-line-number="5"><span class="kw">ggplot</span>(., <span class="kw">aes</span>(value, .std.resid)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb659-6" data-line-number="6"><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">shape =</span> <span class="dv">1</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb659-7" data-line-number="7"><span class="st">  </span><span class="kw">geom_smooth</span>(<span class="kw">aes</span>(value, .std.resid), <span class="dt">method =</span> <span class="st">&quot;loess&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb659-8" data-line-number="8"><span class="st">  </span><span class="kw">geom_hline</span>(<span class="dt">yintercept =</span> <span class="dv">0</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb659-9" data-line-number="9"><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span>variable, <span class="dt">scales =</span> <span class="st">&quot;free_x&quot;</span>)</a></code></pre></div>
 <p><img src="_main_files/figure-html/10_cube2-1.png" width="672" /></p>
 <p>Looking at the ideology variable, we can see that it is likely not linear. It looks more like the loess line moves above and below the line at zero. This may imply that a cube term might be appropriate. Build a model that cubes ideology:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">cubed &lt;-<span class="st"> </span><span class="kw">lm</span>(<span class="dt">formula =</span> glbcc_risk <span class="op">~</span><span class="st"> </span>age <span class="op">+</span><span class="st"> </span>gender <span class="op">+</span><span class="st"> </span><span class="kw">poly</span>(ideol, <span class="dv">3</span>)  <span class="op">+</span><span class="st"> </span>education, <span class="dt">data =</span> sub)
-<span class="kw">summary</span>(cubed)</code></pre></div>
+<div class="sourceCode" id="cb660"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb660-1" data-line-number="1">cubed &lt;-<span class="st"> </span><span class="kw">lm</span>(<span class="dt">formula =</span> glbcc_risk <span class="op">~</span><span class="st"> </span>age <span class="op">+</span><span class="st"> </span>gender <span class="op">+</span><span class="st"> </span><span class="kw">poly</span>(ideol, <span class="dv">3</span>)  <span class="op">+</span><span class="st"> </span>education, <span class="dt">data =</span> sub)</a>
+<a class="sourceLine" id="cb660-2" data-line-number="2"><span class="kw">summary</span>(cubed)</a></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = glbcc_risk ~ age + gender + poly(ideol, 3) + education, 
@@ -579,7 +603,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 ## Multiple R-squared:  0.3879, Adjusted R-squared:  0.3861 
 ## F-statistic: 208.4 on 6 and 1973 DF,  p-value: &lt; 0.00000000000000022</code></pre>
 <p>Now compare the two models:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">stargazer</span>(lm1, cubed, <span class="dt">single.row =</span> <span class="ot">TRUE</span>, <span class="dt">type =</span> <span class="st">&quot;text&quot;</span>)</code></pre></div>
+<div class="sourceCode" id="cb662"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb662-1" data-line-number="1"><span class="kw">stargazer</span>(lm1, cubed, <span class="dt">single.row =</span> <span class="ot">TRUE</span>, <span class="dt">type =</span> <span class="st">&quot;text&quot;</span>)</a></code></pre></div>
 <pre><code>## 
 ## =======================================================================
 ##                                     Dependent variable:                
@@ -604,7 +628,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 ## =======================================================================
 ## Note:                                       *p&lt;0.1; **p&lt;0.05; ***p&lt;0.01</code></pre>
 <p>It actually looks like the cube term does not describe the data very well. The adjusted R squared appears to marginally increase in the cubed model, but that does not tell us much. Let’s use ANOVA:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">anova</span>(lm1, cubed)</code></pre></div>
+<div class="sourceCode" id="cb664"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb664-1" data-line-number="1"><span class="kw">anova</span>(lm1, cubed)</a></code></pre></div>
 <pre><code>## Analysis of Variance Table
 ## 
 ## Model 1: glbcc_risk ~ age + gender + ideol + education
@@ -616,22 +640,22 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
 <p>The ANOVA test tells us that our cubed model is a better fit. This is likely due to the square term, which is statistically significant. Nonetheless, let’s visualize this so you have experience seeing cubed lines.</p>
 <p>Follow the same steps as last time, predicting values, calculating the confidence interval, and plotting using <code>geom_line()</code> and <code>geom_ribbon()</code>.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">cubed <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">augment</span>(<span class="dt">newdata =</span> <span class="kw">data.frame</span>(<span class="dt">ideol =</span> <span class="kw">seq</span>(<span class="dv">1</span>,<span class="dv">7</span>,.<span class="dv">1</span>),
-                               <span class="dt">education =</span> <span class="kw">mean</span>(sub<span class="op">$</span>education),
-                               <span class="dt">age =</span> <span class="kw">mean</span>(sub<span class="op">$</span>age),
-                               <span class="dt">gender=</span> <span class="kw">mean</span>(sub<span class="op">$</span>gender))) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">upper =</span> .fitted <span class="op">+</span><span class="st"> </span><span class="fl">1.96</span> <span class="op">*</span><span class="st"> </span>.se.fit,
-         <span class="dt">lower =</span> .fitted <span class="op">-</span><span class="st"> </span><span class="fl">1.96</span> <span class="op">*</span><span class="st"> </span>.se.fit) -&gt;<span class="st"> </span>cube.df
-
-<span class="kw">ggplot</span>(cube.df, <span class="kw">aes</span>(ideol, .fitted)) <span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_line</span>(<span class="dt">size =</span> <span class="dv">1</span>, <span class="dt">color =</span> <span class="st">&quot;dodgerblue&quot;</span>) <span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_ribbon</span>(<span class="kw">aes</span>(<span class="dt">ymin =</span> lower, <span class="dt">ymax =</span> upper), <span class="dt">fill =</span> <span class="st">&quot;dodgerblue&quot;</span>, <span class="dt">alpha =</span> .<span class="dv">5</span>) <span class="op">+</span>
-<span class="st">  </span><span class="kw">coord_cartesian</span>(<span class="dt">ylim =</span> <span class="kw">c</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>), <span class="dt">xlim =</span> <span class="kw">c</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">7</span>)) <span class="op">+</span>
-<span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;Ideology&quot;</span>) <span class="op">+</span>
-<span class="st">  </span><span class="kw">ylab</span>(<span class="st">&quot;Climate Change Risk&quot;</span>) <span class="op">+</span>
-<span class="st">  </span><span class="kw">ggtitle</span>(<span class="st">&quot;Ideology and Climate Change Risk&quot;</span>) <span class="op">+</span>
-<span class="st">  </span><span class="kw">theme_bw</span>()</code></pre></div>
+<div class="sourceCode" id="cb666"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb666-1" data-line-number="1">cubed <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb666-2" data-line-number="2"><span class="st">  </span><span class="kw">augment</span>(<span class="dt">newdata =</span> <span class="kw">data.frame</span>(<span class="dt">ideol =</span> <span class="kw">seq</span>(<span class="dv">1</span>,<span class="dv">7</span>,.<span class="dv">1</span>),</a>
+<a class="sourceLine" id="cb666-3" data-line-number="3">                               <span class="dt">education =</span> <span class="kw">mean</span>(sub<span class="op">$</span>education),</a>
+<a class="sourceLine" id="cb666-4" data-line-number="4">                               <span class="dt">age =</span> <span class="kw">mean</span>(sub<span class="op">$</span>age),</a>
+<a class="sourceLine" id="cb666-5" data-line-number="5">                               <span class="dt">gender=</span> <span class="kw">mean</span>(sub<span class="op">$</span>gender))) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb666-6" data-line-number="6"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">upper =</span> .fitted <span class="op">+</span><span class="st"> </span><span class="fl">1.96</span> <span class="op">*</span><span class="st"> </span>.se.fit,</a>
+<a class="sourceLine" id="cb666-7" data-line-number="7">         <span class="dt">lower =</span> .fitted <span class="op">-</span><span class="st"> </span><span class="fl">1.96</span> <span class="op">*</span><span class="st"> </span>.se.fit) -&gt;<span class="st"> </span>cube.df</a>
+<a class="sourceLine" id="cb666-8" data-line-number="8"></a>
+<a class="sourceLine" id="cb666-9" data-line-number="9"><span class="kw">ggplot</span>(cube.df, <span class="kw">aes</span>(ideol, .fitted)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb666-10" data-line-number="10"><span class="st">  </span><span class="kw">geom_line</span>(<span class="dt">size =</span> <span class="dv">1</span>, <span class="dt">color =</span> <span class="st">&quot;dodgerblue&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb666-11" data-line-number="11"><span class="st">  </span><span class="kw">geom_ribbon</span>(<span class="kw">aes</span>(<span class="dt">ymin =</span> lower, <span class="dt">ymax =</span> upper), <span class="dt">fill =</span> <span class="st">&quot;dodgerblue&quot;</span>, <span class="dt">alpha =</span> <span class="fl">.5</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb666-12" data-line-number="12"><span class="st">  </span><span class="kw">coord_cartesian</span>(<span class="dt">ylim =</span> <span class="kw">c</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>), <span class="dt">xlim =</span> <span class="kw">c</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">7</span>)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb666-13" data-line-number="13"><span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;Ideology&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb666-14" data-line-number="14"><span class="st">  </span><span class="kw">ylab</span>(<span class="st">&quot;Climate Change Risk&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb666-15" data-line-number="15"><span class="st">  </span><span class="kw">ggtitle</span>(<span class="st">&quot;Ideology and Climate Change Risk&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb666-16" data-line-number="16"><span class="st">  </span><span class="kw">theme_bw</span>()</a></code></pre></div>
 <p><img src="_main_files/figure-html/10_cube6-1.png" width="672" /></p>
 </div>
 </div>
@@ -639,55 +663,55 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <h2><span class="header-section-number">11.2</span> Non-normality</h2>
 <p>This section will go over the problem of non-normality and how to deal with it. One of the key assumptions of OLS is that the residuals of the model are normally distributed. It is also important to make sure your variables are not skewed too far either negatively or positively. Let’s cover how to examine whether residuals are normally distributed, as well as how to handle greatly-skewed variables.</p>
 <p>To begin, suppose you want to examine how different independent variables are related to a vote for Donald Trump in the 2016 presidential election. We need to clean up the class data set variable on 2016 presidential votes. Let’s look at it:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">table</span>(ds<span class="op">$</span>vote_cand)</code></pre></div>
+<div class="sourceCode" id="cb667"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb667-1" data-line-number="1"><span class="kw">table</span>(ds<span class="op">$</span>vote_cand)</a></code></pre></div>
 <pre><code>## 
 ##    0    1    2    3    4 
 ## 1272  722  125    7   39</code></pre>
 <p>The codebook for the class data set tells us that a response of 0 indicates a vote for Trump, 1 is for Clinton, 2 for Gary Johnson, 3 for Jill Stein, and 4 for a different candidate. Change the variable so that it only includes Trump and Clinton. To transform this variable into a binary indicator of a vote for Trump or Clinton, we need to recode the variable so that responses of 1 equals 0, a response of 0 equals 1, with all else an NA:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ds<span class="op">$</span>v.trump &lt;-<span class="st"> </span>car<span class="op">::</span><span class="kw">recode</span>(ds<span class="op">$</span>vote_cand, <span class="st">&quot;0 = 1;1 = 0;else = NA;NA = NA&quot;</span>)
-<span class="kw">table</span>(ds<span class="op">$</span>v.trump)</code></pre></div>
+<div class="sourceCode" id="cb669"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb669-1" data-line-number="1">ds<span class="op">$</span>v.trump &lt;-<span class="st"> </span>car<span class="op">::</span><span class="kw">recode</span>(ds<span class="op">$</span>vote_cand, <span class="st">&quot;0 = 1;1 = 0;else = NA;NA = NA&quot;</span>)</a>
+<a class="sourceLine" id="cb669-2" data-line-number="2"><span class="kw">table</span>(ds<span class="op">$</span>v.trump)</a></code></pre></div>
 <pre><code>## 
 ##    0    1 
 ##  722 1272</code></pre>
 <p>Now pull the variables into a new data set and remove missing observations:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">new.ds &lt;-<span class="st"> </span>ds <span class="op">%&gt;%</span><span class="st"> </span>dplyr<span class="op">::</span><span class="kw">select</span>(<span class="st">&quot;income&quot;</span>, <span class="st">&quot;gender&quot;</span>, <span class="st">&quot;ideol&quot;</span>,
-                                       <span class="st">&quot;v.trump&quot;</span>, <span class="st">&quot;education&quot;</span>) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">na.omit</span>()</code></pre></div>
+<div class="sourceCode" id="cb671"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb671-1" data-line-number="1">new.ds &lt;-<span class="st"> </span>ds <span class="op">%&gt;%</span><span class="st"> </span>dplyr<span class="op">::</span><span class="kw">select</span>(<span class="st">&quot;income&quot;</span>, <span class="st">&quot;gender&quot;</span>, <span class="st">&quot;ideol&quot;</span>,</a>
+<a class="sourceLine" id="cb671-2" data-line-number="2">                                       <span class="st">&quot;v.trump&quot;</span>, <span class="st">&quot;education&quot;</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb671-3" data-line-number="3"><span class="st">  </span><span class="kw">na.omit</span>()</a></code></pre></div>
 <p>Now review independent variables that are not binary:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">psych<span class="op">::</span><span class="kw">describe</span>(new.ds<span class="op">$</span>income)</code></pre></div>
+<div class="sourceCode" id="cb672"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb672-1" data-line-number="1">psych<span class="op">::</span><span class="kw">describe</span>(new.ds<span class="op">$</span>income)</a></code></pre></div>
 <pre><code>##    vars    n     mean       sd median  trimmed     mad   min    max  range
 ## X1    1 1819 72889.47 58269.83  60000 64601.34 41512.8 10000 900000 890000
 ##    skew kurtosis      se
 ## X1 4.13    37.96 1366.24</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">psych<span class="op">::</span><span class="kw">describe</span>(new.ds<span class="op">$</span>education)</code></pre></div>
+<div class="sourceCode" id="cb674"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb674-1" data-line-number="1">psych<span class="op">::</span><span class="kw">describe</span>(new.ds<span class="op">$</span>education)</a></code></pre></div>
 <pre><code>##    vars    n mean   sd median trimmed  mad min max range  skew kurtosis
 ## X1    1 1819 5.18 1.78      6    5.28 1.48   1   8     7 -0.45    -0.79
 ##      se
 ## X1 0.04</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">psych<span class="op">::</span><span class="kw">describe</span>(new.ds<span class="op">$</span>ideol)</code></pre></div>
+<div class="sourceCode" id="cb676"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb676-1" data-line-number="1">psych<span class="op">::</span><span class="kw">describe</span>(new.ds<span class="op">$</span>ideol)</a></code></pre></div>
 <pre><code>##    vars    n mean  sd median trimmed  mad min max range skew kurtosis   se
 ## X1    1 1819 4.69 1.8      5    4.81 1.48   1   7     6 -0.5    -0.89 0.04</code></pre>
 <p>Look at the density distributions:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">new.ds <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">melt</span>(<span class="dt">measure.vars =</span> <span class="kw">c</span>(<span class="st">&quot;income&quot;</span>, <span class="st">&quot;education&quot;</span>, <span class="st">&quot;ideol&quot;</span>)) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">ggplot</span>(., <span class="kw">aes</span>(value)) <span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_density</span>(<span class="dt">adjust =</span> <span class="dv">2</span>) <span class="op">+</span>
-<span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span><span class="st"> </span>variable, <span class="dt">scales =</span> <span class="st">&quot;free&quot;</span>)</code></pre></div>
+<div class="sourceCode" id="cb678"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb678-1" data-line-number="1">new.ds <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb678-2" data-line-number="2"><span class="st">  </span><span class="kw">melt</span>(<span class="dt">measure.vars =</span> <span class="kw">c</span>(<span class="st">&quot;income&quot;</span>, <span class="st">&quot;education&quot;</span>, <span class="st">&quot;ideol&quot;</span>)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb678-3" data-line-number="3"><span class="st">  </span><span class="kw">ggplot</span>(., <span class="kw">aes</span>(value)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb678-4" data-line-number="4"><span class="st">  </span><span class="kw">geom_density</span>(<span class="dt">adjust =</span> <span class="dv">2</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb678-5" data-line-number="5"><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span><span class="st"> </span>variable, <span class="dt">scales =</span> <span class="st">&quot;free&quot;</span>)</a></code></pre></div>
 <p><img src="_main_files/figure-html/10_non5-1.png" width="672" /></p>
 <p>It is clear that the income variable has a large positive skew. Education and ideology are slightly skewed. One way to fix a skewed variable is to transform it, often by a log. Let’s try that:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">new.ds<span class="op">$</span>log.inc &lt;-<span class="st"> </span><span class="kw">log</span>(new.ds<span class="op">$</span>income)</code></pre></div>
+<div class="sourceCode" id="cb679"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb679-1" data-line-number="1">new.ds<span class="op">$</span>log.inc &lt;-<span class="st"> </span><span class="kw">log</span>(new.ds<span class="op">$</span>income)</a></code></pre></div>
 <p>Now review it:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">psych<span class="op">::</span><span class="kw">describe</span>(new.ds<span class="op">$</span>log.inc)</code></pre></div>
+<div class="sourceCode" id="cb680"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb680-1" data-line-number="1">psych<span class="op">::</span><span class="kw">describe</span>(new.ds<span class="op">$</span>log.inc)</a></code></pre></div>
 <pre><code>##    vars    n  mean  sd median trimmed  mad  min   max range  skew kurtosis
 ## X1    1 1819 10.96 0.7     11   10.97 0.74 9.21 13.71   4.5 -0.12    -0.03
 ##      se
 ## X1 0.02</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(new.ds, <span class="kw">aes</span>(log.inc))<span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_density</span>(<span class="dt">adjust =</span> <span class="dv">3</span>)</code></pre></div>
+<div class="sourceCode" id="cb682"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb682-1" data-line-number="1"><span class="kw">ggplot</span>(new.ds, <span class="kw">aes</span>(log.inc))<span class="op">+</span></a>
+<a class="sourceLine" id="cb682-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_density</span>(<span class="dt">adjust =</span> <span class="dv">3</span>)</a></code></pre></div>
 <p><img src="_main_files/figure-html/10_non8-1.png" width="672" /></p>
 <p>The skew appears to be reduced. Transforming a variable does not really change how you use it in a model, but it does change the interpretation. Now the variable is ordered in logs. So a mean of 10.96 indicates 10.96 natural logged income. Now let’s build the model, using the log of income instead of the income variable:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">lm.trump &lt;-<span class="st"> </span><span class="kw">lm</span>(v.trump <span class="op">~</span><span class="st">  </span>log.inc <span class="op">+</span><span class="st"> </span>education <span class="op">+</span><span class="st"> </span>gender <span class="op">+</span><span class="st"> </span>ideol, <span class="dt">data =</span> new.ds)
-<span class="kw">summary</span>(lm.trump)</code></pre></div>
+<div class="sourceCode" id="cb683"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb683-1" data-line-number="1">lm.trump &lt;-<span class="st"> </span><span class="kw">lm</span>(v.trump <span class="op">~</span><span class="st">  </span>log.inc <span class="op">+</span><span class="st"> </span>education <span class="op">+</span><span class="st"> </span>gender <span class="op">+</span><span class="st"> </span>ideol, <span class="dt">data =</span> new.ds)</a>
+<a class="sourceLine" id="cb683-2" data-line-number="2"><span class="kw">summary</span>(lm.trump)</a></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = v.trump ~ log.inc + education + gender + ideol, 
@@ -712,15 +736,15 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 ## F-statistic: 461.6 on 4 and 1814 DF,  p-value: &lt; 0.00000000000000022</code></pre>
 <p>Regarding the ideology variable, there really should not be any surprises. More conservative individuals voted for Trump. Education is significant, but the coefficient is rather small. Our model suggests that education helps us explain voting, with more education tending to go with voting for Clinton. Our log.income variable does not help us to explain voting.</p>
 <p>Let’s now look at the normality of the residuals. First assign the residuals to our data set:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">new.ds<span class="op">$</span>res &lt;-<span class="st"> </span><span class="kw">residuals</span>(lm.trump)</code></pre></div>
+<div class="sourceCode" id="cb685"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb685-1" data-line-number="1">new.ds<span class="op">$</span>res &lt;-<span class="st"> </span><span class="kw">residuals</span>(lm.trump)</a></code></pre></div>
 <p>Now make a density plot of the residuals, but also include a normal curve that has the mean and standard deviation of the residuals:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(new.ds, <span class="kw">aes</span>(res))<span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_density</span>(<span class="dt">adjust =</span> <span class="dv">3</span>) <span class="op">+</span>
-<span class="st">  </span><span class="kw">stat_function</span>(<span class="dt">fun =</span> dnorm, <span class="dt">args =</span> <span class="kw">list</span>(<span class="dt">mean =</span> <span class="kw">mean</span>(new.ds<span class="op">$</span>res), <span class="dt">sd =</span> <span class="kw">sd</span>(new.ds<span class="op">$</span>res)), 
-                <span class="dt">color =</span> <span class="st">&quot;red&quot;</span>)</code></pre></div>
+<div class="sourceCode" id="cb686"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb686-1" data-line-number="1"><span class="kw">ggplot</span>(new.ds, <span class="kw">aes</span>(res))<span class="op">+</span></a>
+<a class="sourceLine" id="cb686-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_density</span>(<span class="dt">adjust =</span> <span class="dv">3</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb686-3" data-line-number="3"><span class="st">  </span><span class="kw">stat_function</span>(<span class="dt">fun =</span> dnorm, <span class="dt">args =</span> <span class="kw">list</span>(<span class="dt">mean =</span> <span class="kw">mean</span>(new.ds<span class="op">$</span>res), <span class="dt">sd =</span> <span class="kw">sd</span>(new.ds<span class="op">$</span>res)), </a>
+<a class="sourceLine" id="cb686-4" data-line-number="4">                <span class="dt">color =</span> <span class="st">&quot;red&quot;</span>)</a></code></pre></div>
 <p><img src="_main_files/figure-html/10_non11-1.png" width="672" /></p>
 <p>The eye test indicates that we might have an issue with non-normality of the residuals. Let’s run the Shapiro-Wilk test as well:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">shapiro.test</span>(lm.trump<span class="op">$</span>residuals)</code></pre></div>
+<div class="sourceCode" id="cb687"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb687-1" data-line-number="1"><span class="kw">shapiro.test</span>(lm.trump<span class="op">$</span>residuals)</a></code></pre></div>
 <pre><code>## 
 ##  Shapiro-Wilk normality test
 ## 
@@ -731,27 +755,27 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <div id="multicollinearity" class="section level2">
 <h2><span class="header-section-number">11.3</span> Multicollinearity</h2>
 <p>Multicollinearity occurs when one independent variable of a model can be predicted with a high degree of accuracy by another independent variable. Even though perfect multicollinearity is very rare, checking for multicollinearity is an important process. The first way to explore potential multicollinearity is to check the collinearity between independent variables:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">new.ds <span class="op">%&gt;%</span>
-<span class="st">  </span>dplyr<span class="op">::</span><span class="kw">select</span>(ideol, log.inc, education) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">cor</span>()</code></pre></div>
+<div class="sourceCode" id="cb689"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb689-1" data-line-number="1">new.ds <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb689-2" data-line-number="2"><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">select</span>(ideol, log.inc, education) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb689-3" data-line-number="3"><span class="st">  </span><span class="kw">cor</span>()</a></code></pre></div>
 <pre><code>##                  ideol     log.inc  education
 ## ideol      1.000000000 0.009092405 -0.1700741
 ## log.inc    0.009092405 1.000000000  0.3732611
 ## education -0.170074114 0.373261119  1.0000000</code></pre>
 <p>There does not appear to be any extremely highly-correlated variables. We should find the variance inflation factor, which measures the increase in variance of the other coefficients due to the inclusion of a particular variable:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">vif</span>(lm.trump)</code></pre></div>
+<div class="sourceCode" id="cb691"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb691-1" data-line-number="1"><span class="kw">vif</span>(lm.trump)</a></code></pre></div>
 <pre><code>##   log.inc education    gender     ideol 
 ##  1.193055  1.206849  1.039107  1.043909</code></pre>
 <p>Generally speaking, you do not want to have a value greater than 5. This model does not appear to have an issue with multicollinearity.</p>
 <p>Now let’s use an example that combines everything we’ve gone over so far. Let’s examine the relationship between square footage of the respondent’s home and income, age, and education. Start by selecting the data and removing missing observations:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">d &lt;-<span class="st"> </span>ds <span class="op">%&gt;%</span>
-<span class="st">  </span>dplyr<span class="op">::</span><span class="kw">select</span>(<span class="st">&quot;footage&quot;</span>, <span class="st">&quot;income&quot;</span>, <span class="st">&quot;age&quot;</span>, <span class="st">&quot;education&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">na.omit</span>()</code></pre></div>
+<div class="sourceCode" id="cb693"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb693-1" data-line-number="1">d &lt;-<span class="st"> </span>ds <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb693-2" data-line-number="2"><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">select</span>(<span class="st">&quot;footage&quot;</span>, <span class="st">&quot;income&quot;</span>, <span class="st">&quot;age&quot;</span>, <span class="st">&quot;education&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb693-3" data-line-number="3"><span class="st">  </span><span class="kw">na.omit</span>()</a></code></pre></div>
 <p>Like earlier, we should do a log-transformation of income:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">d<span class="op">$</span>log.inc &lt;-<span class="st"> </span><span class="kw">log</span>(d<span class="op">$</span>income)</code></pre></div>
+<div class="sourceCode" id="cb694"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb694-1" data-line-number="1">d<span class="op">$</span>log.inc &lt;-<span class="st"> </span><span class="kw">log</span>(d<span class="op">$</span>income)</a></code></pre></div>
 <p>Now build the model:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mod &lt;-<span class="st"> </span><span class="kw">lm</span>(footage <span class="op">~</span><span class="st"> </span>age <span class="op">+</span><span class="st"> </span>education <span class="op">+</span><span class="st"> </span>log.inc, <span class="dt">data =</span> d)
-<span class="kw">summary</span>(mod)</code></pre></div>
+<div class="sourceCode" id="cb695"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb695-1" data-line-number="1">mod &lt;-<span class="st"> </span><span class="kw">lm</span>(footage <span class="op">~</span><span class="st"> </span>age <span class="op">+</span><span class="st"> </span>education <span class="op">+</span><span class="st"> </span>log.inc, <span class="dt">data =</span> d)</a>
+<a class="sourceLine" id="cb695-2" data-line-number="2"><span class="kw">summary</span>(mod)</a></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = footage ~ age + education + log.inc, data = d)
@@ -773,36 +797,36 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 ## Multiple R-squared:  0.1186, Adjusted R-squared:  0.1174 
 ## F-statistic: 100.1 on 3 and 2232 DF,  p-value: &lt; 0.00000000000000022</code></pre>
 <p>Check for multicollinearity:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">d <span class="op">%&gt;%</span>
-<span class="st">  </span>dplyr<span class="op">::</span><span class="kw">select</span>(age, education, log.inc) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">cor</span>()</code></pre></div>
+<div class="sourceCode" id="cb697"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb697-1" data-line-number="1">d <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb697-2" data-line-number="2"><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">select</span>(age, education, log.inc) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb697-3" data-line-number="3"><span class="st">  </span><span class="kw">cor</span>()</a></code></pre></div>
 <pre><code>##                   age   education    log.inc
 ## age        1.00000000 -0.04921609 -0.1327773
 ## education -0.04921609  1.00000000  0.3720851
 ## log.inc   -0.13277728  0.37208510  1.0000000</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">vif</span>(mod)</code></pre></div>
+<div class="sourceCode" id="cb699"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb699-1" data-line-number="1"><span class="kw">vif</span>(mod)</a></code></pre></div>
 <pre><code>##       age education   log.inc 
 ##  1.017946  1.160695  1.178663</code></pre>
 <p>Taking all this into account, there does not appear to be a problem with multicollinearity.</p>
 <p>Now let’s examine the linearity of the variables. Recall the plot we made earlier that plots the independent variables by the residuals. Let’s do that again:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mod <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">augment</span>() <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">melt</span>(<span class="dt">measure.vars =</span> <span class="kw">c</span>(<span class="st">&quot;education&quot;</span>, <span class="st">&quot;age&quot;</span>, <span class="st">&quot;log.inc&quot;</span>, <span class="st">&quot;.fitted&quot;</span>)) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">ggplot</span>(., <span class="kw">aes</span>(value, .std.resid)) <span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">shape =</span> <span class="dv">1</span>) <span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> loess, <span class="dt">color =</span> <span class="st">&quot;red&quot;</span>) <span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_hline</span>(<span class="dt">yintercept =</span> <span class="dv">0</span>) <span class="op">+</span>
-<span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span>variable, <span class="dt">scales =</span> <span class="st">&quot;free_x&quot;</span>)</code></pre></div>
+<div class="sourceCode" id="cb701"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb701-1" data-line-number="1">mod <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb701-2" data-line-number="2"><span class="st">  </span><span class="kw">augment</span>() <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb701-3" data-line-number="3"><span class="st">  </span><span class="kw">melt</span>(<span class="dt">measure.vars =</span> <span class="kw">c</span>(<span class="st">&quot;education&quot;</span>, <span class="st">&quot;age&quot;</span>, <span class="st">&quot;log.inc&quot;</span>, <span class="st">&quot;.fitted&quot;</span>)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb701-4" data-line-number="4"><span class="st">  </span><span class="kw">ggplot</span>(., <span class="kw">aes</span>(value, .std.resid)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb701-5" data-line-number="5"><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">shape =</span> <span class="dv">1</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb701-6" data-line-number="6"><span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> loess, <span class="dt">color =</span> <span class="st">&quot;red&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb701-7" data-line-number="7"><span class="st">  </span><span class="kw">geom_hline</span>(<span class="dt">yintercept =</span> <span class="dv">0</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb701-8" data-line-number="8"><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span>variable, <span class="dt">scales =</span> <span class="st">&quot;free_x&quot;</span>)</a></code></pre></div>
 <p><img src="_main_files/figure-html/10_ex7-1.png" width="672" /></p>
 <p>There does not appear to be an issue with non-linearity either, so we have no reason to include exponents in the model.</p>
 <p>The next step is to check for non-normality of the residuals:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">d<span class="op">$</span>res &lt;-<span class="st"> </span><span class="kw">residuals</span>(mod)
-<span class="kw">ggplot</span>(d, <span class="kw">aes</span>(res))<span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_density</span>() <span class="op">+</span>
-<span class="st">  </span><span class="kw">stat_function</span>(<span class="dt">fun =</span> dnorm, <span class="dt">args =</span> <span class="kw">list</span>(<span class="dt">mean =</span> <span class="kw">mean</span>(d<span class="op">$</span>res), <span class="dt">sd =</span> <span class="kw">sd</span>(d<span class="op">$</span>res)), 
-                <span class="dt">color =</span> <span class="st">&quot;red&quot;</span>)</code></pre></div>
+<div class="sourceCode" id="cb702"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb702-1" data-line-number="1">d<span class="op">$</span>res &lt;-<span class="st"> </span><span class="kw">residuals</span>(mod)</a>
+<a class="sourceLine" id="cb702-2" data-line-number="2"><span class="kw">ggplot</span>(d, <span class="kw">aes</span>(res))<span class="op">+</span></a>
+<a class="sourceLine" id="cb702-3" data-line-number="3"><span class="st">  </span><span class="kw">geom_density</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb702-4" data-line-number="4"><span class="st">  </span><span class="kw">stat_function</span>(<span class="dt">fun =</span> dnorm, <span class="dt">args =</span> <span class="kw">list</span>(<span class="dt">mean =</span> <span class="kw">mean</span>(d<span class="op">$</span>res), <span class="dt">sd =</span> <span class="kw">sd</span>(d<span class="op">$</span>res)), </a>
+<a class="sourceLine" id="cb702-5" data-line-number="5">                <span class="dt">color =</span> <span class="st">&quot;red&quot;</span>)</a></code></pre></div>
 <p><img src="_main_files/figure-html/10_ex8-1.png" width="672" /></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">shapiro.test</span>(mod<span class="op">$</span>residuals)</code></pre></div>
+<div class="sourceCode" id="cb703"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb703-1" data-line-number="1"><span class="kw">shapiro.test</span>(mod<span class="op">$</span>residuals)</a></code></pre></div>
 <pre><code>## 
 ##  Shapiro-Wilk normality test
 ## 
@@ -810,7 +834,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 ## W = 0.56711, p-value &lt; 0.00000000000000022</code></pre>
 <p>Our results and visualization indicate that there could be a problem with non-normality.</p>
 <p>Let’s take a look at the results of the model again:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summary</span>(mod)</code></pre></div>
+<div class="sourceCode" id="cb705"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb705-1" data-line-number="1"><span class="kw">summary</span>(mod)</a></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = footage ~ age + education + log.inc, data = d)
@@ -842,10 +866,10 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li>Standardize all the variables.</li>
 </ol>
 <p>Standardizing a variable refers to scaling it in standard deviations. This allows us to compare variables that were originally measured in different units. Let’s use our previously developed model, but this time we will standardize the dependent variable only. Use the <code>scale()</code> function on the footage variable to standardize it:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">d<span class="op">$</span>z.footage &lt;-<span class="st"> </span><span class="kw">scale</span>(d<span class="op">$</span>footage)</code></pre></div>
+<div class="sourceCode" id="cb707"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb707-1" data-line-number="1">d<span class="op">$</span>z.footage &lt;-<span class="st"> </span><span class="kw">scale</span>(d<span class="op">$</span>footage)</a></code></pre></div>
 <p>Now build the model and look at the results:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">z.mod1 &lt;-<span class="st"> </span><span class="kw">lm</span>(z.footage <span class="op">~</span><span class="st"> </span>age <span class="op">+</span><span class="st"> </span>education <span class="op">+</span><span class="st"> </span>log.inc, <span class="dt">data =</span> d)
-<span class="kw">summary</span>(z.mod1)</code></pre></div>
+<div class="sourceCode" id="cb708"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb708-1" data-line-number="1">z.mod1 &lt;-<span class="st"> </span><span class="kw">lm</span>(z.footage <span class="op">~</span><span class="st"> </span>age <span class="op">+</span><span class="st"> </span>education <span class="op">+</span><span class="st"> </span>log.inc, <span class="dt">data =</span> d)</a>
+<a class="sourceLine" id="cb708-2" data-line-number="2"><span class="kw">summary</span>(z.mod1)</a></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = z.footage ~ age + education + log.inc, data = d)
@@ -868,12 +892,12 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 ## F-statistic: 100.1 on 3 and 2232 DF,  p-value: &lt; 0.00000000000000022</code></pre>
 <p>Since we only standardized the dependent variable, we would interpret this as saying that a one unit increase in age corresponds with a .008 standard deviation increase in square footage. For log income, we would say that a one unit increase in log income corresponds with a .45 standard deviation increase in square footage.</p>
 <p>Now let’s standardize the independent variables only:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">d<span class="op">$</span>z.age &lt;-<span class="st"> </span><span class="kw">scale</span>(d<span class="op">$</span>age)
-d<span class="op">$</span>z.log.income &lt;-<span class="st"> </span><span class="kw">scale</span>(d<span class="op">$</span>log.inc)
-d<span class="op">$</span>z.education &lt;-<span class="st"> </span><span class="kw">scale</span>(d<span class="op">$</span>education)</code></pre></div>
+<div class="sourceCode" id="cb710"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb710-1" data-line-number="1">d<span class="op">$</span>z.age &lt;-<span class="st"> </span><span class="kw">scale</span>(d<span class="op">$</span>age)</a>
+<a class="sourceLine" id="cb710-2" data-line-number="2">d<span class="op">$</span>z.log.income &lt;-<span class="st"> </span><span class="kw">scale</span>(d<span class="op">$</span>log.inc)</a>
+<a class="sourceLine" id="cb710-3" data-line-number="3">d<span class="op">$</span>z.education &lt;-<span class="st"> </span><span class="kw">scale</span>(d<span class="op">$</span>education)</a></code></pre></div>
 <p>Next build the model:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">z.mod2 &lt;-<span class="st"> </span><span class="kw">lm</span>(footage <span class="op">~</span><span class="st"> </span>z.age <span class="op">+</span><span class="st"> </span>z.log.income <span class="op">+</span><span class="st"> </span>z.education, <span class="dt">data=</span>d)
-<span class="kw">summary</span>(z.mod2)</code></pre></div>
+<div class="sourceCode" id="cb711"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb711-1" data-line-number="1">z.mod2 &lt;-<span class="st"> </span><span class="kw">lm</span>(footage <span class="op">~</span><span class="st"> </span>z.age <span class="op">+</span><span class="st"> </span>z.log.income <span class="op">+</span><span class="st"> </span>z.education, <span class="dt">data=</span>d)</a>
+<a class="sourceLine" id="cb711-2" data-line-number="2"><span class="kw">summary</span>(z.mod2)</a></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = footage ~ z.age + z.log.income + z.education, data = d)
@@ -895,8 +919,8 @@ d<span class="op">$</span>z.education &lt;-<span class="st"> </span><span class=
 ## Multiple R-squared:  0.1186, Adjusted R-squared:  0.1174 
 ## F-statistic: 100.1 on 3 and 2232 DF,  p-value: &lt; 0.00000000000000022</code></pre>
 <p>Now we would say that a one standard deviation increase in age corresponds with a 134.8 unit increase in square footage, and a one standard deviation increase in log income corresponds with a 376.71 unit increase in square footage. Comparing the coefficients here is rather simple and intuitive. Of course, we next need to standardize all the variables and interpret those.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">z.mod3 &lt;-<span class="st"> </span><span class="kw">lm</span>(z.footage <span class="op">~</span><span class="st"> </span>z.log.income <span class="op">+</span><span class="st"> </span>z.education <span class="op">+</span><span class="st"> </span>z.age, <span class="dt">data =</span> d)
-<span class="kw">summary</span>(z.mod3)</code></pre></div>
+<div class="sourceCode" id="cb713"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb713-1" data-line-number="1">z.mod3 &lt;-<span class="st"> </span><span class="kw">lm</span>(z.footage <span class="op">~</span><span class="st"> </span>z.log.income <span class="op">+</span><span class="st"> </span>z.education <span class="op">+</span><span class="st"> </span>z.age, <span class="dt">data =</span> d)</a>
+<a class="sourceLine" id="cb713-2" data-line-number="2"><span class="kw">summary</span>(z.mod3)</a></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = z.footage ~ z.log.income + z.education + z.age, 
@@ -953,7 +977,7 @@ gitbook.start({
 "google": false,
 "linkedin": false,
 "weibo": false,
-"instapper": false,
+"instapaper": false,
 "vk": false,
 "all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
 },
@@ -966,7 +990,11 @@ gitbook.start({
 "link": null,
 "text": null
 },
-"download": ["_main.pdf"],
+"history": {
+"link": null,
+"text": null
+},
+"download": null,
 "toc": {
 "collapse": "subsection"
 }
@@ -979,8 +1007,8 @@ gitbook.start({
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
-    var src = "";
-    if (src === "" || src === "true") src = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
     if (location.protocol !== "file:" && /^https?:/.test(src))
       src = src.replace(/^https?:/, '');
     script.src = src;

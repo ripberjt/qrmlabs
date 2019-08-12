@@ -1,15 +1,14 @@
 <!DOCTYPE html>
-<html >
-
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
 <head>
 
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Lab Guide to Quantitative Research Methods in Political Science, Public Policy &amp; Public Administration.</title>
-  <meta name="description" content="Lab Guide to Quantitative Research Methods in Political Science, Public Policy &amp; Public Administration.">
-  <meta name="generator" content="bookdown 0.7 and GitBook 2.6.7">
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>9 Multivariable Linear Regression | Lab Guide to Quantitative Research Methods in Political Science, Public Policy &amp; Public Administration.</title>
+  <meta name="description" content="9 Multivariable Linear Regression | Lab Guide to Quantitative Research Methods in Political Science, Public Policy &amp; Public Administration." />
+  <meta name="generator" content="bookdown 0.12 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Lab Guide to Quantitative Research Methods in Political Science, Public Policy &amp; Public Administration." />
+  <meta property="og:title" content="9 Multivariable Linear Regression | Lab Guide to Quantitative Research Methods in Political Science, Public Policy &amp; Public Administration." />
   <meta property="og:type" content="book" />
   
   
@@ -17,24 +16,24 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Lab Guide to Quantitative Research Methods in Political Science, Public Policy &amp; Public Administration." />
+  <meta name="twitter:title" content="9 Multivariable Linear Regression | Lab Guide to Quantitative Research Methods in Political Science, Public Policy &amp; Public Administration." />
   
   
   
 
-<meta name="author" content="Joseph Ripberger, Cody Adams, Alex Davis, and Josie Davis">
 
 
 
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
 <link rel="prev" href="bivariate-linear-regression.html">
 <link rel="next" href="categorical-explanatory-variables-dummy-variables-and-interactions.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
@@ -47,50 +46,75 @@
 
 
 <script src="libs/htmlwidgets-1.3/htmlwidgets.js"></script>
-<script src="libs/plotly-binding-4.7.1/plotly.js"></script>
+<script src="libs/plotly-binding-4.9.0/plotly.js"></script>
 <script src="libs/typedarray-0.1/typedarray.min.js"></script>
 <link href="libs/crosstalk-1.0.0/css/crosstalk.css" rel="stylesheet" />
 <script src="libs/crosstalk-1.0.0/js/crosstalk.min.js"></script>
-<link href="libs/plotlyjs-1.29.2/plotly-htmlwidgets.css" rel="stylesheet" />
-<script src="libs/plotlyjs-1.29.2/plotly-latest.min.js"></script>
+<link href="libs/plotly-htmlwidgets-css-1.46.1/plotly-htmlwidgets.css" rel="stylesheet" />
+<script src="libs/plotly-main-1.46.1/plotly-latest.min.js"></script>
 
 
 <style type="text/css">
-div.sourceCode { overflow-x: auto; }
-table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
-  margin: 0; padding: 0; vertical-align: baseline; border: none; }
-table.sourceCode { width: 100%; line-height: 100%; }
-td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
-td.sourceCode { padding-left: 5px; }
-code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code > span.dt { color: #902000; } /* DataType */
-code > span.dv { color: #40a070; } /* DecVal */
-code > span.bn { color: #40a070; } /* BaseN */
-code > span.fl { color: #40a070; } /* Float */
-code > span.ch { color: #4070a0; } /* Char */
-code > span.st { color: #4070a0; } /* String */
-code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code > span.ot { color: #007020; } /* Other */
-code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code > span.fu { color: #06287e; } /* Function */
-code > span.er { color: #ff0000; font-weight: bold; } /* Error */
-code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-code > span.cn { color: #880000; } /* Constant */
-code > span.sc { color: #4070a0; } /* SpecialChar */
-code > span.vs { color: #4070a0; } /* VerbatimString */
-code > span.ss { color: #bb6688; } /* SpecialString */
-code > span.im { } /* Import */
-code > span.va { color: #19177c; } /* Variable */
-code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code > span.op { color: #666666; } /* Operator */
-code > span.bu { } /* BuiltIn */
-code > span.ex { } /* Extension */
-code > span.pp { color: #bc7a00; } /* Preprocessor */
-code > span.at { color: #7d9029; } /* Attribute */
-code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
 </head>
@@ -345,14 +369,14 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 \end{bmatrix}\]</span></p>
 <p><strong>Note:</strong> The product of a matrix and its transpose is a square matrix.</p>
 <p>The <code>matrix()</code> function in R will create a matrix object consisting of provided values in a defined number of rows and columns. The above matrix, <code>A</code>, is created as follows:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">A &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">7</span>, <span class="dv">6</span>), <span class="dv">2</span>, <span class="dv">3</span>)
-A</code></pre></div>
+<div class="sourceCode" id="cb487"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb487-1" data-line-number="1">A &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">7</span>, <span class="dv">6</span>), <span class="dv">2</span>, <span class="dv">3</span>)</a>
+<a class="sourceLine" id="cb487-2" data-line-number="2">A</a></code></pre></div>
 <pre><code>##      [,1] [,2] [,3]
 ## [1,]    1    4    7
 ## [2,]    2    5    6</code></pre>
 <p>Further, the <code>t()</code> function will transpose a given matrix:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">Aprime &lt;-<span class="st"> </span><span class="kw">t</span>(A)
-Aprime</code></pre></div>
+<div class="sourceCode" id="cb489"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb489-1" data-line-number="1">Aprime &lt;-<span class="st"> </span><span class="kw">t</span>(A)</a>
+<a class="sourceLine" id="cb489-2" data-line-number="2">Aprime</a></code></pre></div>
 <pre><code>##      [,1] [,2]
 ## [1,]    1    2
 ## [2,]    4    5
@@ -376,8 +400,8 @@ Aprime</code></pre></div>
     43 &amp; 110
 \end{bmatrix}\]</span></p>
 <p>Similarly, the product of matrices can be calculated in R using the %*% operator:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">AxAprime &lt;-<span class="st"> </span>A <span class="op">%*%</span><span class="st"> </span>Aprime
-AxAprime</code></pre></div>
+<div class="sourceCode" id="cb491"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb491-1" data-line-number="1">AxAprime &lt;-<span class="st"> </span>A <span class="op">%*%</span><span class="st"> </span>Aprime</a>
+<a class="sourceLine" id="cb491-2" data-line-number="2">AxAprime</a></code></pre></div>
 <pre><code>##      [,1] [,2]
 ## [1,]   66   64
 ## [2,]   64   65</code></pre>
@@ -400,11 +424,11 @@ AxAprime</code></pre></div>
     42 &amp; 82 &amp; 79
 \end{bmatrix}\]</span></p>
 <p>Or, in R:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">B &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">2</span>, <span class="dv">6</span>, <span class="dv">4</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>), <span class="dv">2</span>, <span class="dv">3</span>)</code></pre></div>
+<div class="sourceCode" id="cb493"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb493-1" data-line-number="1">B &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">2</span>, <span class="dv">6</span>, <span class="dv">4</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>), <span class="dv">2</span>, <span class="dv">3</span>)</a></code></pre></div>
 <pre><code>## Warning in matrix(c(1, 2, 3, 2, 6, 4, 4, 5, 6), 2, 3): data length [9] is
 ## not a sub-multiple or multiple of the number of rows [2]</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">BxAprime &lt;-<span class="st"> </span>B <span class="op">%*%</span><span class="st"> </span>Aprime
-BxAprime</code></pre></div>
+<div class="sourceCode" id="cb495"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb495-1" data-line-number="1">BxAprime &lt;-<span class="st"> </span>B <span class="op">%*%</span><span class="st"> </span>Aprime</a>
+<a class="sourceLine" id="cb495-2" data-line-number="2">BxAprime</a></code></pre></div>
 <pre><code>##      [,1] [,2]
 ## [1,]   55   53
 ## [2,]   38   38</code></pre>
@@ -413,25 +437,25 @@ BxAprime</code></pre></div>
 <p>Similarly, there exists an identity element in matrix algebra, denoted by the symbol <code>I</code>. The identity matrix is a square matrix with a 1 in the same pattern, regardless of size:</p>
 <p><span class="math display">\[I_{1\times1}=\begin{bmatrix} 1 \end{bmatrix}, I_{2\times2}=\begin{bmatrix}1 &amp; 0 \\ 0 &amp; 1\end{bmatrix}, I_{3\times3} = \begin{bmatrix} 1 &amp; 0 &amp; 0 \\ 0 &amp; 1 &amp; 0 \\ 0 &amp; 0 &amp; 1 \end{bmatrix}\]</span></p>
 <p>The following demonstrates the identity property for matrices:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">I &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>),<span class="dv">3</span>, <span class="dv">3</span>)
-AI &lt;-<span class="st"> </span>A <span class="op">%*%</span><span class="st"> </span>I
-AI</code></pre></div>
+<div class="sourceCode" id="cb497"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb497-1" data-line-number="1">I &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>),<span class="dv">3</span>, <span class="dv">3</span>)</a>
+<a class="sourceLine" id="cb497-2" data-line-number="2">AI &lt;-<span class="st"> </span>A <span class="op">%*%</span><span class="st"> </span>I</a>
+<a class="sourceLine" id="cb497-3" data-line-number="3">AI</a></code></pre></div>
 <pre><code>##      [,1] [,2] [,3]
 ## [1,]    1    4    7
 ## [2,]    2    5    6</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">A</code></pre></div>
+<div class="sourceCode" id="cb499"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb499-1" data-line-number="1">A</a></code></pre></div>
 <pre><code>##      [,1] [,2] [,3]
 ## [1,]    1    4    7
 ## [2,]    2    5    6</code></pre>
 <p>Lastly, the reciprocal of A is known as the inverse matrix, denoted as <span class="math inline">\(A^{-1}\)</span>. In ordinary algebra, the product of a number and its reciprocal is 1. In matrix algebra, the product of a matrix and its inverse is the identity matrix. <span class="math inline">\(AA^{-1}=A^{-1}A=I\)</span> <strong>Note:</strong> Inverse matrices only exist for square matrices, and not all square matrices possess inverses. The inverse of a matrix can be found via the <code>solve()</code> function as follows:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">A.inv &lt;-<span class="st"> </span><span class="kw">solve</span>(AxAprime)
-A.inv</code></pre></div>
+<div class="sourceCode" id="cb501"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb501-1" data-line-number="1">A.inv &lt;-<span class="st"> </span><span class="kw">solve</span>(AxAprime)</a>
+<a class="sourceLine" id="cb501-2" data-line-number="2">A.inv</a></code></pre></div>
 <pre><code>##            [,1]       [,2]
 ## [1,]  0.3350515 -0.3298969
 ## [2,] -0.3298969  0.3402062</code></pre>
 <p>The following R example demonstrates <code>I</code> as the product of <span class="math inline">\(AA^{-1}\)</span>:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">Aident &lt;-<span class="st"> </span>A.inv <span class="op">%*%</span><span class="st">  </span>A
-Aident</code></pre></div>
+<div class="sourceCode" id="cb503"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb503-1" data-line-number="1">Aident &lt;-<span class="st"> </span>A.inv <span class="op">%*%</span><span class="st">  </span>A</a>
+<a class="sourceLine" id="cb503-2" data-line-number="2">Aident</a></code></pre></div>
 <pre><code>##            [,1]       [,2]       [,3]
 ## [1,] -0.3247423 -0.3092784  0.3659794
 ## [2,]  0.3505155  0.3814433 -0.2680412</code></pre>
@@ -450,9 +474,9 @@ Aident</code></pre></div>
 <p><span class="math display">\[y_i=\beta_0+\sum^n_{j=1}{\beta_j x_{ij}}+\varepsilon_i\]</span></p>
 <p>Where, n is the number of independent variables, <span class="math inline">\(\beta_0\)</span> is the regression intercept, and <span class="math inline">\(\beta_j\)</span> is the slope for the <span class="math inline">\(j^{th}\)</span> variable. The above model is the general form of a regression model, and as such, will work for bivariate and multivariable models. If <span class="math inline">\(n=1\)</span>, the model is exactly the same as the model stated in the textbook and previous lab.</p>
 <p>Using this model we can imagine collected data as a system of linear equations. To demonstrate, suppose we collected the following data:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ex.ds &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">x =</span> <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>),
-                    <span class="dt">y =</span> <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">4</span>))
-ex.ds</code></pre></div>
+<div class="sourceCode" id="cb505"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb505-1" data-line-number="1">ex.ds &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">x =</span> <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>),</a>
+<a class="sourceLine" id="cb505-2" data-line-number="2">                    <span class="dt">y =</span> <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">4</span>))</a>
+<a class="sourceLine" id="cb505-3" data-line-number="3">ex.ds</a></code></pre></div>
 <pre><code>##   x y
 ## 1 1 1
 ## 2 2 1
@@ -477,16 +501,16 @@ ex.ds</code></pre></div>
 <p>With data expressed in matrix form, we then use matrix algebra to calculate the least-squared estimates. The least-squared estimates formula is:</p>
 <p><span class="math display">\[\hat{\beta}=(X&#39;X)^{-1}X&#39;Y\]</span></p>
 <p>Using the matrices formed from the system of linear equations, we demonstrate calculating the least-squared estimates using R:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">Y &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">4</span>), <span class="dv">5</span>, <span class="dv">1</span>)
-Y</code></pre></div>
+<div class="sourceCode" id="cb507"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb507-1" data-line-number="1">Y &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">4</span>), <span class="dv">5</span>, <span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb507-2" data-line-number="2">Y</a></code></pre></div>
 <pre><code>##      [,1]
 ## [1,]    1
 ## [2,]    1
 ## [3,]    2
 ## [4,]    2
 ## [5,]    4</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">X &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>), <span class="dv">5</span>, <span class="dv">2</span>)
-X</code></pre></div>
+<div class="sourceCode" id="cb509"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb509-1" data-line-number="1">X &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>), <span class="dv">5</span>, <span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb509-2" data-line-number="2">X</a></code></pre></div>
 <pre><code>##      [,1] [,2]
 ## [1,]    1    1
 ## [2,]    1    2
@@ -494,54 +518,54 @@ X</code></pre></div>
 ## [4,]    1    4
 ## [5,]    1    5</code></pre>
 <p>Now we need to find X’ with the <code>t()</code> function:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">Xprime &lt;-<span class="st"> </span><span class="kw">t</span>(X)
-Xprime</code></pre></div>
+<div class="sourceCode" id="cb511"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb511-1" data-line-number="1">Xprime &lt;-<span class="st"> </span><span class="kw">t</span>(X)</a>
+<a class="sourceLine" id="cb511-2" data-line-number="2">Xprime</a></code></pre></div>
 <pre><code>##      [,1] [,2] [,3] [,4] [,5]
 ## [1,]    1    1    1    1    1
 ## [2,]    1    2    3    4    5</code></pre>
 <p>Next calculate (X’X):</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">XprimeX &lt;-<span class="st"> </span>Xprime <span class="op">%*%</span><span class="st"> </span>X
-XprimeX</code></pre></div>
+<div class="sourceCode" id="cb513"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb513-1" data-line-number="1">XprimeX &lt;-<span class="st"> </span>Xprime <span class="op">%*%</span><span class="st"> </span>X</a>
+<a class="sourceLine" id="cb513-2" data-line-number="2">XprimeX</a></code></pre></div>
 <pre><code>##      [,1] [,2]
 ## [1,]    5   15
 ## [2,]   15   55</code></pre>
 <p>Now find the inverse of (X’X):</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">XprimeXinv &lt;-<span class="st"> </span><span class="kw">solve</span>(XprimeX)
-XprimeXinv</code></pre></div>
+<div class="sourceCode" id="cb515"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb515-1" data-line-number="1">XprimeXinv &lt;-<span class="st"> </span><span class="kw">solve</span>(XprimeX)</a>
+<a class="sourceLine" id="cb515-2" data-line-number="2">XprimeXinv</a></code></pre></div>
 <pre><code>##      [,1] [,2]
 ## [1,]  1.1 -0.3
 ## [2,] -0.3  0.1</code></pre>
 <p>Multiply <span class="math inline">\((X&#39;X)^{-1}\)</span> by <span class="math inline">\(X&#39;\)</span>:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">XprimeXinvXprime &lt;-<span class="st"> </span>XprimeXinv <span class="op">%*%</span><span class="st"> </span>Xprime
-XprimeXinvXprime</code></pre></div>
+<div class="sourceCode" id="cb517"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb517-1" data-line-number="1">XprimeXinvXprime &lt;-<span class="st"> </span>XprimeXinv <span class="op">%*%</span><span class="st"> </span>Xprime</a>
+<a class="sourceLine" id="cb517-2" data-line-number="2">XprimeXinvXprime</a></code></pre></div>
 <pre><code>##      [,1] [,2] [,3] [,4] [,5]
 ## [1,]  0.8  0.5  0.2 -0.1 -0.4
 ## [2,] -0.2 -0.1  0.0  0.1  0.2</code></pre>
 <p>Now multiply by Y to find <span class="math inline">\(\hat{\beta}\)</span>:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">b &lt;-<span class="st"> </span>XprimeXinvXprime <span class="op">%*%</span><span class="st"> </span>Y
-b</code></pre></div>
+<div class="sourceCode" id="cb519"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb519-1" data-line-number="1">b &lt;-<span class="st"> </span>XprimeXinvXprime <span class="op">%*%</span><span class="st"> </span>Y</a>
+<a class="sourceLine" id="cb519-2" data-line-number="2">b</a></code></pre></div>
 <pre><code>##      [,1]
 ## [1,] -0.1
 ## [2,]  0.7</code></pre>
 <p>We read this matrix as <span class="math inline">\(\beta_0\)</span> is the first position and <span class="math inline">\(\beta_1\)</span> is the following position. <strong>Note:</strong> We could just as easily used the method introduced in the last lab. The following R code demonstrates the equivalence:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">x =</span> <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>), <span class="dt">y =</span> <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">4</span>))
-covar &lt;-<span class="st"> </span><span class="kw">cov</span>(df<span class="op">$</span>x, df<span class="op">$</span>y)
-vari &lt;-<span class="st"> </span><span class="kw">var</span>(df<span class="op">$</span>x)
-bhat &lt;-<span class="st"> </span>covar <span class="op">/</span><span class="st"> </span>vari
-xbar &lt;-<span class="st"> </span><span class="kw">mean</span>(df<span class="op">$</span>x)
-ybar &lt;-<span class="st"> </span><span class="kw">mean</span>(df<span class="op">$</span>y)
-alpha &lt;-<span class="st"> </span>ybar <span class="op">-</span><span class="st"> </span>bhat <span class="op">*</span><span class="st"> </span>xbar
-
-alpha</code></pre></div>
+<div class="sourceCode" id="cb521"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb521-1" data-line-number="1">df &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">x =</span> <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>), <span class="dt">y =</span> <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">4</span>))</a>
+<a class="sourceLine" id="cb521-2" data-line-number="2">covar &lt;-<span class="st"> </span><span class="kw">cov</span>(df<span class="op">$</span>x, df<span class="op">$</span>y)</a>
+<a class="sourceLine" id="cb521-3" data-line-number="3">vari &lt;-<span class="st"> </span><span class="kw">var</span>(df<span class="op">$</span>x)</a>
+<a class="sourceLine" id="cb521-4" data-line-number="4">bhat &lt;-<span class="st"> </span>covar <span class="op">/</span><span class="st"> </span>vari</a>
+<a class="sourceLine" id="cb521-5" data-line-number="5">xbar &lt;-<span class="st"> </span><span class="kw">mean</span>(df<span class="op">$</span>x)</a>
+<a class="sourceLine" id="cb521-6" data-line-number="6">ybar &lt;-<span class="st"> </span><span class="kw">mean</span>(df<span class="op">$</span>y)</a>
+<a class="sourceLine" id="cb521-7" data-line-number="7">alpha &lt;-<span class="st"> </span>ybar <span class="op">-</span><span class="st"> </span>bhat <span class="op">*</span><span class="st"> </span>xbar</a>
+<a class="sourceLine" id="cb521-8" data-line-number="8"></a>
+<a class="sourceLine" id="cb521-9" data-line-number="9">alpha</a></code></pre></div>
 <pre><code>## [1] -0.1</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">bhat</code></pre></div>
+<div class="sourceCode" id="cb523"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb523-1" data-line-number="1">bhat</a></code></pre></div>
 <pre><code>## [1] 0.7</code></pre>
 <p><strong>Note:</strong> In the previous code block, <code>alpha</code> is <span class="math inline">\(\beta_0\)</span> and <code>bhat</code> is <span class="math inline">\(\beta_1\)</span>.</p>
 <p>With the coefficients calculated, our estimated linear regression model is:</p>
 <p><span class="math display">\[\hat{y}=-0.10+0.70x\]</span></p>
 <p>Let’s check our work using the <code>lm()</code> function:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ols &lt;-<span class="st"> </span><span class="kw">lm</span>(Y <span class="op">~</span><span class="st"> </span><span class="dv">0</span> <span class="op">+</span><span class="st"> </span>X)
-ols</code></pre></div>
+<div class="sourceCode" id="cb525"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb525-1" data-line-number="1">ols &lt;-<span class="st"> </span><span class="kw">lm</span>(Y <span class="op">~</span><span class="st"> </span><span class="dv">0</span> <span class="op">+</span><span class="st"> </span>X)</a>
+<a class="sourceLine" id="cb525-2" data-line-number="2">ols</a></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = Y ~ 0 + X)
@@ -549,16 +573,16 @@ ols</code></pre></div>
 ## Coefficients:
 ##   X1    X2  
 ## -0.1   0.7</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">b</code></pre></div>
+<div class="sourceCode" id="cb527"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb527-1" data-line-number="1">b</a></code></pre></div>
 <pre><code>##      [,1]
 ## [1,] -0.1
 ## [2,]  0.7</code></pre>
 <p>The previous example demonstrated calculating least-squared estimates for a bivariate regression model. Next is an example using matrix algebra to calculate the least-squared estimates for a multivariable linear regression model.</p>
 <p>Suppose we have the following data set:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mv.df &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">y =</span> <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">4</span>),
-                    <span class="dt">x1 =</span> <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>),
-                    <span class="dt">x2 =</span> <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">3</span>))
-mv.df</code></pre></div>
+<div class="sourceCode" id="cb529"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb529-1" data-line-number="1">mv.df &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">y =</span> <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">4</span>),</a>
+<a class="sourceLine" id="cb529-2" data-line-number="2">                    <span class="dt">x1 =</span> <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>),</a>
+<a class="sourceLine" id="cb529-3" data-line-number="3">                    <span class="dt">x2 =</span> <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">3</span>))</a>
+<a class="sourceLine" id="cb529-4" data-line-number="4">mv.df</a></code></pre></div>
 <pre><code>##   y x1 x2
 ## 1 1  1  1
 ## 2 1  2  2
@@ -566,21 +590,25 @@ mv.df</code></pre></div>
 ## 4 2  4  4
 ## 5 4  5  3</code></pre>
 <p>The system of linear equations is:</p>
-<p><span class="math inline">\(1 = \beta_0 + \beta_1 * 1 + \beta_2 * 1\)</span> <span class="math inline">\(1 = \beta_0 + \beta_1 * 2 + \beta_2 * 2\)</span> <span class="math inline">\(2 = \beta_0 + \beta_1 * 3 + \beta_2 * 2\)</span> <span class="math inline">\(2 = \beta_0 + \beta_1 * 4 + \beta_2 * 4\)</span> <span class="math inline">\(4 = \beta_0 + \beta_1 * 5 + \beta_2 * 3\)</span></p>
+<p><span class="math inline">\(1 = \beta_0 + \beta_1 * 1 + \beta_2 * 1\)</span>
+<span class="math inline">\(1 = \beta_0 + \beta_1 * 2 + \beta_2 * 2\)</span>
+<span class="math inline">\(2 = \beta_0 + \beta_1 * 3 + \beta_2 * 2\)</span>
+<span class="math inline">\(2 = \beta_0 + \beta_1 * 4 + \beta_2 * 4\)</span>
+<span class="math inline">\(4 = \beta_0 + \beta_1 * 5 + \beta_2 * 3\)</span></p>
 <p>Converted to matrix form:</p>
 <p><span class="math display">\[\begin{bmatrix}1 &amp; 1 &amp; 1 \\ 1 &amp; 2 &amp; 2 \\ 1 &amp; 3 &amp; 2 \\ 1 &amp; 4 &amp; 4 \\ 1 &amp; 5 &amp; 3 \end{bmatrix} \times \begin{bmatrix}\beta_0 \\ \beta_1 \\ \beta_2\end{bmatrix} = \begin{bmatrix}1\\1\\2\\2\\4\end{bmatrix}\]</span></p>
 <p>We will use R to find the least-squared coefficients. Note that calculating Bhat in R has been reduced to a single line:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">Y &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">4</span>), <span class="dv">5</span>, <span class="dv">1</span>)
-X &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">3</span>), <span class="dv">5</span>, <span class="dv">3</span>)
-Bhat &lt;-<span class="st"> </span>(<span class="kw">solve</span>((<span class="kw">t</span>(X) <span class="op">%*%</span><span class="st"> </span>X))) <span class="op">%*%</span><span class="st"> </span>(<span class="kw">t</span>(X) <span class="op">%*%</span><span class="st"> </span>Y)
-Bhat</code></pre></div>
+<div class="sourceCode" id="cb531"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb531-1" data-line-number="1">Y &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">4</span>), <span class="dv">5</span>, <span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb531-2" data-line-number="2">X &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">3</span>), <span class="dv">5</span>, <span class="dv">3</span>)</a>
+<a class="sourceLine" id="cb531-3" data-line-number="3">Bhat &lt;-<span class="st"> </span>(<span class="kw">solve</span>((<span class="kw">t</span>(X) <span class="op">%*%</span><span class="st"> </span>X))) <span class="op">%*%</span><span class="st"> </span>(<span class="kw">t</span>(X) <span class="op">%*%</span><span class="st"> </span>Y)</a>
+<a class="sourceLine" id="cb531-4" data-line-number="4">Bhat</a></code></pre></div>
 <pre><code>##        [,1]
 ## [1,] -0.175
 ## [2,]  0.425
 ## [3,]  0.625</code></pre>
 <p>Again, we check our work using the <code>lm()</code> function:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ols &lt;-<span class="st"> </span><span class="kw">lm</span>(Y <span class="op">~</span><span class="st"> </span><span class="dv">0</span> <span class="op">+</span><span class="st"> </span>X)
-ols</code></pre></div>
+<div class="sourceCode" id="cb533"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb533-1" data-line-number="1">ols &lt;-<span class="st"> </span><span class="kw">lm</span>(Y <span class="op">~</span><span class="st"> </span><span class="dv">0</span> <span class="op">+</span><span class="st"> </span>X)</a>
+<a class="sourceLine" id="cb533-2" data-line-number="2">ols</a></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = Y ~ 0 + X)
@@ -593,12 +621,12 @@ ols</code></pre></div>
 <div id="multiple-regression-in-r" class="section level2">
 <h2><span class="header-section-number">9.2</span> Multiple Regression in R</h2>
 <p>The R syntax for multiple linear regression is similar to what we used for bivariate regression: add the independent variables to the <code>lm()</code> function. Construct a model that looks at climate change certainty as the dependent variable with age and ideology as the independent variables:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">sub.ds &lt;-<span class="st"> </span>ds <span class="op">%&gt;%</span>
-<span class="st">  </span>dplyr<span class="op">::</span><span class="kw">select</span>(<span class="st">&quot;glbcc_cert&quot;</span>, <span class="st">&quot;ideol&quot;</span>, <span class="st">&quot;age&quot;</span>) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">na.omit</span>()
-model1 &lt;-<span class="st"> </span><span class="kw">lm</span>(sub.ds<span class="op">$</span>glbcc_cert <span class="op">~</span><span class="st"> </span>sub.ds<span class="op">$</span>ideol <span class="op">+</span><span class="st"> </span>sub.ds<span class="op">$</span>age)</code></pre></div>
+<div class="sourceCode" id="cb535"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb535-1" data-line-number="1">sub.ds &lt;-<span class="st"> </span>ds <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb535-2" data-line-number="2"><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">select</span>(<span class="st">&quot;glbcc_cert&quot;</span>, <span class="st">&quot;ideol&quot;</span>, <span class="st">&quot;age&quot;</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb535-3" data-line-number="3"><span class="st">  </span><span class="kw">na.omit</span>()</a>
+<a class="sourceLine" id="cb535-4" data-line-number="4">model1 &lt;-<span class="st"> </span><span class="kw">lm</span>(sub.ds<span class="op">$</span>glbcc_cert <span class="op">~</span><span class="st"> </span>sub.ds<span class="op">$</span>ideol <span class="op">+</span><span class="st"> </span>sub.ds<span class="op">$</span>age)</a></code></pre></div>
 <p>Now look at the model:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summary</span>(model1)</code></pre></div>
+<div class="sourceCode" id="cb536"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb536-1" data-line-number="1"><span class="kw">summary</span>(model1)</a></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = sub.ds$glbcc_cert ~ sub.ds$ideol + sub.ds$age)
@@ -619,9 +647,9 @@ model1 &lt;-<span class="st"> </span><span class="kw">lm</span>(sub.ds<span clas
 ## Multiple R-squared:  0.06372,    Adjusted R-squared:  0.06297 
 ## F-statistic: 85.58 on 2 and 2515 DF,  p-value: &lt; 0.00000000000000022</code></pre>
 <p>Before interpreting these results, we need to review partial effects. Chapter 12 of the textbook discusses partial effects in great detail. Essentially, multivariable regression “controls” for the effects of other dependent variables when reporting the effect of one particular variable. This is not accidental. Explore this for our model. First construct a bivariate regression model for each of independent variable in the multivariable regression model:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">model2 &lt;-<span class="st"> </span><span class="kw">lm</span>(sub.ds<span class="op">$</span>glbcc_cert <span class="op">~</span><span class="st"> </span>sub.ds<span class="op">$</span>ideol)
-model3 &lt;-<span class="st"> </span><span class="kw">lm</span>(sub.ds<span class="op">$</span>glbcc_cert <span class="op">~</span><span class="st"> </span>sub.ds<span class="op">$</span>age)
-<span class="kw">stargazer</span>(model2, model3, <span class="dt">single.row =</span> <span class="ot">TRUE</span>, <span class="dt">type =</span> <span class="st">&quot;text&quot;</span>)</code></pre></div>
+<div class="sourceCode" id="cb538"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb538-1" data-line-number="1">model2 &lt;-<span class="st"> </span><span class="kw">lm</span>(sub.ds<span class="op">$</span>glbcc_cert <span class="op">~</span><span class="st"> </span>sub.ds<span class="op">$</span>ideol)</a>
+<a class="sourceLine" id="cb538-2" data-line-number="2">model3 &lt;-<span class="st"> </span><span class="kw">lm</span>(sub.ds<span class="op">$</span>glbcc_cert <span class="op">~</span><span class="st"> </span>sub.ds<span class="op">$</span>age)</a>
+<a class="sourceLine" id="cb538-3" data-line-number="3"><span class="kw">stargazer</span>(model2, model3, <span class="dt">single.row =</span> <span class="ot">TRUE</span>, <span class="dt">type =</span> <span class="st">&quot;text&quot;</span>)</a></code></pre></div>
 <pre><code>## 
 ## ==================================================================
 ##                                        Dependent variable:        
@@ -641,7 +669,7 @@ model3 &lt;-<span class="st"> </span><span class="kw">lm</span>(sub.ds<span clas
 ## ==================================================================
 ## Note:                                  *p&lt;0.1; **p&lt;0.05; ***p&lt;0.01</code></pre>
 <p>Notice the ideology coefficient in the bivariate model is larger than the ideology coefficient in the multivariable regression model. The same is also true for the age variable. This is because the bivariate model reports the total effects of X on Y, but the multivariable regression model reports the effects of X on Y when “controlling” for the other independent variables. Look at the multivariable regression model again:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summary</span>(model1)</code></pre></div>
+<div class="sourceCode" id="cb540"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb540-1" data-line-number="1"><span class="kw">summary</span>(model1)</a></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = sub.ds$glbcc_cert ~ sub.ds$ideol + sub.ds$age)
@@ -666,28 +694,28 @@ model3 &lt;-<span class="st"> </span><span class="kw">lm</span>(sub.ds<span clas
 <div id="hypothesis-testing-with-multivariable-regression" class="section level2">
 <h2><span class="header-section-number">9.3</span> Hypothesis Testing with Multivariable Regression</h2>
 <p>Perhaps we want to explore the relationship between opinions about fossil fuels and ideology. The class data set includes a question asking respondents what percentage of Oklahoma’s electricity should come from fossil fuels. It is reasonable to posit that more conservative individuals will want a higher percentage of the state’s electricity to come from fossil fuels. For this test, we include other independent variables: age, income, and education. We establish a hypothesis that the more conservative a respondent is, the more electricity they want to come from fossil fuels, all other variables held constant. The null hypothesis is that there is no difference in preferred percentage of electricity coming from fossil fuels by ideology. First we look at our variables:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">str</span>(ds<span class="op">$</span>okelec_foss)</code></pre></div>
+<div class="sourceCode" id="cb542"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb542-1" data-line-number="1"><span class="kw">str</span>(ds<span class="op">$</span>okelec_foss)</a></code></pre></div>
 <pre><code>##  Factor w/ 63 levels &quot;0&quot;,&quot;10&quot;,&quot;100&quot;,..: 51 28 44 3 28 13 35 51 57 16 ...</code></pre>
 <p>Notice that R reads the fossil fuels variable as a factor. We change this to a numeric variable. We coerce it and create a new variable:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ds<span class="op">$</span>foss &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(ds<span class="op">$</span>okelec_foss)</code></pre></div>
+<div class="sourceCode" id="cb544"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb544-1" data-line-number="1">ds<span class="op">$</span>foss &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(ds<span class="op">$</span>okelec_foss)</a></code></pre></div>
 <p>Now let’s look at all the variables. First we create a subset of the data and remove missing observations, then use the <code>skim()</code> function:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ds.sub &lt;-<span class="st"> </span>ds <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span>dplyr<span class="op">::</span><span class="kw">select</span>(<span class="st">&quot;income&quot;</span>, <span class="st">&quot;education&quot;</span>, <span class="st">&quot;ideol&quot;</span>, <span class="st">&quot;foss&quot;</span>, <span class="st">&quot;age&quot;</span>) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">na.omit</span>()
-
-ds.sub <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">skim</span>()</code></pre></div>
+<div class="sourceCode" id="cb545"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb545-1" data-line-number="1">ds.sub &lt;-<span class="st"> </span>ds <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb545-2" data-line-number="2"><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">select</span>(<span class="st">&quot;income&quot;</span>, <span class="st">&quot;education&quot;</span>, <span class="st">&quot;ideol&quot;</span>, <span class="st">&quot;foss&quot;</span>, <span class="st">&quot;age&quot;</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb545-3" data-line-number="3"><span class="st">  </span><span class="kw">na.omit</span>()</a>
+<a class="sourceLine" id="cb545-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb545-5" data-line-number="5">ds.sub <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb545-6" data-line-number="6"><span class="st">  </span><span class="kw">skim</span>()</a></code></pre></div>
 <pre><code>## Skim summary statistics
 ##  n obs: 2283 
 ##  n variables: 5 
 ## 
-## ── Variable type:integer ────────────────────────────────────────────────────────────────────────────────────────────────────────────
+## ── Variable type:integer ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
 ##   variable missing complete    n  mean    sd p0  p25 p50 p75 p100     hist
 ##        age       0     2283 2283 60.11 14.08 18 51.5  62  70   99 ▁▂▃▆▇▆▂▁
 ##  education       0     2283 2283  5.09  1.81  1  4     6   6    8 ▁▃▂▆▂▇▅▂
 ##      ideol       0     2283 2283  4.64  1.74  1  4     5   6    7 ▂▃▂▆▁▃▇▅
 ## 
-## ── Variable type:numeric ────────────────────────────────────────────────────────────────────────────────────────────────────────────
+## ── Variable type:numeric ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
 ##  variable missing complete    n     mean       sd    p0   p25   p50   p75
 ##      foss       0     2283 2283    31.48    16.19     1    16    35    44
 ##    income       0     2283 2283 70622.59 59882.75 10000 35000 59000 90000
@@ -695,10 +723,10 @@ ds.sub <span class="op">%&gt;%</span>
 ##      63 ▃▆▁▂▇▃▆▁
 ##  900000 ▇▁▁▁▁▁▁▁</code></pre>
 <p>Now construct the model:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">model &lt;-<span class="st"> </span><span class="kw">lm</span>(foss <span class="op">~</span><span class="st"> </span>income <span class="op">+</span><span class="st"> </span>education <span class="op">+</span><span class="st"> </span>age <span class="op">+</span><span class="st"> </span>ideol, <span class="dt">data =</span> ds.sub)</code></pre></div>
+<div class="sourceCode" id="cb547"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb547-1" data-line-number="1">model &lt;-<span class="st"> </span><span class="kw">lm</span>(foss <span class="op">~</span><span class="st"> </span>income <span class="op">+</span><span class="st"> </span>education <span class="op">+</span><span class="st"> </span>age <span class="op">+</span><span class="st"> </span>ideol, <span class="dt">data =</span> ds.sub)</a></code></pre></div>
 <p>Note the different syntax in constructing this model. Instead of writing <code>dataset$variable</code> every time, you can write the variable names, and at the end of the model include <code>data=dataset</code>.</p>
 <p>Now examine the model:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summary</span>(model)</code></pre></div>
+<div class="sourceCode" id="cb548"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb548-1" data-line-number="1"><span class="kw">summary</span>(model)</a></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = foss ~ income + education + age + ideol, data = ds.sub)
@@ -725,12 +753,12 @@ ds.sub <span class="op">%&gt;%</span>
 <div id="visualizing-multivariable-linear-regression" class="section level3">
 <h3><span class="header-section-number">9.3.1</span> Visualizing Multivariable Linear Regression</h3>
 <p>The best way to visualize multiple linear regression is to create a visualization for each independent variable while holding the other independent variables constant. Doing this allows us to see how each relationship between the DV and IV looks. Constructing a quick and dirty visualization for each IV in <code>ggplot2</code> is simiular to the methods used for bivariate linear regression. We will go into greater detail in the next section when we cover predictions with OLS, but making a quick visualization is rather simple. The <code>augment()</code> function from the <code>broom</code> package is very useful for this. The function transforms the data created from an OLS model into a tidyverse data frame format. Use <code>augment()</code>, then melt the data into long form, and create a <code>ggplot2</code> visualization for each IV by using <code>facet_wrap()</code>.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">model <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">augment</span>() <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">melt</span>(<span class="dt">measure.vars =</span> <span class="kw">c</span>(<span class="st">&quot;ideol&quot;</span>, <span class="st">&quot;age&quot;</span>, <span class="st">&quot;education&quot;</span>, <span class="st">&quot;income&quot;</span>), <span class="dt">variable.name =</span> <span class="kw">c</span>(<span class="st">&quot;IV&quot;</span>)) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">ggplot</span>(., <span class="kw">aes</span>(value, foss)) <span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> <span class="st">&quot;lm&quot;</span>) <span class="op">+</span>
-<span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span>IV, <span class="dt">scales =</span> <span class="st">&quot;free_x&quot;</span>)</code></pre></div>
+<div class="sourceCode" id="cb550"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb550-1" data-line-number="1">model <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb550-2" data-line-number="2"><span class="st">  </span><span class="kw">augment</span>() <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb550-3" data-line-number="3"><span class="st">  </span><span class="kw">melt</span>(<span class="dt">measure.vars =</span> <span class="kw">c</span>(<span class="st">&quot;ideol&quot;</span>, <span class="st">&quot;age&quot;</span>, <span class="st">&quot;education&quot;</span>, <span class="st">&quot;income&quot;</span>), <span class="dt">variable.name =</span> <span class="kw">c</span>(<span class="st">&quot;IV&quot;</span>)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb550-4" data-line-number="4"><span class="st">  </span><span class="kw">ggplot</span>(., <span class="kw">aes</span>(value, foss)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb550-5" data-line-number="5"><span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> <span class="st">&quot;lm&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb550-6" data-line-number="6"><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span>IV, <span class="dt">scales =</span> <span class="st">&quot;free_x&quot;</span>)</a></code></pre></div>
 <p><img src="_main_files/figure-html/8_mlr10-1.png" width="672" /></p>
 <p>Now we can see the general relationship between each independent variable and the dependent variable. The <code>geom_smooth()</code> function defaults to showing 95% confidence intervals. You can disable the confidence intervals with the <code>se=FALSE</code> argument, but that is not recommended. Notice the very large confidence interval in the income visualization, especially at the higher income levels. This happens because there are fewer observations with very high incomes. A smaller sample size leads to a larger standard error, and in turn larger confidence intervals.</p>
 </div>
@@ -739,7 +767,7 @@ ds.sub <span class="op">%&gt;%</span>
 <h2><span class="header-section-number">9.4</span> Predicting with OLS Regression</h2>
 <p>Regression analysis is performed not only to explain relationships, but also to predict. In R, we can use the model we built to predict values of the dependent variable based on the values of the independent variables. Doing so is rather simple. Recall that our model attempts to explain how much of the state’s electricity a respondent thinks should come from fossil fuels as a function of their ideology, age, education, and income.</p>
 <p>To start predicting, we need to identify what values we want to assign to our independent variables. Perhaps you wanted to know the preferred percentage of energy coming from fossil fuels for an individual with a bachelor’s degree, an income of 45000, 40 years old, and a moderate (3) ideology. First we need to know the beta coefficients for each variable:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">coef</span>(model)</code></pre></div>
+<div class="sourceCode" id="cb551"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb551-1" data-line-number="1"><span class="kw">coef</span>(model)</a></code></pre></div>
 <pre><code>##    (Intercept)         income      education            age          ideol 
 ##  5.82812806450  0.00001401976 -0.19096656321  0.18884730710  3.07553222165</code></pre>
 <p>Now recall the scalar formula for multiple linear regression:</p>
@@ -747,21 +775,21 @@ ds.sub <span class="op">%&gt;%</span>
 <p>Therefore for our model, the formula would be</p>
 <p><span class="math display">\[\hat{y} = \beta_{intercept} + \beta_{income} + \beta_{educ} + \beta_{age} + \beta_{ideol}\]</span></p>
 <p><strong>Note:</strong> For a bachelor’s degree, the value of the education variable is 6.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">(<span class="fl">5.83</span> <span class="op">+</span><span class="st"> </span>(.<span class="dv">000014</span> <span class="op">*</span><span class="st"> </span>(<span class="dv">45000</span>)) <span class="op">+</span><span class="st"> </span>(<span class="op">-</span>.<span class="dv">19</span> <span class="op">*</span><span class="st"> </span>(<span class="dv">6</span>)) <span class="op">+</span><span class="st"> </span>(.<span class="dv">19</span> <span class="op">*</span><span class="st"> </span>(<span class="dv">40</span>)) <span class="op">+</span><span class="st"> </span>(<span class="fl">3.07</span> <span class="op">*</span><span class="st"> </span>(<span class="dv">3</span>)))</code></pre></div>
+<div class="sourceCode" id="cb553"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb553-1" data-line-number="1">(<span class="fl">5.83</span> <span class="op">+</span><span class="st"> </span>(.<span class="dv">000014</span> <span class="op">*</span><span class="st"> </span>(<span class="dv">45000</span>)) <span class="op">+</span><span class="st"> </span>(<span class="op">-</span>.<span class="dv">19</span> <span class="op">*</span><span class="st"> </span>(<span class="dv">6</span>)) <span class="op">+</span><span class="st"> </span>(.<span class="dv">19</span> <span class="op">*</span><span class="st"> </span>(<span class="dv">40</span>)) <span class="op">+</span><span class="st"> </span>(<span class="fl">3.07</span> <span class="op">*</span><span class="st"> </span>(<span class="dv">3</span>)))</a></code></pre></div>
 <pre><code>## [1] 22.13</code></pre>
 <p>Based on the calculation, a predicted result is 22% of the state’s electricity should come from fossil fuels. There is a more precise way to do this calculation, as is often the case. Using the <code>augment()</code> function from the <code>broom</code> package, we can tell R to return predicted values based on specifications of variable values.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">model <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">augment</span>(<span class="dt">newdata =</span> <span class="kw">data.frame</span>(<span class="dt">ideol =</span> <span class="dv">3</span>, <span class="dt">income =</span> <span class="dv">45000</span>, <span class="dt">education =</span> <span class="dv">6</span>, <span class="dt">age =</span> <span class="dv">40</span>))</code></pre></div>
+<div class="sourceCode" id="cb555"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb555-1" data-line-number="1">model <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb555-2" data-line-number="2"><span class="st">  </span><span class="kw">augment</span>(<span class="dt">newdata =</span> <span class="kw">data.frame</span>(<span class="dt">ideol =</span> <span class="dv">3</span>, <span class="dt">income =</span> <span class="dv">45000</span>, <span class="dt">education =</span> <span class="dv">6</span>, <span class="dt">age =</span> <span class="dv">40</span>))</a></code></pre></div>
 <pre><code>## # A tibble: 1 x 6
 ##   ideol income education   age .fitted .se.fit
 ##   &lt;dbl&gt;  &lt;dbl&gt;     &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;
 ## 1     3  45000         6    40    22.1   0.648</code></pre>
 <p><strong>Note:</strong> The original estimate is a little off due to rounding. Using <code>augment()</code> returns a data frame in tidy format. The .fitted value is the predicted value of interest. You can use the <code>predict()</code> function in a similar way, but doing so returns information in vector, not data frame, format.</p>
 <p>The <code>augment()</code> function can return multiple values at a time. We can tell R to predict values for a sequence of values, like the range of ideology values. Sequencing one variable while holding the others constant is very common in OLS analysis. The method we will most often use will be holding all other IVs constant at their means.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">model <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">augment</span>(<span class="dt">newdata =</span> <span class="kw">data.frame</span>(<span class="dt">ideol =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">7</span>, <span class="dt">income =</span> <span class="kw">mean</span>(ds.sub<span class="op">$</span>income),
-                               <span class="dt">education =</span> <span class="kw">mean</span>(ds.sub<span class="op">$</span>education),
-                               <span class="dt">age =</span> <span class="kw">mean</span>(ds.sub<span class="op">$</span>age)))</code></pre></div>
+<div class="sourceCode" id="cb557"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb557-1" data-line-number="1">model <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb557-2" data-line-number="2"><span class="st">  </span><span class="kw">augment</span>(<span class="dt">newdata =</span> <span class="kw">data.frame</span>(<span class="dt">ideol =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">7</span>, <span class="dt">income =</span> <span class="kw">mean</span>(ds.sub<span class="op">$</span>income),</a>
+<a class="sourceLine" id="cb557-3" data-line-number="3">                               <span class="dt">education =</span> <span class="kw">mean</span>(ds.sub<span class="op">$</span>education),</a>
+<a class="sourceLine" id="cb557-4" data-line-number="4">                               <span class="dt">age =</span> <span class="kw">mean</span>(ds.sub<span class="op">$</span>age)))</a></code></pre></div>
 <pre><code>## # A tibble: 7 x 6
 ##   ideol income education   age .fitted .se.fit
 ##   &lt;int&gt;  &lt;dbl&gt;     &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;
@@ -775,13 +803,13 @@ ds.sub <span class="op">%&gt;%</span>
 <p>Recall that the earlier hypothesis stated that the more conservative a respondent, the more electricity they will prefer comes from fossil fuels. We can safely reject the null hypothesis, given the clear relationship and overall evidence that there is a positive relationship. To conlcude, let’s build a solid, paper-worthy visualization of the relationship between ideology and opinions on fossil fuels from our model.</p>
 <p><strong>Note</strong>:Until now, we have used <code>geom_smooth()</code> to create regression lines. However, the superior method of creating regression lines is to generate predictions outside of ggplot and use <code>geom_line()</code> to plot the line and <code>geom_ribbom()</code> to plot the confidence intervals. This is because <code>geom_smooth()</code> does not let you set the specific IV values. However, the <code>augment()</code> (or <code>predict()</code>!) function tells R to predict values of the DV based on specific values of the IV. To create a good regression line and confidence interval using the <code>augment()</code> function, instruct R to hold all DVs at their means except ideology. Sequence ideology from 1 to 7, and include <code>se.fit=TRUE</code>, then assign the fitted values to an object:</p>
 <p>The next step is to calculate the confidence interval. This is rather simple! Using the <code>augment()</code> function in tandem with the <code>mutate()</code> function, we can create a tidy data frame that provides us with all the information needed to construct a visualization with a confidence interval. Assign the data frame to an object called <code>fit.df</code>.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">model <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">augment</span>(<span class="dt">newdata =</span> <span class="kw">data.frame</span>(<span class="dt">ideol =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">7</span>, <span class="dt">income =</span> <span class="kw">mean</span>(ds.sub<span class="op">$</span>income),
-                               <span class="dt">education =</span> <span class="kw">mean</span>(ds.sub<span class="op">$</span>education),
-                               <span class="dt">age =</span> <span class="kw">mean</span>(ds.sub<span class="op">$</span>age))) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">upper =</span> .fitted <span class="op">+</span><span class="st"> </span><span class="fl">1.96</span> <span class="op">*</span><span class="st"> </span>.se.fit,
-         <span class="dt">lower =</span> .fitted <span class="op">-</span><span class="st"> </span><span class="fl">1.96</span> <span class="op">*</span><span class="st"> </span>.se.fit) -&gt;<span class="st"> </span>fit.df
-fit.df</code></pre></div>
+<div class="sourceCode" id="cb559"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb559-1" data-line-number="1">model <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb559-2" data-line-number="2"><span class="st">  </span><span class="kw">augment</span>(<span class="dt">newdata =</span> <span class="kw">data.frame</span>(<span class="dt">ideol =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">7</span>, <span class="dt">income =</span> <span class="kw">mean</span>(ds.sub<span class="op">$</span>income),</a>
+<a class="sourceLine" id="cb559-3" data-line-number="3">                               <span class="dt">education =</span> <span class="kw">mean</span>(ds.sub<span class="op">$</span>education),</a>
+<a class="sourceLine" id="cb559-4" data-line-number="4">                               <span class="dt">age =</span> <span class="kw">mean</span>(ds.sub<span class="op">$</span>age))) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb559-5" data-line-number="5"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">upper =</span> .fitted <span class="op">+</span><span class="st"> </span><span class="fl">1.96</span> <span class="op">*</span><span class="st"> </span>.se.fit,</a>
+<a class="sourceLine" id="cb559-6" data-line-number="6">         <span class="dt">lower =</span> .fitted <span class="op">-</span><span class="st"> </span><span class="fl">1.96</span> <span class="op">*</span><span class="st"> </span>.se.fit) -&gt;<span class="st"> </span>fit.df</a>
+<a class="sourceLine" id="cb559-7" data-line-number="7">fit.df</a></code></pre></div>
 <pre><code>## # A tibble: 7 x 8
 ##   ideol income education   age .fitted .se.fit upper lower
 ##   &lt;int&gt;  &lt;dbl&gt;     &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
@@ -793,15 +821,15 @@ fit.df</code></pre></div>
 ## 6     6 70623.      5.09  60.1    35.7   0.400  36.4  34.9
 ## 7     7 70623.      5.09  60.1    38.7   0.534  39.8  37.7</code></pre>
 <p>Now build the visualization:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(fit.df, <span class="kw">aes</span>(ideol, .fitted)) <span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_line</span>(<span class="dt">size=</span><span class="fl">1.5</span>, <span class="dt">color =</span> <span class="st">&quot;dodgerblue2&quot;</span>) <span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_ribbon</span>(<span class="kw">aes</span>(<span class="dt">ymax =</span> upper, <span class="dt">ymin =</span> lower), <span class="dt">alpha =</span> .<span class="dv">5</span>, <span class="dt">fill =</span> <span class="st">&quot;dodgerblue2&quot;</span>) <span class="op">+</span>
-<span class="st">  </span><span class="kw">ggtitle</span>(<span class="st">&quot;Fossil Fuel Energy by Ideology&quot;</span>) <span class="op">+</span>
-<span class="st">  </span><span class="kw">ylab</span>(<span class="st">&quot;% of State&#39;s Electricity Should Come From Fossil Fuels&quot;</span>) <span class="op">+</span>
-<span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;Ideology&quot;</span>) <span class="op">+</span>
-<span class="st">  </span><span class="kw">scale_x_continuous</span>(<span class="dt">breaks=</span><span class="kw">c</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">7</span>), <span class="dt">labels =</span> <span class="kw">c</span>(<span class="st">&quot;1&quot;</span>, <span class="st">&quot;2&quot;</span>, <span class="st">&quot;3&quot;</span>, <span class="st">&quot;4&quot;</span>, <span class="st">&quot;5&quot;</span>, <span class="st">&quot;6&quot;</span>, <span class="st">&quot;7&quot;</span>)) <span class="op">+</span>
-<span class="st">  </span><span class="kw">coord_cartesian</span>(<span class="dt">ylim =</span> <span class="kw">c</span>(<span class="dv">15</span>, <span class="dv">40</span>), <span class="dt">xlim =</span> <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">7</span>)) <span class="op">+</span>
-<span class="st">  </span><span class="kw">theme_bw</span>()</code></pre></div>
+<div class="sourceCode" id="cb561"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb561-1" data-line-number="1"><span class="kw">ggplot</span>(fit.df, <span class="kw">aes</span>(ideol, .fitted)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb561-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_line</span>(<span class="dt">size=</span><span class="fl">1.5</span>, <span class="dt">color =</span> <span class="st">&quot;dodgerblue2&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb561-3" data-line-number="3"><span class="st">  </span><span class="kw">geom_ribbon</span>(<span class="kw">aes</span>(<span class="dt">ymax =</span> upper, <span class="dt">ymin =</span> lower), <span class="dt">alpha =</span> <span class="fl">.5</span>, <span class="dt">fill =</span> <span class="st">&quot;dodgerblue2&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb561-4" data-line-number="4"><span class="st">  </span><span class="kw">ggtitle</span>(<span class="st">&quot;Fossil Fuel Energy by Ideology&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb561-5" data-line-number="5"><span class="st">  </span><span class="kw">ylab</span>(<span class="st">&quot;% of State&#39;s Electricity Should Come From Fossil Fuels&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb561-6" data-line-number="6"><span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;Ideology&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb561-7" data-line-number="7"><span class="st">  </span><span class="kw">scale_x_continuous</span>(<span class="dt">breaks=</span><span class="kw">c</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">7</span>), <span class="dt">labels =</span> <span class="kw">c</span>(<span class="st">&quot;1&quot;</span>, <span class="st">&quot;2&quot;</span>, <span class="st">&quot;3&quot;</span>, <span class="st">&quot;4&quot;</span>, <span class="st">&quot;5&quot;</span>, <span class="st">&quot;6&quot;</span>, <span class="st">&quot;7&quot;</span>)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb561-8" data-line-number="8"><span class="st">  </span><span class="kw">coord_cartesian</span>(<span class="dt">ylim =</span> <span class="kw">c</span>(<span class="dv">15</span>, <span class="dv">40</span>), <span class="dt">xlim =</span> <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">7</span>)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb561-9" data-line-number="9"><span class="st">  </span><span class="kw">theme_bw</span>()</a></code></pre></div>
 <p><img src="_main_files/figure-html/8_mlr12-1.png" width="672" /></p>
 
 </div>
@@ -832,7 +860,7 @@ gitbook.start({
 "google": false,
 "linkedin": false,
 "weibo": false,
-"instapper": false,
+"instapaper": false,
 "vk": false,
 "all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
 },
@@ -845,7 +873,11 @@ gitbook.start({
 "link": null,
 "text": null
 },
-"download": ["_main.pdf"],
+"history": {
+"link": null,
+"text": null
+},
+"download": null,
 "toc": {
 "collapse": "subsection"
 }
@@ -858,8 +890,8 @@ gitbook.start({
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
-    var src = "";
-    if (src === "" || src === "true") src = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
     if (location.protocol !== "file:" && /^https?:/.test(src))
       src = src.replace(/^https?:/, '');
     script.src = src;

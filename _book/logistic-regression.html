@@ -1,15 +1,14 @@
 <!DOCTYPE html>
-<html >
-
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
 <head>
 
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Lab Guide to Quantitative Research Methods in Political Science, Public Policy &amp; Public Administration.</title>
-  <meta name="description" content="Lab Guide to Quantitative Research Methods in Political Science, Public Policy &amp; Public Administration.">
-  <meta name="generator" content="bookdown 0.7 and GitBook 2.6.7">
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>13 Logistic Regression | Lab Guide to Quantitative Research Methods in Political Science, Public Policy &amp; Public Administration.</title>
+  <meta name="description" content="13 Logistic Regression | Lab Guide to Quantitative Research Methods in Political Science, Public Policy &amp; Public Administration." />
+  <meta name="generator" content="bookdown 0.12 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Lab Guide to Quantitative Research Methods in Political Science, Public Policy &amp; Public Administration." />
+  <meta property="og:title" content="13 Logistic Regression | Lab Guide to Quantitative Research Methods in Political Science, Public Policy &amp; Public Administration." />
   <meta property="og:type" content="book" />
   
   
@@ -17,24 +16,24 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Lab Guide to Quantitative Research Methods in Political Science, Public Policy &amp; Public Administration." />
+  <meta name="twitter:title" content="13 Logistic Regression | Lab Guide to Quantitative Research Methods in Political Science, Public Policy &amp; Public Administration." />
   
   
   
 
-<meta name="author" content="Joseph Ripberger, Cody Adams, Alex Davis, and Josie Davis">
 
 
 
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
 <link rel="prev" href="diagnosing-and-addressing-problems-in-linear-regression.html">
 <link rel="next" href="statistical-simulations.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
@@ -47,50 +46,75 @@
 
 
 <script src="libs/htmlwidgets-1.3/htmlwidgets.js"></script>
-<script src="libs/plotly-binding-4.7.1/plotly.js"></script>
+<script src="libs/plotly-binding-4.9.0/plotly.js"></script>
 <script src="libs/typedarray-0.1/typedarray.min.js"></script>
 <link href="libs/crosstalk-1.0.0/css/crosstalk.css" rel="stylesheet" />
 <script src="libs/crosstalk-1.0.0/js/crosstalk.min.js"></script>
-<link href="libs/plotlyjs-1.29.2/plotly-htmlwidgets.css" rel="stylesheet" />
-<script src="libs/plotlyjs-1.29.2/plotly-latest.min.js"></script>
+<link href="libs/plotly-htmlwidgets-css-1.46.1/plotly-htmlwidgets.css" rel="stylesheet" />
+<script src="libs/plotly-main-1.46.1/plotly-latest.min.js"></script>
 
 
 <style type="text/css">
-div.sourceCode { overflow-x: auto; }
-table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
-  margin: 0; padding: 0; vertical-align: baseline; border: none; }
-table.sourceCode { width: 100%; line-height: 100%; }
-td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
-td.sourceCode { padding-left: 5px; }
-code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code > span.dt { color: #902000; } /* DataType */
-code > span.dv { color: #40a070; } /* DecVal */
-code > span.bn { color: #40a070; } /* BaseN */
-code > span.fl { color: #40a070; } /* Float */
-code > span.ch { color: #4070a0; } /* Char */
-code > span.st { color: #4070a0; } /* String */
-code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code > span.ot { color: #007020; } /* Other */
-code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code > span.fu { color: #06287e; } /* Function */
-code > span.er { color: #ff0000; font-weight: bold; } /* Error */
-code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-code > span.cn { color: #880000; } /* Constant */
-code > span.sc { color: #4070a0; } /* SpecialChar */
-code > span.vs { color: #4070a0; } /* VerbatimString */
-code > span.ss { color: #bb6688; } /* SpecialString */
-code > span.im { } /* Import */
-code > span.va { color: #19177c; } /* Variable */
-code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code > span.op { color: #666666; } /* Operator */
-code > span.bu { } /* BuiltIn */
-code > span.ex { } /* Extension */
-code > span.pp { color: #bc7a00; } /* Preprocessor */
-code > span.at { color: #7d9029; } /* Attribute */
-code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
 </head>
@@ -319,21 +343,21 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <div id="logistic-regression-with-a-binary-dv" class="section level2">
 <h2><span class="header-section-number">13.1</span> Logistic Regression with a Binary DV</h2>
 <p>Recall from lab ten that we attempted to use OLS regression to explore the relationship between a number of independent variables and a vote for Trump. While using OLS provided useful information, some would consider logistic regression more appropriate in that instance. This is because of the binary DV (voted for Trump or did not) that does not follow the normal distribution. Let’s construct a logit regression model that explores how certain IVs predict a vote for Trump. First we need to recode and factor the candidate variable to make it binary and exclude candidates other than Trump and Clinton, where a vote for Trump is 1 and Clinton is 0. We start by factoring the variable:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ds<span class="op">$</span>trump &lt;-<span class="st"> </span>car<span class="op">::</span><span class="kw">recode</span>(ds<span class="op">$</span>vote_cand, <span class="st">&quot;0 = 1;1 = 0;else = NA;NA = NA&quot;</span>)
-ds<span class="op">$</span>f.trump &lt;-<span class="st"> </span><span class="kw">factor</span>(ds<span class="op">$</span>trump, <span class="dt">levels =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">1</span>), <span class="dt">labels =</span> <span class="kw">c</span>(<span class="st">&quot;Clinton&quot;</span>, <span class="st">&quot;Trump&quot;</span>))
-<span class="kw">table</span>(ds<span class="op">$</span>f.trump)</code></pre></div>
+<div class="sourceCode" id="cb802"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb802-1" data-line-number="1">ds<span class="op">$</span>trump &lt;-<span class="st"> </span>car<span class="op">::</span><span class="kw">recode</span>(ds<span class="op">$</span>vote_cand, <span class="st">&quot;0 = 1;1 = 0;else = NA;NA = NA&quot;</span>)</a>
+<a class="sourceLine" id="cb802-2" data-line-number="2">ds<span class="op">$</span>f.trump &lt;-<span class="st"> </span><span class="kw">factor</span>(ds<span class="op">$</span>trump, <span class="dt">levels =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">1</span>), <span class="dt">labels =</span> <span class="kw">c</span>(<span class="st">&quot;Clinton&quot;</span>, <span class="st">&quot;Trump&quot;</span>))</a>
+<a class="sourceLine" id="cb802-3" data-line-number="3"><span class="kw">table</span>(ds<span class="op">$</span>f.trump)</a></code></pre></div>
 <pre><code>## 
 ## Clinton   Trump 
 ##     722    1272</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ds<span class="op">$</span>f.party.<span class="dv">2</span> &lt;-<span class="st"> </span><span class="kw">factor</span>(ds<span class="op">$</span>f.party.<span class="dv">2</span>)</code></pre></div>
+<div class="sourceCode" id="cb804"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb804-1" data-line-number="1">ds<span class="op">$</span>f.party<span class="fl">.2</span> &lt;-<span class="st"> </span><span class="kw">factor</span>(ds<span class="op">$</span>f.party<span class="fl">.2</span>)</a></code></pre></div>
 <p>Next, select a subset of the data and remove missing observations:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ds.sub &lt;-<span class="st"> </span>ds <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span>dplyr<span class="op">::</span><span class="kw">select</span>(<span class="st">&quot;f.trump&quot;</span>, <span class="st">&quot;gender&quot;</span>, <span class="st">&quot;ideol&quot;</span>, <span class="st">&quot;income&quot;</span>, <span class="st">&quot;education&quot;</span>, <span class="st">&quot;race&quot;</span>) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">na.omit</span>()</code></pre></div>
+<div class="sourceCode" id="cb805"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb805-1" data-line-number="1">ds.sub &lt;-<span class="st"> </span>ds <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb805-2" data-line-number="2"><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">select</span>(<span class="st">&quot;f.trump&quot;</span>, <span class="st">&quot;gender&quot;</span>, <span class="st">&quot;ideol&quot;</span>, <span class="st">&quot;income&quot;</span>, <span class="st">&quot;education&quot;</span>, <span class="st">&quot;race&quot;</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb805-3" data-line-number="3"><span class="st">  </span><span class="kw">na.omit</span>()</a></code></pre></div>
 <p>Build the generalized linear model:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">logit1 &lt;-<span class="st"> </span><span class="kw">glm</span>(f.trump <span class="op">~</span><span class="st"> </span>ideol <span class="op">+</span><span class="st"> </span>gender <span class="op">+</span><span class="st"> </span>education <span class="op">+</span><span class="st"> </span>income, <span class="dt">data =</span> ds.sub,
-              <span class="dt">family =</span> <span class="kw">binomial</span>(<span class="dt">link =</span> logit), <span class="dt">x =</span> <span class="ot">TRUE</span>)
-<span class="kw">summary</span>(logit1)</code></pre></div>
+<div class="sourceCode" id="cb806"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb806-1" data-line-number="1">logit1 &lt;-<span class="st"> </span><span class="kw">glm</span>(f.trump <span class="op">~</span><span class="st"> </span>ideol <span class="op">+</span><span class="st"> </span>gender <span class="op">+</span><span class="st"> </span>education <span class="op">+</span><span class="st"> </span>income, <span class="dt">data =</span> ds.sub,</a>
+<a class="sourceLine" id="cb806-2" data-line-number="2">              <span class="dt">family =</span> <span class="kw">binomial</span>(<span class="dt">link =</span> logit), <span class="dt">x =</span> <span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb806-3" data-line-number="3"><span class="kw">summary</span>(logit1)</a></code></pre></div>
 <pre><code>## 
 ## Call:
 ## glm(formula = f.trump ~ ideol + gender + education + income, 
@@ -361,27 +385,27 @@ ds<span class="op">$</span>f.trump &lt;-<span class="st"> </span><span class="kw
 ## 
 ## Number of Fisher Scoring iterations: 5</code></pre>
 <p>The coefficients returned are logged odds, so there really is not much we can get from looking at them alone; however, from looking at the coefficients alone, we can tell that ideology and education both affect the probability of voting for Trump. In order to understand the sense of magnitude, we need to convert these from logged odds to odds, and then to percentages. To convert logged odds to odds, take the exponent of the coefficients using the <em>exp()</em> function:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">logit1 <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">coef</span>() <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">exp</span>()</code></pre></div>
+<div class="sourceCode" id="cb808"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb808-1" data-line-number="1">logit1 <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb808-2" data-line-number="2"><span class="st">  </span><span class="kw">coef</span>() <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb808-3" data-line-number="3"><span class="st">  </span><span class="kw">exp</span>()</a></code></pre></div>
 <pre><code>## (Intercept)       ideol      gender   education      income 
 ##  0.01778162  3.47882976  1.13932258  0.81366981  1.00000120</code></pre>
 <p>Odds are difficult to interpret intuitively, but to get a sense of what they’re telling us, remember that odds greater than 1 indicate increased probability, and odds less than one indicate a decrease in probability. The statistically significant coefficients from the model are ideology and education. Based on the odds of each IV, we can tell that an increase in ideology improves the probability of a Trump vote, and an increase in education reduces the probability of a Trump vote. To get a more intuitive understanding, we can convert these to percentages. To do this you subtract the odds from 1. Do this for the ideology and education variables only, because those are the only siginificant ones:</p>
 <p>Ideology:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="dv">1</span> <span class="op">-</span><span class="st"> </span><span class="kw">exp</span>(logit1<span class="op">$</span>coef[<span class="dv">2</span>])</code></pre></div>
+<div class="sourceCode" id="cb810"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb810-1" data-line-number="1"><span class="dv">1</span> <span class="op">-</span><span class="st"> </span><span class="kw">exp</span>(logit1<span class="op">$</span>coef[<span class="dv">2</span>])</a></code></pre></div>
 <pre><code>##    ideol 
 ## -2.47883</code></pre>
 <p>Education:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="dv">1</span><span class="op">-</span><span class="st"> </span><span class="kw">exp</span>(logit1<span class="op">$</span>coef[<span class="dv">4</span>])</code></pre></div>
+<div class="sourceCode" id="cb812"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb812-1" data-line-number="1"><span class="dv">1</span><span class="op">-</span><span class="st"> </span><span class="kw">exp</span>(logit1<span class="op">$</span>coef[<span class="dv">4</span>])</a></code></pre></div>
 <pre><code>## education 
 ## 0.1863302</code></pre>
 <p>This may seem counter-intuitive, but since we subtracted 1 from the odds, a negative percentage is actually an increase in probability. The -2.48 for ideology can be interpreted as a 248% increase in the odds of voting for Trump. The point is that an increasing ideology score (liberal to conservative) drastically increased the probability of a vote for Trump. The .19 for education indicates that an increase in education decreases the odds of voting for Trump by about 19%.</p>
 <p>Notice that even at this point, we are still dealing with some level of abstraction (a 248% increase in odds is hard to understand). Perhaps the best reason to use a logit model is that it allows us to generate predicted probabilities of some outcome. Similar to how we used OLS and the <em>predict()</em> function to describe and predict a relationship, logit regression allows us to obtain a predicted probability that a particular outcome occurs, given a certain set of parameters. In our case, we can generate predicted probabilities of voting for Trump. Let’s find the predicted probabilities of voting for Trump as ideology increases and all other IVs are held constant at their means. We first need to generate some simulated data that sequences ideology from 1 to 7 and holds all other values at their means:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ideol.data &lt;-<span class="st"> </span><span class="kw">with</span>(ds, <span class="kw">data.frame</span>(<span class="dt">education =</span> <span class="kw">mean</span>(education, <span class="dt">na.rm =</span> T),
-                                   <span class="dt">gender =</span> <span class="kw">mean</span>(gender, <span class="dt">na.rm =</span> T),
-                                   <span class="dt">income =</span> <span class="kw">mean</span>(income, <span class="dt">na.rm =</span> T),
-                                   <span class="dt">ideol =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">7</span>))
-ideol.data</code></pre></div>
+<div class="sourceCode" id="cb814"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb814-1" data-line-number="1">ideol.data &lt;-<span class="st"> </span><span class="kw">with</span>(ds, <span class="kw">data.frame</span>(<span class="dt">education =</span> <span class="kw">mean</span>(education, <span class="dt">na.rm =</span> T),</a>
+<a class="sourceLine" id="cb814-2" data-line-number="2">                                   <span class="dt">gender =</span> <span class="kw">mean</span>(gender, <span class="dt">na.rm =</span> T),</a>
+<a class="sourceLine" id="cb814-3" data-line-number="3">                                   <span class="dt">income =</span> <span class="kw">mean</span>(income, <span class="dt">na.rm =</span> T),</a>
+<a class="sourceLine" id="cb814-4" data-line-number="4">                                   <span class="dt">ideol =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">7</span>))</a>
+<a class="sourceLine" id="cb814-5" data-line-number="5">ideol.data</a></code></pre></div>
 <pre><code>##   education    gender   income ideol
 ## 1  5.023987 0.4029851 70641.77     1
 ## 2  5.023987 0.4029851 70641.77     2
@@ -391,8 +415,8 @@ ideol.data</code></pre></div>
 ## 6  5.023987 0.4029851 70641.77     6
 ## 7  5.023987 0.4029851 70641.77     7</code></pre>
 <p>Now use the <code>augment()</code> function to calculate predicted probabilities of voting for Trump at the various ideology levels. To do so, include <code>type.predict = &quot;response&quot;</code>. This tells <code>augment()</code> to generate predicted probabilities:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">logit1 <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">augment</span>(<span class="dt">newdata =</span> ideol.data, <span class="dt">predict =</span> <span class="st">&quot;response&quot;</span>) </code></pre></div>
+<div class="sourceCode" id="cb816"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb816-1" data-line-number="1">logit1 <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb816-2" data-line-number="2"><span class="st">  </span><span class="kw">augment</span>(<span class="dt">newdata =</span> ideol.data, <span class="dt">predict =</span> <span class="st">&quot;response&quot;</span>) </a></code></pre></div>
 <pre><code>## # A tibble: 7 x 6
 ##   education gender income ideol .fitted .se.fit
 ##       &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt; &lt;int&gt;   &lt;dbl&gt;   &lt;dbl&gt;
@@ -404,20 +428,20 @@ ideol.data</code></pre></div>
 ## 6      5.02  0.403 70642.     6  2.55    0.118 
 ## 7      5.02  0.403 70642.     7  3.80    0.166</code></pre>
 <p>As we would likely expect, increasing ideology increases the probability of voting for Trump. At an ideology level of 7, there is almost a guarantee of voting for Trump. To get a sense of what this would look like, we can visualize these predicted probabilities rather easily. We need to calculate lower and upper bounds of the confidence interval first, which is done just like with other models. Assign the data frame to an object.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">logit1 <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">augment</span>(<span class="dt">newdata =</span> ideol.data, <span class="dt">type.predict =</span> <span class="st">&quot;response&quot;</span>) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">upper =</span> .fitted <span class="op">+</span><span class="st"> </span><span class="fl">1.96</span> <span class="op">*</span><span class="st"> </span>.se.fit,
-         <span class="dt">lower =</span> .fitted <span class="op">-</span><span class="st"> </span><span class="fl">1.96</span> <span class="op">*</span><span class="st"> </span>.se.fit) -&gt;<span class="st"> </span>log.data</code></pre></div>
+<div class="sourceCode" id="cb818"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb818-1" data-line-number="1">logit1 <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb818-2" data-line-number="2"><span class="st">  </span><span class="kw">augment</span>(<span class="dt">newdata =</span> ideol.data, <span class="dt">type.predict =</span> <span class="st">&quot;response&quot;</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb818-3" data-line-number="3"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">upper =</span> .fitted <span class="op">+</span><span class="st"> </span><span class="fl">1.96</span> <span class="op">*</span><span class="st"> </span>.se.fit,</a>
+<a class="sourceLine" id="cb818-4" data-line-number="4">         <span class="dt">lower =</span> .fitted <span class="op">-</span><span class="st"> </span><span class="fl">1.96</span> <span class="op">*</span><span class="st"> </span>.se.fit) -&gt;<span class="st"> </span>log.data</a></code></pre></div>
 <p>Visualizing the predicted probabilities is similar to how we have visualized in the past. Use <code>geom_point()</code> and <code>geom_errorbar()</code>:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(log.data, <span class="kw">aes</span>(ideol, .fitted)) <span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">size =</span> <span class="fl">1.5</span>) <span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_errorbar</span>(<span class="kw">aes</span>(<span class="dt">ymin =</span> lower, <span class="dt">ymax =</span> upper), <span class="dt">width =</span> .<span class="dv">2</span>)</code></pre></div>
+<div class="sourceCode" id="cb819"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb819-1" data-line-number="1"><span class="kw">ggplot</span>(log.data, <span class="kw">aes</span>(ideol, .fitted)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb819-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">size =</span> <span class="fl">1.5</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb819-3" data-line-number="3"><span class="st">  </span><span class="kw">geom_errorbar</span>(<span class="kw">aes</span>(<span class="dt">ymin =</span> lower, <span class="dt">ymax =</span> upper), <span class="dt">width =</span> <span class="fl">.2</span>)</a></code></pre></div>
 <p><img src="_main_files/figure-html/12_log14-1.png" width="672" /></p>
 <div id="goodness-of-fit-logit-regression" class="section level3">
 <h3><span class="header-section-number">13.1.1</span> Goodness of Fit, Logit Regression</h3>
 <p>Determining model fit when performing logit regression is different than when doing OLS. There are three main methods of exploring model fit, Pseudo-R squared, Log-likelihood, and AIC. The best way to understand logit model fit is by comparison, so let’s create a null model that tries to predict a Trump vote only by the intercept term:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">logit.null &lt;-<span class="st"> </span><span class="kw">glm</span>(f.trump <span class="op">~</span><span class="st"> </span><span class="dv">1</span>, <span class="dt">data =</span> ds.sub, <span class="dt">family =</span> <span class="kw">binomial</span>(<span class="dt">link =</span> logit))
-<span class="kw">summary</span>(logit.null)</code></pre></div>
+<div class="sourceCode" id="cb820"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb820-1" data-line-number="1">logit.null &lt;-<span class="st"> </span><span class="kw">glm</span>(f.trump <span class="op">~</span><span class="st"> </span><span class="dv">1</span>, <span class="dt">data =</span> ds.sub, <span class="dt">family =</span> <span class="kw">binomial</span>(<span class="dt">link =</span> logit))</a>
+<a class="sourceLine" id="cb820-2" data-line-number="2"><span class="kw">summary</span>(logit.null)</a></code></pre></div>
 <pre><code>## 
 ## Call:
 ## glm(formula = f.trump ~ 1, family = binomial(link = logit), data = ds.sub)
@@ -440,18 +464,18 @@ ideol.data</code></pre></div>
 ## 
 ## Number of Fisher Scoring iterations: 4</code></pre>
 <p>To test model fit via log-likelihood, we can calculate what is called the deviance statistic, or G squared. G squared tests whether the difference in the log-likelihoods of the null model and the demographic model (our initial model) are statistically distinguishable from zero. If so, our demographic model is a better fit. First let’s the log-likelihoods for each model:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">loglikli.null &lt;-<span class="st"> </span><span class="kw">logLik</span>(logit.null)
-loglikli.demo &lt;-<span class="st"> </span><span class="kw">logLik</span>(logit1)</code></pre></div>
+<div class="sourceCode" id="cb822"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb822-1" data-line-number="1">loglikli.null &lt;-<span class="st"> </span><span class="kw">logLik</span>(logit.null)</a>
+<a class="sourceLine" id="cb822-2" data-line-number="2">loglikli.demo &lt;-<span class="st"> </span><span class="kw">logLik</span>(logit1)</a></code></pre></div>
 <p>To fing G squared, you subtract the null log-likelihood from the demographic log-likelihood:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">G &lt;-<span class="st"> </span>loglikli.demo <span class="op">-</span><span class="st"> </span>loglikli.null</code></pre></div>
+<div class="sourceCode" id="cb823"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb823-1" data-line-number="1">G &lt;-<span class="st"> </span>loglikli.demo <span class="op">-</span><span class="st"> </span>loglikli.null</a></code></pre></div>
 <p>To test if the G statistic is significant, you use a Chi-Square test with q degrees of freedom, where q is the difference in the number of IVs in the model. Our demographic model has 4 IVs (ideology, age, education, income) and the null model has 1, so q is 3:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">pchisq</span>(G, <span class="dt">df =</span> <span class="dv">3</span>, <span class="dt">lower.tail =</span> <span class="ot">FALSE</span>)</code></pre></div>
+<div class="sourceCode" id="cb824"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb824-1" data-line-number="1"><span class="kw">pchisq</span>(G, <span class="dt">df =</span> <span class="dv">3</span>, <span class="dt">lower.tail =</span> <span class="ot">FALSE</span>)</a></code></pre></div>
 <pre><code>## &#39;log Lik.&#39; 0.000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000445353 (df=5)</code></pre>
 <p>We can conclude with confidence that the demographic model better explains a vote for Trump than the null model.</p>
 <p>A similar approach can be made to compare nested models, similar to a nested F-test. Using the <code>anova()</code> function and specifying chi-squared, we can test if adding or subtracting a particular variable improves model fit. Let’s include race in a new model and compare it to our first model:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">logit2 &lt;-<span class="st"> </span><span class="kw">glm</span>(f.trump <span class="op">~</span><span class="st"> </span>ideol <span class="op">+</span><span class="st"> </span>gender <span class="op">+</span><span class="st"> </span>education <span class="op">+</span><span class="st"> </span>income <span class="op">+</span><span class="st"> </span>race, <span class="dt">data =</span> ds.sub,
-              <span class="dt">family =</span> <span class="kw">binomial</span>(<span class="dt">link =</span> logit), <span class="dt">x =</span> <span class="ot">TRUE</span>)
-<span class="kw">summary</span>(logit2)</code></pre></div>
+<div class="sourceCode" id="cb826"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb826-1" data-line-number="1">logit2 &lt;-<span class="st"> </span><span class="kw">glm</span>(f.trump <span class="op">~</span><span class="st"> </span>ideol <span class="op">+</span><span class="st"> </span>gender <span class="op">+</span><span class="st"> </span>education <span class="op">+</span><span class="st"> </span>income <span class="op">+</span><span class="st"> </span>race, <span class="dt">data =</span> ds.sub,</a>
+<a class="sourceLine" id="cb826-2" data-line-number="2">              <span class="dt">family =</span> <span class="kw">binomial</span>(<span class="dt">link =</span> logit), <span class="dt">x =</span> <span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb826-3" data-line-number="3"><span class="kw">summary</span>(logit2)</a></code></pre></div>
 <pre><code>## 
 ## Call:
 ## glm(formula = f.trump ~ ideol + gender + education + income + 
@@ -480,7 +504,7 @@ loglikli.demo &lt;-<span class="st"> </span><span class="kw">logLik</span>(logit
 ## 
 ## Number of Fisher Scoring iterations: 5</code></pre>
 <p>Now compare models:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">anova</span>(logit1, logit2, <span class="dt">test =</span> <span class="st">&quot;Chisq&quot;</span>)</code></pre></div>
+<div class="sourceCode" id="cb828"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb828-1" data-line-number="1"><span class="kw">anova</span>(logit1, logit2, <span class="dt">test =</span> <span class="st">&quot;Chisq&quot;</span>)</a></code></pre></div>
 <pre><code>## Analysis of Deviance Table
 ## 
 ## Model 1: f.trump ~ ideol + gender + education + income
@@ -492,11 +516,11 @@ loglikli.demo &lt;-<span class="st"> </span><span class="kw">logLik</span>(logit
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
 <p>The test indicates that including race improves the model.</p>
 <p>Another way to examine model fit is pseudo-R squared. This is not completely analogous to R squared, because we’re not trying to simply explain the variance in Y. However, pseudo-R squared compares the residual deviance of the null model to that of the actual model and ranges of 0 to 1, with higher values indicating better model fit. Deviance in a logit model is similar to the residual sum of squares in an OLS model. To find pseudo-R squared you take 1 minus the deviance of the actual model divided by the deviance of the null model. Let’s use the new model that includes race:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">psuedoR2 &lt;-<span class="st"> </span><span class="dv">1</span> <span class="op">-</span><span class="st"> </span>(logit2<span class="op">$</span>deviance<span class="op">/</span>logit2<span class="op">$</span>null.deviance)
-psuedoR2</code></pre></div>
+<div class="sourceCode" id="cb830"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb830-1" data-line-number="1">psuedoR2 &lt;-<span class="st"> </span><span class="dv">1</span> <span class="op">-</span><span class="st"> </span>(logit2<span class="op">$</span>deviance<span class="op">/</span>logit2<span class="op">$</span>null.deviance)</a>
+<a class="sourceLine" id="cb830-2" data-line-number="2">psuedoR2</a></code></pre></div>
 <pre><code>## [1] 0.4665082</code></pre>
 <p>The final method we go over is AIC, or Akaine Information Criteria. AIC is only useful in comparing two models, and like adjusted R squared it penalizes for increased model parameters. Fortunately, AIC is calculated for us when we look at the summary of the model. A smaller AIC value indicates better model fit. Let’s again compare the two actual logit models (not the null model)</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">stargazer</span>(logit1, logit2, <span class="dt">type=</span><span class="st">&quot;text&quot;</span>, <span class="dt">single.row =</span> <span class="ot">TRUE</span>)</code></pre></div>
+<div class="sourceCode" id="cb832"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb832-1" data-line-number="1"><span class="kw">stargazer</span>(logit1, logit2, <span class="dt">type=</span><span class="st">&quot;text&quot;</span>, <span class="dt">single.row =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
 <pre><code>## 
 ## =====================================================
 ##                           Dependent variable:        
@@ -521,7 +545,7 @@ psuedoR2</code></pre></div>
 <div id="percent-correctly-predicted" class="section level3">
 <h3><span class="header-section-number">13.1.2</span> Percent Correctly Predicted</h3>
 <p>Another way to assess how effective our model is at describing and predicting our data is by looking at the percent correctly predicted. Using the <code>hitmiss()</code> function found in the <code>pscl</code> package, we can look at how well the model predicts the outcomes for when y and 0 and when y equals 1, and we can immediately compare it to how well a null model predicts outcomes. Let’s do this for both the logit model that does not include race and the one that does:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">hitmiss</span>(logit1)</code></pre></div>
+<div class="sourceCode" id="cb834"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb834-1" data-line-number="1"><span class="kw">hitmiss</span>(logit1)</a></code></pre></div>
 <pre><code>## Classification Threshold = 0.5 
 ##        y=0  y=1
 ## yhat=0 498  119
@@ -531,7 +555,7 @@ psuedoR2</code></pre></div>
 ## Percent Correctly Predicted = 89.71%  for y = 1
 ## Null Model Correctly Predicts 63.68%</code></pre>
 <pre><code>## [1] 84.53495 75.45455 89.71478</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">hitmiss</span>(logit2)</code></pre></div>
+<div class="sourceCode" id="cb837"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb837-1" data-line-number="1"><span class="kw">hitmiss</span>(logit2)</a></code></pre></div>
 <pre><code>## Classification Threshold = 0.5 
 ##        y=0  y=1
 ## yhat=0 497   99
@@ -542,7 +566,7 @@ psuedoR2</code></pre></div>
 ## Null Model Correctly Predicts 63.68%</code></pre>
 <pre><code>## [1] 85.58063 75.30303 91.44339</code></pre>
 <p>It appears the model with race better predicts outcomes, which our other diagnostics so far have also suggested. One other method is to examine proportional reduction in error, which looks at how a model reduces error in predictions versus a null model. Let’s look at the PRE for the logit model that includes race. To do so, use the <code>pre()</code> function from the <code>DAMisc</code> package:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">pre</span>(logit2)</code></pre></div>
+<div class="sourceCode" id="cb840"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb840-1" data-line-number="1"><span class="kw">pre</span>(logit2)</a></code></pre></div>
 <pre><code>## mod1:  f.trump ~ ideol + gender + education + income + race 
 ## mod2:  f.trump ~ 1 
 ## 
@@ -558,14 +582,14 @@ psuedoR2</code></pre></div>
 <div id="logit-regression-with-groups" class="section level3">
 <h3><span class="header-section-number">13.1.3</span> Logit Regression with Groups</h3>
 <p>Now let’s go over logit regression with groups. Let’s continue looking into the probability of a vote for Trump, but let’s include political party into the mix. We can use logit regression to find the probability of voting for Trump as ideology varies across political parties. Let’s pull a new subset of the data that removes missing observations and includes the factored party variable:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ds.sub2 &lt;-<span class="st"> </span>ds <span class="op">%&gt;%</span><span class="st"> </span>dplyr<span class="op">::</span><span class="kw">select</span>(<span class="st">&quot;f.trump&quot;</span>, <span class="st">&quot;gender&quot;</span>, <span class="st">&quot;ideol&quot;</span>, <span class="st">&quot;income&quot;</span>,
-                                        <span class="st">&quot;education&quot;</span>, <span class="st">&quot;race&quot;</span>, <span class="st">&quot;f.party.2&quot;</span>) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">drop_na</span>() <span class="co">#%&gt;%</span>
-  <span class="co">#mutate(f.part = factor(f.party.2))</span></code></pre></div>
+<div class="sourceCode" id="cb842"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb842-1" data-line-number="1">ds.sub2 &lt;-<span class="st"> </span>ds <span class="op">%&gt;%</span><span class="st"> </span>dplyr<span class="op">::</span><span class="kw">select</span>(<span class="st">&quot;f.trump&quot;</span>, <span class="st">&quot;gender&quot;</span>, <span class="st">&quot;ideol&quot;</span>, <span class="st">&quot;income&quot;</span>,</a>
+<a class="sourceLine" id="cb842-2" data-line-number="2">                                        <span class="st">&quot;education&quot;</span>, <span class="st">&quot;race&quot;</span>, <span class="st">&quot;f.party.2&quot;</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb842-3" data-line-number="3"><span class="st">  </span><span class="kw">drop_na</span>() <span class="co">#%&gt;%</span></a>
+<a class="sourceLine" id="cb842-4" data-line-number="4">  <span class="co">#mutate(f.part = factor(f.party.2))</span></a></code></pre></div>
 <p>Notice that we used the factored party variable that only includes Democrats, Independents, and Republicans. Let’s build the model:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">logit3 &lt;-<span class="st"> </span><span class="kw">glm</span>(f.trump <span class="op">~</span><span class="st"> </span>ideol <span class="op">+</span><span class="st"> </span>gender <span class="op">+</span><span class="st"> </span>education <span class="op">+</span><span class="st"> </span>income <span class="op">+</span><span class="st"> </span>race <span class="op">+</span><span class="st"> </span>f.party.<span class="dv">2</span>,
-              <span class="dt">family =</span> <span class="kw">binomial</span>(<span class="dt">link =</span> logit), <span class="dt">data =</span> ds.sub2, <span class="dt">x =</span> <span class="ot">TRUE</span>)
-<span class="kw">summary</span>(logit3)</code></pre></div>
+<div class="sourceCode" id="cb843"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb843-1" data-line-number="1">logit3 &lt;-<span class="st"> </span><span class="kw">glm</span>(f.trump <span class="op">~</span><span class="st"> </span>ideol <span class="op">+</span><span class="st"> </span>gender <span class="op">+</span><span class="st"> </span>education <span class="op">+</span><span class="st"> </span>income <span class="op">+</span><span class="st"> </span>race <span class="op">+</span><span class="st"> </span>f.party<span class="fl">.2</span>,</a>
+<a class="sourceLine" id="cb843-2" data-line-number="2">              <span class="dt">family =</span> <span class="kw">binomial</span>(<span class="dt">link =</span> logit), <span class="dt">data =</span> ds.sub2, <span class="dt">x =</span> <span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb843-3" data-line-number="3"><span class="kw">summary</span>(logit3)</a></code></pre></div>
 <pre><code>## 
 ## Call:
 ## glm(formula = f.trump ~ ideol + gender + education + income + 
@@ -597,44 +621,44 @@ psuedoR2</code></pre></div>
 ## 
 ## Number of Fisher Scoring iterations: 6</code></pre>
 <p>With Democrats as the reference group, Independents and Republicans have an increased probability of voting for Trump, which makes sense for Oklahoma voters. Next we generate predicted probabilities. First create data frames for each party:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">rep.data &lt;-<span class="st"> </span><span class="kw">with</span>(ds.sub2, <span class="kw">data.frame</span>(<span class="dt">gender =</span> <span class="kw">mean</span>(gender), 
-                                <span class="dt">education =</span> <span class="kw">mean</span>(education), <span class="dt">race =</span> <span class="kw">mean</span>(race),
-                                <span class="dt">income =</span> <span class="kw">mean</span>(income), <span class="dt">ideol =</span> (<span class="dv">1</span><span class="op">:</span><span class="dv">7</span>),
-                                <span class="dt">f.party.2 =</span> <span class="kw">c</span>(<span class="st">&quot;Rep&quot;</span>)))
-
-dem.data &lt;-<span class="st"> </span><span class="kw">with</span>(ds.sub2, <span class="kw">data.frame</span>(<span class="dt">gender =</span> <span class="kw">mean</span>(gender), 
-                                     <span class="dt">education =</span> <span class="kw">mean</span>(education), <span class="dt">race =</span> <span class="kw">mean</span>(race),
-                                     <span class="dt">income =</span> <span class="kw">mean</span>(income), <span class="dt">ideol =</span> (<span class="dv">1</span><span class="op">:</span><span class="dv">7</span>),
-                                     <span class="dt">f.party.2 =</span> <span class="kw">c</span>(<span class="st">&quot;Dem&quot;</span>)))
-
-ind.data &lt;-<span class="st"> </span><span class="kw">with</span>(ds.sub2, <span class="kw">data.frame</span>(<span class="dt">gender =</span> <span class="kw">mean</span>(gender), 
-                                     <span class="dt">education =</span> <span class="kw">mean</span>(education), <span class="dt">race =</span> <span class="kw">mean</span>(race), 
-                                     <span class="dt">income =</span> <span class="kw">mean</span>(income), <span class="dt">ideol =</span> (<span class="dv">1</span><span class="op">:</span><span class="dv">7</span>),
-                                     <span class="dt">f.party.2 =</span> <span class="kw">c</span>(<span class="st">&quot;Ind&quot;</span>)))</code></pre></div>
+<div class="sourceCode" id="cb845"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb845-1" data-line-number="1">rep.data &lt;-<span class="st"> </span><span class="kw">with</span>(ds.sub2, <span class="kw">data.frame</span>(<span class="dt">gender =</span> <span class="kw">mean</span>(gender), </a>
+<a class="sourceLine" id="cb845-2" data-line-number="2">                                <span class="dt">education =</span> <span class="kw">mean</span>(education), <span class="dt">race =</span> <span class="kw">mean</span>(race),</a>
+<a class="sourceLine" id="cb845-3" data-line-number="3">                                <span class="dt">income =</span> <span class="kw">mean</span>(income), <span class="dt">ideol =</span> (<span class="dv">1</span><span class="op">:</span><span class="dv">7</span>),</a>
+<a class="sourceLine" id="cb845-4" data-line-number="4">                                <span class="dt">f.party.2 =</span> <span class="kw">c</span>(<span class="st">&quot;Rep&quot;</span>)))</a>
+<a class="sourceLine" id="cb845-5" data-line-number="5"></a>
+<a class="sourceLine" id="cb845-6" data-line-number="6">dem.data &lt;-<span class="st"> </span><span class="kw">with</span>(ds.sub2, <span class="kw">data.frame</span>(<span class="dt">gender =</span> <span class="kw">mean</span>(gender), </a>
+<a class="sourceLine" id="cb845-7" data-line-number="7">                                     <span class="dt">education =</span> <span class="kw">mean</span>(education), <span class="dt">race =</span> <span class="kw">mean</span>(race),</a>
+<a class="sourceLine" id="cb845-8" data-line-number="8">                                     <span class="dt">income =</span> <span class="kw">mean</span>(income), <span class="dt">ideol =</span> (<span class="dv">1</span><span class="op">:</span><span class="dv">7</span>),</a>
+<a class="sourceLine" id="cb845-9" data-line-number="9">                                     <span class="dt">f.party.2 =</span> <span class="kw">c</span>(<span class="st">&quot;Dem&quot;</span>)))</a>
+<a class="sourceLine" id="cb845-10" data-line-number="10"></a>
+<a class="sourceLine" id="cb845-11" data-line-number="11">ind.data &lt;-<span class="st"> </span><span class="kw">with</span>(ds.sub2, <span class="kw">data.frame</span>(<span class="dt">gender =</span> <span class="kw">mean</span>(gender), </a>
+<a class="sourceLine" id="cb845-12" data-line-number="12">                                     <span class="dt">education =</span> <span class="kw">mean</span>(education), <span class="dt">race =</span> <span class="kw">mean</span>(race), </a>
+<a class="sourceLine" id="cb845-13" data-line-number="13">                                     <span class="dt">income =</span> <span class="kw">mean</span>(income), <span class="dt">ideol =</span> (<span class="dv">1</span><span class="op">:</span><span class="dv">7</span>),</a>
+<a class="sourceLine" id="cb845-14" data-line-number="14">                                     <span class="dt">f.party.2 =</span> <span class="kw">c</span>(<span class="st">&quot;Ind&quot;</span>)))</a></code></pre></div>
 <p>Now we can calculate predicted probabilities of voting for Trump for each party and ideology score, holding all other IVs constant, as well as upper and lower bounds of the confidence intervals:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">rep.prob &lt;-<span class="st"> </span><span class="kw">augment</span>(logit3, <span class="dt">newdata =</span> rep.data, <span class="dt">type.predict =</span> <span class="st">&quot;response&quot;</span>) <span class="op">%&gt;%</span>
-<span class="st">                    </span><span class="kw">mutate</span>(<span class="dt">upper =</span> .fitted <span class="op">+</span><span class="st"> </span><span class="fl">1.96</span> <span class="op">*</span><span class="st"> </span>.se.fit,
-                           <span class="dt">lower =</span> .fitted <span class="op">-</span><span class="st"> </span><span class="fl">1.96</span> <span class="op">*</span><span class="st"> </span>.se.fit)
-dem.prob &lt;-<span class="st">  </span><span class="kw">augment</span>(logit3, <span class="dt">newdata =</span> dem.data, <span class="dt">type.predict =</span> <span class="st">&quot;response&quot;</span>) <span class="op">%&gt;%</span>
-<span class="st">                     </span><span class="kw">mutate</span>(<span class="dt">upper =</span> .fitted <span class="op">+</span><span class="st"> </span><span class="fl">1.96</span> <span class="op">*</span><span class="st"> </span>.se.fit,
-                           <span class="dt">lower =</span> .fitted <span class="op">-</span><span class="st"> </span><span class="fl">1.96</span> <span class="op">*</span><span class="st"> </span>.se.fit)
-ind.prob &lt;-<span class="st">  </span><span class="kw">augment</span>(logit3, <span class="dt">newdata =</span> ind.data, <span class="dt">type.predict =</span> <span class="st">&quot;response&quot;</span>) <span class="op">%&gt;%</span>
-<span class="st">                     </span><span class="kw">mutate</span>(<span class="dt">upper =</span> .fitted <span class="op">+</span><span class="st"> </span><span class="fl">1.96</span> <span class="op">*</span><span class="st"> </span>.se.fit,
-                           <span class="dt">lower =</span> .fitted <span class="op">-</span><span class="st"> </span><span class="fl">1.96</span> <span class="op">*</span><span class="st"> </span>.se.fit)</code></pre></div>
+<div class="sourceCode" id="cb846"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb846-1" data-line-number="1">rep.prob &lt;-<span class="st"> </span><span class="kw">augment</span>(logit3, <span class="dt">newdata =</span> rep.data, <span class="dt">type.predict =</span> <span class="st">&quot;response&quot;</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb846-2" data-line-number="2"><span class="st">                    </span><span class="kw">mutate</span>(<span class="dt">upper =</span> .fitted <span class="op">+</span><span class="st"> </span><span class="fl">1.96</span> <span class="op">*</span><span class="st"> </span>.se.fit,</a>
+<a class="sourceLine" id="cb846-3" data-line-number="3">                           <span class="dt">lower =</span> .fitted <span class="op">-</span><span class="st"> </span><span class="fl">1.96</span> <span class="op">*</span><span class="st"> </span>.se.fit)</a>
+<a class="sourceLine" id="cb846-4" data-line-number="4">dem.prob &lt;-<span class="st">  </span><span class="kw">augment</span>(logit3, <span class="dt">newdata =</span> dem.data, <span class="dt">type.predict =</span> <span class="st">&quot;response&quot;</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb846-5" data-line-number="5"><span class="st">                     </span><span class="kw">mutate</span>(<span class="dt">upper =</span> .fitted <span class="op">+</span><span class="st"> </span><span class="fl">1.96</span> <span class="op">*</span><span class="st"> </span>.se.fit,</a>
+<a class="sourceLine" id="cb846-6" data-line-number="6">                           <span class="dt">lower =</span> .fitted <span class="op">-</span><span class="st"> </span><span class="fl">1.96</span> <span class="op">*</span><span class="st"> </span>.se.fit)</a>
+<a class="sourceLine" id="cb846-7" data-line-number="7">ind.prob &lt;-<span class="st">  </span><span class="kw">augment</span>(logit3, <span class="dt">newdata =</span> ind.data, <span class="dt">type.predict =</span> <span class="st">&quot;response&quot;</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb846-8" data-line-number="8"><span class="st">                     </span><span class="kw">mutate</span>(<span class="dt">upper =</span> .fitted <span class="op">+</span><span class="st"> </span><span class="fl">1.96</span> <span class="op">*</span><span class="st"> </span>.se.fit,</a>
+<a class="sourceLine" id="cb846-9" data-line-number="9">                           <span class="dt">lower =</span> .fitted <span class="op">-</span><span class="st"> </span><span class="fl">1.96</span> <span class="op">*</span><span class="st"> </span>.se.fit)</a></code></pre></div>
 <p>Now we combine everything into one data frame using <code>rbind()</code>.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df.party &lt;-<span class="st"> </span><span class="kw">rbind</span>(dem.prob, ind.prob, rep.prob)</code></pre></div>
+<div class="sourceCode" id="cb847"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb847-1" data-line-number="1">df.party &lt;-<span class="st"> </span><span class="kw">rbind</span>(dem.prob, ind.prob, rep.prob)</a></code></pre></div>
 <p>Start by building the visualization. This will be similar to the last visualization, but we plot predicted probabilities for each ideology score in each party, so 21 points in all. We have everything we need to make a great visualization. We plot the points and error bars just like we did last time, but we assign colors by political party, and specify blue for Democrats, purple for Independents, and red for Republicans:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(df.party, <span class="kw">aes</span>(ideol, .fitted, <span class="dt">color =</span> f.party.<span class="dv">2</span>)) <span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">size =</span> <span class="fl">1.5</span>) <span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_errorbar</span>(<span class="kw">aes</span>(<span class="dt">ymin =</span> lower, <span class="dt">ymax =</span> upper), <span class="dt">width =</span> .<span class="dv">2</span>) <span class="op">+</span>
-<span class="st">  </span><span class="kw">scale_color_manual</span>(<span class="dt">values =</span> <span class="kw">c</span>(<span class="st">&quot;blue&quot;</span>, <span class="st">&quot;purple&quot;</span>, <span class="st">&quot;red&quot;</span>)) <span class="op">+</span>
-<span class="st">  </span><span class="kw">ggtitle</span>(<span class="st">&quot;Probability of Voting for Trump by Party&quot;</span>) <span class="op">+</span>
-<span class="st">  </span><span class="kw">scale_x_continuous</span>(<span class="dt">breaks=</span><span class="kw">c</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">7</span>),
-                     <span class="dt">labels =</span> <span class="kw">c</span>(<span class="st">&quot;Very Liberal&quot;</span>, <span class="st">&quot;2&quot;</span>, <span class="st">&quot;3&quot;</span>, <span class="st">&quot;4&quot;</span>, <span class="st">&quot;5&quot;</span>,
-                                <span class="st">&quot;6&quot;</span>, <span class="st">&quot;Very Conservative&quot;</span>)) <span class="op">+</span>
-<span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;Ideology&quot;</span>) <span class="op">+</span>
-<span class="st">  </span><span class="kw">ylab</span>(<span class="st">&quot;Probability of Trump Vote&quot;</span>) <span class="op">+</span>
-<span class="st">  </span><span class="kw">theme_bw</span>()</code></pre></div>
+<div class="sourceCode" id="cb848"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb848-1" data-line-number="1"><span class="kw">ggplot</span>(df.party, <span class="kw">aes</span>(ideol, .fitted, <span class="dt">color =</span> f.party<span class="fl">.2</span>)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb848-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">size =</span> <span class="fl">1.5</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb848-3" data-line-number="3"><span class="st">  </span><span class="kw">geom_errorbar</span>(<span class="kw">aes</span>(<span class="dt">ymin =</span> lower, <span class="dt">ymax =</span> upper), <span class="dt">width =</span> <span class="fl">.2</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb848-4" data-line-number="4"><span class="st">  </span><span class="kw">scale_color_manual</span>(<span class="dt">values =</span> <span class="kw">c</span>(<span class="st">&quot;blue&quot;</span>, <span class="st">&quot;purple&quot;</span>, <span class="st">&quot;red&quot;</span>)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb848-5" data-line-number="5"><span class="st">  </span><span class="kw">ggtitle</span>(<span class="st">&quot;Probability of Voting for Trump by Party&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb848-6" data-line-number="6"><span class="st">  </span><span class="kw">scale_x_continuous</span>(<span class="dt">breaks=</span><span class="kw">c</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">7</span>),</a>
+<a class="sourceLine" id="cb848-7" data-line-number="7">                     <span class="dt">labels =</span> <span class="kw">c</span>(<span class="st">&quot;Very Liberal&quot;</span>, <span class="st">&quot;2&quot;</span>, <span class="st">&quot;3&quot;</span>, <span class="st">&quot;4&quot;</span>, <span class="st">&quot;5&quot;</span>,</a>
+<a class="sourceLine" id="cb848-8" data-line-number="8">                                <span class="st">&quot;6&quot;</span>, <span class="st">&quot;Very Conservative&quot;</span>)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb848-9" data-line-number="9"><span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;Ideology&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb848-10" data-line-number="10"><span class="st">  </span><span class="kw">ylab</span>(<span class="st">&quot;Probability of Trump Vote&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb848-11" data-line-number="11"><span class="st">  </span><span class="kw">theme_bw</span>()</a></code></pre></div>
 <p><img src="_main_files/figure-html/12_log33-1.png" width="672" /></p>
 </div>
 </div>
@@ -642,11 +666,11 @@ ind.prob &lt;-<span class="st">  </span><span class="kw">augment</span>(logit3, 
 <h2><span class="header-section-number">13.2</span> Ordered Logit and Creating an Index</h2>
 <p>Logit regression can be used in more than just situations with a binary DV. Ordered logit analysis is done in a similar way, but with an ordered DV. Instead of simply assessing the probability of one outcome, ordered logit analysis gives us the probability of moving from one level of an ordered categorical variable to the next. We’re going to use ordered logit analysis to also learn how to create an index and work with one as your dependent variable.</p>
 <p>The class data set survey includes responses that indicate whether or not the participant does a number of energy-saving activities at their home, like turning the lights off, installing insulation, unplugging appliances, etc. Perhaps you are interested in how a variety of IVs influence one’s propensity to do these activities. You could use binary logit regression to find the probability of individuals doing one of these particular activities. However, you could use ordered logit regression to include all the activities and use an additive index of them as your dependent variable. Start by creating an index of the energy-saving activities:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">energy &lt;-<span class="st"> </span><span class="kw">with</span>(ds, <span class="kw">cbind</span>(enrgy_steps_lghts, enrgy_steps_heat, enrgy_steps_ac,
-                         enrgy_steps_savappl, enrgy_steps_unplug, enrgy_steps_insul,
-                         enrgy_steps_savdoor, enrgy_steps_bulbs))</code></pre></div>
+<div class="sourceCode" id="cb849"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb849-1" data-line-number="1">energy &lt;-<span class="st"> </span><span class="kw">with</span>(ds, <span class="kw">cbind</span>(enrgy_steps_lghts, enrgy_steps_heat, enrgy_steps_ac,</a>
+<a class="sourceLine" id="cb849-2" data-line-number="2">                         enrgy_steps_savappl, enrgy_steps_unplug, enrgy_steps_insul,</a>
+<a class="sourceLine" id="cb849-3" data-line-number="3">                         enrgy_steps_savdoor, enrgy_steps_bulbs))</a></code></pre></div>
 <p>Now take a look at the index:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">psych<span class="op">::</span><span class="kw">describe</span>(energy)</code></pre></div>
+<div class="sourceCode" id="cb850"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb850-1" data-line-number="1">psych<span class="op">::</span><span class="kw">describe</span>(energy)</a></code></pre></div>
 <pre><code>##                     vars    n mean   sd median trimmed mad min max range
 ## enrgy_steps_lghts      1 2547 0.70 0.46      1    0.75   0   0   1     1
 ## enrgy_steps_heat       2 2547 0.60 0.49      1    0.62   0   0   1     1
@@ -666,28 +690,28 @@ ind.prob &lt;-<span class="st">  </span><span class="kw">augment</span>(logit3, 
 ## enrgy_steps_savdoor  3.29     8.84 0.01
 ## enrgy_steps_bulbs   -0.18    -1.97 0.01</code></pre>
 <p>Add these variables together. This will create an index that scores 1 if an individual does one of the activities, 2 if they do two, and so on and so on:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ds<span class="op">$</span>s.energy &lt;-<span class="st"> </span><span class="kw">with</span>(ds, enrgy_steps_lghts <span class="op">+</span><span class="st"> </span>enrgy_steps_heat <span class="op">+</span><span class="st"> </span>enrgy_steps_ac <span class="op">+</span>
-<span class="st">                      </span>enrgy_steps_savappl <span class="op">+</span><span class="st"> </span>enrgy_steps_unplug <span class="op">+</span><span class="st"> </span>enrgy_steps_insul <span class="op">+</span>
-<span class="st">                      </span>enrgy_steps_savdoor <span class="op">+</span><span class="st"> </span>enrgy_steps_bulbs)</code></pre></div>
+<div class="sourceCode" id="cb852"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb852-1" data-line-number="1">ds<span class="op">$</span>s.energy &lt;-<span class="st"> </span><span class="kw">with</span>(ds, enrgy_steps_lghts <span class="op">+</span><span class="st"> </span>enrgy_steps_heat <span class="op">+</span><span class="st"> </span>enrgy_steps_ac <span class="op">+</span></a>
+<a class="sourceLine" id="cb852-2" data-line-number="2"><span class="st">                      </span>enrgy_steps_savappl <span class="op">+</span><span class="st"> </span>enrgy_steps_unplug <span class="op">+</span><span class="st"> </span>enrgy_steps_insul <span class="op">+</span></a>
+<a class="sourceLine" id="cb852-3" data-line-number="3"><span class="st">                      </span>enrgy_steps_savdoor <span class="op">+</span><span class="st"> </span>enrgy_steps_bulbs)</a></code></pre></div>
 <p>Examine the index:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">psych<span class="op">::</span><span class="kw">describe</span>(ds<span class="op">$</span>s.energy)</code></pre></div>
+<div class="sourceCode" id="cb853"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb853-1" data-line-number="1">psych<span class="op">::</span><span class="kw">describe</span>(ds<span class="op">$</span>s.energy)</a></code></pre></div>
 <pre><code>##    vars    n mean   sd median trimmed  mad min max range skew kurtosis
 ## X1    1 2547 2.94 1.77      3    2.94 1.48   0   8     8 0.08    -0.38
 ##      se
 ## X1 0.04</code></pre>
 <p>Make a bar plot of the index:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(ds, <span class="kw">aes</span>(s.energy)) <span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_bar</span>()</code></pre></div>
+<div class="sourceCode" id="cb855"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb855-1" data-line-number="1"><span class="kw">ggplot</span>(ds, <span class="kw">aes</span>(s.energy)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb855-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_bar</span>()</a></code></pre></div>
 <p><img src="_main_files/figure-html/12_ind5-1.png" width="672" /></p>
 <p>Start building the model. First select our relevant variables and remove missing observations:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ds.sub3 &lt;-<span class="st"> </span>ds <span class="op">%&gt;%</span><span class="st"> </span>dplyr<span class="op">::</span><span class="kw">select</span>(<span class="st">&quot;s.energy&quot;</span>, <span class="st">&quot;ideol&quot;</span>, <span class="st">&quot;age&quot;</span>, <span class="st">&quot;glbcc_risk&quot;</span>) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">na.omit</span>()</code></pre></div>
+<div class="sourceCode" id="cb856"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb856-1" data-line-number="1">ds.sub3 &lt;-<span class="st"> </span>ds <span class="op">%&gt;%</span><span class="st"> </span>dplyr<span class="op">::</span><span class="kw">select</span>(<span class="st">&quot;s.energy&quot;</span>, <span class="st">&quot;ideol&quot;</span>, <span class="st">&quot;age&quot;</span>, <span class="st">&quot;glbcc_risk&quot;</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb856-2" data-line-number="2"><span class="st">  </span><span class="kw">na.omit</span>()</a></code></pre></div>
 <p>In order to use the energy index as a dependent variable, we treat it as a factor:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ds.sub3<span class="op">$</span>f.energy &lt;-<span class="st"> </span><span class="kw">as.factor</span>(ds.sub3<span class="op">$</span>s.energy)</code></pre></div>
+<div class="sourceCode" id="cb857"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb857-1" data-line-number="1">ds.sub3<span class="op">$</span>f.energy &lt;-<span class="st"> </span><span class="kw">as.factor</span>(ds.sub3<span class="op">$</span>s.energy)</a></code></pre></div>
 <p>There are a number of ways to do ordered logit, but for this example we use the <code>polr()</code> function found in the <code>MASS</code> package.:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ord1 &lt;-<span class="st"> </span><span class="kw">polr</span>(f.energy <span class="op">~</span><span class="st"> </span>ideol <span class="op">+</span><span class="st"> </span>age <span class="op">+</span><span class="st"> </span>glbcc_risk, <span class="dt">data =</span> ds.sub3, <span class="dt">Hess =</span> <span class="ot">TRUE</span>)</code></pre></div>
+<div class="sourceCode" id="cb858"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb858-1" data-line-number="1">ord1 &lt;-<span class="st"> </span><span class="kw">polr</span>(f.energy <span class="op">~</span><span class="st"> </span>ideol <span class="op">+</span><span class="st"> </span>age <span class="op">+</span><span class="st"> </span>glbcc_risk, <span class="dt">data =</span> ds.sub3, <span class="dt">Hess =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
 <p>Use <code>stargazer()</code> to look at the results:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">stargazer</span>(ord1, <span class="dt">type=</span><span class="st">&quot;text&quot;</span>, <span class="dt">style=</span><span class="st">&quot;apsr&quot;</span>, <span class="dt">single.row =</span> T)</code></pre></div>
+<div class="sourceCode" id="cb859"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb859-1" data-line-number="1"><span class="kw">stargazer</span>(ord1, <span class="dt">type=</span><span class="st">&quot;text&quot;</span>, <span class="dt">style=</span><span class="st">&quot;apsr&quot;</span>, <span class="dt">single.row =</span> T)</a></code></pre></div>
 <pre><code>## 
 ## -------------------------------
 ##                    f.energy    
@@ -700,12 +724,12 @@ ind.prob &lt;-<span class="st">  </span><span class="kw">augment</span>(logit3, 
 ## *p &lt; .1; **p &lt; .05; ***p &lt; .01</code></pre>
 <p>The results indicate an increased risk associated with climate change corresponds with an an increase in the odds of doing enery-saving techniques at home. When doing ordered logit, coefficient interpretation is even less intuitive than it is with a binary DV. This makes generating predicted probabilities even more important. We are going to generate predicted probabilities of each level of the DV (0 through 8) as perceived climate change risk increases and the other IVs are held constant at their means. It should make sense that we have to do it this way. We can’t really explain the relationship in any other way with the information we have.</p>
 <p>First we create a data frame to work with:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ord.df &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">ideol =</span> <span class="kw">mean</span>(ds.sub3<span class="op">$</span>ideol),
-                     <span class="dt">age =</span> <span class="kw">mean</span>(ds.sub3<span class="op">$</span>age),
-                     <span class="dt">glbcc_risk =</span> <span class="kw">seq</span>(<span class="dv">0</span>, <span class="dv">10</span>, <span class="dv">1</span>))</code></pre></div>
+<div class="sourceCode" id="cb861"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb861-1" data-line-number="1">ord.df &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">ideol =</span> <span class="kw">mean</span>(ds.sub3<span class="op">$</span>ideol),</a>
+<a class="sourceLine" id="cb861-2" data-line-number="2">                     <span class="dt">age =</span> <span class="kw">mean</span>(ds.sub3<span class="op">$</span>age),</a>
+<a class="sourceLine" id="cb861-3" data-line-number="3">                     <span class="dt">glbcc_risk =</span> <span class="kw">seq</span>(<span class="dv">0</span>, <span class="dv">10</span>, <span class="dv">1</span>))</a></code></pre></div>
 <p>Now we use the <code>predict()</code> function to generate predicted probabilities of each level of the DV as we sequence climate change risk from 0 to 10. The <code>augment()</code> function does not work with the <code>polr()</code> function, so that is why we are using <code>predict()</code>.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">prob.df &lt;-<span class="st"> </span><span class="kw">cbind</span>(ord.df, <span class="kw">predict</span>(ord1, ord.df, <span class="dt">type =</span> <span class="st">&quot;probs&quot;</span>))
-prob.df</code></pre></div>
+<div class="sourceCode" id="cb862"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb862-1" data-line-number="1">prob.df &lt;-<span class="st"> </span><span class="kw">cbind</span>(ord.df, <span class="kw">predict</span>(ord1, ord.df, <span class="dt">type =</span> <span class="st">&quot;probs&quot;</span>))</a>
+<a class="sourceLine" id="cb862-2" data-line-number="2">prob.df</a></code></pre></div>
 <pre><code>##       ideol      age glbcc_risk          0          1         2         3
 ## 1  4.656188 60.37724          0 0.19435827 0.14196855 0.1912928 0.2082757
 ## 2  4.656188 60.37724          1 0.17942987 0.13532435 0.1883238 0.2132792
@@ -731,14 +755,14 @@ prob.df</code></pre></div>
 ## 10 0.2334828 0.15655041 0.04652346 0.017563123 0.010879736
 ## 11 0.2400522 0.16738852 0.05078447 0.019298445 0.011989821</code></pre>
 <p>The next step is to melt the data. This will allow us to eventually generate a prediction line for each level of the DV:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">m.df &lt;-<span class="st"> </span><span class="kw">melt</span>(prob.df, <span class="dt">id.vars =</span> <span class="kw">c</span>(<span class="st">&quot;ideol&quot;</span>, <span class="st">&quot;age&quot;</span>, <span class="st">&quot;glbcc_risk&quot;</span>),
-             <span class="dt">variable.name =</span> <span class="st">&quot;Level&quot;</span>, <span class="dt">value.name =</span> <span class="st">&quot;Probability&quot;</span>)</code></pre></div>
+<div class="sourceCode" id="cb864"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb864-1" data-line-number="1">m.df &lt;-<span class="st"> </span><span class="kw">melt</span>(prob.df, <span class="dt">id.vars =</span> <span class="kw">c</span>(<span class="st">&quot;ideol&quot;</span>, <span class="st">&quot;age&quot;</span>, <span class="st">&quot;glbcc_risk&quot;</span>),</a>
+<a class="sourceLine" id="cb864-2" data-line-number="2">             <span class="dt">variable.name =</span> <span class="st">&quot;Level&quot;</span>, <span class="dt">value.name =</span> <span class="st">&quot;Probability&quot;</span>)</a></code></pre></div>
 <p>Next we will create the visualization. With an ordered logit model, we can visualize predicted probabilities of observing each separate level of the DV (how many energy saving activities), as perceived climate change risk increases. We use <code>facet_wrap()</code> to create individaul visualizations for each level of the DV, so that the graphic does not get too hard to interpret. We also create a color scale that goes from red to green.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">col_scale&lt;-<span class="kw">colorRampPalette</span>(<span class="kw">c</span>(<span class="st">&quot;#FF0000&quot;</span>,<span class="st">&quot;#228B22&quot;</span>))(<span class="dv">9</span>)
-<span class="kw">ggplot</span>(m.df, <span class="kw">aes</span>(<span class="dt">x =</span> glbcc_risk, <span class="dt">y =</span> Probability, <span class="dt">colour =</span> Level)) <span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_line</span>(<span class="dt">size =</span> <span class="dv">1</span>) <span class="op">+</span>
-<span class="st">  </span><span class="kw">scale_color_manual</span>(<span class="dt">values =</span> col_scale) <span class="op">+</span>
-<span class="st">  </span><span class="kw">facet_wrap</span>( <span class="op">~</span><span class="st"> </span>Level, <span class="dt">scales =</span> <span class="st">&quot;free&quot;</span>)</code></pre></div>
+<div class="sourceCode" id="cb865"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb865-1" data-line-number="1">col_scale&lt;-<span class="kw">colorRampPalette</span>(<span class="kw">c</span>(<span class="st">&quot;#FF0000&quot;</span>,<span class="st">&quot;#228B22&quot;</span>))(<span class="dv">9</span>)</a>
+<a class="sourceLine" id="cb865-2" data-line-number="2"><span class="kw">ggplot</span>(m.df, <span class="kw">aes</span>(<span class="dt">x =</span> glbcc_risk, <span class="dt">y =</span> Probability, <span class="dt">colour =</span> Level)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb865-3" data-line-number="3"><span class="st">  </span><span class="kw">geom_line</span>(<span class="dt">size =</span> <span class="dv">1</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb865-4" data-line-number="4"><span class="st">  </span><span class="kw">scale_color_manual</span>(<span class="dt">values =</span> col_scale) <span class="op">+</span></a>
+<a class="sourceLine" id="cb865-5" data-line-number="5"><span class="st">  </span><span class="kw">facet_wrap</span>( <span class="op">~</span><span class="st"> </span>Level, <span class="dt">scales =</span> <span class="st">&quot;free&quot;</span>)</a></code></pre></div>
 <p><img src="_main_files/figure-html/12_ord8-1.png" width="672" /></p>
 <p>Taking a quick look at these visualizations, we can see that for doing 0 to 2 energy saving activities at home, increasing climate change risk largely corresponds with decreasing probability. This makes sense. Once we reach 4 energy saving activities, increasing climate change risk largely corresponds with increased probabilities.</p>
 
@@ -770,7 +794,7 @@ gitbook.start({
 "google": false,
 "linkedin": false,
 "weibo": false,
-"instapper": false,
+"instapaper": false,
 "vk": false,
 "all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
 },
@@ -783,7 +807,11 @@ gitbook.start({
 "link": null,
 "text": null
 },
-"download": ["_main.pdf"],
+"history": {
+"link": null,
+"text": null
+},
+"download": null,
 "toc": {
 "collapse": "subsection"
 }
@@ -796,8 +824,8 @@ gitbook.start({
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
-    var src = "";
-    if (src === "" || src === "true") src = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
     if (location.protocol !== "file:" && /^https?:/.test(src))
       src = src.replace(/^https?:/, '');
     script.src = src;
