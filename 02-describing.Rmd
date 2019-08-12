@@ -354,6 +354,7 @@ In the previous section we used `summarize()` to get breakdowns of ceratin varia
 
 ```{r tidy13, echo = TRUE}
 skim_with(numeric = list(hist = NULL))
+skim_with(integer = list(hist = NULL))
 ds.sub %>%
   skim()
 ```
@@ -362,6 +363,7 @@ This provides loads of useful incormation. As demonstrated in teh previous secti
 
 ```{r tidy14, echo = TRUE}
 skim_with(numeric = list(hist = NULL))
+skim_with(integer = list(hist = NULL))
 ds.sub %>%
   group_by(gender) %>%
   skim()

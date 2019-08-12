@@ -255,6 +255,7 @@ We need to compare variances for Democrats and Republicans on their risk percept
 
 ```{r 5_ind2, echo=TRUE}
 skim_with(numeric = list(hist = NULL))
+skim_with(ingerger = list(hist = NULL))
 ds %>%
   group_by(f.part) %>%
   skim(glbcc_risk) 

@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>3 Formatting, Describing, and Visualizing Data | Lab Guide to Quantitative Research Methods in Political Science, Public Policy &amp; Public Administration.</title>
-  <meta name="description" content="3 Formatting, Describing, and Visualizing Data | Lab Guide to Quantitative Research Methods in Political Science, Public Policy &amp; Public Administration." />
+  <title>3 Formatting, Describing, and Visualizing Data | Lab Guide to Quantitative Research Methods in Political Science, Public Policy &amp; Public Administration</title>
+  <meta name="description" content="3 Formatting, Describing, and Visualizing Data | Lab Guide to Quantitative Research Methods in Political Science, Public Policy &amp; Public Administration" />
   <meta name="generator" content="bookdown 0.12 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="3 Formatting, Describing, and Visualizing Data | Lab Guide to Quantitative Research Methods in Political Science, Public Policy &amp; Public Administration." />
+  <meta property="og:title" content="3 Formatting, Describing, and Visualizing Data | Lab Guide to Quantitative Research Methods in Political Science, Public Policy &amp; Public Administration" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="3 Formatting, Describing, and Visualizing Data | Lab Guide to Quantitative Research Methods in Political Science, Public Policy &amp; Public Administration." />
+  <meta name="twitter:title" content="3 Formatting, Describing, and Visualizing Data | Lab Guide to Quantitative Research Methods in Political Science, Public Policy &amp; Public Administration" />
   
   
   
@@ -133,6 +133,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a><ul>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#acknowledgments"><i class="fa fa-check"></i>Acknowledgments</a></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#requirements"><i class="fa fa-check"></i>Requirements</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#copyright"><i class="fa fa-check"></i>Copyright</a></li>
 </ul></li>
 <li class="chapter" data-level="1" data-path="introduction-to-r-rstudio-and-r-markdown.html"><a href="introduction-to-r-rstudio-and-r-markdown.html"><i class="fa fa-check"></i><b>1</b> Introduction to R, RStudio, and R Markdown</a><ul>
 <li class="chapter" data-level="1.1" data-path="introduction-to-r-rstudio-and-r-markdown.html"><a href="introduction-to-r-rstudio-and-r-markdown.html#introduction-to-r-the-language"><i class="fa fa-check"></i><b>1.1</b> Introduction to R, the language</a><ul>
@@ -319,7 +320,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <div class="body-inner">
         <div class="book-header" role="navigation">
           <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Lab Guide to Quantitative Research Methods in Political Science, Public Policy &amp; Public Administration.</a>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Lab Guide to Quantitative Research Methods in Political Science, Public Policy &amp; Public Administration</a>
           </h1>
         </div>
 
@@ -512,899 +513,222 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>The code chunk above creates a subset of the data that only includes men. The syntax can be read as “First take the data set, then filter it to include men only.” We also assigned it to a new object, <code>ds.men</code>. The filter verb can include multiple specifications. You also do not have to always assign your filtered data to a new object. For example, suppose you wanted to examine women who are age 42. You can do so like this:</p>
 <div class="sourceCode" id="cb96"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb96-1" data-line-number="1">ds <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb96-2" data-line-number="2"><span class="st">  </span><span class="kw">filter</span>(gender <span class="op">==</span><span class="st"> </span><span class="dv">0</span>, age <span class="op">==</span><span class="st"> </span><span class="dv">42</span>)</a></code></pre></div>
-<pre><code>##     X.1     X      userid             wave_id agescreen age gender
-## 1   202  2994  Ph-W202242 Wave 12 (Fall 2016)         1  42      0
-## 2   483  7164  Ph-W211012 Wave 12 (Fall 2016)         1  42      0
-## 3   514  7635  Ph-W302515 Wave 12 (Fall 2016)         1  42      0
-## 4   651  9559    R2NM6835 Wave 12 (Fall 2016)         1  42      0
-## 5   685 10034   R2PH10927 Wave 12 (Fall 2016)         1  42      0
-## 6   842 12196   R2PH28633 Wave 12 (Fall 2016)         1  42      0
-## 7   901 13016   R2PH37245 Wave 12 (Fall 2016)         1  42      0
-## 8  1515 20606    R2NM9005 Wave 12 (Fall 2016)         1  42      0
-## 9  1561 21120  R3CANM3290 Wave 12 (Fall 2016)         1  42      0
-## 10 1598 21559  R3CAPH5113 Wave 12 (Fall 2016)         1  42      0
-## 11 1629 21934 R3CAPH54526 Wave 12 (Fall 2016)         1  42      0
-## 12 1639 22048  R3CAPH7081 Wave 12 (Fall 2016)         1  42      0
-## 13 1826 24217 R3WAPH14812 Wave 12 (Fall 2016)         1  42      0
-## 14 2232 28578    S5PH1057 Wave 12 (Fall 2016)         1  42      0
-## 15 2259 28833 R3PAPH40137 Wave 12 (Fall 2016)         1  42      0
-## 16 2274 28950     S5PH527 Wave 12 (Fall 2016)         1  42      0
-## 17 2280 29000 R3CAPH52219 Wave 12 (Fall 2016)         1  42      0
-## 18 2323 29304     S5PH985 Wave 12 (Fall 2016)         1  42      0
-##    education adults children employment income footage ssn_precip ssn_tmp
-## 1          6      2        3          1  86000    1400          1       3
-## 2          5      3        1          4 120000    1100          1       3
-## 3          6      2        1          4  90000    2800          2       3
-## 4          5      2        0          4  95000    2100          2       3
-## 5          3      1        1          1     NA    1500          1       2
-## 6          5      2        4          1  95000    1900          2       2
-## 7          6      2        4          1  36000    2400          1       3
-## 8          6      2        0          5 120000    1500          1       3
-## 9          4      2        2          4  75000    2000          3       3
-## 10         6      2        1          4  90000    2200          1       3
-## 11         5      2        2          4  65000    3000          2       2
-## 12         6      2        2          4  50000    1800          1       2
-## 13         5      2        1          4  80000    1800          2       2
-## 14         5      2        1          4 120000    1300          1       3
-## 15         6      2        3          3 115000    2280          1       3
-## 16         6      2        2          4  80000    1700          2       3
-## 17         4      2        1          4 150000    2000          1       3
-## 18         6      2        2          5 155000    3000          1       3
-##    drghtfreq drghtsev fldfreq fldsev avgtmp tmpextrm evntexp_wind
-## 1          2       NA       1      1      2        2            0
-## 2          2        2       2      1      3        3            0
-## 3          2        1       2      1     NA       NA            0
-## 4          3        2       2      2      2        2            1
-## 5          2        3       2      2      1        1            0
-## 6          2        2       2      2      2        2            0
-## 7          2        2       2      2      3        3            0
-## 8          3       NA       1      1     NA        3            1
-## 9          1        1       2      2      3        3            1
-## 10         2        2       1      1      3        3            1
-## 11         1        1       1      1      2        2            0
-## 12         2        2       1      1      2        2            0
-## 13         2        2       3      3      2        2            0
-## 14         2        2       2      2      3        2            0
-## 15         1        1       1      1      3        3            1
-## 16         2        2       2      2      3        1            1
-## 17         3        3       1      1      3        3            1
-## 18         2        2       1      1      3        2            0
-##    evntexp_drght evntexp_rain evntexp_cold evntexp_snow evntexp_ice
-## 1              0            0            0            0           0
-## 2              0            0            0            0           0
-## 3              0            0            0            0           0
-## 4              0            0            0            0           0
-## 5              1            0            0            0           0
-## 6              0            0            0            0           0
-## 7              1            0            0            0           0
-## 8              1            0            1            0           0
-## 9              0            0            0            0           0
-## 10             0            0            0            0           0
-## 11             0            0            0            0           0
-## 12             1            0            0            0           0
-## 13             0            0            1            0           0
-## 14             0            0            0            0           0
-## 15             0            0            0            0           0
-## 16             0            0            0            0           0
-## 17             0            0            0            0           0
-## 18             0            0            0            0           0
-##    evntexp_flood evntexp_torn evntexp_fire evntfreq_wind evntfreq_rain
-## 1              0            0            1             2             2
-## 2              0            0            0             2             1
-## 3              0            0            0             2             2
-## 4              0            0            0             2             2
-## 5              0            1            0             3             2
-## 6              0            0            0             2             2
-## 7              0            0            0             2             1
-## 8              0            0            0             3             1
-## 9              0            0            0             3             2
-## 10             0            0            0             2             1
-## 11             0            0            1             2             2
-## 12             0            0            0             1             1
-## 13             0            0            0             2             2
-## 14             0            0            0             2             1
-## 15             0            0            0             3             2
-## 16             0            0            0             2             2
-## 17             0            0            0             3             1
-## 18             0            0            0             1             1
-##    evntfreq_cold evntfreq_snow evntfreq_ice evntfreq_torn evntfreq_fire
-## 1              2             2            2             1             3
-## 2              1             1            1             2             1
-## 3              2             2            2             2             2
-## 4              2             2            2             2             2
-## 5              1             1            1             2             2
-## 6              2             2            2             2             2
-## 7              2             2            2             1             2
-## 8              3             1            1             1             1
-## 9              1             2            1             2             2
-## 10             1             1            1             2             1
-## 11             2             2            2             1             1
-## 12             1             1            1             1             1
-## 13             2             2            2             2             2
-## 14             1             1            1             2             1
-## 15             1             2            2             2             2
-## 16             2             2            2             1             2
-## 17             1             1            1             1             1
-## 18             1             1            1             1             1
-##    evntfutfreq_wind evntfutfreq_drght evntfutfreq_rain evntfutfreq_cold
-## 1                 2                 3                1                2
-## 2                 2                 3                3                1
-## 3                 2                 2                2                2
-## 4                 2                 2                2                2
-## 5                 3                 2                1                1
-## 6                 2                 2                2                2
-## 7                 3                 3                3                2
-## 8                 3                 3                1               NA
-## 9                 3                 2                2                2
-## 10                2                 2                2                2
-## 11                2                 3                2                2
-## 12                2                 3                1                2
-## 13                2                 2                2                2
-## 14                2                 2                2                2
-## 15                1                 1                2                2
-## 16                2                 2                2                2
-## 17                2                 3                1                2
-## 18                2                 2                2                2
-##    evntfutfreq_snow evntfutfreq_ice evntfutfreq_flood evntfutfreq_torn
-## 1                 2               2                 2                2
-## 2                 1               1                 2                3
-## 3                 2               2                 2                2
-## 4                 2               2                 2               NA
-## 5                 1               1                 2                2
-## 6                 2               2                 2                2
-## 7                 3               3                 2                2
-## 8                 1               2                 1                1
-## 9                 2               2                 2                2
-## 10                2               2                 2                2
-## 11                2               2                 2                2
-## 12                1               1                 2                2
-## 13                2               2                 2                2
-## 14                2               2                 2                2
-## 15                2               2                 2                2
-## 16                2               2                 2                2
-## 17                1               1                 1                1
-## 18                1               1                 2                2
-##    evntfutfreq_fire wtr_bill_totcost wtr_bill_dk wtr_use wtr_short
-## 1                NA              156           0       2         0
-## 2                 2              200           0       2         0
-## 3                 2                0           0       2         0
-## 4                 2               86           0       2         0
-## 5                 2               73           0       2         0
-## 6                 2               40           0       2         0
-## 7                 2              124           0       3         0
-## 8                 3              100           0       2         0
-## 9                 2                0           0       2         0
-## 10                2               54           0       2         0
-## 11                3               65           0       2         0
-## 12                3               NA           1       2         0
-## 13                2                0           0       2         0
-## 14                2              120           0       3         0
-## 15                2               45           0       2         0
-## 16                2               85           0       2         0
-## 17                3               NA           0       3         0
-## 18                2               40           0       2         0
-##    mntain_lawn wtr_qual wtr_safe wtr_comm wtr_farm wtr_steps_flush
-## 1            1        3        8        1        1               0
-## 2            1        3        8        4        3               0
-## 3            1        3        7        4        4               0
-## 4            1        2        8        3        2               0
-## 5            1        1        0        3        2               0
-## 6            1        1        0        1        1               0
-## 7            1        4        9        2        2               0
-## 8            1        2        3        1        1               0
-## 9            1        3        8        2        2               0
-## 10           1        3        8        4        2               0
-## 11           1        1        0        2        2               0
-## 12           0        3        8        4        4               0
-## 13           1        3        9        4        4               0
-## 14           1        1        3        3        2               0
-## 15           1        4        9        2        2               0
-## 16           1        3        9        3        3               0
-## 17           1        3        9        4        4               0
-## 18           1        3       10        4        4               0
-##    wtr_steps_flow wtr_steps_bath wtr_steps_lawn wtr_steps_car
-## 1               0              0              1             0
-## 2               1              1              1             0
-## 3               0              0              0             0
-## 4               0              0              0             0
-## 5               0              0              0             0
-## 6               0              0              0             0
-## 7               0              0              0             0
-## 8               0              0              0             0
-## 9               0              0              0             0
-## 10              0              0              0             0
-## 11              0              0              1             0
-## 12              0              0              0             0
-## 13              0              0              0             0
-## 14              0              0              1             0
-## 15              0              1              1             1
-## 16              0              0              1             0
-## 17              0              0              0             1
-## 18              0              0              0             0
-##    wtr_steps_othr
-## 1               0
-## 2               1
-## 3               0
-## 4               0
-## 5               1
-## 6               0
-## 7               0
-## 8               1
-## 9               0
-## 10              0
-## 11              0
-## 12              0
-## 13              0
-## 14              0
-## 15              0
-## 16              0
-## 17              0
-## 18              0
-##                                               wtr_steps_spec
-## 1                                                       &lt;NA&gt;
-## 2                           Use our sand point well to water
-## 3                                                       &lt;NA&gt;
-## 4                                                       &lt;NA&gt;
-## 5  Installed low-flow shower head and sink sprayer ages ago 
-## 6                                                       &lt;NA&gt;
-## 7                                                       &lt;NA&gt;
-## 8                                    We actually did nothing
-## 9                                                       &lt;NA&gt;
-## 10                                                      &lt;NA&gt;
-## 11                                                      &lt;NA&gt;
-## 12                                                      &lt;NA&gt;
-## 13                                                      &lt;NA&gt;
-## 14                                                      &lt;NA&gt;
-## 15                                                      &lt;NA&gt;
-## 16                                                      &lt;NA&gt;
-## 17                                                      &lt;NA&gt;
-## 18                                                      &lt;NA&gt;
-##    enrgy_sourc_elec enrgy_sourc_natgas enrgy_sourc_prop enrgy_sourc_wood
-## 1                 1                  1                0                1
-## 2                 1                  1                0                0
-## 3                 1                  0                0                0
-## 4                 1                  1                0                0
-## 5                 1                  1                0                0
-## 6                 1                  1                0                0
-## 7                 1                  1                0                0
-## 8                 1                  1                1                1
-## 9                 1                  0                1                0
-## 10                1                  1                0                0
-## 11                1                  1                0                0
-## 12                1                  0                1                0
-## 13                1                  0                0                1
-## 14                1                  0                0                0
-## 15                1                  1                1                0
-## 16                1                  1                0                1
-## 17                1                  1                0                0
-## 18                1                  0                1                1
-##    enrgy_sourc_othr enrgy_sourc_othr_spec elec_bill_totcost elec_bill_dk
-## 1                 0                  &lt;NA&gt;               207            0
-## 2                 0                  &lt;NA&gt;               100            0
-## 3                 0                  &lt;NA&gt;               300            0
-## 4                 0                  &lt;NA&gt;               136            0
-## 5                 0                  &lt;NA&gt;                90            0
-## 6                 0                  &lt;NA&gt;               120            0
-## 7                 0                  &lt;NA&gt;               100            0
-## 8                 0                  &lt;NA&gt;               100            0
-## 9                 0                  &lt;NA&gt;               140            0
-## 10                0                  &lt;NA&gt;               130            0
-## 11                0                  &lt;NA&gt;               160            0
-## 12                0                  &lt;NA&gt;               180            0
-## 13                0                  &lt;NA&gt;               200            0
-## 14                0                  &lt;NA&gt;               200            0
-## 15                0                  &lt;NA&gt;                87            0
-## 16                0                  &lt;NA&gt;                NA            0
-## 17                0                  &lt;NA&gt;               200            0
-## 18                0                  &lt;NA&gt;               150            0
-##    elec_use elec_out gas_bill_totcost gas_bill_dk gas_use
-## 1         1        0               60           0       1
-## 2         2        0               50           0       1
-## 3         2        1               NA          NA      NA
-## 4         2        0               89           0       2
-## 5         2        0               45           0       2
-## 6         2        1               35           0       2
-## 7         3        0               64           0       2
-## 8         3        1               23           0       3
-## 9         3        1               NA          NA      NA
-## 10        1        0               60           0       1
-## 11        1        0               47           0       2
-## 12        2        0               NA          NA      NA
-## 13        2        0               NA          NA      NA
-## 14        2        0               NA          NA      NA
-## 15        2        0               27           0       2
-## 16        2        0               43           0       2
-## 17        2        0               77           0       2
-## 18        2        0               NA          NA      NA
-##    enrgy_steps_lghts enrgy_steps_ac enrgy_steps_heat enrgy_steps_savappl
-## 1                  1              1                1                   0
-## 2                  1              1                1                   0
-## 3                  0              0                0                   0
-## 4                  1              1                1                   0
-## 5                  0              0                0                   0
-## 6                  1              0                0                   0
-## 7                  1              1                1                   0
-## 8                  1              0                1                   0
-## 9                  0              0                1                   0
-## 10                 1              0                0                   0
-## 11                 1              0                0                   0
-## 12                 0              0                0                   0
-## 13                 1              1                1                   0
-## 14                 0              1                1                   0
-## 15                 1              1                0                   0
-## 16                 1              1                1                   0
-## 17                 1              1                0                   0
-## 18                 1              1                1                   0
-##    enrgy_steps_unplug enrgy_steps_insul enrgy_steps_savdoor
-## 1                   0                 0                   0
-## 2                   0                 0                   0
-## 3                   0                 0                   0
-## 4                   0                 0                   0
-## 5                   0                 0                   0
-## 6                   0                 0                   0
-## 7                   0                 0                   0
-## 8                   0                 1                   0
-## 9                   0                 0                   0
-## 10                  0                 0                   0
-## 11                  0                 0                   0
-## 12                  0                 0                   0
-## 13                  0                 0                   0
-## 14                  0                 1                   0
-## 15                  0                 0                   0
-## 16                  0                 0                   0
-## 17                  0                 0                   0
-## 18                  1                 0                   0
-##    enrgy_steps_othr                              enrgy_steps_othr_spec
-## 1                 0                                               &lt;NA&gt;
-## 2                 0                                               &lt;NA&gt;
-## 3                 0                                               &lt;NA&gt;
-## 4                 0                                               &lt;NA&gt;
-## 5                 1 Had energy saving things in place for a long time 
-## 6                 0                                               &lt;NA&gt;
-## 7                 0                                               &lt;NA&gt;
-## 8                 0                                               &lt;NA&gt;
-## 9                 0                                               &lt;NA&gt;
-## 10                0                                               &lt;NA&gt;
-## 11                0                                               &lt;NA&gt;
-## 12                0                                               &lt;NA&gt;
-## 13                0                                               &lt;NA&gt;
-## 14                0                                               &lt;NA&gt;
-## 15                0                                               &lt;NA&gt;
-## 16                0                                               &lt;NA&gt;
-## 17                0                                               &lt;NA&gt;
-## 18                0                                               &lt;NA&gt;
-##    party  party_spec lean ideol cncrn_secur cncrn_health cncrn_enrgy
-## 1      4 Libertarian   NA     7          10            9           9
-## 2      1        &lt;NA&gt;   NA     4           8            9           6
-## 3      2        &lt;NA&gt;   NA     6           7            7           4
-## 4      3        &lt;NA&gt;    1     2           8            8           4
-## 5      3        &lt;NA&gt;    1     4          10            9          10
-## 6      2        &lt;NA&gt;   NA     4          10            5           5
-## 7      2        &lt;NA&gt;   NA     6           4            8           6
-## 8      1        &lt;NA&gt;   NA     2           5           10          10
-## 9      1        &lt;NA&gt;   NA     4           9            9           9
-## 10     2        &lt;NA&gt;   NA     6           9            9           8
-## 11     2        &lt;NA&gt;   NA     6           2           10           2
-## 12     2        &lt;NA&gt;   NA     6           7            8           8
-## 13     2        &lt;NA&gt;   NA     6           8            9           5
-## 14     1        &lt;NA&gt;   NA     4           6           10           6
-## 15     3        &lt;NA&gt;    2     6           7           10           8
-## 16     3        &lt;NA&gt;    1     2           6            7           7
-## 17     2        &lt;NA&gt;   NA     6           6            9           8
-## 18     2        &lt;NA&gt;   NA     7           7           10           6
-##    cncrn_trns cncrn_tax cncrn_edu cncrn_econ glbwrm_ok time_outside
-## 1           9         7        10         10         0            1
-## 2           5        10        10         10         1            2
-## 3           0         8         5          6         0            1
-## 4           8         9         9          9         1            2
-## 5           8         9         9         10         2            2
-## 6           0         8        10          2         0            2
-## 7           8         5         8          7         1            1
-## 8          10        10        10         10         1            2
-## 9          10        10        10          9         2            1
-## 10          8        10        10         10         1            1
-## 11         10         5        10         10         0            1
-## 12          6         8        10          8         2            2
-## 13          7         4         7          9         0            1
-## 14          3         6        10          7         2            2
-## 15          9         6        10         10         2            2
-## 16          7         6         9          7         1            3
-## 17          6        10         8          5         1            1
-## 18          4        10        10         10         0            2
-##    spent_outside cmpr_time_outside hlth_status nghbrhd_deal nghbrhd_close
-## 1              2                 1           3            7             5
-## 2              2                 3           5            4             4
-## 3              3                 2           3            5             6
-## 4              2                 1           4            5             3
-## 5              2                 2           2            1             1
-## 6              2                 2           4            6             7
-## 7              2                 1           3            4             4
-## 8              2                 1           3            5             7
-## 9              2                 1           4            7             7
-## 10             2                 2           4            4             6
-## 11             2                 3           3            6             7
-## 12             3                 2           3            6             4
-## 13             2                 2           4            5             5
-## 14             2                 1           4            6             6
-## 15             2                 2           4            6             6
-## 16             2                 2           3            3             4
-## 17             2                 1           4            7             7
-## 18             3                 2           3            7             7
-##    nghbrhd_care nghbrhd_not nghbrhd_eyes nghbrhd_help
-## 1             1           1            7            7
-## 2             2           2            6            4
-## 3             3           2            6            2
-## 4             3           2            3            6
-## 5             3           1            2            1
-## 6             1           1            7            4
-## 7             3           2            6            5
-## 8             3           3            7            5
-## 9             1           1            7            7
-## 10            2           1            6            4
-## 11            1           1            7            7
-## 12            2           2            6            6
-## 13            1           1            6            6
-## 14            1           1            7            6
-## 15            1           2            7            3
-## 16            3           2            4            2
-## 17            2           2            7            7
-## 18            1           1            7           NA
-##            wthr_info_paper           wthr_info_web        wthr_info_govweb
-## 1                    Never                   Never                   Never
-## 2                     &lt;NA&gt;                    &lt;NA&gt;                    &lt;NA&gt;
-## 3                    Never                   Never                   Never
-## 4                    Never        About once a day                   Never
-## 5                    Never                   Never                   Never
-## 6                    Never        About once a day Less than once per week
-## 7                    Never Less than once per week                   Never
-## 8                    Never        About once a day        About once a day
-## 9                    Never                   Never     Several times a day
-## 10                   Never                   Never                   Never
-## 11                   Never                   Never                   Never
-## 12                   Never                   Never                   Never
-## 13                   Never                   Never                   Never
-## 14                   Never                   Never                   Never
-## 15 Less than once per week  Several times per week  Several times per week
-## 16                    &lt;NA&gt;                    &lt;NA&gt;                    &lt;NA&gt;
-## 17                    &lt;NA&gt;     About once per week Less than once per week
-## 18                   Never        About once a day                   Never
-##            wthr_info_loctv         wthr_info_cabtv         wthr_info_radio
-## 1      Several times a day Less than once per week     Several times a day
-## 2      Several times a day                    &lt;NA&gt;     Several times a day
-## 3         About once a day                   Never Less than once per week
-## 4  Less than once per week Less than once per week Less than once per week
-## 5         About once a day                   Never                   Never
-## 6         About once a day Less than once per week        About once a day
-## 7                    Never                   Never Less than once per week
-## 8                    Never                   Never                   Never
-## 9      Several times a day                   Never     Several times a day
-## 10        About once a day     About once per week     Several times a day
-## 11     Several times a day                   Never                   Never
-## 12                   Never                   Never                   Never
-## 13 Less than once per week                   Never        About once a day
-## 14                   Never  Several times per week     About once per week
-## 15                   Never                   Never  Several times per week
-## 16                    &lt;NA&gt;                    &lt;NA&gt;                    &lt;NA&gt;
-## 17     Several times a day Less than once per week                   Never
-## 18  Several times per week     About once per week Less than once per week
-##              wthr_info_fam           wthr_info_soc wthr_info_othr
-## 1         About once a day        About once a day           &lt;NA&gt;
-## 2                     &lt;NA&gt;                    &lt;NA&gt;           &lt;NA&gt;
-## 3  Less than once per week                   Never           &lt;NA&gt;
-## 4      Several times a day     Several times a day          Never
-## 5  Less than once per week     About once per week          Never
-## 6         About once a day  Several times per week           &lt;NA&gt;
-## 7  Less than once per week                   Never           &lt;NA&gt;
-## 8                    Never                   Never           &lt;NA&gt;
-## 9      Several times a day                   Never           &lt;NA&gt;
-## 10        About once a day     Several times a day           &lt;NA&gt;
-## 11     Several times a day     Several times a day          Never
-## 12                   Never                   Never           &lt;NA&gt;
-## 13     Several times a day     Several times a day          Never
-## 14     Several times a day  Several times per week           &lt;NA&gt;
-## 15  Several times per week                   Never           &lt;NA&gt;
-## 16                    &lt;NA&gt;                    &lt;NA&gt;           &lt;NA&gt;
-## 17     Several times a day Less than once per week           &lt;NA&gt;
-## 18 Less than once per week Less than once per week           &lt;NA&gt;
-##    wthr_info_othr_spec dot_answr click_bluedot begin_datetime end_datetime
-## 1                 &lt;NA&gt;        NA             1     1481587679   1481588604
-## 2                 &lt;NA&gt;        NA             1     1480998150   1481000446
-## 3                 &lt;NA&gt;         2             1     1481312462   1481755390
-## 4                 &lt;NA&gt;         1             0     1484166842   1484167687
-## 5                 &lt;NA&gt;        NA             1     1481601696   1481603448
-## 6                 &lt;NA&gt;        NA             1     1481037016   1481038887
-## 7                 &lt;NA&gt;        NA             1     1481770247   1481772806
-## 8                 &lt;NA&gt;         1             0     1482445001   1482445639
-## 9                 &lt;NA&gt;        NA             1     1482283660   1482285961
-## 10                &lt;NA&gt;        NA             1     1480996481   1480997531
-## 11                &lt;NA&gt;         1             0     1482859386   1482860503
-## 12                &lt;NA&gt;        NA             1     1481054115   1481055801
-## 13                &lt;NA&gt;        NA             1     1482104499   1482799987
-## 14                &lt;NA&gt;        NA             1     1480999891   1481898663
-## 15                &lt;NA&gt;        NA             1     1483046512   1483048291
-## 16                &lt;NA&gt;         3             0     1481037743   1481039271
-## 17                &lt;NA&gt;        NA             1     1482443089   1482445328
-## 18                &lt;NA&gt;         1             0     1481747030   1481747607
-##    is_statewide hispanic race race_spec evntexp_heat evntexp_ethqk
-## 1             1        0    1      &lt;NA&gt;            0             1
-## 2             1        0    1      &lt;NA&gt;            1             1
-## 3             1        0    1      &lt;NA&gt;            0             0
-## 4             1        0    1      &lt;NA&gt;            0             0
-## 5             1        0    1      &lt;NA&gt;            0             0
-## 6             1        0    1      &lt;NA&gt;            0             1
-## 7             1        0    1      &lt;NA&gt;            0             1
-## 8             1        0    1      &lt;NA&gt;            0             1
-## 9             0        0    1      &lt;NA&gt;            0             1
-## 10            0        0    1      &lt;NA&gt;            0             1
-## 11            1        0    1      &lt;NA&gt;            0             0
-## 12            0        0    1      &lt;NA&gt;            0             0
-## 13            0        0    1      &lt;NA&gt;            0             0
-## 14            1        0    1      &lt;NA&gt;            0             1
-## 15            0        0    1      &lt;NA&gt;            1             1
-## 16            1        0    1      &lt;NA&gt;            0             1
-## 17            0        0    1      &lt;NA&gt;            0             1
-## 18            1        0    1      &lt;NA&gt;            0             0
-##    evntfreq_heat evntfreq_ethqk evntfutfreq_heat evntfutfreq_ethqk
-## 1              2              3                2                 3
-## 2              3              3                2                 3
-## 3              2              3                2                 2
-## 4              2              3                2                 3
-## 5              2              2                2                 2
-## 6              2              3                2                 3
-## 7              2              3                2                 3
-## 8              2              3                3                 3
-## 9              3              3                2                 3
-## 10             3              3                2                 3
-## 11             2              3                2                 2
-## 12             1              1                2                 1
-## 13             2              2                2                 2
-## 14             2              3                2                 3
-## 15             3              3                2                 3
-## 16             2              3                2                 3
-## 17             3              3                3                 2
-## 18             1              1                2                 3
-##    wtr_steps_leaks wtr_steps_ldry enrgy_sourc_geo enrgy_steps_bulbs
-## 1                0              0               0                 1
-## 2                0              0               0                 1
-## 3                0              0               0                 0
-## 4                0              0               0                 0
-## 5                0              0               0                 0
-## 6                0              0               0                 1
-## 7                0              0               0                 0
-## 8                0              0               0                 0
-## 9                0              0               0                 0
-## 10               0              0               0                 1
-## 11               0              0               0                 0
-## 12               0              0               0                 0
-## 13               0              0               0                 0
-## 14               0              0               0                 0
-## 15               0              1               0                 1
-## 16               0              0               0                 1
-## 17               0              1               0                 1
-## 18               0              0               0                 0
-##            wthr_info_phone mntain_flwr mntain_veg glbcc glbcc_cert
-## 1   Several times per week           1          0     0          7
-## 2                     &lt;NA&gt;           1          1     1          4
-## 3  Less than once per week           0          0     0          6
-## 4      Several times a day           1          0     1          8
-## 5                    Never           0          1     1          6
-## 6         About once a day           1          0     0          8
-## 7                    Never           1          1     0          5
-## 8      Several times a day           1          1     1         10
-## 9      Several times a day           0          1     1          5
-## 10     Several times a day           0          0     1          6
-## 11                   Never           0          0     0          7
-## 12     Several times a day           1          0     1          6
-## 13        About once a day           1          1     0          5
-## 14        About once a day           0          1     1          4
-## 15        About once a day           1          1     1          5
-## 16        About once a day           0          0     1          7
-## 17                   Never           1          1     1          6
-## 18        About once a day           0          0     0          8
-##    glbcc_risk is_payne is_okcity evntexp_hail evntfreq_hail
-## 1           3        0         0            0             2
-## 2           4        0         0            0             1
-## 3           5        0         0            0             2
-## 4           7        0         0            0             2
-## 5           8        0         0            1             1
-## 6           2        0         0            0             2
-## 7           4        0         0            0             2
-## 8          10        0         0            0             1
-## 9           7        0         0            0             2
-## 10          6        0         0            0             1
-## 11          3        0         0            0             2
-## 12          6        0         0            0             1
-## 13          3        0         0            0             2
-## 14          5        0         0            0             2
-## 15          8        1         0            0             2
-## 16          9        0         0            0             2
-## 17          5        0         0            0             1
-## 18          1        0         0            0             1
-##    evntfutfreq_hail wtr_freq cncrn_natres confirm_zip is_kiamichi
-## 1                 2        2            4       73078           0
-## 2                 3        4            6       74008           0
-## 3                 2        1            4       73053           0
-## 4                 2        2            6       73069           0
-## 5                 1        5           10       73507           0
-## 6                 2        3            7       74020           0
-## 7                 2        1            6       73084           0
-## 8                 1        5           10       73772           0
-## 9                 2        1            7       73772           0
-## 10                2        5            8       73801           0
-## 11                2        1            1       73834           0
-## 12                2        5            8       73801           0
-## 13                2        3            7       73082           0
-## 14                2        5            8       73701           0
-## 15                2        2            6       74074           0
-## 16                2        1            7       73122           0
-## 17                1        6            6       73737           0
-## 18                2        1            3       74471           0
-##    is_washita is_canadian                                   consent
-## 1           0           0 Yes, I agree to participate in this study
-## 2           0           0 Yes, I agree to participate in this study
-## 3           0           0 Yes, I agree to participate in this study
-## 4           0           0 Yes, I agree to participate in this study
-## 5           0           0 Yes, I agree to participate in this study
-## 6           0           0 Yes, I agree to participate in this study
-## 7           0           0 Yes, I agree to participate in this study
-## 8           0           0 Yes, I agree to participate in this study
-## 9           0           1 Yes, I agree to participate in this study
-## 10          0           1 Yes, I agree to participate in this study
-## 11          0           0 Yes, I agree to participate in this study
-## 12          0           1 Yes, I agree to participate in this study
-## 13          1           0 Yes, I agree to participate in this study
-## 14          0           0 Yes, I agree to participate in this study
-## 15          0           0 Yes, I agree to participate in this study
-## 16          0           0 Yes, I agree to participate in this study
-## 17          0           1 Yes, I agree to participate in this study
-## 18          0           0 Yes, I agree to participate in this study
-##    home_lot ethqk_risk ethqk_cause ethqk_risk_mgmt ethqk_risk_rand
-## 1         2          7           3               8      regulating
-## 2         2          5           2               7      regulating
-## 3         3          3           1               3        managing
-## 4         2          7           2               7      regulating
-## 5         2          7           2               8      regulating
-## 6         2          5           1               3        managing
-## 7         2          5           3               2      regulating
-## 8         3         10           2              10        managing
-## 9         3          9           2               8        managing
-## 10        1          8           2               9      regulating
-## 11        3          4           1               0        managing
-## 12        3          5           2               6      regulating
-## 13        3          5           3               5      regulating
-## 14        3          4           2               5        managing
-## 15        2          6           1               5      regulating
-## 16        2          6           1               6      regulating
-## 17        3          7           2               8      regulating
-## 18        3          5           1               4        managing
-##    ethqk_risk_fed_mgmt glbwrm_risk_rand glbwrm_risk_mgmt
-## 1                    0         managing                0
-## 2                    7         managing                4
-## 3                    3         managing                3
-## 4                    6         managing                7
-## 5                    8         managing                8
-## 6                    3         managing                2
-## 7                    2       regulating                1
-## 8                   10       regulating               10
-## 9                    8       regulating                7
-## 10                   9       regulating                8
-## 11                   0       regulating                0
-## 12                   4       regulating                6
-## 13                   3       regulating                4
-## 14                   5         managing                5
-## 15                   5         managing                7
-## 16                   6       regulating                7
-## 17                   7         managing                4
-## 18                   2         managing                0
-##    glbwrm_risk_fed_mgmt know_fire purp_fire
-## 1                     0         1         1
-## 2                     9         1         1
-## 3                     3         1         1
-## 4                     8         1         1
-## 5                     8         1         1
-## 6                     2         1         1
-## 7                     1         2        NA
-## 8                    10         1         1
-## 9                     7         1         1
-## 10                   10         1         1
-## 11                    0         1         1
-## 12                    6         1         1
-## 13                    2         1         1
-## 14                    6         1         1
-## 15                    5         1         1
-## 16                    8         1         1
-## 17                    7         1         1
-## 18                    0         1         1
-##                                                                                                                                                                                                                                                      purp_fire_exp
-## 1                                                                                                                                                                To burn away brush within a controlled area so as not to provide kindling for a future wild fire.
-## 2                                                                                                                                                                         To burn the grass to decrease the risk of wildfires and new grass to grow in the spring 
-## 3                                                                                                                                                         Usually it&#39;s done by farmers to burn off their field stubble. The ash is good fertilization, I&#39;ve heard.
-## 4                                                                                                                                                         Used to get rid of something ie trash, brush, grass to either destroy it or may way for something else. 
-## 5  There are many different reasons for a controlled burn. One of the more common reasons is to burn an area to get rid of old dying large vegetation to allow the under growth or smaller things to grow and flourish. Sometimes it can also be done to clear an 
-## 6                                                                                                                                                                              Used most frequently by ranchers to maintain and restore native grasses for cattle.
-## 7                                                                                                                                                                                                                                                             &lt;NA&gt;
-## 8                                                                                                                                                        A prescribed fire is a planned fire intentionally ignited by park managers to meet management objectives.
-## 9                                                                                                                                                                                                         Burning off old brush &amp; getting the land ready for crops
-## 10                                                                 It is when an intentional fire is set to burn off old vegetation. The fire is minutes so it doesn&#39;t get out of hand. This prevents the old, dry vegetation from catching on fire accidentally. 
-## 11                                                                                                                                                                To reduce the risk of fire in the future by burning dead grass/vegetation in the cooler months. 
-## 12                                                                                                                                                                                               To control over grown vegetation or to burn off crop for farmers.
-## 13                                                                                                                                                                                         To improve farming on land or to reduce chance for uncontrolled fires. 
-## 14                                                                                                                                                                                                        Burn off fields for soil nutrients or clearing of land. 
-## 15                                                                                                                     To safely remove dry grass and leaf debris from an area to help the germination process and to help hinder extreme wildfires in the future.
-## 16                                                                                                                                                              To clear underbrush and other dead flamables in nature to help prevent and curb larger wild fires.
-## 17                    For farmers to burn down stubble on cut fields to get ready for harvest and also when people in the country have to burn their trash. The local fire departments are notified prior to burning to. E ready for the fire getting out of hand.
-## 18                                                                                                                                                                                                        To burn off dead trees and brush to prevent future fires
-##    useful_val_fire use_fire_rural nofire_notrain nofire_notnear
-## 1                1             NA             NA             NA
-## 2                1             NA             NA             NA
-## 3                2              0              0              1
-## 4                1             NA             NA             NA
-## 5                1             NA             NA             NA
-## 6                1             NA             NA             NA
-## 7                1             NA             NA             NA
-## 8                1              1             NA             NA
-## 9                1              1             NA             NA
-## 10               1             NA             NA             NA
-## 11               1              0              0              0
-## 12               1              0              0              0
-## 13               1              0              0              0
-## 14               1              0              0              0
-## 15               1             NA             NA             NA
-## 16               1             NA             NA             NA
-## 17               1              0              0              0
-## 18               1              0              1              0
-##    nofire_othr                                       nofire_othr_spec
-## 1           NA                                                   &lt;NA&gt;
-## 2           NA                                                   &lt;NA&gt;
-## 3            0                                                   &lt;NA&gt;
-## 4           NA                                                   &lt;NA&gt;
-## 5           NA                                                   &lt;NA&gt;
-## 6           NA                                                   &lt;NA&gt;
-## 7           NA                                                   &lt;NA&gt;
-## 8           NA                                                   &lt;NA&gt;
-## 9           NA                                                   &lt;NA&gt;
-## 10          NA                                                   &lt;NA&gt;
-## 11           1                                    live in city limits
-## 12           1 Cattle keep grass eaten down and it is not over grown.
-## 13           0                           Not enough land; no farming 
-## 14           1                                 I live in city limits.
-## 15          NA                                                   &lt;NA&gt;
-## 16          NA                                                   &lt;NA&gt;
-## 17           1  I don&#39;t own any farm land but my extended family does
-## 18           0                                                   &lt;NA&gt;
-##    urban_fire fire_implmnt okelec_foss okelec_nuc okelec_renew solar_prop
-## 1          NA            1          50         25           25          0
-## 2           0            1          70         10           20          0
-## 3          NA           NA          76          0           24          0
-## 4           1            1          25         25           50          0
-## 5           0            1          25          0           75          0
-## 6           1            1          50          0           50          0
-## 7           0            1          25         50           25          0
-## 8          NA           NA          20          0           80          0
-## 9          NA           NA          40          0           60          0
-## 10          1            1          25          0           75          0
-## 11         NA           NA          75          0           25          0
-## 12         NA           NA          50          0           50          0
-## 13         NA           NA          75          0           25          0
-## 14         NA           NA          25          0           75          0
-## 15          0            1          50         25           25          0
-## 16          0            1          40         10           50          0
-## 17         NA           NA          60          0           40          0
-## 18         NA           NA          85          0           15          0
-##    heard_netmeter net_met_info ok_net_met vote vote_2016 vote_cand
-## 1               0            1          4    1         1         2
-## 2               0            1          1    1         1         1
-## 3               0            1          4    1         1         0
-## 4               0            1          3    1         1         1
-## 5               0            1          4    1         1         1
-## 6               0            1          3    1         1         0
-## 7               0            1          2    1         0        NA
-## 8               1            1          4    1         1         1
-## 9               0            1          4    1         1         0
-## 10              0            1          3    1         1         0
-## 11              0            1          2    1         1         0
-## 12              0            1          2    1         1         0
-## 13              0            1          4    1         1         0
-## 14              0            1          4    1         1         2
-## 15              0            1          3    1         1         0
-## 16              2            1          3    1         1         2
-## 17              0            1          3    1         1         0
-## 18              0            1          1    1         1         0
-##    vote_cand_spec vote_cand_spt f.gender f.party f.party.2 r.ind   f.ind
-## 1            &lt;NA&gt;             3    Women   Other      &lt;NA&gt;     0 Non Ind
-## 2            &lt;NA&gt;             2    Women     Dem       Dem     0 Non Ind
-## 3            &lt;NA&gt;             4    Women     Rep       Rep     0 Non Ind
-## 4            &lt;NA&gt;             2    Women     Ind       Ind     1     Ind
-## 5            &lt;NA&gt;             3    Women     Ind       Ind     1     Ind
-## 6            &lt;NA&gt;             4    Women     Rep       Rep     0 Non Ind
-## 7            &lt;NA&gt;            NA    Women     Rep       Rep     0 Non Ind
-## 8            &lt;NA&gt;             4    Women     Dem       Dem     0 Non Ind
-## 9            &lt;NA&gt;             3    Women     Dem       Dem     0 Non Ind
-## 10           &lt;NA&gt;             4    Women     Rep       Rep     0 Non Ind
-## 11           &lt;NA&gt;             4    Women     Rep       Rep     0 Non Ind
-## 12           &lt;NA&gt;             4    Women     Rep       Rep     0 Non Ind
-## 13           &lt;NA&gt;             3    Women     Rep       Rep     0 Non Ind
-## 14           &lt;NA&gt;             3    Women     Dem       Dem     0 Non Ind
-## 15           &lt;NA&gt;             4    Women     Ind       Ind     1     Ind
-## 16           &lt;NA&gt;             4    Women     Ind       Ind     1     Ind
-## 17           &lt;NA&gt;             5    Women     Rep       Rep     0 Non Ind
-## 18           &lt;NA&gt;             5    Women     Rep       Rep     0 Non Ind
-##    r.rep   f.rep r.dem   f.dem                f.edu f.race r.race f.race.2
-## 1      0 Non Rep     0 Non Dem    Bachelor&#39;s Degree  White      1    White
-## 2      0 Non Rep     1     Dem    2 year/Associates  White      1    White
-## 3      1     Rep     0 Non Dem    Bachelor&#39;s Degree  White      1    White
-## 4      0 Non Rep     0 Non Dem    2 year/Associates  White      1    White
-## 5      0 Non Rep     0 Non Dem Vocational/Technical  White      1    White
-## 6      1     Rep     0 Non Dem    2 year/Associates  White      1    White
-## 7      1     Rep     0 Non Dem    Bachelor&#39;s Degree  White      1    White
-## 8      0 Non Rep     1     Dem    Bachelor&#39;s Degree  White      1    White
-## 9      0 Non Rep     1     Dem         Some College  White      1    White
-## 10     1     Rep     0 Non Dem    Bachelor&#39;s Degree  White      1    White
-## 11     1     Rep     0 Non Dem    2 year/Associates  White      1    White
-## 12     1     Rep     0 Non Dem    Bachelor&#39;s Degree  White      1    White
-## 13     1     Rep     0 Non Dem    2 year/Associates  White      1    White
-## 14     0 Non Rep     1     Dem    2 year/Associates  White      1    White
-## 15     0 Non Rep     0 Non Dem    Bachelor&#39;s Degree  White      1    White
-## 16     0 Non Rep     0 Non Dem    Bachelor&#39;s Degree  White      1    White
-## 17     1     Rep     0 Non Dem         Some College  White      1    White
-## 18     1     Rep     0 Non Dem    Bachelor&#39;s Degree  White      1    White
-##    r.white f.white r.AfricanAmer   f.AfricanAmer r.age f.age     f.age.2
-## 1        1   White             0 Non AfricanAmer     3 41-50 (17.9,58.5]
-## 2        1   White             0 Non AfricanAmer     3 41-50 (17.9,58.5]
-## 3        1   White             0 Non AfricanAmer     3 41-50 (17.9,58.5]
-## 4        1   White             0 Non AfricanAmer     3 41-50 (17.9,58.5]
-## 5        1   White             0 Non AfricanAmer     3 41-50 (17.9,58.5]
-## 6        1   White             0 Non AfricanAmer     3 41-50 (17.9,58.5]
-## 7        1   White             0 Non AfricanAmer     3 41-50 (17.9,58.5]
-## 8        1   White             0 Non AfricanAmer     3 41-50 (17.9,58.5]
-## 9        1   White             0 Non AfricanAmer     3 41-50 (17.9,58.5]
-## 10       1   White             0 Non AfricanAmer     3 41-50 (17.9,58.5]
-## 11       1   White             0 Non AfricanAmer     3 41-50 (17.9,58.5]
-## 12       1   White             0 Non AfricanAmer     3 41-50 (17.9,58.5]
-## 13       1   White             0 Non AfricanAmer     3 41-50 (17.9,58.5]
-## 14       1   White             0 Non AfricanAmer     3 41-50 (17.9,58.5]
-## 15       1   White             0 Non AfricanAmer     3 41-50 (17.9,58.5]
-## 16       1   White             0 Non AfricanAmer     3 41-50 (17.9,58.5]
-## 17       1   White             0 Non AfricanAmer     3 41-50 (17.9,58.5]
-## 18       1   White             0 Non AfricanAmer     3 41-50 (17.9,58.5]
-##    r.ideology   f.ideology f.glbwrm_ok n.party r.ideol      f.ideol r.AfAm
-## 1           3 Conservative          No       4       3 Conservative      0
-## 2           2     Moderate         Yes       1       2     Moderate      0
-## 3           3 Conservative          No       2       3 Conservative      0
-## 4           1      Liberal         Yes       3       1      Liberal      0
-## 5           2     Moderate        &lt;NA&gt;       3       2     Moderate      0
-## 6           2     Moderate          No       2       2     Moderate      0
-## 7           3 Conservative         Yes       2       3 Conservative      0
-## 8           1      Liberal         Yes       1       1      Liberal      0
-## 9           2     Moderate        &lt;NA&gt;       1       2     Moderate      0
-## 10          3 Conservative         Yes       2       3 Conservative      0
-## 11          3 Conservative          No       2       3 Conservative      0
-## 12          3 Conservative        &lt;NA&gt;       2       3 Conservative      0
-## 13          3 Conservative          No       2       3 Conservative      0
-## 14          2     Moderate        &lt;NA&gt;       1       2     Moderate      0
-## 15          3 Conservative        &lt;NA&gt;       3       3 Conservative      0
-## 16          1      Liberal         Yes       3       1      Liberal      0
-## 17          3 Conservative         Yes       2       3 Conservative      0
-## 18          3 Conservative          No       2       3 Conservative      0
-##                  f.AfAm
-## 1  Non African-American
-## 2  Non African-American
-## 3  Non African-American
-## 4  Non African-American
-## 5  Non African-American
-## 6  Non African-American
-## 7  Non African-American
-## 8  Non African-American
-## 9  Non African-American
-## 10 Non African-American
-## 11 Non African-American
-## 12 Non African-American
-## 13 Non African-American
-## 14 Non African-American
-## 15 Non African-American
-## 16 Non African-American
-## 17 Non African-American
-## 18 Non African-American</code></pre>
+<pre><code>##   X.1    X     userid             wave_id agescreen age gender education
+## 1 202 2994 Ph-W202242 Wave 12 (Fall 2016)         1  42      0         6
+## 2 483 7164 Ph-W211012 Wave 12 (Fall 2016)         1  42      0         5
+## 3 514 7635 Ph-W302515 Wave 12 (Fall 2016)         1  42      0         6
+## 4 651 9559   R2NM6835 Wave 12 (Fall 2016)         1  42      0         5
+##   adults children employment income footage ssn_precip ssn_tmp drghtfreq
+## 1      2        3          1  86000    1400          1       3         2
+## 2      3        1          4 120000    1100          1       3         2
+## 3      2        1          4  90000    2800          2       3         2
+## 4      2        0          4  95000    2100          2       3         3
+##   drghtsev fldfreq fldsev avgtmp tmpextrm evntexp_wind evntexp_drght
+## 1       NA       1      1      2        2            0             0
+## 2        2       2      1      3        3            0             0
+## 3        1       2      1     NA       NA            0             0
+## 4        2       2      2      2        2            1             0
+##   evntexp_rain evntexp_cold evntexp_snow evntexp_ice evntexp_flood
+## 1            0            0            0           0             0
+## 2            0            0            0           0             0
+## 3            0            0            0           0             0
+## 4            0            0            0           0             0
+##   evntexp_torn evntexp_fire evntfreq_wind evntfreq_rain evntfreq_cold
+## 1            0            1             2             2             2
+## 2            0            0             2             1             1
+## 3            0            0             2             2             2
+## 4            0            0             2             2             2
+##   evntfreq_snow evntfreq_ice evntfreq_torn evntfreq_fire evntfutfreq_wind
+## 1             2            2             1             3                2
+## 2             1            1             2             1                2
+## 3             2            2             2             2                2
+## 4             2            2             2             2                2
+##   evntfutfreq_drght evntfutfreq_rain evntfutfreq_cold evntfutfreq_snow
+## 1                 3                1                2                2
+## 2                 3                3                1                1
+## 3                 2                2                2                2
+## 4                 2                2                2                2
+##   evntfutfreq_ice evntfutfreq_flood evntfutfreq_torn evntfutfreq_fire
+## 1               2                 2                2               NA
+## 2               1                 2                3                2
+## 3               2                 2                2                2
+## 4               2                 2               NA                2
+##   wtr_bill_totcost wtr_bill_dk wtr_use wtr_short mntain_lawn wtr_qual
+## 1              156           0       2         0           1        3
+## 2              200           0       2         0           1        3
+## 3                0           0       2         0           1        3
+## 4               86           0       2         0           1        2
+##   wtr_safe wtr_comm wtr_farm wtr_steps_flush wtr_steps_flow wtr_steps_bath
+## 1        8        1        1               0              0              0
+## 2        8        4        3               0              1              1
+## 3        7        4        4               0              0              0
+## 4        8        3        2               0              0              0
+##   wtr_steps_lawn wtr_steps_car wtr_steps_othr
+## 1              1             0              0
+## 2              1             0              1
+## 3              0             0              0
+## 4              0             0              0
+##                     wtr_steps_spec enrgy_sourc_elec enrgy_sourc_natgas
+## 1                             &lt;NA&gt;                1                  1
+## 2 Use our sand point well to water                1                  1
+## 3                             &lt;NA&gt;                1                  0
+## 4                             &lt;NA&gt;                1                  1
+##   enrgy_sourc_prop enrgy_sourc_wood enrgy_sourc_othr enrgy_sourc_othr_spec
+## 1                0                1                0                  &lt;NA&gt;
+## 2                0                0                0                  &lt;NA&gt;
+## 3                0                0                0                  &lt;NA&gt;
+## 4                0                0                0                  &lt;NA&gt;
+##   elec_bill_totcost elec_bill_dk elec_use elec_out gas_bill_totcost
+## 1               207            0        1        0               60
+## 2               100            0        2        0               50
+## 3               300            0        2        1               NA
+## 4               136            0        2        0               89
+##   gas_bill_dk gas_use enrgy_steps_lghts enrgy_steps_ac enrgy_steps_heat
+## 1           0       1                 1              1                1
+## 2           0       1                 1              1                1
+## 3          NA      NA                 0              0                0
+## 4           0       2                 1              1                1
+##   enrgy_steps_savappl enrgy_steps_unplug enrgy_steps_insul
+## 1                   0                  0                 0
+## 2                   0                  0                 0
+## 3                   0                  0                 0
+## 4                   0                  0                 0
+##   enrgy_steps_savdoor enrgy_steps_othr enrgy_steps_othr_spec party
+## 1                   0                0                  &lt;NA&gt;     4
+## 2                   0                0                  &lt;NA&gt;     1
+## 3                   0                0                  &lt;NA&gt;     2
+## 4                   0                0                  &lt;NA&gt;     3
+##    party_spec lean ideol cncrn_secur cncrn_health cncrn_enrgy cncrn_trns
+## 1 Libertarian   NA     7          10            9           9          9
+## 2        &lt;NA&gt;   NA     4           8            9           6          5
+## 3        &lt;NA&gt;   NA     6           7            7           4          0
+## 4        &lt;NA&gt;    1     2           8            8           4          8
+##   cncrn_tax cncrn_edu cncrn_econ glbwrm_ok time_outside spent_outside
+## 1         7        10         10         0            1             2
+## 2        10        10         10         1            2             2
+## 3         8         5          6         0            1             3
+## 4         9         9          9         1            2             2
+##   cmpr_time_outside hlth_status nghbrhd_deal nghbrhd_close nghbrhd_care
+## 1                 1           3            7             5            1
+## 2                 3           5            4             4            2
+## 3                 2           3            5             6            3
+## 4                 1           4            5             3            3
+##   nghbrhd_not nghbrhd_eyes nghbrhd_help wthr_info_paper    wthr_info_web
+## 1           1            7            7           Never            Never
+## 2           2            6            4            &lt;NA&gt;             &lt;NA&gt;
+## 3           2            6            2           Never            Never
+## 4           2            3            6           Never About once a day
+##   wthr_info_govweb         wthr_info_loctv         wthr_info_cabtv
+## 1            Never     Several times a day Less than once per week
+## 2             &lt;NA&gt;     Several times a day                    &lt;NA&gt;
+## 3            Never        About once a day                   Never
+## 4            Never Less than once per week Less than once per week
+##           wthr_info_radio           wthr_info_fam       wthr_info_soc
+## 1     Several times a day        About once a day    About once a day
+## 2     Several times a day                    &lt;NA&gt;                &lt;NA&gt;
+## 3 Less than once per week Less than once per week               Never
+## 4 Less than once per week     Several times a day Several times a day
+##   wthr_info_othr wthr_info_othr_spec dot_answr click_bluedot
+## 1           &lt;NA&gt;                &lt;NA&gt;        NA             1
+## 2           &lt;NA&gt;                &lt;NA&gt;        NA             1
+## 3           &lt;NA&gt;                &lt;NA&gt;         2             1
+## 4          Never                &lt;NA&gt;         1             0
+##   begin_datetime end_datetime is_statewide hispanic race race_spec
+## 1     1481587679   1481588604            1        0    1      &lt;NA&gt;
+## 2     1480998150   1481000446            1        0    1      &lt;NA&gt;
+## 3     1481312462   1481755390            1        0    1      &lt;NA&gt;
+## 4     1484166842   1484167687            1        0    1      &lt;NA&gt;
+##   evntexp_heat evntexp_ethqk evntfreq_heat evntfreq_ethqk evntfutfreq_heat
+## 1            0             1             2              3                2
+## 2            1             1             3              3                2
+## 3            0             0             2              3                2
+## 4            0             0             2              3                2
+##   evntfutfreq_ethqk wtr_steps_leaks wtr_steps_ldry enrgy_sourc_geo
+## 1                 3               0              0               0
+## 2                 3               0              0               0
+## 3                 2               0              0               0
+## 4                 3               0              0               0
+##   enrgy_steps_bulbs         wthr_info_phone mntain_flwr mntain_veg glbcc
+## 1                 1  Several times per week           1          0     0
+## 2                 1                    &lt;NA&gt;           1          1     1
+## 3                 0 Less than once per week           0          0     0
+## 4                 0     Several times a day           1          0     1
+##   glbcc_cert glbcc_risk is_payne is_okcity evntexp_hail evntfreq_hail
+## 1          7          3        0         0            0             2
+## 2          4          4        0         0            0             1
+## 3          6          5        0         0            0             2
+## 4          8          7        0         0            0             2
+##   evntfutfreq_hail wtr_freq cncrn_natres confirm_zip is_kiamichi
+## 1                2        2            4       73078           0
+## 2                3        4            6       74008           0
+## 3                2        1            4       73053           0
+## 4                2        2            6       73069           0
+##   is_washita is_canadian                                   consent
+## 1          0           0 Yes, I agree to participate in this study
+## 2          0           0 Yes, I agree to participate in this study
+## 3          0           0 Yes, I agree to participate in this study
+## 4          0           0 Yes, I agree to participate in this study
+##   home_lot ethqk_risk ethqk_cause ethqk_risk_mgmt ethqk_risk_rand
+## 1        2          7           3               8      regulating
+## 2        2          5           2               7      regulating
+## 3        3          3           1               3        managing
+## 4        2          7           2               7      regulating
+##   ethqk_risk_fed_mgmt glbwrm_risk_rand glbwrm_risk_mgmt
+## 1                   0         managing                0
+## 2                   7         managing                4
+## 3                   3         managing                3
+## 4                   6         managing                7
+##   glbwrm_risk_fed_mgmt know_fire purp_fire
+## 1                    0         1         1
+## 2                    9         1         1
+## 3                    3         1         1
+## 4                    8         1         1
+##                                                                                              purp_fire_exp
+## 1        To burn away brush within a controlled area so as not to provide kindling for a future wild fire.
+## 2                 To burn the grass to decrease the risk of wildfires and new grass to grow in the spring 
+## 3 Usually it&#39;s done by farmers to burn off their field stubble. The ash is good fertilization, I&#39;ve heard.
+## 4 Used to get rid of something ie trash, brush, grass to either destroy it or may way for something else. 
+##   useful_val_fire use_fire_rural nofire_notrain nofire_notnear nofire_othr
+## 1               1             NA             NA             NA          NA
+## 2               1             NA             NA             NA          NA
+## 3               2              0              0              1           0
+## 4               1             NA             NA             NA          NA
+##   nofire_othr_spec urban_fire fire_implmnt okelec_foss okelec_nuc
+## 1             &lt;NA&gt;         NA            1          50         25
+## 2             &lt;NA&gt;          0            1          70         10
+## 3             &lt;NA&gt;         NA           NA          76          0
+## 4             &lt;NA&gt;          1            1          25         25
+##   okelec_renew solar_prop heard_netmeter net_met_info ok_net_met vote
+## 1           25          0              0            1          4    1
+## 2           20          0              0            1          1    1
+## 3           24          0              0            1          4    1
+## 4           50          0              0            1          3    1
+##   vote_2016 vote_cand vote_cand_spec vote_cand_spt f.gender f.party
+## 1         1         2           &lt;NA&gt;             3    Women   Other
+## 2         1         1           &lt;NA&gt;             2    Women     Dem
+## 3         1         0           &lt;NA&gt;             4    Women     Rep
+## 4         1         1           &lt;NA&gt;             2    Women     Ind
+##   f.party.2 r.ind   f.ind r.rep   f.rep r.dem   f.dem             f.edu
+## 1      &lt;NA&gt;     0 Non Ind     0 Non Rep     0 Non Dem Bachelor&#39;s Degree
+## 2       Dem     0 Non Ind     0 Non Rep     1     Dem 2 year/Associates
+## 3       Rep     0 Non Ind     1     Rep     0 Non Dem Bachelor&#39;s Degree
+## 4       Ind     1     Ind     0 Non Rep     0 Non Dem 2 year/Associates
+##   f.race r.race f.race.2 r.white f.white r.AfricanAmer   f.AfricanAmer
+## 1  White      1    White       1   White             0 Non AfricanAmer
+## 2  White      1    White       1   White             0 Non AfricanAmer
+## 3  White      1    White       1   White             0 Non AfricanAmer
+## 4  White      1    White       1   White             0 Non AfricanAmer
+##   r.age f.age     f.age.2 r.ideology   f.ideology f.glbwrm_ok n.party
+## 1     3 41-50 (17.9,58.5]          3 Conservative          No       4
+## 2     3 41-50 (17.9,58.5]          2     Moderate         Yes       1
+## 3     3 41-50 (17.9,58.5]          3 Conservative          No       2
+## 4     3 41-50 (17.9,58.5]          1      Liberal         Yes       3
+##   r.ideol      f.ideol r.AfAm               f.AfAm
+## 1       3 Conservative      0 Non African-American
+## 2       2     Moderate      0 Non African-American
+## 3       3 Conservative      0 Non African-American
+## 4       1      Liberal      0 Non African-American
+##  [ reached &#39;max&#39; / getOption(&quot;max.print&quot;) -- omitted 14 rows ]</code></pre>
 <p>Similar to <code>filter()</code>, you can use the <code>select()</code> function from the <code>dplyr()</code> package to create a new data set that includes a few variables of interest.</p>
 <p><strong>Note</strong>: <code>select</code> is a very common verb in R, and therefore is often masked by other packages. If you encounter an error when using <code>select()</code>, include <code>dplyr::</code> before calling the function, so that R knows which version of <code>select()</code> to use. Follow it up by using <code>na.omit()</code> to remove missing observations:</p>
 <div class="sourceCode" id="cb98"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb98-1" data-line-number="1">ds.sub &lt;-<span class="st"> </span>ds <span class="op">%&gt;%</span></a>
@@ -1528,13 +852,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## $ glbcc_cert &lt;int&gt; 6, 10, 6, 0, 5, 5, 1, 8, 7, 9, 6, 4, 6, 7, 7, 8, 10, …</code></pre>
 <p>In the previous section we used <code>summarize()</code> to get breakdowns of ceratin variables. If you wanted to get diagnostics on all the variables in your data, use the <code>skim()</code> function from the <code>skimr</code> package:</p>
 <div class="sourceCode" id="cb118"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb118-1" data-line-number="1"><span class="kw">skim_with</span>(<span class="dt">numeric =</span> <span class="kw">list</span>(<span class="dt">hist =</span> <span class="ot">NULL</span>))</a>
-<a class="sourceLine" id="cb118-2" data-line-number="2">ds.sub <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb118-3" data-line-number="3"><span class="st">  </span><span class="kw">skim</span>()</a></code></pre></div>
+<a class="sourceLine" id="cb118-2" data-line-number="2"><span class="kw">skim_with</span>(<span class="dt">integer =</span> <span class="kw">list</span>(<span class="dt">hist =</span> <span class="ot">NULL</span>))</a>
+<a class="sourceLine" id="cb118-3" data-line-number="3">ds.sub <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb118-4" data-line-number="4"><span class="st">  </span><span class="kw">skim</span>()</a></code></pre></div>
 <pre><code>## Skim summary statistics
 ##  n obs: 2276 
 ##  n variables: 6 
 ## 
-## ── Variable type:integer ─────────────────────────────────────────────────────────────────────────────────────────
+## ── Variable type:integer ─────────────────────────────────────────────────────────────────────────────────────
 ##    variable missing complete    n  mean    sd p0   p25 p50 p75 p100
 ##         age       0     2276 2276 60.11 14.09 18 51.75  62  70   99
 ##   education       0     2276 2276  5.09  1.81  1  4      6   6    8
@@ -1542,22 +867,23 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ##  glbcc_cert       0     2276 2276  6.63  2.71  0  5      7   9   10
 ##       ideol       0     2276 2276  4.64  1.74  1  4      5   6    7
 ## 
-## ── Variable type:numeric ─────────────────────────────────────────────────────────────────────────────────────────
+## ── Variable type:numeric ─────────────────────────────────────────────────────────────────────────────────────
 ##  variable missing complete    n    mean       sd    p0   p25   p50   p75
 ##    income       0     2276 2276 70597.7 59850.38 10000 35000 59000 90000
 ##    p100
 ##  900000</code></pre>
 <p>This provides loads of useful incormation. As demonstrated in teh previous section, you can combine different tidyverse functions together in order to maximize efficiency. For example, combining <code>group_by()</code> and <code>skim()</code> provide breakdowns of all the variables by gender:</p>
 <div class="sourceCode" id="cb120"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb120-1" data-line-number="1"><span class="kw">skim_with</span>(<span class="dt">numeric =</span> <span class="kw">list</span>(<span class="dt">hist =</span> <span class="ot">NULL</span>))</a>
-<a class="sourceLine" id="cb120-2" data-line-number="2">ds.sub <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb120-3" data-line-number="3"><span class="st">  </span><span class="kw">group_by</span>(gender) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb120-4" data-line-number="4"><span class="st">  </span><span class="kw">skim</span>()</a></code></pre></div>
+<a class="sourceLine" id="cb120-2" data-line-number="2"><span class="kw">skim_with</span>(<span class="dt">integer =</span> <span class="kw">list</span>(<span class="dt">hist =</span> <span class="ot">NULL</span>))</a>
+<a class="sourceLine" id="cb120-3" data-line-number="3">ds.sub <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb120-4" data-line-number="4"><span class="st">  </span><span class="kw">group_by</span>(gender) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb120-5" data-line-number="5"><span class="st">  </span><span class="kw">skim</span>()</a></code></pre></div>
 <pre><code>## Skim summary statistics
 ##  n obs: 2276 
 ##  n variables: 6 
 ##  group variables: gender 
 ## 
-## ── Variable type:integer ─────────────────────────────────────────────────────────────────────────────────────────
+## ── Variable type:integer ─────────────────────────────────────────────────────────────────────────────────────
 ##  gender   variable missing complete    n  mean    sd p0 p25 p50 p75 p100
 ##       0        age       0     1337 1337 59.73 14.66 18  50  61  71   94
 ##       0  education       0     1337 1337  4.98  1.77  1   4   6   6    8
@@ -1568,7 +894,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ##       1 glbcc_cert       0      939  939  6.84  2.69  0   5   7   9   10
 ##       1      ideol       0      939  939  4.79  1.74  1   4   5   6    7
 ## 
-## ── Variable type:numeric ─────────────────────────────────────────────────────────────────────────────────────────
+## ── Variable type:numeric ─────────────────────────────────────────────────────────────────────────────────────
 ##  gender variable missing complete    n     mean       sd    p0   p25   p50
 ##       0   income       0     1337 1337 63597.58 51485.97 10000 30000 50000
 ##       1   income       0      939  939 80564.86 68869.39 10000 40000 67000
