@@ -1,17 +1,57 @@
 --- 
 title: "Lab Guide to Quantitative Research Methods in Political Science, Public Policy & Public Administration"
-author: Joseph Ripberger, Cody Adams, Alex Davis, and Josie Davis
+author: "Joseph Ripberger, Cody Adams, Alex Davis, and Josie Davis"
 site: bookdown::bookdown_site
 output: 
-  bookdown::gitbook:
-  # bookdown::pdf_book:
+  # bookdown::gitbook:
+  bookdown::pdf_book:
 book_filename: "labbook"
 always_allow_html: yes
 language:
   ui:
-    chapter_name: "Chapter"
+    chapter_name: "Chapter "
 delete_merged_file: true
+url: "https://bookdown.org/ripberjt/labbook/"
+github-repo: "ripberjt/qrmlabs"
+cover-image: "CC-BY_icon.png"
+description: "This book is providea a the lab guide to Quantitative Research Methods for Political Science [here](https://bookdown.org/josiesmith/qrmbook/)"
 ---
+
+```{r pagebreak, echo=FALSE, include=FALSE}
+pagebreak <- function() {
+  if(knitr::is_latex_output())
+    return("\\newpage")
+  else
+    return('<div style="page-break-before: always;" />')
+}
+```
+
+`r pagebreak()`
+
+# Copyright {-}
+Published by University of Oklahoma Libraries
+\
+\
+Norman, Oklahoma
+\
+\
+Copyright (c) 2019 Joseph Ripberger, Cody Adams, Alex Davis, and Josie Davis
+\
+\
+Unless otherwise noted, content is licensed with a CC BY-NC Creative Commons Attribution NonCommercial International 4.0.
+```{r cc, echo=FALSE, out.width="100px"}
+knitr::include_graphics("CC-BY_icon.png")
+```
+\
+\
+Download this book for free at [insert handle URL]
+\
+\
+ISBN: X
+\
+DOI: X
+
+`r pagebreak()`
 
 # Preface {-}
 
@@ -81,53 +121,6 @@ library(DAMisc)
 
 ds <- read.csv("https://github.com/ripberjt/qrmlabs/raw/master/Class%20Data%20Set%20Factored.csv", header = TRUE)
 options(scipen=999)
-
-pagebreak <- function() {
-  if(knitr::is_latex_output())
-    return("\\newpage")
-  else
-    return('<div style="page-break-before: always;" />')
-}
 ```
-
-`r pagebreak()`
-
-## Copyright {-}
-Lab Guide to Quantitative Research Methods in Political Science, Public Policy & Public Administration
-\
-\
-Joseph Ripberger\
-Cody Adams\
-Alex Davis\
-Josie Davis
-\
-\
-\
-\
-\
-Published by University of Oklahoma Libraries
-\
-\
-Norman, Oklahoma
-\
-\
-Copyright (c) 2019 Joseph Ripberger, Cody Adams, Alex Davis, and Josie Davis
-\
-\
-Unless otherwise noted, content is licensed with a CC BY-NC Creative Commons Attribution NonCommercial International 4.0.
-\
-```{r cc, echo=FALSE}
-knitr::include_graphics("CC-BY_icon.png")
-```
-\
-\
-\
-Download this book for free at [insert handle URL]
-\
-\
-ISBN: X
-\
-\
-DOI: X
 
 `r pagebreak()`
