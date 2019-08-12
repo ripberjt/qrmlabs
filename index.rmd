@@ -11,10 +11,10 @@ language:
   ui:
     chapter_name: "Chapter "
 delete_merged_file: true
-url: "https://bookdown.org/ripberjt/labbook/"
-github-repo: "ripberjt/qrmlabs"
-cover-image: "CC-BY_icon.png"
-description: "This book is providea a the lab guide to Quantitative Research Methods for Political Science [here](https://bookdown.org/josiesmith/qrmbook/)"
+url: 'https://bookdown.org/ripberjt/labbook/'
+github-repo: ripberjt/qrmlabs
+cover-image: C-BY_icon.png
+description: "A lab guide to quantitative research methods in R."
 ---
 
 ```{r pagebreak, echo=FALSE, include=FALSE}
@@ -55,7 +55,7 @@ DOI: X
 
 # Preface {-}
 
-This book is a companion to _Quantitative Research Methods for Political Science, Public Policy and Public Administration (With Applications in R): 4th Edition_, an open-source text book that is available [here](https://bookdown.org/josiesmith/qrmbook/). It grew from our experiences teaching introductory and intermediate quantitative methods classes for graduate students in Political Science and Public Policy at the University of Oklahoma. We teach these courses using a format that pairs seminars on theory and statistics with exercises that focus on applications in `R`. We use the text book to motivate seminars and this book to guide exercises. The book is written in `R Markdown` and `bookdown`. While a "complete" copy of the book is available, we suggest that students and instructors use the "raw" `.Rmd` files for exercises. These materials ara available in our `GitHub` repository [here](https://github.com/ripberjt/qrmlabs). 
+This book is a companion to _Quantitative Research Methods for Political Science, Public Policy and Public Administration (With Applications in R): 4th Edition_, an open-source text book that is available [here](https://bookdown.org/josiesmith/qrmbook/). It grew from our experiences teaching introductory and intermediate quantitative methods classes for graduate students in Political Science and Public Policy at the University of Oklahoma. We teach these courses using a format that pairs seminars on theory and statistics with exercises that focus on applications in `R`. We use the text book to motivate seminars and this book to guide exercises. The book is written in `R Markdown` and `bookdown`. While a "complete" copy of the book is available, we suggest that students and instructors use the "raw" `.Rmd` files for exercises. These materials are available in our `GitHub` repository [here](https://github.com/ripberjt/qrmlabs). 
 
 Currently, the labs use survey data from the _Meso-Scale Integrated Socio-geographic Network (M-SISNet)_ to explain concepts and methods. The M-SISNet is a quarterly survey of approximately 1,500 households in Oklahoma that is conducted with support of the National Science Foundation (Grant No. IIA-1301789). One wave of M-SISNet data is available in our `GitHub` repository. Readers can learn more about the project and download the remaining waves [here](http://crcm.ou.edu/epscordata/). We welcome students and instructors to explore and use these data, but we also encourage instructors to modify the book by incorporating data that is more relevant to the course they are teaching. 
 
