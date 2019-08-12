@@ -374,84 +374,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p><strong>Try this!</strong> Create a new object below; you can name it almost anything!</p>
 <p>R includes various functions for managing created objects. The <code>ls()</code> function lists all existing objects.</p>
 <div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb17-1" data-line-number="1"><span class="kw">ls</span>()</a></code></pre></div>
-<pre><code>##   [1] &quot;a&quot;                &quot;A&quot;                &quot;A.inv&quot;           
-##   [4] &quot;adj.r2&quot;           &quot;age.se&quot;           &quot;AI&quot;              
-##   [7] &quot;Aident&quot;           &quot;alpha&quot;            &quot;alpha.hat&quot;       
-##  [10] &quot;Aprime&quot;           &quot;AxAprime&quot;         &quot;b&quot;               
-##  [13] &quot;B&quot;                &quot;beta.hat&quot;         &quot;bhat&quot;            
-##  [16] &quot;Bhat&quot;             &quot;budget&quot;           &quot;BxAprime&quot;        
-##  [19] &quot;col_scale&quot;        &quot;con&quot;              &quot;cov_xy&quot;          
-##  [22] &quot;cov.xy&quot;           &quot;covar&quot;            &quot;cube.df&quot;         
-##  [25] &quot;cubed&quot;            &quot;d&quot;                &quot;dem.data&quot;        
-##  [28] &quot;dem.prob&quot;         &quot;denominator&quot;      &quot;df&quot;              
-##  [31] &quot;df.budget&quot;        &quot;df.length&quot;        &quot;df.party&quot;        
-##  [34] &quot;df.votes&quot;         &quot;df2&quot;              &quot;dfbs.fit1&quot;       
-##  [37] &quot;ds&quot;               &quot;ds.dem&quot;           &quot;ds.men&quot;          
-##  [40] &quot;ds.new&quot;           &quot;ds.omit&quot;          &quot;ds.rep&quot;          
-##  [43] &quot;ds.sub&quot;           &quot;ds.sub2&quot;          &quot;ds.sub3&quot;         
-##  [46] &quot;energy&quot;           &quot;ESS&quot;              &quot;ex.ds&quot;           
-##  [49] &quot;exam.ds&quot;          &quot;exam.m&quot;           &quot;exam1&quot;           
-##  [52] &quot;Exam1&quot;            &quot;exam1.se&quot;         &quot;exam1low&quot;        
-##  [55] &quot;exam1up&quot;          &quot;exam2&quot;            &quot;Exam2&quot;           
-##  [58] &quot;exam2.se&quot;         &quot;exam2low&quot;         &quot;exam2up&quot;         
-##  [61] &quot;examdf&quot;           &quot;f.se&quot;             &quot;female&quot;          
-##  [64] &quot;fit.df&quot;           &quot;fit.log&quot;          &quot;fit.m&quot;           
-##  [67] &quot;fit.mm&quot;           &quot;fit.omit&quot;         &quot;fit.poly&quot;        
-##  [70] &quot;fit.w&quot;            &quot;fit1&quot;             &quot;fit1.df&quot;         
-##  [73] &quot;fit1.m&quot;           &quot;fit1.w&quot;           &quot;fit2.df&quot;         
-##  [76] &quot;fit2.m&quot;           &quot;fit2.w&quot;           &quot;fit3.df&quot;         
-##  [79] &quot;fit3.m&quot;           &quot;fit3.w&quot;           &quot;fit5.df&quot;         
-##  [82] &quot;fit5.m&quot;           &quot;fit5.w&quot;           &quot;fit6.df&quot;         
-##  [85] &quot;five&quot;             &quot;four&quot;             &quot;G&quot;               
-##  [88] &quot;gcc.table&quot;        &quot;gcc.table2&quot;       &quot;I&quot;               
-##  [91] &quot;id1&quot;              &quot;id2&quot;              &quot;id3&quot;             
-##  [94] &quot;id4&quot;              &quot;id5&quot;              &quot;id6&quot;             
-##  [97] &quot;id7&quot;              &quot;ideol.data&quot;       &quot;inc.out&quot;         
-## [100] &quot;ind.data&quot;         &quot;ind.prob&quot;         &quot;int&quot;             
-## [103] &quot;length&quot;           &quot;lib&quot;              &quot;listObject&quot;      
-## [106] &quot;lm.trump&quot;         &quot;lm1&quot;              &quot;lm1.out&quot;         
-## [109] &quot;lm2&quot;              &quot;lm2.out&quot;          &quot;lm3&quot;             
-## [112] &quot;lm4&quot;              &quot;lm5&quot;              &quot;lm6&quot;             
-## [115] &quot;log.data&quot;         &quot;log.out&quot;          &quot;logit.null&quot;      
-## [118] &quot;logit1&quot;           &quot;logit2&quot;           &quot;logit3&quot;          
-## [121] &quot;loglikli.demo&quot;    &quot;loglikli.null&quot;    &quot;lower&quot;           
-## [124] &quot;m.df&quot;             &quot;m.se&quot;             &quot;male&quot;            
-## [127] &quot;meanAge&quot;          &quot;melt.ds&quot;          &quot;mod&quot;             
-## [130] &quot;model&quot;            &quot;model1&quot;           &quot;model2&quot;          
-## [133] &quot;model3&quot;           &quot;mv.df&quot;            &quot;n&quot;               
-## [136] &quot;nAge&quot;             &quot;new.ds&quot;           &quot;numerator&quot;       
-## [139] &quot;object.One&quot;       &quot;Object.One&quot;       &quot;object1&quot;         
-## [142] &quot;ols&quot;              &quot;ols.ed.df&quot;        &quot;ols.sim&quot;         
-## [145] &quot;ols1&quot;             &quot;ols1.ed&quot;          &quot;ols2.ed&quot;         
-## [148] &quot;one&quot;              &quot;ord.df&quot;           &quot;ord1&quot;            
-## [151] &quot;packages&quot;         &quot;pagebreak&quot;        &quot;pkg&quot;             
-## [154] &quot;pol&quot;              &quot;pol.df&quot;           &quot;prob.df&quot;         
-## [157] &quot;psuedoR2&quot;         &quot;pv.0&quot;             &quot;pv.1&quot;            
-## [160] &quot;pv.10&quot;            &quot;pv.2&quot;             &quot;pv.3&quot;            
-## [163] &quot;pv.4&quot;             &quot;pv.5&quot;             &quot;pv.6&quot;            
-## [166] &quot;pv.7&quot;             &quot;pv.8&quot;             &quot;pv.9&quot;            
-## [169] &quot;pv.df&quot;            &quot;pv.m&quot;             &quot;r&quot;               
-## [172] &quot;r.sqr&quot;            &quot;random&quot;           &quot;rep.data&quot;        
-## [175] &quot;rep.prob&quot;         &quot;res&quot;              &quot;res.sqr&quot;         
-## [178] &quot;resid&quot;            &quot;RSE&quot;              &quot;rse.fit1&quot;        
-## [181] &quot;RSS&quot;              &quot;rvalues&quot;          &quot;s&quot;               
-## [184] &quot;scores&quot;           &quot;sd.x&quot;             &quot;sd.xy&quot;           
-## [187] &quot;sd.y&quot;             &quot;sdAge&quot;            &quot;se.fit1&quot;         
-## [190] &quot;se.gcc&quot;           &quot;SEA&quot;              &quot;seAge&quot;           
-## [193] &quot;SEB&quot;              &quot;slope&quot;            &quot;stats&quot;           
-## [196] &quot;stnd.dev&quot;         &quot;Student&quot;          &quot;sub&quot;             
-## [199] &quot;sub.ds&quot;           &quot;sum_xdev_ydev&quot;    &quot;t_value&quot;         
-## [202] &quot;t.A&quot;              &quot;t.B&quot;              &quot;test&quot;            
-## [205] &quot;three&quot;            &quot;TSS&quot;              &quot;TSSx&quot;            
-## [208] &quot;two&quot;              &quot;upper&quot;            &quot;var.x&quot;           
-## [211] &quot;vari&quot;             &quot;vcov.fit1&quot;        &quot;vectorObject&quot;    
-## [214] &quot;vote&quot;             &quot;x&quot;                &quot;X&quot;               
-## [217] &quot;x.m.xbar&quot;         &quot;xbar&quot;             &quot;xdev&quot;            
-## [220] &quot;xdev_ydev&quot;        &quot;Xprime&quot;           &quot;XprimeX&quot;         
-## [223] &quot;XprimeXinv&quot;       &quot;XprimeXinvXprime&quot; &quot;y&quot;               
-## [226] &quot;Y&quot;                &quot;y.m.ybar&quot;         &quot;ybar&quot;            
-## [229] &quot;ydev&quot;             &quot;yhat&quot;             &quot;z.log&quot;           
-## [232] &quot;z.mod1&quot;           &quot;z.mod2&quot;           &quot;z.mod3&quot;</code></pre>
+<pre><code>## [1] &quot;ds&quot;        &quot;object1&quot;   &quot;packages&quot;  &quot;pagebreak&quot; &quot;pkg&quot;</code></pre>
 <p>The <code>rm()</code> function removes existing objects.</p>
 <div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb19-1" data-line-number="1"><span class="kw">rm</span>(object1)</a></code></pre></div>
 <p>There is no strict convention for naming objects; however, there are best practices:</p>
@@ -580,6 +503,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <a class="sourceLine" id="cb44-4" data-line-number="4"><span class="kw">library</span>(Rcpp)</a>
 <a class="sourceLine" id="cb44-5" data-line-number="5"><span class="kw">library</span>(rmarkdown)</a>
 <a class="sourceLine" id="cb44-6" data-line-number="6"><span class="kw">library</span>(knitr)</a></code></pre></div>
+<pre><code>## 
+## Attaching package: &#39;knitr&#39;</code></pre>
+<pre><code>## The following object is masked from &#39;package:skimr&#39;:
+## 
+##     kable</code></pre>
 <p><strong>Note:</strong> The <code>memisc</code> package contains object/package conflicts with the <code>car</code> package for the <code>recode</code> object. A conflict occurs when two packages contain objects (e.g., functions) of the same name. A conflict will not prevent loading packages; however, use of a specific package’s object requires an explicit call to the desired parent package. For example, to use the <code>recode()</code> function from <code>car</code>, the <code>car::recode(variable)</code> statement will explicitly call <code>recode()</code> from the <code>car</code> package. Vice versa, <code>memisc::recode()</code> will explicitly call <code>recode()</code> from the <code>memisc</code> package.</p>
 </div>
 <div id="updating-packages" class="section level3">
@@ -587,133 +515,129 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Most packages are regularly updated. The <code>old.packages()</code> function compares installed packages to their latest versions online.</p>
 <p>The <code>update.packages()</code> function updates out of date packages.</p>
 <p><strong>Note:</strong> Updating packages requires consent. The <code>ask = FALSE</code> argument will skip the additional consent step to save time.</p>
-<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb45-1" data-line-number="1"><span class="kw">update.packages</span>()</a></code></pre></div>
+<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb47-1" data-line-number="1"><span class="kw">update.packages</span>()</a></code></pre></div>
 <pre><code>## AER :
 ##  Version 1.2-6 installed in /Library/Frameworks/R.framework/Versions/3.6/Resources/library 
 ##  Version 1.2-7 available at https://cran.rstudio.com
 ## cancelled by user</code></pre>
 <p>The <code>library()</code> function lists currently loaded packages.</p>
-<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb47-1" data-line-number="1"><span class="kw">library</span>()</a></code></pre></div>
+<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb49-1" data-line-number="1"><span class="kw">library</span>()</a></code></pre></div>
 <p>As previously demonstrated, occasionally conflicts exist between packages. The <code>conflicts()</code> fubction lists conflicts between loaded packages.</p>
-<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb48-1" data-line-number="1"><span class="kw">conflicts</span>()</a></code></pre></div>
-<pre><code>##   [1] &quot;G&quot;                      &quot;show&quot;                  
-##   [3] &quot;traceplot&quot;              &quot;show&quot;                  
-##   [5] &quot;show&quot;                   &quot;summary&quot;               
-##   [7] &quot;factorize&quot;              &quot;cpp_object_initializer&quot;
-##   [9] &quot;show&quot;                   &quot;plot&quot;                  
-##  [11] &quot;sim&quot;                    &quot;summary&quot;               
-##  [13] &quot;Arith&quot;                  &quot;as.array&quot;              
-##  [15] &quot;coerce&quot;                 &quot;Compare&quot;               
-##  [17] &quot;format&quot;                 &quot;initialize&quot;            
-##  [19] &quot;Math&quot;                   &quot;Math2&quot;                 
-##  [21] &quot;print&quot;                  &quot;rename&quot;                
-##  [23] &quot;show&quot;                   &quot;style&quot;                 
-##  [25] &quot;summary&quot;                &quot;Summary&quot;               
-##  [27] &quot;negative.binomial&quot;      &quot;select&quot;                
-##  [29] &quot;densityplot&quot;            &quot;%&gt;%&quot;                   
-##  [31] &quot;filter&quot;                 &quot;kable&quot;                 
+<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb50-1" data-line-number="1"><span class="kw">conflicts</span>()</a></code></pre></div>
+<pre><code>##   [1] &quot;show&quot;                   &quot;traceplot&quot;             
+##   [3] &quot;show&quot;                   &quot;show&quot;                  
+##   [5] &quot;summary&quot;                &quot;factorize&quot;             
+##   [7] &quot;cpp_object_initializer&quot; &quot;show&quot;                  
+##   [9] &quot;plot&quot;                   &quot;sim&quot;                   
+##  [11] &quot;summary&quot;                &quot;Arith&quot;                 
+##  [13] &quot;as.array&quot;               &quot;coerce&quot;                
+##  [15] &quot;Compare&quot;                &quot;format&quot;                
+##  [17] &quot;initialize&quot;             &quot;Math&quot;                  
+##  [19] &quot;Math2&quot;                  &quot;print&quot;                 
+##  [21] &quot;rename&quot;                 &quot;show&quot;                  
+##  [23] &quot;style&quot;                  &quot;summary&quot;               
+##  [25] &quot;Summary&quot;                &quot;negative.binomial&quot;     
+##  [27] &quot;select&quot;                 &quot;densityplot&quot;           
+##  [29] &quot;%&gt;%&quot;                    &quot;filter&quot;                
+##  [31] &quot;kable&quot;                  &quot;%&gt;%&quot;                   
 ##  [33] &quot;%&gt;%&quot;                    &quot;%&gt;%&quot;                   
-##  [35] &quot;%&gt;%&quot;                    &quot;arrange&quot;               
-##  [37] &quot;arrange_&quot;               &quot;collect&quot;               
-##  [39] &quot;contains&quot;               &quot;distinct&quot;              
-##  [41] &quot;distinct_&quot;              &quot;do&quot;                    
-##  [43] &quot;do_&quot;                    &quot;ends_with&quot;             
-##  [45] &quot;everything&quot;             &quot;filter&quot;                
-##  [47] &quot;filter_&quot;                &quot;group_by&quot;              
-##  [49] &quot;group_by_&quot;              &quot;groups&quot;                
-##  [51] &quot;last&quot;                   &quot;matches&quot;               
-##  [53] &quot;mutate&quot;                 &quot;mutate_&quot;               
-##  [55] &quot;n&quot;                      &quot;num_range&quot;             
-##  [57] &quot;one_of&quot;                 &quot;recode&quot;                
-##  [59] &quot;rename&quot;                 &quot;rename_&quot;               
-##  [61] &quot;select&quot;                 &quot;select_&quot;               
-##  [63] &quot;slice&quot;                  &quot;slice_&quot;                
-##  [65] &quot;starts_with&quot;            &quot;summarise&quot;             
-##  [67] &quot;summarise_&quot;             &quot;syms&quot;                  
-##  [69] &quot;transmute&quot;              &quot;transmute_&quot;            
-##  [71] &quot;ungroup&quot;                &quot;%@%&quot;                   
-##  [73] &quot;%&gt;%&quot;                    &quot;reduce&quot;                
-##  [75] &quot;%&gt;%&quot;                    &quot;expand&quot;                
-##  [77] &quot;extract&quot;                &quot;add_row&quot;               
-##  [79] &quot;as_data_frame&quot;          &quot;as_tibble&quot;             
-##  [81] &quot;data_frame&quot;             &quot;data_frame_&quot;           
-##  [83] &quot;frame_data&quot;             &quot;glimpse&quot;               
-##  [85] &quot;lst&quot;                    &quot;lst_&quot;                  
-##  [87] &quot;tbl_sum&quot;                &quot;tibble&quot;                
-##  [89] &quot;tribble&quot;                &quot;trunc_mat&quot;             
-##  [91] &quot;type_sum&quot;               &quot;alpha&quot;                 
-##  [93] &quot;arrow&quot;                  &quot;enexpr&quot;                
-##  [95] &quot;enexprs&quot;                &quot;enquo&quot;                 
-##  [97] &quot;enquos&quot;                 &quot;ensym&quot;                 
-##  [99] &quot;ensyms&quot;                 &quot;expr&quot;                  
-## [101] &quot;last_plot&quot;              &quot;quo&quot;                   
-## [103] &quot;quo_name&quot;               &quot;quos&quot;                  
-## [105] &quot;stat&quot;                   &quot;sym&quot;                   
-## [107] &quot;syms&quot;                   &quot;unit&quot;                  
-## [109] &quot;vars&quot;                   &quot;%+%&quot;                   
-## [111] &quot;alpha&quot;                  &quot;logit&quot;                 
-## [113] &quot;lookup&quot;                 &quot;rescale&quot;               
-## [115] &quot;sim&quot;                    &quot;smiths&quot;                
-## [117] &quot;logit&quot;                  &quot;recode&quot;                
-## [119] &quot;some&quot;                   &quot;coef&quot;                  
-## [121] &quot;coefficients&quot;           &quot;contr.sum&quot;             
-## [123] &quot;contr.treatment&quot;        &quot;contrasts&quot;             
-## [125] &quot;contrasts&lt;-&quot;            &quot;cov2cor&quot;               
-## [127] &quot;df&quot;                     &quot;df.residual&quot;           
-## [129] &quot;filter&quot;                 &quot;fitted&quot;                
-## [131] &quot;lag&quot;                    &quot;predict&quot;               
-## [133] &quot;resid&quot;                  &quot;residuals&quot;             
-## [135] &quot;toeplitz&quot;               &quot;update&quot;                
-## [137] &quot;vcov&quot;                   &quot;image&quot;                 
-## [139] &quot;layout&quot;                 &quot;plot&quot;                  
-## [141] &quot;head&quot;                   &quot;prompt&quot;                
-## [143] &quot;tail&quot;                   &quot;npk&quot;                   
-## [145] &quot;Arith&quot;                  &quot;cbind2&quot;                
-## [147] &quot;coerce&quot;                 &quot;Compare&quot;               
-## [149] &quot;initialize&quot;             &quot;kronecker&quot;             
-## [151] &quot;Logic&quot;                  &quot;Math&quot;                  
-## [153] &quot;Math2&quot;                  &quot;Ops&quot;                   
-## [155] &quot;rbind2&quot;                 &quot;show&quot;                  
-## [157] &quot;Summary&quot;                &quot;%in%&quot;                  
-## [159] &quot;all.equal&quot;              &quot;as.array&quot;              
-## [161] &quot;as.factor&quot;              &quot;as.matrix&quot;             
-## [163] &quot;as.ordered&quot;             &quot;body&lt;-&quot;                
-## [165] &quot;chol&quot;                   &quot;chol2inv&quot;              
-## [167] &quot;colMeans&quot;               &quot;colSums&quot;               
-## [169] &quot;crossprod&quot;              &quot;det&quot;                   
-## [171] &quot;determinant&quot;            &quot;diag&quot;                  
-## [173] &quot;diag&lt;-&quot;                 &quot;diff&quot;                  
-## [175] &quot;drop&quot;                   &quot;formals&lt;-&quot;             
-## [177] &quot;format&quot;                 &quot;I&quot;                     
-## [179] &quot;intersect&quot;              &quot;isSymmetric&quot;           
-## [181] &quot;kronecker&quot;              &quot;labels&quot;                
-## [183] &quot;length&quot;                 &quot;mean&quot;                  
-## [185] &quot;merge&quot;                  &quot;norm&quot;                  
-## [187] &quot;Position&quot;               &quot;print&quot;                 
-## [189] &quot;qr&quot;                     &quot;qr.coef&quot;               
-## [191] &quot;qr.fitted&quot;              &quot;qr.Q&quot;                  
-## [193] &quot;qr.qty&quot;                 &quot;qr.qy&quot;                 
-## [195] &quot;qr.R&quot;                   &quot;qr.resid&quot;              
-## [197] &quot;rcond&quot;                  &quot;row.names&quot;             
-## [199] &quot;rowMeans&quot;               &quot;rowSums&quot;               
-## [201] &quot;sample&quot;                 &quot;setdiff&quot;               
-## [203] &quot;setequal&quot;               &quot;solve&quot;                 
-## [205] &quot;sub&quot;                    &quot;subset&quot;                
-## [207] &quot;summary&quot;                &quot;t&quot;                     
-## [209] &quot;tcrossprod&quot;             &quot;union&quot;                 
-## [211] &quot;unique&quot;                 &quot;unname&quot;                
-## [213] &quot;which&quot;                  &quot;within&quot;                
-## [215] &quot;zapsmall&quot;</code></pre>
+##  [35] &quot;arrange&quot;                &quot;arrange_&quot;              
+##  [37] &quot;collect&quot;                &quot;contains&quot;              
+##  [39] &quot;distinct&quot;               &quot;distinct_&quot;             
+##  [41] &quot;do&quot;                     &quot;do_&quot;                   
+##  [43] &quot;ends_with&quot;              &quot;everything&quot;            
+##  [45] &quot;filter&quot;                 &quot;filter_&quot;               
+##  [47] &quot;group_by&quot;               &quot;group_by_&quot;             
+##  [49] &quot;groups&quot;                 &quot;last&quot;                  
+##  [51] &quot;matches&quot;                &quot;mutate&quot;                
+##  [53] &quot;mutate_&quot;                &quot;num_range&quot;             
+##  [55] &quot;one_of&quot;                 &quot;recode&quot;                
+##  [57] &quot;rename&quot;                 &quot;rename_&quot;               
+##  [59] &quot;select&quot;                 &quot;select_&quot;               
+##  [61] &quot;slice&quot;                  &quot;slice_&quot;                
+##  [63] &quot;starts_with&quot;            &quot;summarise&quot;             
+##  [65] &quot;summarise_&quot;             &quot;syms&quot;                  
+##  [67] &quot;transmute&quot;              &quot;transmute_&quot;            
+##  [69] &quot;ungroup&quot;                &quot;%@%&quot;                   
+##  [71] &quot;%&gt;%&quot;                    &quot;reduce&quot;                
+##  [73] &quot;%&gt;%&quot;                    &quot;expand&quot;                
+##  [75] &quot;extract&quot;                &quot;add_row&quot;               
+##  [77] &quot;as_data_frame&quot;          &quot;as_tibble&quot;             
+##  [79] &quot;data_frame&quot;             &quot;data_frame_&quot;           
+##  [81] &quot;frame_data&quot;             &quot;glimpse&quot;               
+##  [83] &quot;lst&quot;                    &quot;lst_&quot;                  
+##  [85] &quot;tbl_sum&quot;                &quot;tibble&quot;                
+##  [87] &quot;tribble&quot;                &quot;trunc_mat&quot;             
+##  [89] &quot;type_sum&quot;               &quot;arrow&quot;                 
+##  [91] &quot;enexpr&quot;                 &quot;enexprs&quot;               
+##  [93] &quot;enquo&quot;                  &quot;enquos&quot;                
+##  [95] &quot;ensym&quot;                  &quot;ensyms&quot;                
+##  [97] &quot;expr&quot;                   &quot;last_plot&quot;             
+##  [99] &quot;quo&quot;                    &quot;quo_name&quot;              
+## [101] &quot;quos&quot;                   &quot;stat&quot;                  
+## [103] &quot;sym&quot;                    &quot;syms&quot;                  
+## [105] &quot;unit&quot;                   &quot;vars&quot;                  
+## [107] &quot;%+%&quot;                    &quot;alpha&quot;                 
+## [109] &quot;logit&quot;                  &quot;lookup&quot;                
+## [111] &quot;rescale&quot;                &quot;sim&quot;                   
+## [113] &quot;smiths&quot;                 &quot;logit&quot;                 
+## [115] &quot;recode&quot;                 &quot;some&quot;                  
+## [117] &quot;coef&quot;                   &quot;coefficients&quot;          
+## [119] &quot;contr.sum&quot;              &quot;contr.treatment&quot;       
+## [121] &quot;contrasts&quot;              &quot;contrasts&lt;-&quot;           
+## [123] &quot;cov2cor&quot;                &quot;df.residual&quot;           
+## [125] &quot;filter&quot;                 &quot;fitted&quot;                
+## [127] &quot;lag&quot;                    &quot;predict&quot;               
+## [129] &quot;residuals&quot;              &quot;toeplitz&quot;              
+## [131] &quot;update&quot;                 &quot;vcov&quot;                  
+## [133] &quot;image&quot;                  &quot;layout&quot;                
+## [135] &quot;plot&quot;                   &quot;head&quot;                  
+## [137] &quot;prompt&quot;                 &quot;tail&quot;                  
+## [139] &quot;npk&quot;                    &quot;Arith&quot;                 
+## [141] &quot;cbind2&quot;                 &quot;coerce&quot;                
+## [143] &quot;Compare&quot;                &quot;initialize&quot;            
+## [145] &quot;kronecker&quot;              &quot;Logic&quot;                 
+## [147] &quot;Math&quot;                   &quot;Math2&quot;                 
+## [149] &quot;Ops&quot;                    &quot;rbind2&quot;                
+## [151] &quot;show&quot;                   &quot;Summary&quot;               
+## [153] &quot;%in%&quot;                   &quot;all.equal&quot;             
+## [155] &quot;as.array&quot;               &quot;as.factor&quot;             
+## [157] &quot;as.matrix&quot;              &quot;as.ordered&quot;            
+## [159] &quot;body&lt;-&quot;                 &quot;chol&quot;                  
+## [161] &quot;chol2inv&quot;               &quot;colMeans&quot;              
+## [163] &quot;colSums&quot;                &quot;crossprod&quot;             
+## [165] &quot;det&quot;                    &quot;determinant&quot;           
+## [167] &quot;diag&quot;                   &quot;diag&lt;-&quot;                
+## [169] &quot;diff&quot;                   &quot;drop&quot;                  
+## [171] &quot;formals&lt;-&quot;              &quot;format&quot;                
+## [173] &quot;intersect&quot;              &quot;isSymmetric&quot;           
+## [175] &quot;kronecker&quot;              &quot;labels&quot;                
+## [177] &quot;mean&quot;                   &quot;merge&quot;                 
+## [179] &quot;norm&quot;                   &quot;Position&quot;              
+## [181] &quot;print&quot;                  &quot;qr&quot;                    
+## [183] &quot;qr.coef&quot;                &quot;qr.fitted&quot;             
+## [185] &quot;qr.Q&quot;                   &quot;qr.qty&quot;                
+## [187] &quot;qr.qy&quot;                  &quot;qr.R&quot;                  
+## [189] &quot;qr.resid&quot;               &quot;rcond&quot;                 
+## [191] &quot;row.names&quot;              &quot;rowMeans&quot;              
+## [193] &quot;rowSums&quot;                &quot;sample&quot;                
+## [195] &quot;setdiff&quot;                &quot;setequal&quot;              
+## [197] &quot;solve&quot;                  &quot;subset&quot;                
+## [199] &quot;summary&quot;                &quot;t&quot;                     
+## [201] &quot;tcrossprod&quot;             &quot;union&quot;                 
+## [203] &quot;unique&quot;                 &quot;unname&quot;                
+## [205] &quot;which&quot;                  &quot;within&quot;                
+## [207] &quot;zapsmall&quot;</code></pre>
 <p>The <code>detach()</code> function detaches packages and is an alternative method to resolve conflicts. Supplying the <code>unload = TRUE</code> argument within the <code>detach()</code> function will unload the package. For example, to resolve the <code>recode()</code> function conflict between <code>car</code> and <code>memisc</code>, the memisc package can be detached and unloaded as follows: <code>detach(package:memisc, unload = TRUE)</code>.</p>
 </div>
 </div>
 <div id="r-help" class="section level2">
 <h2><span class="header-section-number">2.5</span> R Help</h2>
 <p>R includes a help function to assist with functions, accessible by including a <code>?</code> prior to the function name.</p>
-<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb50-1" data-line-number="1">? mean</a></code></pre></div>
+<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb52-1" data-line-number="1">? mean</a></code></pre></div>
 <p><strong>Note:</strong> The help documentation will display in the bottom right quadrant of RStudio. Alternatively, typing the function name into the help search bar will yield a similar result.</p>
 <p>To search all of R documentation for help about a function, use <code>??</code>.</p>
-<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb51-1" data-line-number="1">?? mean</a></code></pre></div>
+<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb53-1" data-line-number="1">?? mean</a></code></pre></div>
 <p><strong>Note:</strong> Google is a valuable tool for finding help. Large communities like StackExchange provide answers and explanations to common issues in R. At times, a particular problem may seem unique, but someone else has almost certainly had the same problem and the solution likely can be found online.</p>
 </div>
 <div id="setting-a-working-directory" class="section level2">
@@ -729,7 +653,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>Select the working directory.</li>
 </ol>
 <p>The <code>getwd()</code> function returns the set working directory.</p>
-<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb52-1" data-line-number="1"><span class="kw">getwd</span>()</a></code></pre></div>
+<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb54-1" data-line-number="1"><span class="kw">getwd</span>()</a></code></pre></div>
 <pre><code>## [1] &quot;/Users/josephripberger/Documents/GitHub/qrmlabs&quot;</code></pre>
 </div>
 <div id="importing-your-data" class="section level2">
