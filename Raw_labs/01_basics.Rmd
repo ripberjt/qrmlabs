@@ -195,22 +195,6 @@ library(knitr)
 
 __Note:__ The `memisc` package contains object/package conflicts with the `car` package for the `recode` object. A conflict occurs when two packages contain objects (e.g., functions) of the same name. A conflict will not prevent loading packages; however, use of a specific package's object requires an explicit call to the desired parent package. For example, to use the `recode()` function from `car`, the `car::recode(variable)` statement will explicitly call `recode()` from the `car` package. Vice versa, `memisc::recode()` will explicitly call `recode()` from the `memisc` package.
 
-### Updating Packages
-
-Most packages are regularly updated. The  `old.packages()` function compares installed packages to their latest versions online.
-
-```{r 1_old, echo = TRUE}
-
-```
-
-The `update.packages()` function updates out of date packages. 
-
-__Note:__ Updating packages requires consent. The `ask = FALSE` argument will skip the additional consent step to save time.
-
-```{r 1_update, echo = TRUE}
-update.packages()
-```
-
 The `library()` function lists currently loaded packages.
 
 ```{r 1_library, echo = TRUE}
