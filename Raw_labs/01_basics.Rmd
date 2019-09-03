@@ -25,7 +25,6 @@ The first thing to know about R is that it is essentially a large calculator cap
 (5 + 2) ^ 4
 
 5 + 2 ^ 4
-
 ```
 
 R also supports elementary and algebraic functions such as log and square root.
@@ -68,7 +67,6 @@ object1
 __Try this!__ Create a new object below; you can name it almost anything!
 
 ```{r 1_object 2, echo = TRUE}
-
 
 ```
 
