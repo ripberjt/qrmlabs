@@ -2,6 +2,7 @@
 title: 'Lab Two: Formatting, Describing, and Visualizing Data'
 output: pdf_document
 ---
+
 ```{r 2_setup, include = FALSE, warning = FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 library(car)
@@ -28,6 +29,7 @@ __Reminder:__ Lab One introduced how to install packages via the `install.packag
 
 __Note:__ These packages should already be installed from the class initialization script.
 
+The installed packages require loading at the beginning of a R session. Remember that this can be done via the `library()` command.
 
 ## Factoring
 
@@ -367,13 +369,17 @@ ds.sub %>%
 In the previous section we used `summarize()` to get breakdowns of ceratin variables. If you wanted to get diagnostics on all the variables in your data, use the `skim()` function from the `skimr` package:
 
 ```{r tidy13, echo = TRUE}
+skim_with(numeric = list(hist = NULL))
+skim_with(integer = list(hist = NULL))
 ds.sub %>%
   skim()
 ```
 
-This provides loads of useful incormation, including summary statistics and a histogram showing the rough distribution of the data. As demonstrated in teh previous section, you can combine different tidyverse functions together in order to maximize efficiency. For example, combining `group_by()` and `skim()` provide breakdowns of all the variables by gender:
+This provides loads of useful incormation. As demonstrated in teh previous section, you can combine different tidyverse functions together in order to maximize efficiency. For example, combining `group_by()` and `skim()` provide breakdowns of all the variables by gender:
 
 ```{r tidy14, echo = TRUE}
+skim_with(numeric = list(hist = NULL))
+skim_with(integer = list(hist = NULL))
 ds.sub %>%
   group_by(gender) %>%
   skim()
@@ -578,7 +584,7 @@ ggplot(ds, aes(age)) +
   geom_histogram() 
 ```
 
-To look at the density distribution, use `geom_density()`. 
+To look at the density distribution, use `geom_density()` 
 
 ```{r 2_dens, echo = TRUE, fig.width = 4, fig.height = 3, fig.align = 'center'}
 ggplot(ds, aes(age)) +
