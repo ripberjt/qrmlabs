@@ -3,21 +3,24 @@ title: 'Lab Three: Visualizing Data, Probability, the Normal Distribution, and Z
 output: pdf_document
 ---
 
+```{r 2_setup, include = FALSE, warning = FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(car)
+library(reshape2)
+library(descr)
+library(psych)
+library(tidyverse)
+library(skimr)
+library(sfsmisc)
+ds <- read_csv("https://github.com/ripberjt/qrmlabs/raw/master/Class%20Data%20Set%20Factored.csv")
+```
+
 This lab discusses the basics of visualizing data, probability, the normal distribution, and z scores. The following packages are required for this lab: 
 
 1. sfsmisc
 2. psych
 3. car
 4. tidyverse
-
-```{r 3_setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-library(sfsmisc)
-library(psych)
-library(car)
-library(tidyverse)
-ds <- read_csv("https://github.com/ripberjt/qrmlabs/raw/master/Class%20Data%20Set%20Factored.csv")
-```
 
 ## Histograms and Density
 
