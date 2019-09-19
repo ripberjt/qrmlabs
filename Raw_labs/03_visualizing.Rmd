@@ -5,22 +5,16 @@ output: pdf_document
 
 ```{r 2_setup, include = FALSE, warning = FALSE}
 knitr::opts_chunk$set(echo = TRUE)
-library(car)
-library(reshape2)
-library(descr)
-library(psych)
 library(tidyverse)
-library(skimr)
 library(sfsmisc)
+
 ds <- read_csv("https://github.com/ripberjt/qrmlabs/raw/master/Class%20Data%20Set%20Factored.csv")
 ```
 
 This lab discusses the basics of visualizing data, probability, the normal distribution, and z scores. The following packages are required for this lab: 
 
-1. sfsmisc
-2. psych
-3. car
-4. tidyverse
+1. tidyverse
+2. sfsmisc
 
 ## Histograms and Density
 
@@ -34,22 +28,20 @@ ggplot(ds, aes(age)) +
 The histogram displays the frequency of `age` for given bins. Alternatively, the density of `age` can be shown instead of frequency by making a slight change in the visualization. Use the mapping aesthetic inside the `geom_histogram()` function and setting x as the age variable and y as `..density..`
 
 ```{r 3_hist2, echo=TRUE}
-ggplot(ds) +
-  geom_histogram(aes(x=age, y=..density..))
+ggplot(ds, aes(x = age, y = ..density..)) +
+  geom_histogram()
 ```
 
 The shape of the plot is the same for the frequency and density histograms; however, the y-axis measures in different units. The area associated with the largest y-axis value suggest that a higher percentage of respondents are likely to provide an age within the ages on the x-axis.
 
-Data is organized into ranges, known as bins, to compose the x-axis. The number of bins is a potentially contentious topic; however, a good recommendation is to set the number of bins equal to $\sqrt n$, where n is the number of observations. To change the number of bins, use `bins=n` inside the `geom_histogram()` function. The square root of n for the current data set is a little over 50, so set the bins to be 50.
+Data is organized into ranges, known as bins, to compose the x-axis. The number of bins is a potentially contentious topic; however, a good recommendation is to set the number of bins equal to $\sqrt n$, where n is the number of observations. To change the number of bins, use `bins=n` inside the `geom_histogram()` function. The square root of n for the current data set is a little over 50, but in this case 40 looks a little more appropriate.
 
 ```{r 3_hist3, echo=TRUE}
-ggplot(ds, aes(age)) +
-  geom_histogram(bins=50)
+ggplot(ds, aes(x = age)) +
+  geom_histogram(bins = 40)
 ```
 
-
 Using various functions along with the histogram function, the visualization is improved with more meaningful information. These functions can help:
-
 
 1. xlab("X-Axis Label")
     - Sets the label for the x-axis
@@ -57,18 +49,18 @@ Using various functions along with the histogram function, the visualization is 
     - Sets the label for the y-axis
 3. ggtitle("Title")
     - Sets the histogram title
-4. coord_cartesian(ylim=c(min:max), xlim=c(min:max))
+4. lims(x = c(min:max), y = c(min:max))
     - Sets the limits of the x and y axes.
 
 The following is an excellent example of a histogram of the `age` data.
 
 ```{r 3_hist5, echo=TRUE}
 ggplot(ds, aes(age)) +
-  geom_histogram(bins=50) + 
+  geom_histogram(bins = 40) + 
   xlab("Age") +
   ylab("Frequency") +
   ggtitle("Histogram of Age") +
-  coord_cartesian(ylim=c(0,175), xlim=c(15,95)) +
+  coord_cartesian(ylim = c(0, 175), xlim = c(15, 95)) +
   theme_light() # Sets the theme. There are a lot to choose from.
 ```
 
@@ -79,32 +71,32 @@ Data approximated by the normal distribution can define probabilities. Using R, 
 Given an identified mean and standard deviation, and a density histogram, the `stat_function()` function can project a normal distribution as follows. Specify `fun=dnorm`. 
 
 ```{r 3_norm, echo=TRUE}
-ggplot(ds, aes(age)) +
-  geom_histogram(aes(x=age, y=..density..), bins=50) +
-  stat_function(fun=dnorm, args = list(mean=mean(ds$age), sd=sd(ds$age)), color="red")
+ggplot(ds) +
+  geom_histogram(aes(x = age, y = ..density..), bins = 40) +
+  stat_function(fun = dnorm, args = list(mean = mean(ds$age), sd = sd(ds$age)), color = "red")
 ```
 
 Comparing the histogram plot to the normal distribution curve generated may prove difficult. The `geom_density()` function can draw a line using density data for _age_ alongside the projected line of what the normal distribution would appear like given the mean and standard deviation. The two shapes can then be compared visually to interpret whether the _age_ data can be approximated by the normal distribution. 
 
 ```{r 3_norm2, echo=TRUE}
-ggplot(ds, aes(age)) +
-  geom_histogram(aes(x=age, y=..density..), bins=50) +
-  stat_function(fun=dnorm, args = list(mean=mean(ds$age), sd=sd(ds$age)), color="red") +
-  geom_density(color="blue")
+ggplot(ds) +
+  geom_histogram(aes(x = age, y = ..density..), bins = 40) +
+  stat_function(fun = dnorm, args = list(mean = mean(ds$age), sd = sd(ds$age)), color = "red") +
+  geom_density(aes(x = age, y = ..density..), color = "blue")
 ```
 
 The culmination of the histogram, curve, and density line is improved via the addition of limits and labels to the x-axis and y-axis, defining a number of bins, and a chart title. Including fill and outline colors for the histogram can also make it more readable:
 
 ```{r 3_norm3, echo=TRUE}
-ggplot(ds, aes(age)) +
-  geom_histogram(aes(x=age, y=..density..), bins=50, fill="#d3d3d3", color="black") +
-  stat_function(fun=dnorm, args = list(mean=mean(ds$age), sd=sd(ds$age)), color="red") +
-  geom_density(color="blue") +
+ggplot(ds) +
+  geom_histogram(aes(x = age, y = ..density..), bins = 40, fill = "#d3d3d3", color = "black") +
+  stat_function(fun = dnorm, args = list(mean = mean(ds$age), sd = sd(ds$age)), color = "red") +
+  geom_density(aes(x = age, y = ..density..), color = "blue") +
   ggtitle("Histogram of Age") +
   xlab("Age") +
   ylab("Density") +
   theme_bw() +
-  coord_cartesian(xlim=c(15,95), ylim=c(0,0.04))
+  lims(x = c(0, 110), y = c(0, 0.04))
 ```
 
 
@@ -132,7 +124,7 @@ dnorm(2, mean = 4, sd=1.5)
 The `dnorm()` function used in conjunction with the `age` variable from `ds` data set can find the height of the probability distribution function. In the following example, the `dnorm()` function will find the height of the probability distribution function for 65. Similar to previous examples, an argument exists to ignore NA and missing values.
 
 ```{r 3_dnorm2, echo=TRUE}
-dnorm(65, mean=mean(ds$age, na.rm = T), sd=sd(ds$age, na.rm=T))
+dnorm(65, mean = mean(ds$age, na.rm = T), sd = sd(ds$age, na.rm = T))
 ```
 
 The `dnorm()` returns the height of the probability distribution function as 0.027. __Note:__ This is a random value and, by itself, is not meaningful. The `dnorm()` function returns the relative likelihood, which can lead to determining a probability; however, to understand this value further requires an explanation of calculus.
@@ -146,7 +138,7 @@ The above formula is the cumulative distribution function for two points, $x_1$ 
 R includes the calculus function `integrate.xy()` to return the probability.
 
 ```{r 3_dnorm3, echo=TRUE}
-integrate.xy(density(ds$age)$x,density(ds$age)$y,65,66)
+integrate.xy(density(ds$age)$x, density(ds$age)$y, 65, 66)
 ```
 
 The probability associated to an age between 65 and 66 in the `age` variable is .029 ($\approx$ 3% chance).
@@ -156,40 +148,39 @@ Similarly, the `pnorm()` function calculates probabilities associated to a given
 The following example calculates the probability associated to an age value between $-\infty$ and 5, given $\mu = 6$ and $\sigma = 6$.
 
 ```{r 3_pnorm, echo=TRUE}
-pnorm(5, mean = 6, sd = 2)
+pnorm(5, mean = 6, sd = 2, lower.tail = TRUE)
 ```
 
 The `pnorm()` calculates the probability of observing a value between $-\infty$ and 5 as 0.31. The following example uses the `pnorm()` function with the `ds` data set to find the probability that a respondent is 65 or less years old.
 
 ```{r 3_pnorm2, echo=TRUE}
-pnorm(65, mean=mean(ds$age, na.rm=T), sd=sd(ds$age, na.rm = T))
+pnorm(65, mean = mean(ds$age, na.rm = TRUE), sd = sd(ds$age, na.rm = TRUE), lower.tail = TRUE)
 ```
 
 To calculate the probability associated to an age of 65 or greater, the `lower.tail = FALSE` argument will look at the upper tail (right side of the probability distribution function). This is equal to the difference between 1 and the lower tail probability previously calculated.
 
 ```{r 3_pnorm3, echo=TRUE}
-pnorm(65, mean=mean(ds$age, na.rm = T), sd=sd(ds$age, na.rm = T), lower.tail = FALSE)
+pnorm(65, mean = mean(ds$age, na.rm = TRUE), sd = sd(ds$age, na.rm = TRUE), lower.tail = FALSE)
 ```
 
 The `qnorm()` function is the inverse function of the `pnorm()` function. Given a probability, mean, and standard deviation, the `qnorm()` function will return an x value from the probability distribution function. The following example finds the upper bound x value of the probability distribution function associated to the probability, or area under the curve, of 0.3 given $\mu = 5$ and $\sigma = 1$.
 
 ```{r 3_qnorm, echo=TRUE}
-qnorm(.3, mean=5, sd=1)
+qnorm(0.30, mean = 5, sd = 1, lower.tail = TRUE)
 ```
 
 The following calculates the upper bound age from the `age` variable in the `ds` data set to demonstrate further associated to a 40% probability. That is, the `qnorm()` function calculates the age that 40% of respondents are equal or less to.
 
 ```{r 3_qnorm2, echo=TRUE}
-qnorm(.4, mean=mean(ds$age, na.rm = T), sd=sd(ds$age, na.rm = T))
+qnorm(0.40, mean = mean(ds$age, na.rm = TRUE), sd = sd(ds$age, na.rm = TRUE), lower.tail = TRUE)
 ```
 
 Lastly, the `rnorm()` function will generate random values that follow a normal distribution given a number of points (n), provided $\mu$, and $\sigma$. The following example calculates 200 random values given $\mu = 6$ and $\sigma = 2$. The random values are stored to the `rvalues` object.
 
 ```{r 3_rnorm, echo=TRUE}
-rvalues <- rnorm(200, mean=6, sd=2)
-ggplot() +
-  geom_histogram(aes(rvalues), bins=14)
-
+rvalues <- data.frame(value = rnorm(200, mean= 6, sd = 2))
+ggplot(rvalues, aes(x = value)) +
+  geom_histogram(bins = 14)
 ```
 
 __Note:__ The discussed functions are relevant to the normal distribution functions provided by R. R includes similar functions for other distributions, with equivalent functionality. 
@@ -199,27 +190,21 @@ __Note:__ The discussed functions are relevant to the normal distribution functi
 Thus far the normal distribution has been discussed without visualization. When graphed, data that follow a normal distribution resemble a bell shaped curve. To demonstrate, the following code employs the `rnorm()` function to generate 1000 random values with $\mu = 100$ and $\sigma = 20$, and assigns the values to an object named `random`.
 
 ```{r 3_three, echo=TRUE}
-random <- rnorm(1000, mean = 100, sd = 20)
+random <- data.frame(value = rnorm(1000, mean = 100, sd = 20))
 ```
 
 Inspecting a density histogram of the `random` object yields a bell shaped curve.
 
 ```{r 3_three2, echo=TRUE}
-ggplot() +
-  geom_histogram(aes(random, ..density..), fill="white", color="black")
+ggplot(random, aes(x = value, y = ..density..)) +
+  geom_histogram(fill = "white", color = "black")
 ```
-
-
-
 
 Let's start figuring out how to check if our data is normally distributed. There are many packages than will generate a density curve of your data and a projected normal distribution for comparison, but building all of the visualizations in ggplot provides both an intuitive and informative method of doing so. Start by creating a density plot of the randomly generated data. 
 
-Let's start figuring out how to check if our data is normally distributed. At the beginning of this lab we should have installed and loaded the package "sm". We use the `sm.density()` function to visualize data and to project what should be the normal distribution of the data, given the mean and standard deviation of the data. Let's start with our randomly generated data. We include the `model="Normal"` argument at the end of the function, so that `sm.density` knows to use the normal distribution.
-
-
 ```{r 3_three4, echo=TRUE}
-ggplot() +
-  geom_density(aes(random))
+ggplot(random, aes(x = value)) +
+  geom_density()
 ```
 
 Given the `random` values consists of values generated by the `rnorm()` function, this distrubtion resembling the normal distribution is unsurprising. 
@@ -227,51 +212,12 @@ Given the `random` values consists of values generated by the `rnorm()` function
 The following code generates a density line for the `age` variable from the `ds` data set and a projected normal distribution given the mean and standaard deviation of the variable. Indicating `alpha=.5` will make the line slightly transparent. 
 
 ```{r 3_three5, echo=TRUE}
-ggplot(ds, aes(age)) +
-  geom_density(aes(ds$age)) +
-  stat_function(fun=dnorm, args=list(mean=mean(ds$age), sd=sd(ds$age)), color="red", size=2, alpha=.5)
+ggplot(ds) +
+  geom_density(aes(x = age, y = ..density..)) +
+  stat_function(fun = dnorm, args = list(mean = mean(ds$age), sd = sd(ds$age)), color = "red", size = 2, alpha = 0.5)
 ```
 
 The shape of the density line closely resembles a normal distribution; however, note the slight skew. 
-
-Another method to view whether data follows a normal distribution is to view the QQ plot, available via the `qqPlot()` function. 
-
-A QQ plot visualizes data based on the quantiles of the provided variable against the quantiles that would exist if the data were normally distributed. Data that follows the normal distribution should be in a line with a set slope. Including `stat_qq()` generates a QQ plot. The following example generates a QQ plot of the `age` variable.
-
-```{r 3_three6, echo=TRUE}
-ggplot(ds, aes(sample=age)) +
-  stat_qq()
-```
-
-
-To further inspect the normality, a diagonal line can be generated that will visualize what the slope of the data should be if it were normally distributed. To include such a line, use `geom_abline()`. The slope and intercept of the line must also be calculated. Doing so requires a small amount of basic linear algebra. Find the first and third quantiles of the `age` variable and set it to an object named `y`, then find the theoretical first and third quantiles for normally-distributed data and set it to `x`. Calculate the slope by taking the diference in `y` over the difference in `x` and set that to an object named `slope`. Then solve for the intercept and it it to an object named `intercept`. 
-
-```{r 3_three7, echo=TRUE}
-y     <- quantile(ds$age, c(0.25, 0.75)) # Find the 1st and 3rd quantiles
-x     <- qnorm( c(0.25, 0.75))           # Find the matching normal values on the x-axis
-slope <- diff(y) / diff(x)               # Compute the line slope
-int   <- y[1] - slope * x[1]             # Compute the line intercept
-
-ggplot(ds, aes(sample = age)) +
-  stat_qq() + 
-  geom_abline(intercept = int, slope = slope, color = "blue", size = 2, alpha = 0.5 )
-```
-
-
-In the graphic above, the solid blue line exhibits where data should fall if it follows a normal distribution, and the blue dash lines represent confidence intervals. The individual circles represent data points from the variable. If the data points is within the intervals, then the data likely follows a normal distribution. The interpretation of this QQ plot yields that the data likely follows a normal distribution, as expected given the data was generated via the `rnorm()` function. 
-
-The QQ plot confirms the sm.density() plot: the `age` variable closely follows a normal distribution. Note that some values are outside the confidence interval. These are the points associated to the skew previously observed. 
-
-Another last method to inspect whether data follows a normal distribution is the box plot. Box plots provides quartiles and the median, and returns individual unique values at the edges of our data. The following code generates a box plot of the `age` variable.
-
-```{r 3_three8,echo=TRUE}
-ggplot(ds, aes(x="", y=age)) +
-  geom_boxplot()
-```
-
-Note the middle line is the middle quartile, or the median. The distance between the median line and the line below it represents the second quartile. The distance from the bottom of the second quartile line to the very bottom line, or "whisker" is the first quartile. Above the median, the distance between the median line and the next line above it is the third quartile, and the area above that, and below the top whisker, is the fourth quartile. Notice that for the box plot of our randomly generated data, the distance between quartiles is relatively even. 
-
-The distance between quartiles is relatively even; however, note the difference to the previously generated box plot from the `rnorm()` data. 
 
 ## Z-Scores
 
@@ -284,26 +230,18 @@ ds <- ds %>%
   mutate(z.age = c(scale(age)))
 ```
 
-Using a filter approach, the following example finds the z-score associated to women younger than 19 years old. First filter the data with the preferred stipulations, then use the `select()` verb from the `dplyr()` package (part of the tidyverse!) to view the results. All of this is connected using the pipe function, %>%.
+Using a filter approach, the following example finds the z-score associated to respondents younger than 19 years old. First filter the data with the preferred stipulations, then use the `select()` verb from the `dplyr()` package (part of the tidyverse) to view the results. All of this is connected using the pipe function, `%>%`.
 
 ```{r 3_z2, echo=TRUE}
 ds %>% 
-  filter(f.gender == "Women" & age < 19) %>%
-  dplyr::select(f.gender, age, z.age)
+  filter(age < 19) %>%
+  dplyr::select(age, z.age)
 ```
 
-The result shows that, within the `ds` data set, there is one respondent that identified as a woman under 19 years old. The z-score for this respondent is -2.98, which is interpreted as this respondent's age is 2.98 standard deviations below the mean.
-
-Given a z-score, the mean age of respondents is assumed as much higher than the 18 year old woman. The difference between the mean age of respondents and the woman is the product of the z-score and standard deviation. The following calculates the standard deviation of the `age` variable.
+The result shows that, within the `ds` data set, there is one respondent who is under 19 years old---their age was 18. The z-score for this respondent is -2.98, which is interpreted as this respondent's age is 2.98 standard deviations below the mean. We can use the `pnorm()` function to calculate the percentile (probability) of this score within the sample.
 
 ```{r 3_z3, echo=TRUE}
-sd(ds$age, na.rm = TRUE)
+pnorm(-2.98, mean = 0, sd = 1, lower.tail = FALSE)
 ```
 
-The `sd()` function returns the standard deviation of data. The product of the `sd()` function and calculated z-score, is the difference between the 18 year old woman and mean age of respondents.
-
-```{r 3_z4, echo=TRUE}
-2.981748*sd(ds$age, na.rm = TRUE)
-```
-
-The difference between the 18 year old woman and mean age of respondents is $\approx$ 43.38 years.
+This respondent is younger than 99.9% of the respondents in the sample.
